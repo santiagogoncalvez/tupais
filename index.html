@@ -4,10 +4,86 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tu Pais</title>
-        <script src="index.js" defer type="module"></script>
+        <script src="index.js" type="module"></script>
         <link rel="stylesheet" href="index.css" type="text/css" />
     </head>
+
     <body>
-        <img src="https://flagcdn.com/us.svg" alt="" id="flag"/>
+        <header class="header">
+            <h1 class="header__title">TÚ PAÍS</h1>
+            <nav class="navbar">
+                <ul class="navbar__list">
+                    <li class="navbar__item">Acerca del juego</li>
+                    <li class="navbar__item">Banderas de paises</li>
+                    <li class="navbar__item">Créditos</li>
+                </ul>
+            </nav>
+
+            <nav class="settings">
+                <button class="settings__buttom"></button>
+                <ul class="settings-list">
+                    <li class="settings__item">Modo oscuro</li>
+                    <li class="settings__item">Continente</li>
+                    <li class="settings__item">Tiempo de juego</li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="game">
+            <div class="game-container">
+                <ul class="game__statistics-list">
+                    <li class="game__statistics-items">Tiempo</li>
+                    <li class="game__statistics-items">Aciertos</li>
+                    <li class="game__statistics-items">Pistas</li>
+                    <li class="game__statistics-items">Continente</li>
+                </ul>
+
+                <nav class="game__countries-block">
+                    <img src="https://flagcdn.com/ar.svg" alt="" class="flag" />
+                </nav>
+
+                <div class="game__answer">
+
+                </div>
+
+                <div class="game__keyboard">
+                    <button class="game__keyboard-buttom">A</button>
+                    <button class="game__keyboard-buttom">B</button>
+                    <button class="game__keyboard-buttom">C</button>
+                    <button class="game__keyboard-buttom">D</button>
+                    <button class="game__keyboard-buttom">E</button>
+                    <button class="game__keyboard-buttom">F</button>
+                    <button class="game__keyboard-buttom">G</button>
+                    <button class="game__keyboard-buttom">H</button>
+                    <button class="game__keyboard-buttom">I</button>
+                    <button class="game__keyboard-buttom">J</button>
+                    <button class="game__keyboard-buttom">K</button>
+                    <button class="game__keyboard-buttom">N</button>
+                    <button class="game__keyboard-buttom">M</button>
+                    <button class="game__keyboard-buttom">Ñ</button>
+                    <button class="game__keyboard-buttom">O</button>
+                    <button class="game__keyboard-buttom">P</button>
+                    <button class="game__keyboard-buttom">Q</button>
+                    <button class="game__keyboard-buttom">R</button>
+                    <button class="game__keyboard-buttom">S</button>
+                    <button class="game__keyboard-buttom">T</button>
+                    <button class="game__keyboard-buttom">U</button>
+                    <button class="game__keyboard-buttom">V</button>
+                    <button class="game__keyboard-buttom">X</button>
+                    <button class="game__keyboard-buttom">Y</button>
+                    <button class="game__keyboard-buttom">Z</button>
+                    <button class="game__keyboard-buttom">SPACE</button>
+                    <button class="game__keyboard-buttom">ENTER</button>
+                    <button class="game__keyboard-buttom">🡐</button>
+                    <button class="game__keyboard-buttom">´</button>
+                </div>
+            </div>
+            <ul class="game__clues"></ul>
+        </section>
+
+        <footer class="footer">
+            <button class="footer__github"></button>
+            <p>Developed by Santiagogoncalvez</p>
+        </footer>
     </body>
 </html>

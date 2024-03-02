@@ -150,16 +150,6 @@ html {
     margin-bottom: 1.8rem;
 }
 
-/* .presentation__button-time {
-    background-color: #4b8cce;
-    color: white;
-    border-radius: 4rem;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
-    width: 30%;
-    height: 140%;
-} */
-
 .presentation__button-time {
     background-color: #4b8dcee8;
     color: white;
@@ -172,32 +162,6 @@ html {
     font-size: 1rem;
     border-color: whitesmoke;
 }
-
-/* .presentation__button-time--2 {
-    background-color: #4b8dcee8;
-    color: white;
-    border-radius: 4rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    width: 30%;
-    height: 2.68rem;
-    font-weight: bold;
-    font-size: 1rem;
-    border-color: whitesmoke;
-}
-
-.presentation__button-time--3 {
-    background-color: #4b8dcee8;
-    color: white;
-    border-radius: 4rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    width: 30%;
-    height: 2.68rem;
-    font-weight: bold;
-    font-size: 1rem;
-    border-color: whitesmoke;
-} */
 
 .presentation__button-start {
     display: flex;
@@ -247,10 +211,10 @@ html {
     background-color: #bfe1ff;
     max-height: 2.8em;
     transition: height 0.1s;
-    width: 99%;
+    width: 99.5%;
     border-color: whitesmoke;
     border-radius: 8px;
-    border-width: 0.15em;
+    border-width: 0.18em;
     border-style: solid;
     margin: 0 auto;
     flex: 1;
@@ -259,22 +223,9 @@ html {
 .header__title {
     font-size: clamp(0.2px, 1.8rem, 10vw);
     color: #0d336b;
-    /* text-shadow: 2px 1.5px 2px rgba(245, 245, 245, 0.853); */
     text-align: center;
     flex: 1;
 }
-
-/* .game__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 10rem;
-    width: 29em;
-    max-width: 100vw;
-    margin: 0 auto;
-    flex: 1;
-    overflow: visible;
-} */
 
 .game {
     display: flex;
@@ -311,13 +262,26 @@ html {
 .game__statistics-item {
     width: 30%;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    /* font-weight: bold; */
+}
+
+.game__statistics-item--time,
+.game__statistics-item--correct-answers,
+.game__statistics-item--clues {
+    font-size: 1.5rem;
+    font-weight: initial;
+}
+
+.game__statistics-item--clues {
+    cursor: pointer;
+    user-select: none;
 }
 
 .game__statistics-item--continent {
     text-align: center;
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 1.5rem;
     margin-top: 0em;
 }
 
@@ -328,22 +292,8 @@ html {
     border-radius: 35px;
     height: 18em;
     width: 12em;
-
-    border-radius: 10px;
-    background: linear-gradient(142deg, #f0f0f0, #cacaca);
-    box-shadow: 2px 2px 30px #dedede, 3px 3px 10px #e2e2e2;
-
-    /* border-radius: 10px;
-    background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    box-shadow: 10px 10px 20px #d3d3d3, -10px -10px 20px #ededed; */
-
-    /* border-radius: 15px;
-    background: linear-gradient(145deg, #cacaca, #f0f0f0);
-    box-shadow: 10px 10px 30px #d7d7d7, -5px -5px 40px #e9e9e9; */
-
-    /* border-radius: 15px;
-    background: linear-gradient(145deg, #cacaca, #f0f0f0);
-    box-shadow: 27px 27px 54px #d3d3d3, -27px -27px 54px #ededed; */
+    background-color: rgba(255, 255, 255, 0);
+    user-select: none;
 }
 
 .game__answer {
@@ -359,25 +309,57 @@ html {
 
 .game__answer-word {
     border-radius: 0.2em;
-    height: 1.6em;
-    width: 1.4em;
-    max-width: 1.4em;
+    height: 1.5em;
+    width: 1.7em;
+    max-width: 1.7em;
     background-color: rgba(227, 243, 255, 0.719);
     border-bottom: 0.4em solid #0d336bf7;
-    /* border-top: 0.1em solid rgba(245, 245, 245, 0.554);
-    border-right: 0.1em solid rgba(245, 245, 245, 0.554);
-    border-left: 0.1em solid rgba(245, 245, 245, 0.554); */
-    /* border-left: rgb(255, 255, 255);
-    border-top: rgb(255, 255, 255);
-    border-right: rgb(255, 255, 255); */
     border-style: inset;
     border-right-width: 0px;
     border-left-width: 0px;
     border-top-width: 0px;
     border-bottom-width: 0.35em;
-    /* box-shadow: 0 0 0.1em rgba(145, 145, 145, 0.1); */
     margin-left: 0.1em;
     margin-right: 0.1em;
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 0.4em;
+    transition: transform 3s ease;
+    /* animation: shake 0.5s ease-in-out infinite; */
+    text-transform: uppercase;
+    user-select: none;
+}
+
+/* Definición de la animación de sacudida */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    } /* Sin sacudida */
+    25% {
+        transform: translateX(-5px);
+    } /* Movimiento a la izquierda */
+    50% {
+        transform: translateX(5px);
+    } /* Movimiento a la derecha */
+    75% {
+        transform: translateX(-5px);
+    } /* Movimiento a la izquierda */
+    100% {
+        transform: translateX(0);
+    } /* Sin sacudida */
+}
+
+.game__answer-word--space {
+    border-radius: 0em;
+    height: 1.6em;
+    width: 1.4em;
+    max-width: 1.4em;
+    background-color: rgba(255, 255, 255, 0);
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-top-width: 0px;
+    margin-left: -0.1em;
+    margin-right: -0.1em;
 }
 
 .game__keyboard {
@@ -389,9 +371,10 @@ html {
     overflow: auto;
     height: 80%;
     width: 80%;
+    user-select: none;
 }
 
-.game__keyboard-buttom {
+.game__keyboard-button {
     height: 3em;
     max-height: 3rem;
     width: 2.8em;
@@ -405,9 +388,15 @@ html {
     box-sizing: border-box;
     margin-bottom: 0.5em;
     background: rgb(233, 233, 233);
+    cursor: pointer;
+    user-select: none;
 }
 
-.game__keyboard-buttom:nth-child(29) {
+.game__keyboard-button:hover {
+    background: rgb(189, 189, 189);
+}
+
+.game__keyboard-button:nth-child(29) {
     min-width: 6em;
 }
 
@@ -423,6 +412,13 @@ html {
     width: 12em;
     max-width: 100vw;
     margin-bottom: 2em;
+    cursor: pointer;
+    user-select: none;
+}
+
+.game__start-again:hover {
+    border-color: rgb(223, 223, 223);
+    background-color: #df6100e5;
 }
 
 .footer {
@@ -432,11 +428,10 @@ html {
     background-color: #bfe1ff;
     border-radius: 1em;
     max-height: 2.8em;
-    width: 99%;
-    /* border-color: whitesmoke; */
+    width: 99.5%;
     border-color: whitesmoke;
     border-radius: 8px;
-    border-width: 0.15em;
+    border-width: 0.18em;
     border-style: solid;
     flex: 1;
     margin: 0 auto;

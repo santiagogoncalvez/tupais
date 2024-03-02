@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tu Pais</title>
-        <script src="index.js" type="module"></script>
+        <script src="/index.js" type="module"></script>
         <link rel="stylesheet" href="index.css" type="text/css" />
     </head>
 
@@ -33,23 +33,25 @@
                 <div class="game__statistics-div">
                     <li class="game__statistics-item">
                         Tiempo<br />
-                        <span>00:00</span>
+                        <span class="game__statistics-item--time">00:00</span>
                     </li>
                     <li class="game__statistics-item">
                         Aciertos<br />
-                        <span>0/10</span>
+                        <span class="game__statistics-item--correct-answers"
+                            >0/10</span
+                        >
                     </li>
                     <li class="game__statistics-item">
                         Pistas<br />
-                        <span>💡</span>
+                        <span class="game__statistics-item--clues">💡</span>
                     </li>
                 </div>
-                <li class="game__statistics-item--continent">CONTINENTE</li>
+                <li class="game__statistics-item--continent"></li>
             </ul>
 
             <nav class="game__countries">
                 <img
-                    src="https://flagcdn.com/w160/ar.png"
+                    src=""
                     alt=""
                     class="game__countries-flag"
                     id="image-flag"
@@ -57,42 +59,185 @@
             </nav>
 
             <div class="game__answer">
-                <div class="game__answer-word"></div>
-                <div class="game__answer-word"></div>
-                <div class="game__answer-word"></div>
-                <div class="game__answer-word"></div>
+                <!-- <div class="game__answer-word"></div> 
+                <div class="game__answer-word--space"></div> -->
             </div>
 
             <div class="game__keyboard">
-                <button class="game__keyboard-buttom">Q</button>
-                <button class="game__keyboard-buttom">W</button>
-                <button class="game__keyboard-buttom">E</button>
-                <button class="game__keyboard-buttom">R</button>
-                <button class="game__keyboard-buttom">T</button>
-                <button class="game__keyboard-buttom">Y</button>
-                <button class="game__keyboard-buttom">U</button>
-                <button class="game__keyboard-buttom">I</button>
-                <button class="game__keyboard-buttom">O</button>
-                <button class="game__keyboard-buttom">P</button>
-                <button class="game__keyboard-buttom">A</button>
-                <button class="game__keyboard-buttom">S</button>
-                <button class="game__keyboard-buttom">D</button>
-                <button class="game__keyboard-buttom">F</button>
-                <button class="game__keyboard-buttom">G</button>
-                <button class="game__keyboard-buttom">H</button>
-                <button class="game__keyboard-buttom">J</button>
-                <button class="game__keyboard-buttom">K</button>
-                <button class="game__keyboard-buttom">L</button>
-                <button class="game__keyboard-buttom">Ñ</button>
-                <button class="game__keyboard-buttom">Z</button>
-                <button class="game__keyboard-buttom">X</button>
-                <button class="game__keyboard-buttom">C</button>
-                <button class="game__keyboard-buttom">V</button>
-                <button class="game__keyboard-buttom">B</button>
-                <button class="game__keyboard-buttom">N</button>
-                <button class="game__keyboard-buttom">M</button>
-                <button class="game__keyboard-buttom">🡐</button>
-                <button class="game__keyboard-buttom">ENTER</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="Q"
+                    class="game__keyboard-button"
+                >Q</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="W"
+                    class="game__keyboard-button"
+                >W</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="E"
+                    class="game__keyboard-button"
+                >E</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="R"
+                    class="game__keyboard-button"
+                >R</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="T"
+                    class="game__keyboard-button"
+                >T</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="Y"
+                    class="game__keyboard-button"
+                >Y</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="U"
+                    class="game__keyboard-button"
+                >U</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="I"
+                    class="game__keyboard-button"
+                >I</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="O"
+                    class="game__keyboard-button"
+                >O</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="P"
+                    class="game__keyboard-button"
+                >P</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="A"
+                    class="game__keyboard-button"
+                >A</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="S"
+                    class="game__keyboard-button"
+                >S</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="D"
+                    class="game__keyboard-button"
+                >D</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="F"
+                    class="game__keyboard-button"
+                >F</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="G"
+                    class="game__keyboard-button"
+                >G</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="H"
+                    class="game__keyboard-button"
+                >H</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="I"
+                    class="game__keyboard-button"
+                >I</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="J"
+                    class="game__keyboard-button"
+                >J</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="K"
+                    class="game__keyboard-button"
+                >K</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="L"
+                    class="game__keyboard-button"
+                >L</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="Z"
+                    class="game__keyboard-button"
+                >Z</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="X"
+                    class="game__keyboard-button"
+                >X</button
+                ><button
+                    type="submit"
+                    name="button-keyboard"
+                    value="C"
+                    class="game__keyboard-button"
+                >C</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="V"
+                    class="game__keyboard-button"
+                >V</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="B"
+                    class="game__keyboard-button"
+                >B</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="N"
+                    class="game__keyboard-button"
+                >N</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="M"
+                    class="game__keyboard-button"
+                >M</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="backspace"
+                    class="game__keyboard-button"
+                >🡐</button>
+                <button
+                    type="submit"
+                    name="button-keyboard"
+                    value="enter"
+                    class="game__keyboard-button"
+                >ENTER</button>
             </div>
 
             <button class="game__start-again">EMPEZAR DE NUEVO</button>

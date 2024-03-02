@@ -39,38 +39,44 @@
             //     changeAttribute("uy");
             // }, 3000);
 
-            async function getRandomCountrie(continent) {
-                try {
-                    if (continent === "all continents") {
-                        let url = `https://restcountries.com/v3.1/all`;
-                        let response = await fetch(url);
-                        let countries = await response.json();
-                        let country =
-                            countries[
-                                Math.floor(Math.random() * countries.length)
-                            ];
-                        let name = country.name.common;
-                        let code = country.cca2.toLowerCase();
-                        let region = country.region;
-                        return { name: name, code: code, region: region };
-                    }
+            // async function getRandomCountrie(continent) {
+            //     try {
+            //         if (continent === "all continents") {
+            //             let url = `https://restcountries.com/v3.1/all`;
+            //             let response = await fetch(url);
+            //             let countries = await response.json();
+            //             let country =
+            //                 countries[
+            //                     Math.floor(Math.random() * countries.length)
+            //                 ];
+            //             let name = country.name.common;
+            //             let code = country.cca2.toLowerCase();
+            //             let region = country.region;
+            //             return { name: name, code: code, region: region };
+            //         }
 
-                    let url = `https://restcountries.com/v3.1/region/${continent}`;
-                    let response = await fetch(url);
-                    let countries = await response.json();
-                    let country =
-                        countries[Math.floor(Math.random() * countries.length)];
-                    let name = country.name.common;
-                    let code = country.cca2.toLowerCase();
-                    let region = country.region;
-                    return { name: name, code: code, region: region };
-                } catch (err) {
-                    throw new Error("Error request restAPI: ", err);
-                }
-            }
+            //         let url = `https://restcountries.com/v3.1/region/${continent}`;
+            //         let response = await fetch(url);
+            //         let countries = await response.json();
+            //         let country =
+            //             countries[Math.floor(Math.random() * countries.length)];
+            //         let name = country.name.common;
+            //         let code = country.cca2.toLowerCase();
+            //         let region = country.region;
+            //         return { name: name, code: code, region: region };
+            //     } catch (err) {
+            //         throw new Error("Error request restAPI: ", err);
+            //     }
+            // }
 
-            let countrie = await getRandomCountrie("all continents");
-            console.log(countrie);
+            // let countrie = await getRandomCountrie("all continents");
+            // // console.log(countrie);
+
+            let svalbard = await fetch(
+                "https://restcountries.com/v3.1/name/Svalbard and Jan Mayen"
+            );
+            let result = await svalbard.json();
+            console.log(result)
         </script>
     </head>
     <body></body>

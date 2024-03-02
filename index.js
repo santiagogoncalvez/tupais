@@ -1,87 +1,122 @@
 // Imports
-import { getRandomCountrie } from "./countries-codes/codes.js";
+import { getRandomCountries } from "../imports/countryDataManager.mjs";
+import { NewGame } from "../imports/classNewGame.mjs";
 
 // Elements
-const img = document.getElementById("image-flag");
-const startAgain = document.getElementsByClassName("game__start-again")[0];
-const selectContinent = document.getElementsByClassName(
-    "presentation__continents-dropdown-option"
-);
-
-// Class
-class NewGame {
-    constructor(time, continent, quantityCountries = 1) {
-        this.time = time;
-        this.continent = continent;
-        this.countries = [];
-        (async () => {
-            for (let i = 0; i < quantityCountries; i++) {
-                let country = await getRandomCountrie(continent);
-                this.countries.push(country);
-            }
-        })();
-    }
-}
-
-let game = new NewGame(sessionStorage.getItem("time"), sessionStorage.getItem("continent"), 10);
-
-console.log(game);
+const startAgain = document.getElementsByClassName("game__start-again");
 
 // Bindings
-
+let game, startTime;
 // Functions
 
-// Homepage
-document.addEventListener("DOMContentLoaded", function () {
-    if (document.body.classList.contains("presentation")) {
-        const continentsDropdown = document.getElementById(
-            "continents-dropdown"
-        );
-        const buttonsTime = document.getElementsByClassName(
-            "presentation__button-time"
-        );
-        const startButton = document.getElementsByClassName(
-            "presentation__button-start"
-        )[0];
-        const closeIcon = document.getElementsByClassName(
-            "presentation__header-link"
-        )[0];
+function formatTime(milliseconds) {
+    // Calcular minutos y segundos
+    let totalSeconds = Math.floor(milliseconds / 1000);
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
 
-        // Millisenconds
-        let continent = "todo el mundo";
-        let time = -1; //free time
-        let timesOptions = [-1, 30000, 100000];
+    // Formatear los minutos y segundos
+    let formattedMinutes = pad(minutes, 2);
+    let formattedSeconds = pad(seconds, 2);
 
-        // Events
-        continentsDropdown.addEventListener("change", function (event) {
-            continent = event.target.value;
-            console.log("Continent: ", continent);
-        });
+    // Concatenar minutos y segundos formateados
+    return formattedMinutes + ":" + formattedSeconds;
+}
+// Timer
+function countDown(milliseconds, element) {
+    let interval = setInterval(function () {
+        if (milliseconds < 0) {
+            clearInterval(interval);
+            console.log("¡Tiempo terminado!");
+        } else {
+            let minutes = Math.floor(milliseconds / 60000);
+            let remainingSeconds = milliseconds / 1000;
 
-        for (let i = 0; i < buttonsTime.length; i++) {
-            buttonsTime[i].addEventListener("click", function () {
-                time = timesOptions[i];
-                console.log(time);
-            });
+            let formattedTime =
+                pad(minutes, 2) + ":" + pad(remainingSeconds, 2);
+
+            element.textContent = formattedTime;
+
+            milliseconds -= 1000;
         }
+    }, 1000);
+}
 
-        startButton.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
-            sessionStorage.setItem("time", time);
-        });
+// Función para añadir ceros delante de un número si es necesario
+function pad(number, length) {
+    return ("0" + number).slice(-length);
+}
 
-        closeIcon.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
-            sessionStorage.setItem("time", time);
+// Eventos
+// Event after loading content
+document.addEventListener("DOMContentLoaded", async function () {
+    // Create timer
+    let timeStorage = Number(sessionStorage.getItem("time"));
+    const timerElement = document.getElementsByClassName(
+        "game__statistics-item--time"
+    );
+    if (timeStorage === -1) timerElement[0].textContent = "LIBRE";
+    timerElement.textContent = formatTime(timeStorage);
+    if (timeStorage !== -1) {
+        timerElement[0].textContent = formatTime(timeStorage);
+        countDown(timeStorage, timerElement[0]);
+    }
+
+    const flagImg = document.getElementById("image-flag");
+    const answerDiv = document.getElementsByClassName("game__answer");
+    const continentElement = document.getElementsByClassName(
+        "game__statistics-item--continent"
+    );
+    const correctAnswerSpan = document.getElementsByClassName(
+        "game__statistics-item--correct-answers"
+    );
+    const buttonsKeyboard = document.getElementsByClassName(
+        "game__keyboard-button"
+    );
+
+    let gameTime = timeStorage ? timeStorage : -1;
+    let gameContinent = sessionStorage.getItem("continent")
+        ? sessionStorage.getItem("continent")
+        : "all continents";
+    let randomCountries = await getRandomCountries(gameContinent, 10);
+
+    NewGame.innerHtmlWord(randomCountries[0].name, answerDiv[0]);
+    flagImg.src = randomCountries[0].flagUrl;
+
+    const answerWordElements =
+        document.getElementsByClassName("game__answer-word");
+    NewGame.innerHtmlWord(randomCountries[0].name, answerWordElements);
+
+    let stateGame = {
+        time: gameTime,
+        continent: gameContinent,
+        countries: randomCountries,
+        answerUser: "",
+        correctAnswers: 0,
+        elementsHtml: {
+            flagImg: flagImg,
+            answerDiv: answerDiv,
+            answerLetters: answerWordElements,
+            continentSpan: continentElement,
+            correctAnswerSpan: correctAnswerSpan,
+        },
+    };
+
+    game = new NewGame(stateGame);
+    console.log(game);
+
+    // Keyboards buttons event
+    for (let element of buttonsKeyboard) {
+        element.addEventListener("click", function () {
+            let pressedKey = element.value.toLowerCase();
+            game = game.modifyAnswer(pressedKey, game.answerUser);
         });
     }
 });
 
-if (img) {
-    startAgain.addEventListener("click", async function () {
-        let result = await randCountrie(parameters.continent);
-        let _url = `https://flagcdn.com/w160/${result.code}.png`;
-        img.setAttribute("src", _url);
-        countrie = randomCountrie();
-    });
-}
+// startAgain.addEventListener("click", async function () {});
+
+document.addEventListener("keydown", function (event) {
+    let pressedKey = event.key.toLowerCase();
+    game = game.modifyAnswer(pressedKey, game.answerUser);
+});

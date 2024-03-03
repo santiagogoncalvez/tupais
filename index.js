@@ -47,6 +47,7 @@ function pad(number, length) {
     return ("0" + number).slice(-length);
 }
 
+
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
@@ -82,6 +83,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     NewGame.innerHtmlWord(randomCountries[0].name, answerDiv[0]);
     flagImg.src = randomCountries[0].flagUrl;
+
+    // Continent text
+    if (gameContinent === "all continents") {
+        continentElement[0].textContent = "todos los continentes";
+    } else {
+        continentElement[0].textContent = gameContinent;
+    }
 
     const answerWordElements =
         document.getElementsByClassName("game__answer-word");

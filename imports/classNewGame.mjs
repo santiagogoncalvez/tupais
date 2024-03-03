@@ -1,3 +1,41 @@
+function showResponse(type) {
+    // Create a div element for the response card
+    let responseDiv = document.createElement("div");
+    responseDiv.className = "response"; // Add the base CSS class
+    responseDiv.style.opacity = 0;
+
+    // Set the text of the response card based on the type
+    if (type === "correct") {
+        responseDiv.textContent = "Respuesta correcta";
+    }
+    if (type === "incorrect") {
+        responseDiv.textContent = "Respuesta incorrecta";
+        responseDiv.classList.add("incorrect"); // Add CSS class for incorrect response
+    }
+
+    if (type === "incomplete") {
+        responseDiv.textContent = "Palabra incompleta";
+        responseDiv.classList.add("incomplete");
+    }
+    // Add the response card to the document body
+    document.body.appendChild(responseDiv);
+
+    // Show the response card
+    responseDiv.style.display = "block";
+
+    // Hide the response card after 3 seconds
+
+    setTimeout(function () {
+        responseDiv.style.opacity = 1;
+    }, 10); // Delay to ensure smooth transition
+
+    // Hide the response card after 3 seconds
+    setTimeout(function () {
+        responseDiv.style.opacity = 0;
+        // responseDiv.style.display = "none";
+    }, 2000);
+}
+
 export class NewGame {
     constructor(state) {
         for (let property in state) {
@@ -54,23 +92,28 @@ export class NewGame {
 
         // Enter answer
         if (this.typeKey(pressedKey) === "enter") {
-            // Incomplete answer
             /*remove spaces and convert to lowercase */
             let nameCounty = this.countries[0].name
                 .toLowerCase()
                 .replace(/\s/g, "");
 
+            // Incomplete answer
             if (this.answerUser.length !== nameCounty.length) {
+                showResponse("incomplete");
                 return new NewGame(this.modifyProperty());
             }
 
             // Incorrect answer
             if (this.answerUser !== nameCounty) {
-                console.log("Incorrect answer");
+                showResponse("incorrect");
                 return new NewGame(this.modifyProperty());
             }
 
             // Correct answer
+            showResponse("correct");
+            // efecto verde sobre letras:
+            /*aplicar clase efect-correct-answer a los eleentos de respuesta cuando se responde correctamente */
+
             this.elementsHtml.correctAnswerSpan[0].textContent = `${
                 this.correctAnswers + 1
             }/10`;

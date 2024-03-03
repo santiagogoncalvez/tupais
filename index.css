@@ -283,6 +283,8 @@ html {
     width: 100%;
     font-size: 1.5rem;
     margin-top: 0em;
+    text-transform: uppercase;
+    font-size: 1em;
 }
 
 .game__countries {
@@ -418,7 +420,7 @@ html {
 
 .game__start-again:hover {
     border-color: rgb(223, 223, 223);
-    background-color: #df6100e5;
+    background-color: #eb761d;
 }
 
 .footer {
@@ -440,4 +442,46 @@ html {
 .footer__paragraph {
     font-size: clamp(0.2px, 14px, 5vw);
     color: #0d336b;
+}
+
+.response {
+    opacity: 0; /* Initially hide the card */
+    transition: opacity 0.3s;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #dff0d8; /* Color de fondo verde para respuesta correcta */
+    padding: 10px 20px;
+    border: 1px solid #d0e9c6; /* Borde verde para respuesta correcta */
+    border-radius: 5px;
+    display: none; /* Ocultar la tarjeta inicialmente */
+}
+
+.response.incorrect {
+    background-color: #f2dede; /* Color de fondo rojo para respuesta incorrecta */
+    border: 1px solid #ebccd1; /* Borde rojo para respuesta incorrecta */
+}
+
+.response.incomplete {
+    background-color: #fff3cd; /* Color de fondo rojo para respuesta incorrecta */
+    border: 1px solid #ebccd1;
+}
+
+
+.efect-correct-answer{
+  border-radius: 0.2em;
+    height: 1.5em;
+    width: 1.7em;
+    max-width: 1.7em;
+    background-color: #66ff8a3c;
+    border: 0.2rem solid #38d65d;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 0.4em;
+    text-transform: uppercase;
+    user-select: none;
+
 }

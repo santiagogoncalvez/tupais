@@ -491,7 +491,7 @@ html {
     align-items: center;
     background-color: rgb(236, 247, 255);
     width: 30rem;
-    height: 32rem;
+    height: 34rem;
     border-radius: 1rem;
     border-style: solid;
     border-color: #0d336b7c;
@@ -538,7 +538,7 @@ html {
     color: #0d336bd4;
 }
 
-.answer-results__button {
+.answer-results__button--start-again {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -548,13 +548,34 @@ html {
     border-radius: 0.8rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    width: 16rem;
-    height: 3.7rem;
+    width: 15rem;
+    height: 3rem;
     font-weight: bold;
     font-size: 1.3rem;
     border-color: rgba(245, 245, 245, 0.921);
     text-align: center;
     border-style: outset;
+    margin-bottom: 2rem;
+}
+
+.answer-results__button--change-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #ea7217e8;
+    color: white;
+    border-radius: 0.8rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: 15rem;
+    height: 3rem;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border-color: rgba(245, 245, 245, 0.921);
+    text-align: center;
+    border-style: outset;
+    margin-bottom: 0rem;
 }
 
 .answer-results__button:hover {

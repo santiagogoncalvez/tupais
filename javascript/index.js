@@ -1,12 +1,12 @@
 // Imports
-import { getRandomCountries } from "../imports/countryDataManager.mjs";
-import { NewGame } from "../imports/classNewGame.mjs";
+import { getRandomCountries } from "./imports/countryDataManager.mjs";
+import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
 const startAgain = document.getElementsByClassName("game__start-again");
 
 // Bindings
-let game, startTime;
+let game;
 // Functions
 
 function formatTime(milliseconds) {
@@ -27,8 +27,11 @@ function countDown(milliseconds, element) {
     let interval = setInterval(function () {
         if (milliseconds < 0) {
             clearInterval(interval);
+            let secondsAnswer = Math.floor((milliseconds % 60000) / 1000);
             game.insertAnswerResults(
-                document.getElementsByClassName("homepage")[0]
+                document.getElementsByClassName("homepage")[0],
+                game.correctAnswers,
+                secondsAnswer
             );
         } else {
             let minutes = Math.floor(milliseconds / 60000);
@@ -55,14 +58,14 @@ function pad(number, length) {
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
     // Create timer´
-    console.log("time pre to Number(): ", sessionStorage.getItem("time"));
-    let timeStorage = sessionStorage.getItem("time") ? Number(sessionStorage.getItem("time")) : -1;
-    console.log("time post to Number()", timeStorage);
+    let timeStorage = sessionStorage.getItem("time")
+        ? Number(sessionStorage.getItem("time"))
+        : -1;
     const timerElement = document.getElementsByClassName(
         "game__statistics-item--time"
     );
     if (timeStorage === -1) timerElement[0].textContent = "LIBRE";
-    if (timeStorage !== -1   ) {
+    if (timeStorage !== -1) {
         timerElement[0].textContent = formatTime(timeStorage);
         countDown(timeStorage, timerElement[0]);
     }
@@ -96,7 +99,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const answerWordElements =
         document.getElementsByClassName("game__answer-word");
-    NewGame.innerHtmlWord(randomCountries[0].name, answerWordElements);
 
     let stateGame = {
         time: timeStorage,

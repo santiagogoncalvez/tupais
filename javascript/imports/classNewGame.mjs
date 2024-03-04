@@ -57,7 +57,7 @@ export class NewGame {
         }
     }
 
-    insertAnswerResults(element) {
+    insertAnswerResults(element, correcAnswers, time) {
         element.insertAdjacentHTML(
             "beforeend",
             `
@@ -65,19 +65,20 @@ export class NewGame {
   <a href="./index.html" class="answer-results__close-link"><img src="./images/close.png" alt="" class="answer-results__close-img" />
   </a>
   <p class="answer-results__paragraph">
-    <span class="answer-results__span">¡EXCELENTE!</span>
-    <span class="answer-results__span">Superaste el reto</span>
+    <span class="answer-results__span">RESULTADOS</span>
+    <span class="answer-results__span"></span>
     <span class="answer-results__span">
       Respuestas correctas
     </span>
     <span class="answer-results__span">
-      10/10
+      ${correcAnswers}/10
     </span>
     <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">00: 10</span>
+    <span class="answer-results__span">00:${time}</span>
   </p>
 
-  <a href="./index.html" class="answer-results__button"><span>JUGAR DE NUEVO</span></a>
+  <a href="./" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
+  <a href="./index.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
 </div>
 <div class="blurry-background"></div>`
         );
@@ -116,13 +117,13 @@ export class NewGame {
             );
         }
 
+        /*remove spaces and convert to lowercase */
+        let nameCounty = this.countries[0].name
+            .toLowerCase()
+            .replace(/\s/g, "");
+
         // Enter answer
         if (this.typeKey(pressedKey) === "enter") {
-            /*remove spaces and convert to lowercase */
-            let nameCounty = this.countries[0].name
-                .toLowerCase()
-                .replace(/\s/g, "");
-
             // Incomplete answer
             if (this.answerUser.length !== nameCounty.length) {
                 showResponse("incomplete");
@@ -140,19 +141,21 @@ export class NewGame {
             // efecto verde sobre letras:
             /*aplicar clase efect-correct-answer a los eleentos de respuesta cuando se responde correctamente */
 
-            this.elementsHtml.correctAnswerSpan[0].textContent = `${this.correctAnswers + 1
-                }/10`;
+            this.elementsHtml.correctAnswerSpan[0].textContent = `${
+                this.correctAnswers + 1
+            }/10`;
+
+            // Mostrar resultados
             if (this.correctAnswers === 9) {
                 let body = document.getElementsByClassName("homepage")[0];
-                this.insertAnswerResults(body);
+                this.insertAnswerResults(body, this.correctAnswers + 1, 35);
+                let object = this.modifyProperty(
+                    "correctAnswers",
+                    this.correctAnswers + 1
+                );
                 object.countries = this.countries.slice(1);
                 object.answerUser = "";
-                NewGame.innerHtmlWord(
-                    object.countries[0].name,
-                    this.elementsHtml.answerDiv[0]
-                );
                 this.deleteAllLetters(this.elementsHtml.answerLetters);
-
                 return new NewGame(object);
             }
 
@@ -170,6 +173,12 @@ export class NewGame {
             this.deleteAllLetters(this.elementsHtml.answerLetters);
 
             return new NewGame(object);
+        }
+
+        // completed word
+        if (this.answerUser.length === nameCounty.length) {
+            console.log("completed word");
+            return new NewGame(this.modifyProperty());
         }
 
         // Insert letter

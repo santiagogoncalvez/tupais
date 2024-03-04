@@ -3,7 +3,8 @@
 
 /*
 Recomendaciones:
-    -Englobar la funcion de pedir un pais en otra funcion y que devuelva el json, por ejemplo getCoutry() o getAPI()
+    -Englobar la funcion de pedir un pais en otra funcion y que devuelva el json, por ejemplo getCoutry() o getAPI()-
+    - Escribir los url concatenando strings asi no se generan errores 404
 */
 
 function formatWord(word) {
@@ -43,13 +44,13 @@ function removeParentheses(text) {
 }
 
 function urlFlag(code) {
-    return `https://flagcdn.com/w160/${code}.png`;
+    return "https://flagcdn.com/w160/" + code + ".png";
 }
 
 function getAllCountries() {
     return new Promise(async (resolve, reject) => {
         try {
-            let url = `https://restcountries.com/v3.1/all`;
+            let url = "https://restcountries.com/v3.1/all";
             let response = await fetch(url);
             let countries = await response.json();
             resolve(countries);
@@ -63,7 +64,7 @@ function getCountriesByContinent(continent) {
     return new Promise(async (resolve, reject) => {
         try {
             if (continent === "america") continent = "americas";
-            let url = `https://restcountries.com/v3.1/region/${continent}`;
+            let url = "https://restcountries.com/v3.1/region/" + continent;
             let response = await fetch(url);
             let countries = await response.json();
             resolve(countries);
@@ -89,9 +90,13 @@ export function getRandomCountries(continent, quantityCountries = 10) {
             );
 
         try {
-            let countries = await getCountriesByContinent(continent);
+            let countries;
             if (continent === "all continents") {
                 countries = await getAllCountries();
+            }
+
+            if (continent !== "all continents") {
+                countries = await getCountriesByContinent(continent);
             }
 
             let result = [];
@@ -99,6 +104,11 @@ export function getRandomCountries(continent, quantityCountries = 10) {
                 let randomCountry =
                     countries[Math.floor(Math.random() * countries.length)];
                 let formattedName = formatWord(randomCountry.name.common);
+
+                if (result.some(element => element.name === formattedName)) {
+                    i--;
+                    continue;
+                }
 
                 result.push({
                     name: formattedName,

@@ -6,6 +6,42 @@ Recomendaciones:
     -Englobar la funcion de pedir un pais en otra funcion y que devuelva el json, por ejemplo getCoutry() o getAPI()
 */
 
+function formatWord(word) {
+    let formatedWord = replaceHyphensWithSpaces(word);
+    formatedWord = removeAccents(formatedWord);
+    formatedWord = removeParentheses(formatedWord);
+
+    return formatedWord;
+}
+function replaceHyphensWithSpaces(str) {
+    return str.replace(/-/g, " ");
+}
+
+function removeAccents(word) {
+    const accentMap = {
+        á: "a",
+        é: "e",
+        í: "i",
+        ó: "o",
+        ú: "u",
+        ü: "u",
+        Á: "A",
+        É: "E",
+        Í: "I",
+        Ó: "O",
+        Ú: "U",
+        Ü: "U",
+    };
+
+    return word.replace(/[áéíóúüÁÉÍÓÚÜ]/g, function (match) {
+        return accentMap[match];
+    });
+}
+
+function removeParentheses(text) {
+    return text.replace(/\s*\([^)]*\)/g, "").trim();
+}
+
 function urlFlag(code) {
     return `https://flagcdn.com/w160/${code}.png`;
 }
@@ -26,7 +62,6 @@ function getAllCountries() {
 function getCountriesByContinent(continent) {
     return new Promise(async (resolve, reject) => {
         try {
-
             if (continent === "america") continent = "americas";
             let url = `https://restcountries.com/v3.1/region/${continent}`;
             let response = await fetch(url);
@@ -63,9 +98,10 @@ export function getRandomCountries(continent, quantityCountries = 10) {
             for (let i = 0; i < quantityCountries; i++) {
                 let randomCountry =
                     countries[Math.floor(Math.random() * countries.length)];
+                let formattedName = formatWord(randomCountry.name.common);
 
                 result.push({
-                    name: randomCountry.name.common,
+                    name: formattedName,
                     code: randomCountry.cca2.toLowerCase(),
                     region: randomCountry.region,
                     flagUrl: urlFlag(randomCountry.cca2.toLowerCase()),
@@ -74,9 +110,7 @@ export function getRandomCountries(continent, quantityCountries = 10) {
 
             resolve(result);
         } catch (err) {
-            reject(
-                new Error(`Error request getRandomCoutries: ${err}`)
-            );
+            reject(new Error(`Error request getRandomCoutries: ${err}`));
         }
     });
 }

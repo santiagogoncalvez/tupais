@@ -57,6 +57,32 @@ export class NewGame {
         }
     }
 
+    insertAnswerResults(element) {
+        element.insertAdjacentHTML(
+            "beforeend",
+            `
+    <div class="answer-results">
+  <a href="./index.html" class="answer-results__close-link"><img src="./images/close.png" alt="" class="answer-results__close-img" />
+  </a>
+  <p class="answer-results__paragraph">
+    <span class="answer-results__span">¡EXCELENTE!</span>
+    <span class="answer-results__span">Superaste el reto</span>
+    <span class="answer-results__span">
+      Respuestas correctas
+    </span>
+    <span class="answer-results__span">
+      10/10
+    </span>
+    <span class="answer-results__span">Tiempo</span>
+    <span class="answer-results__span">00: 10</span>
+  </p>
+
+  <a href="./index.html" class="answer-results__button"><span>JUGAR DE NUEVO</span></a>
+</div>
+<div class="blurry-background"></div>`
+        );
+    }
+
     nextCountry() {
         if (this.countries.length === 0) return null;
         return new NewGame(
@@ -114,9 +140,22 @@ export class NewGame {
             // efecto verde sobre letras:
             /*aplicar clase efect-correct-answer a los eleentos de respuesta cuando se responde correctamente */
 
-            this.elementsHtml.correctAnswerSpan[0].textContent = `${
-                this.correctAnswers + 1
-            }/10`;
+            this.elementsHtml.correctAnswerSpan[0].textContent = `${this.correctAnswers + 1
+                }/10`;
+            if (this.correctAnswers === 9) {
+                let body = document.getElementsByClassName("homepage")[0];
+                this.insertAnswerResults(body);
+                object.countries = this.countries.slice(1);
+                object.answerUser = "";
+                NewGame.innerHtmlWord(
+                    object.countries[0].name,
+                    this.elementsHtml.answerDiv[0]
+                );
+                this.deleteAllLetters(this.elementsHtml.answerLetters);
+
+                return new NewGame(object);
+            }
+
             this.elementsHtml.flagImg.src = this.countries[1].flagUrl;
             let object = this.modifyProperty(
                 "correctAnswers",

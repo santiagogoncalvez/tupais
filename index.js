@@ -27,16 +27,20 @@ function countDown(milliseconds, element) {
     let interval = setInterval(function () {
         if (milliseconds < 0) {
             clearInterval(interval);
-            console.log("¡Tiempo terminado!");
+            game.insertAnswerResults(
+                document.getElementsByClassName("homepage")[0]
+            );
         } else {
             let minutes = Math.floor(milliseconds / 60000);
-            let remainingSeconds = milliseconds / 1000;
+            let seconds = Math.floor((milliseconds % 60000) / 1000);
 
-            let formattedTime =
-                pad(minutes, 2) + ":" + pad(remainingSeconds, 2);
+            // Formatear los minutos y segundos en un string en formato MM:SS
+            let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
 
+            // Mostrar el tiempo restante en el elemento
             element.textContent = formattedTime;
 
+            // Restar un segundo al tiempo restante
             milliseconds -= 1000;
         }
     }, 1000);
@@ -47,18 +51,18 @@ function pad(number, length) {
     return ("0" + number).slice(-length);
 }
 
-
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
-    // Create timer
-    let timeStorage = Number(sessionStorage.getItem("time"));
+    // Create timer´
+    console.log("time pre to Number(): ", sessionStorage.getItem("time"));
+    let timeStorage = sessionStorage.getItem("time") ? Number(sessionStorage.getItem("time")) : -1;
+    console.log("time post to Number()", timeStorage);
     const timerElement = document.getElementsByClassName(
         "game__statistics-item--time"
     );
     if (timeStorage === -1) timerElement[0].textContent = "LIBRE";
-    timerElement.textContent = formatTime(timeStorage);
-    if (timeStorage !== -1) {
+    if (timeStorage !== -1   ) {
         timerElement[0].textContent = formatTime(timeStorage);
         countDown(timeStorage, timerElement[0]);
     }
@@ -75,7 +79,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         "game__keyboard-button"
     );
 
-    let gameTime = timeStorage ? timeStorage : -1;
     let gameContinent = sessionStorage.getItem("continent")
         ? sessionStorage.getItem("continent")
         : "all continents";
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     NewGame.innerHtmlWord(randomCountries[0].name, answerWordElements);
 
     let stateGame = {
-        time: gameTime,
+        time: timeStorage,
         continent: gameContinent,
         countries: randomCountries,
         answerUser: "",

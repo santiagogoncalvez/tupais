@@ -44,7 +44,7 @@ function removeParentheses(text) {
 }
 
 function urlFlag(code) {
-    return "https://flagcdn.com/w160/" + code + ".png";
+    return "./images/flags-svg/" + code + ".svg";
 }
 
 function getAllCountries() {

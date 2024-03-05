@@ -77,8 +77,8 @@ export class NewGame {
     <span class="answer-results__span">00:${time}</span>
   </p>
 
-  <a href="./" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
-  <a href="./index.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
+  <a href="./index.html" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
+  <a href="./pages-html/timer-mode.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
 </div>
 <div class="blurry-background"></div>`
         );
@@ -159,7 +159,7 @@ export class NewGame {
                 return new NewGame(object);
             }
 
-            this.elementsHtml.flagImg.src = this.countries[1].flagUrl;
+            this.elementsHtml.flagImg[0].src = this.countries[1].flagUrl;
             let object = this.modifyProperty(
                 "correctAnswers",
                 this.correctAnswers + 1
@@ -177,7 +177,6 @@ export class NewGame {
 
         // completed word
         if (this.answerUser.length === nameCounty.length) {
-            console.log("completed word");
             return new NewGame(this.modifyProperty());
         }
 

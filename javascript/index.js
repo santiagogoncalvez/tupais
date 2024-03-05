@@ -57,30 +57,26 @@ function pad(number, length) {
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
-    // Create timer´
+    // Create timer
+    const timerElement = document.getElementsByClassName("game__time");
     let timeStorage = sessionStorage.getItem("time")
         ? Number(sessionStorage.getItem("time"))
         : -1;
-    const timerElement = document.getElementsByClassName(
-        "game__statistics-item--time"
-    );
     if (timeStorage === -1) timerElement[0].textContent = "LIBRE";
     if (timeStorage !== -1) {
         timerElement[0].textContent = formatTime(timeStorage);
         countDown(timeStorage, timerElement[0]);
     }
 
-    const flagImg = document.getElementById("image-flag");
+    const flagImg = document.getElementsByClassName("game__flag");
     const answerDiv = document.getElementsByClassName("game__answer");
     const continentElement = document.getElementsByClassName(
-        "game__statistics-item--continent"
+        "game__countrie-description"
     );
     const correctAnswerSpan = document.getElementsByClassName(
-        "game__statistics-item--correct-answers"
+        "game__correct-answers"
     );
-    const buttonsKeyboard = document.getElementsByClassName(
-        "game__keyboard-button"
-    );
+    const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
 
     let gameContinent = sessionStorage.getItem("continent")
         ? sessionStorage.getItem("continent")
@@ -88,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let randomCountries = await getRandomCountries(gameContinent, 10);
 
     NewGame.innerHtmlWord(randomCountries[0].name, answerDiv[0]);
-    flagImg.src = randomCountries[0].flagUrl;
+    flagImg[0].src = randomCountries[0].flagUrl;
 
     // Continent text
     if (gameContinent === "all continents") {

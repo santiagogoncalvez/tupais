@@ -462,15 +462,15 @@ html {
     border-radius: 8px;
     border-width: 0.18em;
     border-style: solid;
-    margin-top: 0rem;
+    margin-top: 1.5rem;
 }
 
 .footer__paragraph {
     font-size: clamp(0.2px, 14px, 5vw);
     color: #0d336b;
-    margin: 0 auto;
 }
 
+/* Animacion respuestas */
 .response {
     opacity: 0; /* Initially hide the card */
     transition: opacity 0.3s;

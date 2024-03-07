@@ -1,6 +1,23 @@
-// Clase que maneja el estado del juego
+/* Structure game:
+let stateGame = {
+    time: timeStorage,
+    continent: gameContinent,
+    countries: randomCountries,
+    answerUser: "",
+    correctAnswers: 0,
+    lastResponseStatus: true;
+    elementsHtml: {
+        flagImg: flagImg,
+        answerDiv: answerDiv,
+        answerLetters: answerWordElements,
+        continentSpan: continentElement,
+        correctAnswerSpan: correctAnswerSpan,
+    },
+};
+*/
 
-function showResponse(type) {
+// Modificar funcion para que se ejecute en un elemento especifico
+function showResponse(type, element) {
     // Create a div element for the response card
     let responseDiv = document.createElement("div");
     responseDiv.className = "response"; // Add the base CSS class
@@ -20,7 +37,7 @@ function showResponse(type) {
         responseDiv.classList.add("incomplete");
     }
     // Add the response card to the document body
-    document.body.appendChild(responseDiv);
+    element.appendChild(responseDiv);
 
     // Show the response card
     responseDiv.style.display = "block";
@@ -59,8 +76,8 @@ export class NewGame {
         }
     }
 
-    insertAnswerResults(element, correcAnswers, time) {
-    const elementHtml = `
+    insertAnswerResults(element, correctAnswers, time) {
+        const elementHtml = `
     <div class="answer-results">
     <a href="./index.html" class="answer-results__close-link"><img src="./images/ close.png" alt="" class="answer-results__close-img" />
     </a>
@@ -71,7 +88,7 @@ export class NewGame {
       Respuestas correctas
     </span>
     <span class="answer-results__span">
-      ${correcAnswers}/10
+      ${correctAnswers}/10
     </span>
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
@@ -81,14 +98,7 @@ export class NewGame {
     </div>
     <div class="blurry-background"></div>`;
 
-    element.insertAdjacentHTML("beforeend", elementHtml);
-    }
-
-    nextCountry() {
-        if (this.countries.length === 0) return null;
-        return new NewGame(
-            this.modifyProperty("countries", this.countries.slice(1))
-        );
+        element.insertAdjacentHTML("beforeend", elementHtml);
     }
 
     modifyAnswer(pressedKey, lastAnswer) {
@@ -98,10 +108,15 @@ export class NewGame {
             );
         }
 
-        let currentAnswer, letterElement;
+        let currentAnswer,
+            letterElement,
+            countryName = this.countries[this.correctAnswers].name
+                .toLowerCase()
+                .replace(/\s/g, "");
 
-        if (!this.typeKey(pressedKey))
+        if (!this.typeKey(pressedKey)) {
             return new NewGame(this.modifyProperty());
+        }
 
         // Delete letter
         if (this.typeKey(pressedKey) === "backspace") {
@@ -110,73 +125,17 @@ export class NewGame {
             }
             letterElement =
                 this.elementsHtml.answerLetters[this.answerUser.length - 1];
+            console.log(letterElement);
             this.deleteLetter(letterElement);
             currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
+            console.log(lastAnswer, currentAnswer);
             return new NewGame(
-                this.modifyProperty("answerUser", currentAnswer)
+                this.modifyProperty({ answerUser: currentAnswer })
             );
-        }
-
-        /*remove spaces and convert to lowercase */
-        let nameCounty = this.countries[0].name
-            .toLowerCase()
-            .replace(/\s/g, "");
-
-        // Enter answer
-        if (this.typeKey(pressedKey) === "enter") {
-            // Incomplete answer
-            if (this.answerUser.length !== nameCounty.length) {
-                showResponse("incomplete");
-                return new NewGame(this.modifyProperty());
-            }
-
-            // Incorrect answer
-            if (this.answerUser !== nameCounty) {
-                showResponse("incorrect");
-                return new NewGame(this.modifyProperty());
-            }
-
-            // Correct answer
-            showResponse("correct");
-            // efecto verde sobre letras:
-            /*aplicar clase efect-correct-answer a los eleentos de respuesta cuando se responde correctamente */
-
-            this.elementsHtml.correctAnswerSpan[0].textContent = `${
-                this.correctAnswers + 1
-            }/10`;
-
-            // Mostrar resultados
-            if (this.correctAnswers === 9) {
-                let body = document.getElementsByClassName("homepage")[0];
-                this.insertAnswerResults(body, this.correctAnswers + 1, 35);
-                let object = this.modifyProperty(
-                    "correctAnswers",
-                    this.correctAnswers + 1
-                );
-                object.countries = this.countries.slice(1);
-                object.answerUser = "";
-                this.deleteAllLetters(this.elementsHtml.answerLetters);
-                return new NewGame(object);
-            }
-
-            this.elementsHtml.flagImg[0].src = this.countries[1].flagUrl;
-            let object = this.modifyProperty(
-                "correctAnswers",
-                this.correctAnswers + 1
-            );
-            object.countries = this.countries.slice(1);
-            object.answerUser = "";
-            NewGame.innerHtmlWord(
-                object.countries[0].name,
-                this.elementsHtml.answerDiv[0]
-            );
-            this.deleteAllLetters(this.elementsHtml.answerLetters);
-
-            return new NewGame(object);
         }
 
         // completed word
-        if (this.answerUser.length === nameCounty.length) {
+        if (this.answerUser.length === countryName.length) {
             return new NewGame(this.modifyProperty());
         }
 
@@ -188,30 +147,86 @@ export class NewGame {
                 this.elementsHtml.answerLetters[this.answerUser.length];
         }
 
-        if (this.answerUser.length === this.countries[0].name.length) {
+        if (this.answerUser.length === countryName.length) {
             return new NewGame(this.modifyProperty());
         }
+
         this.insertLetter(pressedKey, letterElement);
         currentAnswer = lastAnswer + pressedKey;
-        return new NewGame(this.modifyProperty("answerUser", currentAnswer));
+        return new NewGame(
+            this.modifyProperty({
+                answerUser: currentAnswer,
+            })
+        );
     }
 
-    verifyAnswer(anwser) {
-        
-    }
+    verifyAnswer(answerUser, countryName) {
+        countryName = countryName.toLowerCase().replace(/\s/g, "");
 
-    modifyProperty(property = null, newValue = null) {
-        let state = {};
-        for (let propertyGame in this) {
-            if (property === propertyGame) {
-                state[property] = newValue;
-                continue;
-            }
-
-            state[propertyGame] = this[propertyGame];
+        // Incomplete answer
+        if (answerUser.length !== countryName.length) {
+            showResponse(
+                "incomplete",
+                document.getElementsByClassName("homepage")[0]
+            );
+            return new NewGame(
+                this.modifyProperty({
+                    lastResponseStatus: false,
+                })
+            );
         }
 
-        return state;
+        // Incorrect answer
+        if (answerUser !== countryName) {
+            showResponse(
+                "incorrect",
+                document.getElementsByClassName("homepage")[0]
+            );
+            return new NewGame(
+                this.modifyProperty({
+                    lastResponseStatus: false,
+                })
+            );
+        }
+
+        // Correct answer
+        showResponse("correct", document.getElementsByClassName("homepage")[0]);
+        this.elementsHtml.correctAnswerSpan[0].textContent = `${
+            this.correctAnswers + 1
+        }/10`;
+
+        let newState = this.modifyProperty({
+            answerUser: "",
+            correctAnswers: this.correctAnswers + 1,
+            lastResponseStatus: true,
+        });
+
+        return new NewGame(newState);
+    }
+
+    modifyProperty(state = {}) {
+        let result = {};
+
+        for (let property in this) {
+            result[property] = this[property];
+        }
+
+        for (let property in state) {
+            result[property] = state[property];
+        }
+
+        return result;
+    }
+
+    showResults() {
+        let body = document.getElementsByClassName("homepage")[0];
+        this.insertAnswerResults(body, this.correctAnswers + 1, 35);
+        this.deleteAllLetters(this.elementsHtml.answerLetters);
+    }
+
+    showNewFlag() {
+        this.elementsHtml.flagImg[0].src =
+            this.countries[this.correctAnswers].flagUrl;
     }
 
     typeKey(key) {
@@ -253,14 +268,14 @@ export class NewGame {
         return null;
     }
 
-    static innerHtmlWord(countryName, element) {
+    static innerLetterElements(countryName, element) {
         let textHtml = "";
         for (let i = 0; i < countryName.length; i++) {
             if (countryName[i] === " ") {
-                textHtml += '<div class="game__answer-word--space"></div>';
+                textHtml += '<div class="game__answer-letter--space"></div>';
                 continue;
             }
-            textHtml += '<div class="game__answer-word"></div>';
+            textHtml += '<div class="game__answer-letter"></div>';
         }
         element.innerHTML = textHtml;
     }

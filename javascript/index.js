@@ -1,9 +1,8 @@
 // Imports
 import { getRandomCountries } from "./imports/countryDataManager.mjs";
-import { NewGame } from "../tests/classNewGame-copy.mjs";
+import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
-const startAgain = document.getElementsByClassName("game__start-again");
 
 // Bindings
 let game,
@@ -86,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         : "all continents";
     let randomCountries = await getRandomCountries(gameContinent, 10);
 
-    NewGame.innerHtmlWord(randomCountries[0].name, answerDiv[0]);
+    NewGame.innerLetterElements(randomCountries[0].name, answerDiv[0]);
     flagImg[0].src = randomCountries[0].flagUrl;
 
     // Continent text
@@ -96,8 +95,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         continentElement[0].textContent = gameContinent;
     }
 
-    const answerWordElements =
-        document.getElementsByClassName("game__answer-word");
+    const answerLetterElements = document.getElementsByClassName(
+        "game__answer-letter"
+    );
 
     let stateGame = {
         time: timeStorage,
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         elementsHtml: {
             flagImg: flagImg,
             answerDiv: answerDiv,
-            answerLetters: answerWordElements,
+            answerLetters: answerLetterElements,
             continentSpan: continentElement,
             correctAnswerSpan: correctAnswerSpan,
         },
@@ -133,13 +133,19 @@ document.addEventListener("keydown", function (event) {
     let pressedKey = event.key.toLowerCase();
     if (pressedKey === "enter") {
         game = game.verifyAnswer(
-            game.anwserUser,
-            game.countries[correcAnswers]
+            game.answerUser,
+            game.countries[game.correctAnswers].name
         );
 
-        if (game.lastResponseStatus === true) {
+        if (game.correcAnswers !== 10 && game.lastResponseStatus) {
             game.showNewFlag();
+            NewGame.innerLetterElements(
+                game.countries[game.correctAnswers].name,
+                game.elementsHtml.answerDiv[0]
+            );
         }
+
+        return;
     }
 
     game = game.modifyAnswer(pressedKey, game.answerUser);

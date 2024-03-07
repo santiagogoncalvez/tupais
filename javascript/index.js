@@ -4,11 +4,9 @@ import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
 
-
-
 // Bindings
-let game,
-    timeOfGame = 0;
+let game;
+let timeElapsed = 0;
 
 // Functions
 
@@ -27,30 +25,44 @@ function formatTime(milliseconds) {
 }
 // Timer
 function countDown(milliseconds, element) {
-    let interval = setInterval(function () {
-        if (milliseconds < 0) {
-            clearInterval(interval);
-            let secondsAnswer = Math.floor((milliseconds % 60000) / 1000);
-            game.insertAnswerResults(
-                document.getElementsByClassName("homepage")[0],
-                game.correctAnswers,
-                timeOfGame
-            );
-        } else {
-            let minutes = Math.floor(milliseconds / 60000);
-            let seconds = Math.floor((milliseconds % 60000) / 1000);
+    if (milliseconds === -1) {
+        let freeTimeInterval = setInterval(function () {
+            if (game.correctAnswers === 10) {
+                clearInterval(freeTimeInterval);
+            } else {
+                timeElapsed++;
+            }
+        }, 1000);
+    }
 
-            // Formatear los minutos y segundos en un string en formato MM:SS
-            let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
+    if (milliseconds !== -1) {
+        let timeInterval = setInterval(function () {
+            if (milliseconds < 0) {
+                clearInterval(timeInterval);
+                game.insertAnswerResults(
+                    document.getElementsByClassName("homepage")[0],
+                    game.correctAnswers,
+                    timeOfGame
+                );
+            } else {
+                let minutes = Math.floor(milliseconds / 60000);
+                let seconds = Math.floor((milliseconds % 60000) / 1000);
 
-            // Mostrar el tiempo restante en el elemento
-            element.textContent = formattedTime;
+                // Formatear los minutos y segundos en un string en formato MM:SS
+                let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
 
-            // Restar un segundo al tiempo restante
-            milliseconds -= 1000;
-            timeOfGame++;
-        }
-    }, 1000);
+                // Mostrar el tiempo restante en el elemento
+                element.textContent = formattedTime;
+
+                // Restar un segundo al tiempo restante
+                milliseconds -= 1000;
+                timeElapsed++;
+                console.log(timeElapsed);
+            }
+        }, 1000);
+    }
+
+     
 }
 
 // Función para añadir ceros delante de un número si es necesario
@@ -65,23 +77,23 @@ function listenKeyboard(pressedKey) {
             game.countries[game.correctAnswers].name
         );
 
-        if (game.correcAnswers !== 10 && game.lastResponseStatus) {
+        // Mostrar resultados
+        if (game.correctAnswers === 10) {
+            game.showResults(timeElapsed);
+            return;
+        }
+
+        if (game.lastResponseStatus) {
             game.showNewFlag();
             NewGame.innerLetterElements(
                 game.countries[game.correctAnswers].name,
                 game.elementsHtml.answerDiv[0]
             );
         }
-
         return;
     }
 
     game = game.modifyAnswer(pressedKey, game.answerUser);
-
-    // Mostrar resultados
-    if (game.correcAnswers === 10) {
-        game.showResults();
-    }
 }
 
 // Eventos
@@ -92,7 +104,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     let timeStorage = sessionStorage.getItem("time")
         ? Number(sessionStorage.getItem("time"))
         : -1;
-    if (timeStorage === -1) timerElement[0].textContent = "LIBRE";
+    if (timeStorage === -1) {
+        timerElement[0].textContent = "LIBRE";
+        countDown(timeStorage);
+    }
     if (timeStorage !== -1) {
         timerElement[0].textContent = formatTime(timeStorage);
         countDown(timeStorage, timerElement[0]);
@@ -149,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Keyboards buttons event
     for (let element of buttonsKeyboard) {
         element.addEventListener("click", function () {
-            listenKeyboard(element.value.toLowerCase())
+            listenKeyboard(element.value.toLowerCase());
         });
     }
 });
@@ -158,4 +173,5 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 document.addEventListener("keydown", function (event) {
     listenKeyboard(event.key.toLowerCase());
+    return;
 });

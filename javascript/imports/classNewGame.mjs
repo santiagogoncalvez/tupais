@@ -79,7 +79,7 @@ export class NewGame {
     insertAnswerResults(element, correctAnswers, time) {
         const elementHtml = `
     <div class="answer-results">
-    <a href="./index.html" class="answer-results__close-link"><img src="./images/ close.png" alt="" class="answer-results__close-img" />
+    <a href="./index.html" class="answer-results__close-link"><img src="" alt="" class="answer-results__close-img" />
     </a>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
@@ -125,10 +125,8 @@ export class NewGame {
             }
             letterElement =
                 this.elementsHtml.answerLetters[this.answerUser.length - 1];
-            console.log(letterElement);
             this.deleteLetter(letterElement);
             currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
-            console.log(lastAnswer, currentAnswer);
             return new NewGame(
                 this.modifyProperty({ answerUser: currentAnswer })
             );
@@ -218,9 +216,9 @@ export class NewGame {
         return result;
     }
 
-    showResults() {
+    showResults(timeElapsed) {
         let body = document.getElementsByClassName("homepage")[0];
-        this.insertAnswerResults(body, this.correctAnswers + 1, 35);
+        this.insertAnswerResults(body, this.correctAnswers, timeElapsed);
         this.deleteAllLetters(this.elementsHtml.answerLetters);
     }
 

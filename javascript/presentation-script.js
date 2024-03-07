@@ -22,13 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Events
         continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
-            console.log("Continent: ", continent);
         });
 
         for (let i = 0; i < buttonsTime.length; i++) {
             buttonsTime[i].addEventListener("click", function () {
                 time = timesOptions[i];
-                console.log(time);
             });
         }
 

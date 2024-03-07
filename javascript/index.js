@@ -4,6 +4,8 @@ import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
 
+
+
 // Bindings
 let game,
     timeOfGame = 0;
@@ -54,6 +56,32 @@ function countDown(milliseconds, element) {
 // Función para añadir ceros delante de un número si es necesario
 function pad(number, length) {
     return ("0" + number).slice(-length);
+}
+
+function listenKeyboard(pressedKey) {
+    if (pressedKey === "enter") {
+        game = game.verifyAnswer(
+            game.answerUser,
+            game.countries[game.correctAnswers].name
+        );
+
+        if (game.correcAnswers !== 10 && game.lastResponseStatus) {
+            game.showNewFlag();
+            NewGame.innerLetterElements(
+                game.countries[game.correctAnswers].name,
+                game.elementsHtml.answerDiv[0]
+            );
+        }
+
+        return;
+    }
+
+    game = game.modifyAnswer(pressedKey, game.answerUser);
+
+    // Mostrar resultados
+    if (game.correcAnswers === 10) {
+        game.showResults();
+    }
 }
 
 // Eventos
@@ -121,8 +149,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Keyboards buttons event
     for (let element of buttonsKeyboard) {
         element.addEventListener("click", function () {
-            let pressedKey = element.value.toLowerCase();
-            game = game.modifyAnswer(pressedKey, game.answerUser);
+            listenKeyboard(element.value.toLowerCase())
         });
     }
 });
@@ -130,28 +157,5 @@ document.addEventListener("DOMContentLoaded", async function () {
 // startAgain.addEventListener("click", async function () {});
 
 document.addEventListener("keydown", function (event) {
-    let pressedKey = event.key.toLowerCase();
-    if (pressedKey === "enter") {
-        game = game.verifyAnswer(
-            game.answerUser,
-            game.countries[game.correctAnswers].name
-        );
-
-        if (game.correcAnswers !== 10 && game.lastResponseStatus) {
-            game.showNewFlag();
-            NewGame.innerLetterElements(
-                game.countries[game.correctAnswers].name,
-                game.elementsHtml.answerDiv[0]
-            );
-        }
-
-        return;
-    }
-
-    game = game.modifyAnswer(pressedKey, game.answerUser);
-
-    // Mostrar resultados
-    if (game.correcAnswers === 10) {
-        game.showResults();
-    }
+    listenKeyboard(event.key.toLowerCase());
 });

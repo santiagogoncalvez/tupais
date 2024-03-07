@@ -7,6 +7,11 @@ Recomendaciones:
     - Escribir los url concatenando strings asi no se generan errores 404
 */
 
+function moreThan2Words(str) {
+    let words = str.split(" ");
+    return words.length >= 3;
+}
+
 function formatWord(word) {
     let formatedWord = replaceHyphensWithSpaces(word);
     formatedWord = removeAccents(formatedWord);
@@ -49,8 +54,8 @@ function urlFlag(code) {
 
 function getAllCountries() {
     return new Promise(async (resolve, reject) => {
+        let url = "https://restcountries.com/v3.1/all";
         try {
-            let url = "https://restcountries.com/v3.1/all";
             let response = await fetch(url);
             let countries = await response.json();
             resolve(countries);
@@ -62,9 +67,9 @@ function getAllCountries() {
 
 function getCountriesByContinent(continent) {
     return new Promise(async (resolve, reject) => {
+        if (continent === "america") continent = "americas";
+        let url = "https://restcountries.com/v3.1/region/" + continent;
         try {
-            if (continent === "america") continent = "americas";
-            let url = "https://restcountries.com/v3.1/region/" + continent;
             let response = await fetch(url);
             let countries = await response.json();
             resolve(countries);
@@ -105,7 +110,14 @@ export function getRandomCountries(continent, quantityCountries = 10) {
                     countries[Math.floor(Math.random() * countries.length)];
                 let formattedName = formatWord(randomCountry.name.common);
 
-                if (result.some(element => element.name === formattedName)) {
+                // No deben repetirse los países
+                if (result.some((element) => element.name === formattedName)) {
+                    i--;
+                    continue;
+                }
+
+                // Ignorar elemntos con más de 2 palabras
+                if (moreThan2Words(formattedName)) {
                     i--;
                     continue;
                 }

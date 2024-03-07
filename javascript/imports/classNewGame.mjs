@@ -1,3 +1,5 @@
+// Clase que maneja el estado del juego
+
 function showResponse(type) {
     // Create a div element for the response card
     let responseDiv = document.createElement("div");
@@ -58,13 +60,11 @@ export class NewGame {
     }
 
     insertAnswerResults(element, correcAnswers, time) {
-        element.insertAdjacentHTML(
-            "beforeend",
-            `
+    const elementHtml = `
     <div class="answer-results">
-  <a href="./index.html" class="answer-results__close-link"><img src="./images/close.png" alt="" class="answer-results__close-img" />
-  </a>
-  <p class="answer-results__paragraph">
+    <a href="./index.html" class="answer-results__close-link"><img src="./images/ close.png" alt="" class="answer-results__close-img" />
+    </a>
+    <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
     <span class="answer-results__span"></span>
     <span class="answer-results__span">
@@ -75,13 +75,13 @@ export class NewGame {
     </span>
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
-  </p>
+    </p>
+    <a href="./index.html" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
+     <a href="./pages-html/timer-mode.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
+    </div>
+    <div class="blurry-background"></div>`;
 
-  <a href="./index.html" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
-  <a href="./pages-html/timer-mode.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
-</div>
-<div class="blurry-background"></div>`
-        );
+    element.insertAdjacentHTML("beforeend", elementHtml);
     }
 
     nextCountry() {
@@ -194,6 +194,10 @@ export class NewGame {
         this.insertLetter(pressedKey, letterElement);
         currentAnswer = lastAnswer + pressedKey;
         return new NewGame(this.modifyProperty("answerUser", currentAnswer));
+    }
+
+    verifyAnswer(anwser) {
+        
     }
 
     modifyProperty(property = null, newValue = null) {

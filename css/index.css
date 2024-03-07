@@ -206,10 +206,9 @@ html {
     justify-content: center;
     align-items: center;
     background-color: #bfe1ff;
-    max-height: 2.8em;
+    height: 2.8em;
     transition: height 0.2s;
     width: 99.5%;
-    max-width: 100%;
     border-color: whitesmoke;
     border-radius: 8px;
     border-width: 0.18em;
@@ -218,10 +217,11 @@ html {
 }
 
 .header__title {
-    font-size: clamp(0.2px, 1.8rem, 10vw);
+    font-size: clamp(0.2px, 1.6rem, 8vw);
     color: #0d336b;
     text-align: center;
     margin: 0 auto;
+    padding: 0;
 }
 
 .game {
@@ -245,8 +245,8 @@ html {
     width: 100%;
     list-style-type: none;
     padding: 0;
-    margin-top: 0.2rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .game__statistics-item {
@@ -284,17 +284,23 @@ html {
 .game__countrie-description {
     text-align: center;
     width: 100%;
+    max-width: 80vw;
     font-size: 1.5rem;
     text-transform: uppercase;
     font-size: 1em;
     margin-top: 0rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .game__flag {
-    max-width: 15rem;
-    max-height: 6.5rem;
+    width: 70%;
+    max-width: 70vw;
+    max-height: 80%;
     user-select: none;
+    border-radius: 0.5rem;
+    border-color: rgb(205, 205, 205);
+    border-style: solid;
+    border-width: 0.2rem;
 }
 
 .game__answer {
@@ -309,7 +315,7 @@ html {
     margin-bottom: 0em;
 }
 
-.game__answer-word {
+.game__answer-letter {
     border-radius: 0.2em;
     height: 1.3em;
     width: 1.4em;
@@ -332,26 +338,7 @@ html {
     user-select: none;
 }
 
-/* Definición de la animación de sacudida */
-@keyframes shake {
-    0% {
-        transform: translateX(0);
-    } /* Sin sacudida */
-    25% {
-        transform: translateX(-5px);
-    } /* Movimiento a la izquierda */
-    50% {
-        transform: translateX(5px);
-    } /* Movimiento a la derecha */
-    75% {
-        transform: translateX(-5px);
-    } /* Movimiento a la izquierda */
-    100% {
-        transform: translateX(0);
-    } /* Sin sacudida */
-}
-
-.game__answer-word--space {
+.game__answer-letter--space {
     border-radius: 0em;
     height: 1.6em;
     width: 1.1em;
@@ -373,7 +360,7 @@ html {
     width: 28rem;
     max-width: 90vw;
     margin-top: 0rem;
-    margin-bottom: 0rem;
+    margin-bottom: 1rem;
     user-select: none;
     overflow: auto;
 }
@@ -419,7 +406,7 @@ html {
 }
 
 .keyboard__button:hover {
-    background: rgb(189, 189, 189);
+    background: rgb(202, 202, 202);
 }
 
 .keyboard__column--3 > :nth-child(9) {
@@ -432,7 +419,7 @@ html {
     color: white;
     font-size: 0.9em;
     font-weight: bold;
-    border-radius: 0.5em;
+    border-radius: 0.4em;
     border-color: whitesmoke;
     padding: 0px;
     min-height: 2em;
@@ -462,7 +449,7 @@ html {
     border-radius: 8px;
     border-width: 0.18em;
     border-style: solid;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
 .footer__paragraph {
@@ -479,7 +466,10 @@ html {
     left: 50%;
     transform: translateX(-50%);
     background-color: #dff0d8; /* Color de fondo verde para respuesta correcta */
-    padding: 10px 20px;
+    width: 11rem;
+    height: 2rem;
+    text-align: center;
+    padding-top: 0.5rem;
     border: 1px solid #d0e9c6; /* Borde verde para respuesta correcta */
     border-radius: 5px;
     display: none; /* Ocultar la tarjeta inicialmente */
@@ -495,6 +485,7 @@ html {
     border: 1px solid #ebccd1;
 }
 
+/* Efecto para las letras si la respuesta es correcta */
 .efect-correct-answer {
     border-radius: 0.2em;
     height: 1.5em;
@@ -509,6 +500,25 @@ html {
     padding-top: 0.4em;
     text-transform: uppercase;
     user-select: none;
+}
+
+/* Definición de la animación de sacudida */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    } /* Sin sacudida */
+    25% {
+        transform: translateX(-5px);
+    } /* Movimiento a la izquierda */
+    50% {
+        transform: translateX(5px);
+    } /* Movimiento a la derecha */
+    75% {
+        transform: translateX(-5px);
+    } /* Movimiento a la izquierda */
+    100% {
+        transform: translateX(0);
+    } /* Sin sacudida */
 }
 
 /* Answers results elements */

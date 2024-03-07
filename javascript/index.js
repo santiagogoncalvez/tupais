@@ -1,12 +1,14 @@
 // Imports
 import { getRandomCountries } from "./imports/countryDataManager.mjs";
-import { NewGame } from "./imports/classNewGame.mjs";
+import { NewGame } from "../tests/classNewGame-copy.mjs";
 
 // Elements
 const startAgain = document.getElementsByClassName("game__start-again");
 
 // Bindings
-let game;
+let game,
+    timeOfGame = 0;
+
 // Functions
 
 function formatTime(milliseconds) {
@@ -31,7 +33,7 @@ function countDown(milliseconds, element) {
             game.insertAnswerResults(
                 document.getElementsByClassName("homepage")[0],
                 game.correctAnswers,
-                secondsAnswer
+                timeOfGame
             );
         } else {
             let minutes = Math.floor(milliseconds / 60000);
@@ -45,6 +47,7 @@ function countDown(milliseconds, element) {
 
             // Restar un segundo al tiempo restante
             milliseconds -= 1000;
+            timeOfGame++;
         }
     }, 1000);
 }
@@ -102,6 +105,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         countries: randomCountries,
         answerUser: "",
         correctAnswers: 0,
+        lastResponseStatus: false,
         elementsHtml: {
             flagImg: flagImg,
             answerDiv: answerDiv,
@@ -127,5 +131,21 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 document.addEventListener("keydown", function (event) {
     let pressedKey = event.key.toLowerCase();
+    if (pressedKey === "enter") {
+        game = game.verifyAnswer(
+            game.anwserUser,
+            game.countries[correcAnswers]
+        );
+
+        if (game.lastResponseStatus === true) {
+            game.showNewFlag();
+        }
+    }
+
     game = game.modifyAnswer(pressedKey, game.answerUser);
+
+    // Mostrar resultados
+    if (game.correcAnswers === 10) {
+        game.showResults();
+    }
 });

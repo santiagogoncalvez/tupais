@@ -5,78 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <h1 id="title"></h1>
-        <img src="https://flagcdn.com/128x96/ar.png" alt="" id="img" />
+        <!-- <img src="https://flagcdn.com/128x96/ar.png" alt="" id="img" /> -->
         <script type="module">
-            // const title = document.getElementById("title");
-            // const img = document.getElementById("img");
+            async function getCountrie(countrie) {
+                let url = "https://restcountries.com/v3.1/name/" + countrie;
+                let response = await fetch(url);
+                let result = await response.json();
+                return result;
+            }
 
-            // async function getCountrie() {
-            //     const countrie = await fetch(
-            //         "https://flagcdn.com/16x12/ar.png"
-            //     );
-            //     console.log(countrie);
-            // }
-
-            // function insert(code) {
-            //     document.getElementById(
-            //         "title"
-            //     ).innerHTML = `<img src="https://flagcdn.com/128x96/${code}.png"></img>`;
-            // }
-
-            // function changeAttribute (code) {
-            //     img.setAttribute("src", `https://flagcdn.com/128x96/${code}.png`)
-            // }
-
-            // setTimeout(() => {
-            //     changeAttribute("us");
-            // }, 1000);
-
-            // setTimeout(() => {
-            //     changeAttribute("pe");
-            // }, 2000);
-
-            // setTimeout(() => {
-            //     changeAttribute("uy");
-            // }, 3000);
-
-            // async function getRandomCountrie(continent) {
-            //     try {
-            //         if (continent === "all continents") {
-            //             let url = `https://restcountries.com/v3.1/all`;
-            //             let response = await fetch(url);
-            //             let countries = await response.json();
-            //             let country =
-            //                 countries[
-            //                     Math.floor(Math.random() * countries.length)
-            //                 ];
-            //             let name = country.name.common;
-            //             let code = country.cca2.toLowerCase();
-            //             let region = country.region;
-            //             return { name: name, code: code, region: region };
-            //         }
-
-            //         let url = `https://restcountries.com/v3.1/region/${continent}`;
-            //         let response = await fetch(url);
-            //         let countries = await response.json();
-            //         let country =
-            //             countries[Math.floor(Math.random() * countries.length)];
-            //         let name = country.name.common;
-            //         let code = country.cca2.toLowerCase();
-            //         let region = country.region;
-            //         return { name: name, code: code, region: region };
-            //     } catch (err) {
-            //         throw new Error("Error request restAPI: ", err);
-            //     }
-            // }
-
-            // let countrie = await getRandomCountrie("all continents");
-            // // console.log(countrie);
-
-            let svalbard = await fetch(
-                "https://restcountries.com/v3.1/name/Svalbard and Jan Mayen"
-            );
-            let result = await svalbard.json();
-            console.log(result)
+            getCountrie("united states").then(console.log);
         </script>
     </head>
     <body></body>

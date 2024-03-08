@@ -61,8 +61,6 @@ function countDown(milliseconds, element) {
             }
         }, 1000);
     }
-
-     
 }
 
 // Función para añadir ceros delante de un número si es necesario
@@ -174,4 +172,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 document.addEventListener("keydown", function (event) {
     listenKeyboard(event.key.toLowerCase());
     return;
+});
+
+document
+    .querySelector(".navbar__button")
+    .addEventListener("click", function () {
+        document.querySelector(".navbar").style.left = "0";
+    });
+
+document.querySelector(".game").addEventListener("click", function () {
+    document.querySelector(".navbar").style.left = "-400px";
 });

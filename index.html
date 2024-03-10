@@ -1,59 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tu Pais</title>
-        <script src="./javascript/index.js" type="module"></script>
-        <link rel="stylesheet" href="./css/index.css" type="text/css" />
-    </head>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Tu Pais</title>
+      <script src="./javascript/index.js" type="module"></script>
+      <link rel="stylesheet" href="./css/index.css" type="text/css" />
+   </head>
 
-    <body class="homepage">
-        <header class="header">
-            <button class="navbar__button--open">
-                <span class="navbar__icon"></span>
-                <span class="navbar__icon"></span>
-                <span class="navbar__icon"></span>
+   <body class="homepage">
+      <header class="header">
+         <button class="navbar__button--open">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <h1 class="header__title">TU PAÍS</h1>
+
+         <button class="navbar__button--open">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <nav class="navbar">
+            <button class="navbar__button--close">
+               <div>
+                  <span class="navbar__icon--close1"></span>
+                  <span class="navbar__icon--close2"></span>
+               </div>
             </button>
+            <ul class="navbar__list">
+               <li class="navbar__item--1">
+                  <a href="#" class="navbar__link--1">Modos de juego</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--2">
+                  <a href="#" class="navbar__link--2">Banderas</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--3">
+                  <a href="#" class="navbar__link--3">Acerca del juego</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--4">
+                  <a href="#" class="navbar__link--4">Créditos</a>
+                  <span class="navbar__division"></span>
+               </li>
+            </ul>
+         </nav>
 
-            <h1 class="header__title">TÚ PAÍS</h1>
-
-            <button class="navbar__button--open">
-                <span class="navbar__icon"></span>
-                <span class="navbar__icon"></span>
-                <span class="navbar__icon"></span>
-            </button>
-
-            <nav class="navbar">
-                <button class="navbar__button--close">
-                    <div>
-                        <span class="navbar__icon--close1"></span>
-                        <span class="navbar__icon--close2"></span>
-                    </div>
-                </button>
-                <ul class="navbar__list">
-                    <li class="navbar__item--1">
-                        <a href="#" class="navbar__link--1">Acerca del juego</a>
-                        <span class="navbar__division"></span>
-                    </li>
-                    <li class="navbar__item--2">
-                        <a href="#" class="navbar__link--2"
-                            >Banderas de paises</a
-                        >
-                        <span class="navbar__division"></span>
-                    </li>
-                    <li class="navbar__item--3">
-                        <a href="#" class="navbar__link--3">Modos de juego</a>
-                        <span class="navbar__division"></span>
-                    </li>
-                    <li class="navbar__item--4">
-                        <a href="#" class="navbar__link--4">Créditos</a>
-                        <span class="navbar__division"></span>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- <nav class="settings">
+         <!-- <nav class="settings">
                 <button class="settings__buttom"></button>
                 <ul class="settings-list">
                     <li class="settings__item">Modo oscuro</li>
@@ -61,268 +59,268 @@
                     <li class="settings__item">Tiempo de juego</li>
                 </ul>
             </nav> -->
-        </header>
-        <div class="game">
-            <ul class="game__statistics">
-                <li class="game__statistics-item">
-                    Tiempo<br />
-                    <span class="game__time">00:00</span>
-                </li>
-                <li class="game__statistics-item">
-                    Aciertos<br />
-                    <span class="game__correct-answers">0/10</span>
-                </li>
-                <li class="game__statistics-item">
-                    Pistas<br />
-                    <span class="game__clues">💡</span>
-                </li>
-            </ul>
+      </header>
+      <div class="game">
+         <ul class="game__statistics">
+            <li class="game__statistics-item">
+               Tiempo<br />
+               <span class="game__time">00:00</span>
+            </li>
+            <li class="game__statistics-item">
+               Aciertos<br />
+               <span class="game__correct-answers">0/10</span>
+            </li>
+            <li class="game__statistics-item">
+               Pistas<br />
+               <span class="game__clues">💡</span>
+            </li>
+         </ul>
 
-            <figcaption class="game__countrie">
-                <figcaption class="game__countrie-description"></figcaption>
-                <img src="" alt="" class="game__flag" />
-            </figcaption>
+         <figcaption class="game__countrie">
+            <figcaption class="game__countrie-description"></figcaption>
+            <img src="" alt="" class="game__flag" />
+         </figcaption>
 
-            <div class="game__answer">
-                <!-- <div class="game__answer-word"></div> 
+         <div class="game__answer">
+            <!-- <div class="game__answer-word"></div> 
                 <div class="game__answer-word--space"></div> -->
+         </div>
+
+         <div class="keyborad">
+            <div class="keyboard__column--1">
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="Q"
+                  class="keyboard__button"
+               >
+                  Q
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="W"
+                  class="keyboard__button"
+               >
+                  W
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="E"
+                  class="keyboard__button"
+               >
+                  E
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="R"
+                  class="keyboard__button"
+               >
+                  R
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="T"
+                  class="keyboard__button"
+               >
+                  T
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="Y"
+                  class="keyboard__button"
+               >
+                  Y
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="U"
+                  class="keyboard__button"
+               >
+                  U
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="I"
+                  class="keyboard__button"
+               >
+                  I</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="O"
+                  class="keyboard__button"
+               >
+                  O</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="P"
+                  class="keyboard__button"
+               >
+                  P
+               </button>
             </div>
-
-            <div class="keyborad">
-                <div class="keyboard__column--1">
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="Q"
-                        class="keyboard__button"
-                    >
-                        Q
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="W"
-                        class="keyboard__button"
-                    >
-                        W
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="E"
-                        class="keyboard__button"
-                    >
-                        E
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="R"
-                        class="keyboard__button"
-                    >
-                        R
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="T"
-                        class="keyboard__button"
-                    >
-                        T
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="Y"
-                        class="keyboard__button"
-                    >
-                        Y
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="U"
-                        class="keyboard__button"
-                    >
-                        U
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="I"
-                        class="keyboard__button"
-                    >
-                        I</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="O"
-                        class="keyboard__button"
-                    >
-                        O</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="P"
-                        class="keyboard__button"
-                    >
-                        P
-                    </button>
-                </div>
-                <div class="keyboard__column--2">
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="A"
-                        class="keyboard__button"
-                    >
-                        A</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="S"
-                        class="keyboard__button"
-                    >
-                        S</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="D"
-                        class="keyboard__button"
-                    >
-                        D</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="F"
-                        class="keyboard__button"
-                    >
-                        F</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="G"
-                        class="keyboard__button"
-                    >
-                        G</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="H"
-                        class="keyboard__button"
-                    >
-                        H</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="I"
-                        class="keyboard__button"
-                    >
-                        I</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="J"
-                        class="keyboard__button"
-                    >
-                        J</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="K"
-                        class="keyboard__button"
-                    >
-                        K</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="L"
-                        class="keyboard__button"
-                    >
-                        L
-                    </button>
-                </div>
-                <div class="keyboard__column--3">
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="Z"
-                        class="keyboard__button"
-                    >
-                        Z</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="X"
-                        class="keyboard__button"
-                    >
-                        X</button
-                    ><button
-                        type="submit"
-                        name="button-keyboard"
-                        value="C"
-                        class="keyboard__button"
-                    >
-                        C
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="V"
-                        class="keyboard__button"
-                    >
-                        V
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="B"
-                        class="keyboard__button"
-                    >
-                        B
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="N"
-                        class="keyboard__button"
-                    >
-                        N
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="M"
-                        class="keyboard__button"
-                    >
-                        M
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="backspace"
-                        class="keyboard__button"
-                    >
-                        ←
-                    </button>
-                    <button
-                        type="submit"
-                        name="button-keyboard"
-                        value="enter"
-                        class="keyboard__button"
-                    >
-                        ENTER
-                    </button>
-                </div>
+            <div class="keyboard__column--2">
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="A"
+                  class="keyboard__button"
+               >
+                  A</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="S"
+                  class="keyboard__button"
+               >
+                  S</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="D"
+                  class="keyboard__button"
+               >
+                  D</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="F"
+                  class="keyboard__button"
+               >
+                  F</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="G"
+                  class="keyboard__button"
+               >
+                  G</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="H"
+                  class="keyboard__button"
+               >
+                  H</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="I"
+                  class="keyboard__button"
+               >
+                  I</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="J"
+                  class="keyboard__button"
+               >
+                  J</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="K"
+                  class="keyboard__button"
+               >
+                  K</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="L"
+                  class="keyboard__button"
+               >
+                  L
+               </button>
             </div>
+            <div class="keyboard__column--3">
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="Z"
+                  class="keyboard__button"
+               >
+                  Z</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="X"
+                  class="keyboard__button"
+               >
+                  X</button
+               ><button
+                  type="submit"
+                  name="button-keyboard"
+                  value="C"
+                  class="keyboard__button"
+               >
+                  C
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="V"
+                  class="keyboard__button"
+               >
+                  V
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="B"
+                  class="keyboard__button"
+               >
+                  B
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="N"
+                  class="keyboard__button"
+               >
+                  N
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="M"
+                  class="keyboard__button"
+               >
+                  M
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="backspace"
+                  class="keyboard__button"
+               >
+                  ←
+               </button>
+               <button
+                  type="submit"
+                  name="button-keyboard"
+                  value="enter"
+                  class="keyboard__button"
+               >
+                  ENTER
+               </button>
+            </div>
+         </div>
 
-            <button class="game__start-again">EMPEZAR DE NUEVO</button>
-        </div>
-        <!-- <ul class="game__clues"></ul> -->
+         <button class="game__start-again">EMPEZAR DE NUEVO</button>
+      </div>
+      <!-- <ul class="game__clues"></ul> -->
 
-        <footer class="footer">
-            <!-- <button class="footer__github"></button> -->
-            <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
-        </footer>
-    </body>
+      <footer class="footer">
+         <!-- <button class="footer__github"></button> -->
+         <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
+      </footer>
+   </body>
 </html>

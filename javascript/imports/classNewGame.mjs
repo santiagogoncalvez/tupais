@@ -79,8 +79,8 @@ export class NewGame {
     insertAnswerResults(element, correctAnswers, time) {
         const elementHtml = `
     <div class="answer-results">
-    <a href="./index.html" class="answer-results__close-link"><img src="" alt="" class="answer-results__close-img" />
-    </a>
+    <button class="answer-results__close">
+    </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
     <span class="answer-results__span"></span>
@@ -93,8 +93,8 @@ export class NewGame {
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
     </p>
-    <a href="./index.html" class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></a>
-     <a href="./pages-html/timer-mode.html" class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></a>
+    <button class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></button>
+     <button class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></button>
     </div>
     <div class="blurry-background"></div>`;
 

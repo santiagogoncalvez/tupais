@@ -4,6 +4,14 @@ import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
 const startAgain = document.getElementsByClassName("game__start-again");
+const menuButtonOpen = document.getElementsByClassName("navbar__button--open");
+const menu = document.getElementsByClassName("navbar");
+const menuButtonClose = document.getElementsByClassName(
+   "navbar__button--close"
+);
+const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
+const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
+
 // Bindings
 let game;
 let timeElapsed = 0;
@@ -12,7 +20,7 @@ let timeInterval;
 const presentationHtml = `        
             <section class="presentation__section">
             <header class="presentation__header">
-                <h2 class="presentation__header-title">TÚ PAÍS</h2>
+                <h2 class="presentation__header-title">TU PAÍS</h2>
 
                 <!-- icono de cruz para salir -->
                 <a href="#" class="presentation__header-link"
@@ -28,7 +36,7 @@ const presentationHtml = `
                 <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
 
                 <p class="presentation__paragraph">
-                    <strong>TÚ PAÍS</strong> es un juego de adivinanzas
+                    <strong>TU PAÍS</strong> es un juego de adivinanzas
                     geográficas en el que tenés que acertar el nombre de países
                     de los diferentes continentes. Si llegas a las 10 respuestas
                     correctas ¡Ganás!
@@ -98,274 +106,342 @@ const presentationHtml = `
 
 // Functions
 
+function insertTextContinent(continent) {
+   let result = {
+      africa: "ÁFRICA",
+      america: "AMÉRICA",
+      asia: "ASIA",
+      europa: "EUROPA",
+      oceania: "OCEANÍA",
+      ["all continents"]: "TODOS LOS CONTINENTES",
+   };
+
+   return result[continent];
+}
+
 async function createNewGame() {
-    // Clean timer
-    clearInterval(freeTimeInterval);
-    clearInterval(timeInterval);
+   // Clean timer
+   clearInterval(freeTimeInterval);
+   clearInterval(timeInterval);
 
-    // Create timer
-    const timerElement = document.getElementsByClassName("game__time");
-    let timeStorage = sessionStorage.getItem("time")
-        ? Number(sessionStorage.getItem("time"))
-        : -1;
-    if (timeStorage === -1) {
-        timerElement[0].textContent = "LIBRE";
-        countDown(timeStorage);
-    }
-    if (timeStorage !== -1) {
-        timerElement[0].textContent = formatTime(timeStorage);
-        countDown(timeStorage, timerElement[0]);
-    }
+   // Create timer
+   const timerElement = document.getElementsByClassName("game__time");
+   let timeStorage = sessionStorage.getItem("time")
+      ? Number(sessionStorage.getItem("time"))
+      : -1;
+   if (timeStorage === -1) {
+      timerElement[0].textContent = "LIBRE";
+      countDown(timeStorage);
+   }
+   if (timeStorage !== -1) {
+      timerElement[0].textContent = formatTime(timeStorage);
+      countDown(timeStorage, timerElement[0]);
+   }
 
-    const flagImg = document.getElementsByClassName("game__flag");
-    const answerDiv = document.getElementsByClassName("game__answer");
-    const continentElement = document.getElementsByClassName(
-        "game__countrie-description"
-    );
-    const correctAnswerSpan = document.getElementsByClassName(
-        "game__correct-answers"
-    );
+   const flagImg = document.getElementsByClassName("game__flag");
+   const answerDiv = document.getElementsByClassName("game__answer");
+   const continentElement = document.getElementsByClassName(
+      "game__countrie-description"
+   );
+   const correctAnswerSpan = document.getElementsByClassName(
+      "game__correct-answers"
+   );
 
-    let gameContinent = sessionStorage.getItem("continent")
-        ? sessionStorage.getItem("continent")
-        : "all continents";
-    let randomCountries = await getRandomCountries(gameContinent, 10);
+   let gameContinent = sessionStorage.getItem("continent")
+      ? sessionStorage.getItem("continent")
+      : "all continents";
+   let randomCountries = await getRandomCountries(gameContinent, 10);
 
-    NewGame.innerLetterElements(randomCountries[0].name, answerDiv[0]);
-    flagImg[0].src = randomCountries[0].flagUrl;
+   NewGame.innerLetterElements(randomCountries[0].name, answerDiv[0]);
+   flagImg[0].src = randomCountries[0].flagUrl;
 
-    // Continent text
-    if (gameContinent === "all continents") {
-        continentElement[0].textContent = "todos los continentes";
-    } else {
-        continentElement[0].textContent = gameContinent;
-    }
+   // Continent text
+      continentElement[0].textContent = insertTextContinent(gameContinent);
+   
+   const answerLetterElements = document.getElementsByClassName(
+      "game__answer-letter"
+   );
 
-    const answerLetterElements = document.getElementsByClassName(
-        "game__answer-letter"
-    );
+   let stateGame = {
+      time: timeStorage,
+      continent: gameContinent,
+      countries: randomCountries,
+      answerUser: "",
+      correctAnswers: 0,
+      lastResponseStatus: false,
+      elementsHtml: {
+         flagImg: flagImg,
+         answerDiv: answerDiv,
+         answerLetters: answerLetterElements,
+         continentSpan: continentElement,
+         correctAnswerSpan: correctAnswerSpan,
+      },
+   };
 
-    let stateGame = {
-        time: timeStorage,
-        continent: gameContinent,
-        countries: randomCountries,
-        answerUser: "",
-        correctAnswers: 0,
-        lastResponseStatus: false,
-        elementsHtml: {
-            flagImg: flagImg,
-            answerDiv: answerDiv,
-            answerLetters: answerLetterElements,
-            continentSpan: continentElement,
-            correctAnswerSpan: correctAnswerSpan,
-        },
-    };
+   game = new NewGame(stateGame);
+   console.log(game);
 
-    game = new NewGame(stateGame);
-    console.log(game);
+   // Keyboards buttons event
+   for (let element of buttonsKeyboard) {
+      element.addEventListener("click", listenKeyboard);
+   }
+
+   document.addEventListener("keydown", listenKeyboard);
 }
 
 function formatTime(milliseconds) {
-    // Calcular minutos y segundos
-    let totalSeconds = Math.floor(milliseconds / 1000);
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
+   // Calcular minutos y segundos
+   let totalSeconds = Math.floor(milliseconds / 1000);
+   let minutes = Math.floor(totalSeconds / 60);
+   let seconds = totalSeconds % 60;
 
-    // Formatear los minutos y segundos
-    let formattedMinutes = pad(minutes, 2);
-    let formattedSeconds = pad(seconds, 2);
+   // Formatear los minutos y segundos
+   let formattedMinutes = pad(minutes, 2);
+   let formattedSeconds = pad(seconds, 2);
 
-    // Concatenar minutos y segundos formateados
-    return formattedMinutes + ":" + formattedSeconds;
+   // Concatenar minutos y segundos formateados
+   return formattedMinutes + ":" + formattedSeconds;
 }
 // Timer
 function countDown(milliseconds, element) {
-    if (milliseconds === -1) {
-        freeTimeInterval = setInterval(function () {
-            if (game.correctAnswers === 10) {
-                clearInterval(freeTimeInterval);
-            } else {
-                timeElapsed++;
+   if (milliseconds === -1) {
+      freeTimeInterval = setInterval(function () {
+         if (game.correctAnswers === 10) {
+            clearInterval(freeTimeInterval);
+         } else {
+            timeElapsed++;
+         }
+      }, 1000);
+   }
+
+   if (milliseconds !== -1) {
+      timeInterval = setInterval(function () {
+         if (milliseconds < 0) {
+            clearInterval(timeInterval);
+
+            game.showResults(timeElapsed);
+
+            // Quitar eventos del teclado
+            for (let element of buttonsKeyboard) {
+               element.removeEventListener("click", listenKeyboard);
             }
-        }, 1000);
-    }
+            document.removeEventListener("keydown", listenKeyboard);
 
-    if (milliseconds !== -1) {
-        timeInterval = setInterval(function () {
-            if (milliseconds < 0) {
-                clearInterval(timeInterval);
-                game.insertAnswerResults(
-                    document.getElementsByClassName("homepage")[0],
-                    game.correctAnswers,
-                    timeElapsed++
-                );
-            } else {
-                let minutes = Math.floor(milliseconds / 60000);
-                let seconds = Math.floor((milliseconds % 60000) / 1000);
+            const cardResults =
+               document.getElementsByClassName("answer-results")[0];
+            const bgBlurry =
+               document.getElementsByClassName("blurry-background")[0];
+            const startButton = document.getElementsByClassName(
+               "answer-results__button--start-again"
+            )[0];
+            const closeButton = document.getElementsByClassName(
+               "answer-results__close"
+            )[0];
 
-                // Formatear los minutos y segundos en un string en formato MM:SS
-                let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
+            startButton.addEventListener("click", function () {
+               cardResults.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               cardResults.remove();
+               createNewGame();
+            });
 
-                // Mostrar el tiempo restante en el elemento
-                element.textContent = formattedTime;
+            closeButton.addEventListener("click", function () {
+               cardResults.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               cardResults.remove();
+               createNewGame();
+            });
+         } else {
+            let minutes = Math.floor(milliseconds / 60000);
+            let seconds = Math.floor((milliseconds % 60000) / 1000);
 
-                // Restar un segundo al tiempo restante
-                milliseconds -= 1000;
-                timeElapsed++;
-            }
-        }, 1000);
-    }
+            // Formatear los minutos y segundos en un string en formato MM:SS
+            let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
+
+            // Mostrar el tiempo restante en el elemento
+            element.textContent = formattedTime;
+
+            // Restar un segundo al tiempo restante
+            milliseconds -= 1000;
+            timeElapsed++;
+         }
+      }, 1000);
+   }
 }
 
 // Función para añadir ceros delante de un número si es necesario
 function pad(number, length) {
-    return ("0" + number).slice(-length);
+   return ("0" + number).slice(-length);
 }
 
-function listenKeyboard(pressedKey) {
-    if (pressedKey === "enter") {
-        game = game.verifyAnswer(
-            game.answerUser,
-            game.countries[game.correctAnswers].name
-        );
+function listenKeyboard(event) {
+   let pressedKey;
+   if (event.key) {
+      pressedKey = event.key.toLowerCase();
+   }
+   if (event.target.value) {
+      pressedKey = event.target.value.toLowerCase();
+   }
 
-        // Mostrar resultados
-        if (game.correctAnswers === 10) {
-            game.showResults(timeElapsed);
-            return;
-        }
+   if (pressedKey === "enter") {
+      game = game.verifyAnswer(
+         game.answerUser,
+         game.countries[game.correctAnswers].name
+      );
 
-        if (game.lastResponseStatus) {
-            game.showNewFlag();
-            NewGame.innerLetterElements(
-                game.countries[game.correctAnswers].name,
-                game.elementsHtml.answerDiv[0]
-            );
-        }
-        return;
-    }
+      // Mostrar resultados
+      if (game.correctAnswers === 10) {
+         game.showResults(timeElapsed);
+         // Quitar eventos del teclado
+         for (let element of buttonsKeyboard) {
+            element.removeEventListener("click", listenKeyboard);
+         }
+         document.removeEventListener("keydown", listenKeyboard);
 
-    game = game.modifyAnswer(pressedKey, game.answerUser);
+         const cardResults =
+            document.getElementsByClassName("answer-results")[0];
+         const bgBlurry =
+            document.getElementsByClassName("blurry-background")[0];
+         const startButton = document.getElementsByClassName(
+            "answer-results__button--start-again"
+         )[0];
+         const closeButton = document.getElementsByClassName(
+            "answer-results__close"
+         )[0];
+
+         startButton.addEventListener("click", function () {
+            cardResults.style.top = "-20rem";
+            bgBlurry.style.opacity = "0";
+            bgBlurry.remove();
+            cardResults.remove();
+            createNewGame();
+         });
+
+         closeButton.addEventListener("click", function () {
+            cardResults.style.top = "-20rem";
+            bgBlurry.style.opacity = "0";
+            bgBlurry.remove();
+            cardResults.remove();
+            createNewGame();
+         });
+         return;
+      }
+
+      if (game.lastResponseStatus) {
+         game.showNewFlag();
+         NewGame.innerLetterElements(
+            game.countries[game.correctAnswers].name,
+            game.elementsHtml.answerDiv[0]
+         );
+      }
+      return;
+   }
+
+   game = game.modifyAnswer(pressedKey, game.answerUser);
 }
 
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
-    // Presentation
-    if (
-        sessionStorage.getItem("time") === null &&
-        sessionStorage.getItem("continent") === null
-    ) {
-        let body = document.getElementsByClassName("homepage")[0];
-        body.insertAdjacentHTML("beforeend", presentationHtml);
-        let presentation = document.getElementsByClassName(
-            "presentation__section"
-        );
-        let blurry = document.getElementsByClassName("blurry-background")[0];
+   // Presentation
+   if (
+      sessionStorage.getItem("time") === null &&
+      sessionStorage.getItem("continent") === null
+   ) {
+      let body = document.getElementsByClassName("homepage")[0];
+      body.insertAdjacentHTML("beforeend", presentationHtml);
+      let presentation = document.getElementsByClassName(
+         "presentation__section"
+      )[0];
+      let bgBlurry = document.getElementsByClassName("blurry-background")[0];
 
-        async function insertPresentation() {
-            return new Promise((resolve, reject) => {
-                const continentsDropdown = document.getElementById(
-                    "continents-dropdown"
-                );
-                const buttonsTime = document.getElementsByClassName(
-                    "presentation__button-time"
-                );
-                const startButton = document.getElementsByClassName(
-                    "presentation__button-start"
-                )[0];
-                const closeIcon = document.getElementsByClassName(
-                    "presentation__header-link"
-                )[0];
+      async function insertPresentation() {
+         return new Promise((resolve, reject) => {
+            const continentsDropdown = document.getElementById(
+               "continents-dropdown"
+            );
+            const buttonsTime = document.getElementsByClassName(
+               "presentation__button-time"
+            );
+            const startButton = document.getElementsByClassName(
+               "presentation__button-start"
+            )[0];
+            const closeIcon = document.getElementsByClassName(
+               "presentation__header-link"
+            )[0];
 
-                // Millisenconds
-                let continent = "all continents";
-                let time = -1; //free time
-                let timesOptions = [-1, 30000, 60000];
+            // Millisenconds
+            let continent = "all continents";
+            let time = -1; //free time
+            let timesOptions = [-1, 30000, 60000];
 
-                // Events
-                continentsDropdown.addEventListener("change", function (event) {
-                    continent = event.target.value;
-                });
-
-                for (let i = 0; i < buttonsTime.length; i++) {
-                    buttonsTime[i].addEventListener("click", function () {
-                        time = timesOptions[i];
-                    });
-                }
-
-                startButton.addEventListener("click", function () {
-                    sessionStorage.setItem("continent", continent);
-                    sessionStorage.setItem("time", time);
-                    presentation[0].style.top = "-20rem";
-                    blurry.style.opacity = "0";
-                    blurry.remove();
-                    resolve();
-                });
-
-                closeIcon.addEventListener("click", function () {
-                    sessionStorage.setItem("continent", continent);
-                    sessionStorage.setItem("time", time);
-                    presentation[0].style.top = "-20rem";
-                    blurry.style.opacity = "0";
-                    blurry.remove();
-                    resolve();
-                });
+            // Events
+            continentsDropdown.addEventListener("change", function (event) {
+               continent = event.target.value;
             });
-        }
 
-        await insertPresentation();
-    }
+            for (let i = 0; i < buttonsTime.length; i++) {
+               buttonsTime[i].addEventListener("click", function () {
+                  time = timesOptions[i];
+               });
+            }
 
-    createNewGame();
+            startButton.addEventListener("click", function () {
+               sessionStorage.setItem("continent", continent);
+               sessionStorage.setItem("time", time);
+               presentation.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               presentation.remove();
+               resolve();
+            });
 
-    // Keyboards buttons event
-    const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
-    for (let element of buttonsKeyboard) {
-        element.addEventListener("click", function () {
-            listenKeyboard(element.value.toLowerCase());
-        });
-    }
+            closeIcon.addEventListener("click", function () {
+               sessionStorage.setItem("continent", continent);
+               sessionStorage.setItem("time", time);
+               presentation.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               presentation.remove();
+               resolve();
+            });
+         });
+      }
+
+      await insertPresentation();
+   }
+
+   createNewGame();
 });
 
 startAgain[0].addEventListener("click", async function () {
-    createNewGame();
+   createNewGame();
 });
-
-document.addEventListener("keydown", function (event) {
-    listenKeyboard(event.key.toLowerCase());
-    return;
-});
-
-const menuButtonOpen = document.getElementsByClassName("navbar__button--open");
-const menu = document.getElementsByClassName("navbar");
-const menuButtonClose = document.getElementsByClassName(
-    "navbar__button--close"
-);
-const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
 
 menuButtonOpen[0].addEventListener("click", function () {
-    menu[0].style.left = "0rem";
+   menu[0].style.left = "0rem";
 });
 
 menuButtonClose[0].addEventListener("click", function () {
-    menu[0].style.left = "-25rem";
+   menu[0].style.left = "-25rem";
 });
 
 document.addEventListener("click", function (event) {
-    if (
-        !Array.from(menuButtonOpenSpan).some((element) => {
-            return event.target === element;
-        }) &&
-        event.target !== menuButtonOpen[0]
-    ) {
-        if (menu[0].style.left === "0rem") {
-            if (
-                !menu[0].contains(event.target) &&
-                !menuButtonClose[0].contains(event.target)
-            ) {
-                menu[0].style.left = "-25rem";
-            }
-        }
-    }
+   if (
+      !Array.from(menuButtonOpenSpan).some((element) => {
+         return event.target === element;
+      }) &&
+      event.target !== menuButtonOpen[0]
+   ) {
+      if (menu[0].style.left === "0rem") {
+         if (
+            !menu[0].contains(event.target) &&
+            !menuButtonClose[0].contains(event.target)
+         ) {
+            menu[0].style.left = "-25rem";
+         }
+      }
+   }
 });

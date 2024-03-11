@@ -105,6 +105,219 @@ const presentationHtml = `
 `;
 
 // Functions
+function showResults(timeElapsed, game) {
+   let body = document.getElementsByClassName("homepage")[0];
+   insertAnswerResults(body, game.correctAnswers, timeElapsed);
+   deleteAllLetters();
+}
+
+function deleteAllLetters() {
+   const answerLetterElements = document.getElementsByClassName(
+      "game__answer-letter"
+   );
+   for (let element of answerLetterElements) {
+      element.textContent = "";
+   }
+}
+
+function insertAnswerResults(element, correctAnswers, time) {
+   const textHtml = `
+    <div class="answer-results">
+    <button class="answer-results__close">
+    </button>
+    <p class="answer-results__paragraph">
+    <span class="answer-results__span">RESULTADOS</span>
+    <span class="answer-results__span"></span>
+    <span class="answer-results__span">
+      Respuestas correctas
+    </span>
+    <span class="answer-results__span">
+      ${correctAnswers}/10
+    </span>
+    <span class="answer-results__span">Tiempo</span>
+    <span class="answer-results__span">00:${time}</span>
+    </p>
+    <button class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></button>
+     <button class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></button>
+    </div>
+    <div class="blurry-background"></div>`;
+
+   element.insertAdjacentHTML("beforeend", textHtml);
+
+   // Quitar eventos del teclado
+   for (let element of buttonsKeyboard) {
+      element.removeEventListener("click", listenKeyboard);
+   }
+   document.removeEventListener("keydown", listenKeyboard);
+
+   const cardResults = document.getElementsByClassName("answer-results")[0];
+   const bgBlurry = document.getElementsByClassName("blurry-background")[0];
+   const startButton = document.getElementsByClassName(
+      "answer-results__button--start-again"
+   )[0];
+   const closeButton = document.getElementsByClassName(
+      "answer-results__close"
+   )[0];
+
+   startButton.addEventListener("click", function () {
+      cardResults.style.top = "-20rem";
+      bgBlurry.style.opacity = "0";
+      bgBlurry.remove();
+      cardResults.remove();
+      createNewGame();
+   });
+
+   closeButton.addEventListener("click", function () {
+      cardResults.style.top = "-20rem";
+      bgBlurry.style.opacity = "0";
+      bgBlurry.remove();
+      cardResults.remove();
+      createNewGame();
+   });
+}
+
+function insertLetter(game) {
+   const answerLetterElements = document.getElementsByClassName(
+      "game__answer-letter"
+   );
+   let letterElement;
+   if (game.answerUser.length === 1) {
+      letterElement = answerLetterElements[0];
+   } else {
+      letterElement = answerLetterElements[game.answerUser.length - 1];
+   }
+   letterElement.textContent = game.answerUser[game.answerUser.length - 1];
+}
+function deleteLetter(game) {
+   const answerLetterElements = document.getElementsByClassName(
+      "game__answer-letter"
+   );
+   let letterElement = answerLetterElements[game.answerUser.length];
+   letterElement.textContent = "";
+}
+
+function typeKey(key) {
+   const letter = [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+      "ç",
+   ];
+   const enterString = "enter";
+   const backspaceString = "backspace";
+
+   if (letter.includes(key)) return "letter";
+   if (key === enterString) return "enter";
+   if (key === backspaceString) return "backspace";
+   return null;
+}
+
+function innerLetterElements(string, element) {
+   let textHtml = "";
+   for (let i = 0; i < string.length; i++) {
+      if (string[i] === " ") {
+         textHtml += '<div class="game__answer-letter--space"></div>';
+         continue;
+      }
+      textHtml += '<div class="game__answer-letter"></div>';
+   }
+   element.innerHTML = textHtml;
+}
+
+function showNewFlag(game) {
+   const flagImg = document.getElementsByClassName("game__flag");
+   flagImg[0].src = game.countries[game.correctAnswers].flagUrl;
+}
+
+function typeResponse(game) {
+   function showTypeResponse(type, element) {
+      let responseDiv = document.createElement("div");
+      responseDiv.className = "response";
+      responseDiv.style.opacity = 0;
+
+      if (type === "correct") {
+         responseDiv.textContent = "Respuesta correcta";
+      }
+
+      if (type === "incorrect") {
+         responseDiv.textContent = "Respuesta incorrecta";
+         responseDiv.classList.add("incorrect");
+      }
+
+      if (type === "incomplete") {
+         responseDiv.textContent = "Palabra incompleta";
+         responseDiv.classList.add("incomplete");
+      }
+      element.appendChild(responseDiv);
+
+      responseDiv.style.display = "block";
+
+      setTimeout(function () {
+         responseDiv.style.opacity = 1;
+      }, 10);
+
+      setTimeout(function () {
+         responseDiv.style.opacity = 0;
+      }, 2000);
+   }
+
+   const correctAnswerSpan = document.getElementsByClassName(
+      "game__correct-answers"
+   )[0];
+   let countryName = game.countries[game.correctAnswers].name
+      .toLowerCase()
+      .replace(/\s/g, "");
+
+   if (!game.lastResponseStatus) {
+      // Incomplete answer
+      if (game.answerUser.length !== countryName.length) {
+         showTypeResponse(
+            "incomplete",
+            document.getElementsByClassName("homepage")[0]
+         );
+      }
+
+      // Incorrect answer
+      if (game.answerUser.length === countryName.length) {
+         showTypeResponse(
+            "incorrect",
+            document.getElementsByClassName("homepage")[0]
+         );
+      }
+   }
+
+   // Correct answer
+   if (game.lastResponseStatus) {
+      showTypeResponse(
+         "correct",
+         document.getElementsByClassName("homepage")[0]
+      );
+      correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+   }
+}
 
 function insertTextContinent(continent) {
    let result = {
@@ -138,29 +351,26 @@ async function createNewGame() {
       countDown(timeStorage, timerElement[0]);
    }
 
-   const flagImg = document.getElementsByClassName("game__flag");
-   const answerDiv = document.getElementsByClassName("game__answer");
+   const flagImg = document.getElementsByClassName("game__flag")[0];
+   const answerContainer = document.getElementsByClassName("game__answer")[0];
    const continentElement = document.getElementsByClassName(
       "game__countrie-description"
-   );
+   )[0];
    const correctAnswerSpan = document.getElementsByClassName(
       "game__correct-answers"
-   );
+   )[0];
 
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
       : "all continents";
    let randomCountries = await getRandomCountries(gameContinent, 10);
 
-   NewGame.innerLetterElements(randomCountries[0].name, answerDiv[0]);
-   flagImg[0].src = randomCountries[0].flagUrl;
-
+   innerLetterElements(randomCountries[0].name, answerContainer);
+   flagImg.src = randomCountries[0].flagUrl;
    // Continent text
-      continentElement[0].textContent = insertTextContinent(gameContinent);
-   
-   const answerLetterElements = document.getElementsByClassName(
-      "game__answer-letter"
-   );
+   continentElement.textContent = insertTextContinent(gameContinent);
+   // Correc answers reset
+   correctAnswerSpan.textContent = "0/10";
 
    let stateGame = {
       time: timeStorage,
@@ -169,13 +379,7 @@ async function createNewGame() {
       answerUser: "",
       correctAnswers: 0,
       lastResponseStatus: false,
-      elementsHtml: {
-         flagImg: flagImg,
-         answerDiv: answerDiv,
-         answerLetters: answerLetterElements,
-         continentSpan: continentElement,
-         correctAnswerSpan: correctAnswerSpan,
-      },
+      elementsHtml: {},
    };
 
    game = new NewGame(stateGame);
@@ -219,40 +423,7 @@ function countDown(milliseconds, element) {
          if (milliseconds < 0) {
             clearInterval(timeInterval);
 
-            game.showResults(timeElapsed);
-
-            // Quitar eventos del teclado
-            for (let element of buttonsKeyboard) {
-               element.removeEventListener("click", listenKeyboard);
-            }
-            document.removeEventListener("keydown", listenKeyboard);
-
-            const cardResults =
-               document.getElementsByClassName("answer-results")[0];
-            const bgBlurry =
-               document.getElementsByClassName("blurry-background")[0];
-            const startButton = document.getElementsByClassName(
-               "answer-results__button--start-again"
-            )[0];
-            const closeButton = document.getElementsByClassName(
-               "answer-results__close"
-            )[0];
-
-            startButton.addEventListener("click", function () {
-               cardResults.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
-               bgBlurry.remove();
-               cardResults.remove();
-               createNewGame();
-            });
-
-            closeButton.addEventListener("click", function () {
-               cardResults.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
-               bgBlurry.remove();
-               cardResults.remove();
-               createNewGame();
-            });
+            showResults(timeElapsed, game);
          } else {
             let minutes = Math.floor(milliseconds / 60000);
             let seconds = Math.floor((milliseconds % 60000) / 1000);
@@ -285,6 +456,8 @@ function listenKeyboard(event) {
       pressedKey = event.target.value.toLowerCase();
    }
 
+   if (!typeKey(pressedKey)) return;
+
    if (pressedKey === "enter") {
       game = game.verifyAnswer(
          game.answerUser,
@@ -293,53 +466,34 @@ function listenKeyboard(event) {
 
       // Mostrar resultados
       if (game.correctAnswers === 10) {
-         game.showResults(timeElapsed);
-         // Quitar eventos del teclado
-         for (let element of buttonsKeyboard) {
-            element.removeEventListener("click", listenKeyboard);
-         }
-         document.removeEventListener("keydown", listenKeyboard);
-
-         const cardResults =
-            document.getElementsByClassName("answer-results")[0];
-         const bgBlurry =
-            document.getElementsByClassName("blurry-background")[0];
-         const startButton = document.getElementsByClassName(
-            "answer-results__button--start-again"
-         )[0];
-         const closeButton = document.getElementsByClassName(
-            "answer-results__close"
-         )[0];
-
-         startButton.addEventListener("click", function () {
-            cardResults.style.top = "-20rem";
-            bgBlurry.style.opacity = "0";
-            bgBlurry.remove();
-            cardResults.remove();
-            createNewGame();
-         });
-
-         closeButton.addEventListener("click", function () {
-            cardResults.style.top = "-20rem";
-            bgBlurry.style.opacity = "0";
-            bgBlurry.remove();
-            cardResults.remove();
-            createNewGame();
-         });
+         showResults(timeElapsed, game);
          return;
       }
 
+      typeResponse(game);
+
+      const answerContainer =
+         document.getElementsByClassName("game__answer")[0];
       if (game.lastResponseStatus) {
-         game.showNewFlag();
-         NewGame.innerLetterElements(
+         showNewFlag(game);
+         innerLetterElements(
             game.countries[game.correctAnswers].name,
-            game.elementsHtml.answerDiv[0]
+            answerContainer
          );
       }
       return;
    }
 
    game = game.modifyAnswer(pressedKey, game.answerUser);
+
+   if (pressedKey === "backspace") {
+      deleteLetter(game);
+   }
+
+   // other letter
+   if (pressedKey !== "backspace") {
+      insertLetter(game);
+   }
 }
 
 // Eventos

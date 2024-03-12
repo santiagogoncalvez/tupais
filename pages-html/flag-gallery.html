@@ -4,8 +4,65 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Galería de banderas</title>
+      <script src="../javascript/flag-gallery.js" type="module"></script>
+      <link rel="stylesheet" href="../css/index.css" />
    </head>
    <body class="flag-gallery">
-      
+      <header class="header">
+         <button class="navbar__button--open">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <h1 class="header__title">TU PAÍS</h1>
+
+         <button class="navbar__button--open">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <nav class="navbar">
+            <button class="navbar__button--close">
+               <div>
+                  <span class="navbar__icon--close1"></span>
+                  <span class="navbar__icon--close2"></span>
+               </div>
+            </button>
+            <ul class="navbar__list">
+               <li class="navbar__item--1">
+                  <a href="#" class="navbar__link--1">Modos de juego</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--2">
+                  <a href="#" class="navbar__link--2">Banderas</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--3">
+                  <a href="#" class="navbar__link--3">Acerca del juego</a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--4">
+                  <a href="#" class="navbar__link--4">Créditos</a>
+                  <span class="navbar__division"></span>
+               </li>
+            </ul>
+         </nav>
+      </header>
+
+      <div class="flag-gallery__container--1">
+         <h2 class="flag-gallery__subtitle">Galería de banderas</h2>
+         <input type="search" name="search" class="flag-gallery__search" />
+
+         <div class="flag-gallery__container--2">
+            <ul class="flag-gallery__list"></ul>
+         </div>
+      </div>
+
+      <footer class="footer">
+         <!-- <button class="footer__github"></button> -->
+         <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
+      </footer>
    </body>
 </html>

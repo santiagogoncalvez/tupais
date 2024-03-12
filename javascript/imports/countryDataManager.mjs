@@ -52,6 +52,19 @@ function urlFlag(code) {
     return "./images/flags-svg/" + code + ".svg";
 }
 
+function getCoutryByName(name) {
+     return new Promise(async (resolve, reject) => {
+        let url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
+        try {
+            let response = await fetch(url);
+            let countries = await response.json();
+            resolve(countries[0]);
+        } catch (err) {
+            reject(new Error(`Error request restCoutries API: ${err}`));
+        }
+    });
+}
+
 function getAllCountries() {
     return new Promise(async (resolve, reject) => {
         let url = "https://restcountries.com/v3.1/all";
@@ -136,3 +149,6 @@ export function getRandomCountries(continent, quantityCountries = 10) {
         }
     });
 }
+
+export const allCountries = getAllCountries;
+export const countryByName = getCoutryByName;

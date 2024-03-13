@@ -257,7 +257,12 @@ const orderedCountries = [
 ];
 
 // Elements
-const flagItems = document.getElementsByClassName("flag-gallery__item");
+const infoButton = document.getElementsByClassName("flag-gallery__button-info");
+const menu = document.getElementsByClassName("navbar");
+const menuButtonOpen = document.getElementsByClassName("navbar__button--open");
+const menuButtonClose = document.getElementsByClassName(
+   "navbar__button--close"
+);
 
 function filter(array, callback) {
    var resultado = [];
@@ -287,11 +292,12 @@ async function insertFlagsAll(element) {
       let country = filter(
          countries,
          (country) => country.name.common === orderedName[i]
-      );
+      )[0];
 
-      let code = country[0].cca2.toLowerCase();
-      let countryName = country[0].name.common;
-      if (countryName === "Oman") {
+      let code = country.cca2.toLowerCase();
+      let countryName = country.translations.spa.common;
+
+      if (country.name.official === "Sultanate of Oman") {
          textHtml += `<li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
               <img src="../images/flags-svg/om.png" alt="" class="flag-gallery__flag" />
@@ -300,57 +306,93 @@ async function insertFlagsAll(element) {
          continue;
       }
 
-      textHtml += `<li class="flag-gallery__item">
+      textHtml += `
+      <li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
               <img src="../images/flags-svg/${code}.svg" alt="" class="flag-gallery__flag" />
+              <div class="flag-gallery__description-container">
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
-           </figure></li>`;
-   }
-
-   element.innerHTML = textHtml;
-}
-
-// Pidiendo los paises uno por uno
-// tiempo: 3.5-4 segundos
-async function insertFlagsByname(element) {
-   let textHtml = "";
-
-   for (let i = 0; i < orderedCountries.length; i++) {
-      let country = await countryByName(orderedCountries[i]);
-      let code = country[0].cca2.toLowerCase();
-      let countryName = country[0].name.common;
-
-      textHtml += `<li class="flag-gallery__item">
-         <figure class="flag-gallery__flag-container">
-              <img src="../images/flags-svg/${code}.svg" alt="" class="flag-gallery__flag" />
-              <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
-           </figure></li>`;
+              <div class="flag-gallery__flag-fullname">${country.name.official}</div>
+               <button class="flag-gallery__button-info">
+                  <span class="flag-gallery__button-info--text">
+                     !
+                  </span>
+               </button>
+           </figure>
+              </div>
+      </li>`;
    }
 
    element.innerHTML = textHtml;
 }
 
 // Events
+menuButtonOpen[0].addEventListener("click", function () {
+   menu[0].style.left = "0rem";
+});
+
+menuButtonClose[0].addEventListener("click", function () {
+   menu[0].style.left = "-25rem";
+});
+document.addEventListener("click", function (event) {
+   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
+   if (
+      !Array.from(menuButtonOpenSpan).some((element) => {
+         return event.target === element;
+      }) &&
+      event.target !== menuButtonOpen[0]
+   ) {
+      if (menu[0].style.left === "0rem") {
+         if (
+            !menu[0].contains(event.target) &&
+            !menuButtonClose[0].contains(event.target)
+         ) {
+            menu[0].style.left = "-25rem";
+         }
+      }
+   }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
    const list = document.getElementsByClassName("flag-gallery__list")[0];
    insertFlagsAll(list);
 });
 
+function removeAccents(word) {
+   const accentMap = {
+      á: "a",
+      é: "e",
+      í: "i",
+      ó: "o",
+      ú: "u",
+      ü: "u",
+      Á: "A",
+      É: "E",
+      Í: "I",
+      Ó: "O",
+      Ú: "U",
+      Ü: "U",
+   };
+
+   return word.replace(/[áéíóúüÁÉÍÓÚÜ]/g, function (match) {
+      return accentMap[match];
+   });
+}
+
 // Search
 document.addEventListener("keyup", (event) => {
    if (event.key === "Escape") event.target.value = "";
 
    if (event.target.matches(".flag-gallery__search")) {
-      let enteredText = event.target.value.toLowerCase();
-      var regex = new RegExp(`^${enteredText}`);
+      let enteredText = removeAccents(event.target.value.toLowerCase());
+      var regex = new RegExp(`${enteredText}`);
 
       document.querySelectorAll(".flag-gallery__item").forEach((item) => {
          const description = item.querySelector(
             ".flag-gallery__flag-description"
          );
 
-         if (regex.test(description.textContent.toLowerCase())) {
+         if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
             setTimeout(function () {
                item.classList.remove("filter");
             }, 100);
@@ -359,7 +401,9 @@ document.addEventListener("keyup", (event) => {
             }, 200);
          }
 
-         if (!regex.test(description.textContent.toLowerCase())) {
+         if (
+            !regex.test(removeAccents(description.textContent.toLowerCase()))
+         ) {
             setTimeout(function () {
                item.classList.add("filter");
             }, 300);
@@ -370,15 +414,71 @@ document.addEventListener("keyup", (event) => {
 });
 
 setTimeout(() => {
-   for (let element of flagItems) {
-      element.addEventListener("click", () => {
-         const description = element.querySelector(
-            ".flag-gallery__flag-description"
-         );
-         insertFeatures(description.textContent);
+   const fullName = document.getElementsByClassName(
+      "flag-gallery__flag-fullname"
+   );
+   for (let i = 0; i < infoButton.length; i++) {
+      infoButton[i].addEventListener("click", () => {
+         insertFeatures(fullName[i].textContent);
       });
    }
 }, 1000);
+
+function formatProperties(property, type) {
+   if (type === "gini") {
+      if (!property) return "--";
+      let keys = Object.keys(property);
+      return `${property[keys[0]]} (${keys[0]})`;
+   }
+
+   if (type === "languages") {
+      if (!property) return "--";
+      let keys = Object.keys(property);
+      let text = "";
+      for (let i = 0; i < keys.length; i++) {
+         if (i === keys.length - 1) {
+            text += `${property[keys[i]]}`;
+            continue;
+         }
+         text += `${property[keys[i]]}, `;
+      }
+
+      return text;
+   }
+
+   if (type === "borders") {
+      if (!property) return "--";
+
+      let keys = Object.keys(property);
+      let text = "";
+      for (let i = 0; i < keys.length; i++) {
+         if (i === keys.length - 1) {
+            text += `${property[keys[i]]}`;
+            continue;
+         }
+         text += `${property[keys[i]]}, `;
+      }
+
+      return text;
+   }
+
+   if (type === "currencies") {
+      if (!property) return "--";
+
+      let keys = Object.keys(property);
+      if (keys.length > 1) throw new Error("Mas de una moneda");
+
+      let text = "";
+      let currencie = property[keys[0]];
+      let keysCurrencie = Object.keys(currencie);
+
+      text += `${currencie[keysCurrencie[0]]} (${
+         currencie[keysCurrencie[1]]
+      }) `;
+
+      return text;
+   }
+}
 
 async function insertFeatures(countrie) {
    let body = document.getElementsByClassName("flag-gallery")[0];
@@ -409,27 +509,27 @@ async function insertFeatures(countrie) {
             </li>
             <li class="features__item">
                Idiomas: <br />
-               ${country.languages}
+               ${formatProperties(country.languages, "languages")}
             </li>
             <li class="features__item">
                Población: <br />
-               ${country.population}
+               ${country.population} hab.
             </li>
             <li class="features__item">
                Países limítrofes: <br />
-               ${country.borders}
+               ${formatProperties(country.borders, "borders")}
             </li>
             <li class="features__item">
                Monedas: <br />
-               ${country.currencies}
+               ${formatProperties(country.currencies, "currencies")}
             </li>
             <li class="features__item">
                Coeficiente de Gini: <br />
-               ${country.gini}
+               ${formatProperties(country.gini, "gini")}
             </li>
             <li class="features__item">
                Acceso al mar: <br />
-               ${country.landlocked ? "Si" : "No"}
+               ${country.landlocked ? "No" : "Yes"}
             </li>
          </ul>
       </div>
@@ -447,6 +547,28 @@ document.addEventListener("click", (event) => {
    }
 });
 
-// insertFeatures("Argentina");
+// Input Search dinamic
+const [search] = document.getElementsByClassName("flag-gallery__search");
+let flagSearch = true;
 
-function formatedProperties(type, content) {}
+function detectScrollDirection() {
+   const currentPosition = document.documentElement.scrollTop;
+   console.log(currentPosition);
+   if (currentPosition >= 200 && flagSearch) {
+      search.classList.add("search-dinamic");
+      flagSearch = false;
+      setTimeout(() => {
+         search.style.backgroundColor = "rgb(245, 245, 245)";
+         search.style.top = "0";
+      }, 50);
+   }
+
+   if (currentPosition < 200) {
+      search.classList.remove("search-dinamic");
+      flagSearch = true;
+      search.style.top = "";
+      search.style.backgroundColor = "white";
+   }
+}
+
+window.addEventListener("scroll", detectScrollDirection);

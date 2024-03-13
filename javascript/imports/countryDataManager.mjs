@@ -8,147 +8,164 @@ Recomendaciones:
 */
 
 function moreThan2Words(str) {
-    let words = str.split(" ");
-    return words.length >= 3;
+   let words = str.split(" ");
+   return words.length >= 3;
 }
 
 function formatWord(word) {
-    let formatedWord = replaceHyphensWithSpaces(word);
-    formatedWord = removeAccents(formatedWord);
-    formatedWord = removeParentheses(formatedWord);
+   let formatedWord = replaceHyphensWithSpaces(word);
+   formatedWord = removeAccents(formatedWord);
+   formatedWord = removeParentheses(formatedWord);
 
-    return formatedWord;
+   return formatedWord;
 }
 function replaceHyphensWithSpaces(str) {
-    return str.replace(/-/g, " ");
+   return str.replace(/-/g, " ");
 }
 
 function removeAccents(word) {
-    const accentMap = {
-        á: "a",
-        é: "e",
-        í: "i",
-        ó: "o",
-        ú: "u",
-        ü: "u",
-        Á: "A",
-        É: "E",
-        Í: "I",
-        Ó: "O",
-        Ú: "U",
-        Ü: "U",
-    };
+   const accentMap = {
+      á: "a",
+      é: "e",
+      í: "i",
+      ó: "o",
+      ú: "u",
+      ü: "u",
+      Á: "A",
+      É: "E",
+      Í: "I",
+      Ó: "O",
+      Ú: "U",
+      Ü: "U",
+   };
 
-    return word.replace(/[áéíóúüÁÉÍÓÚÜ]/g, function (match) {
-        return accentMap[match];
-    });
+   return word.replace(/[áéíóúüÁÉÍÓÚÜ]/g, function (match) {
+      return accentMap[match];
+   });
 }
 
 function removeParentheses(text) {
-    return text.replace(/\s*\([^)]*\)/g, "").trim();
+   return text.replace(/\s*\([^)]*\)/g, "").trim();
 }
 
 function urlFlag(code) {
-    return "./images/flags-svg/" + code + ".svg";
+   return "./images/flags-svg/" + code + ".svg";
 }
 
 function getCoutryByName(name) {
-     return new Promise(async (resolve, reject) => {
-        let url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
-        try {
-            let response = await fetch(url);
-            let countries = await response.json();
-            resolve(countries[0]);
-        } catch (err) {
-            reject(new Error(`Error request restCoutries API: ${err}`));
-        }
-    });
+   return new Promise(async (resolve, reject) => {
+      let url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
+      try {
+         let response = await fetch(url);
+         let countries = await response.json();
+         resolve(countries[0]);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
+}
+
+function getCoutryByTranslation(translation) {
+   console.log(translation);
+   return new Promise(async (resolve, reject) => {
+      let url = `https://restcountries.com/v3.1/translation/${translation}`;
+      try {
+         let response = await fetch(url);
+         let countries = await response.json();
+         resolve(countries[0]);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
 }
 
 function getAllCountries() {
-    return new Promise(async (resolve, reject) => {
-        let url = "https://restcountries.com/v3.1/all";
-        try {
-            let response = await fetch(url);
-            let countries = await response.json();
-            resolve(countries);
-        } catch (err) {
-            reject(new Error(`Error request restCoutries API: ${err}`));
-        }
-    });
+   return new Promise(async (resolve, reject) => {
+      let url = "https://restcountries.com/v3.1/all";
+      try {
+         let response = await fetch(url);
+         let countries = await response.json();
+         resolve(countries);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
 }
 
 function getCountriesByContinent(continent) {
-    return new Promise(async (resolve, reject) => {
-        if (continent === "america") continent = "americas";
-        let url = "https://restcountries.com/v3.1/region/" + continent;
-        try {
-            let response = await fetch(url);
-            let countries = await response.json();
-            resolve(countries);
-        } catch (err) {
-            reject(new Error(`Error request restCoutries API: ${err}`));
-        }
-    });
+   return new Promise(async (resolve, reject) => {
+      if (continent === "america") continent = "americas";
+      let url = "https://restcountries.com/v3.1/region/" + continent;
+      try {
+         let response = await fetch(url);
+         let countries = await response.json();
+         resolve(countries);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
 }
 
 export function getRandomCountries(continent, quantityCountries = 10) {
-    return new Promise(async (resolve, reject) => {
-        let aceptedStrings = [
-            "all continents",
-            "asia",
-            "europe",
-            "america",
-            "oceania",
-            "africa",
-        ];
-        if (!aceptedStrings.includes(continent))
-            throw new Error(
-                `Incorrect string of argument 'continent'. Value: ${continent}`
+   return new Promise(async (resolve, reject) => {
+      let aceptedStrings = [
+         "all continents",
+         "asia",
+         "europe",
+         "america",
+         "oceania",
+         "africa",
+      ];
+      if (!aceptedStrings.includes(continent))
+         throw new Error(
+            `Incorrect string of argument 'continent'. Value: ${continent}`
+         );
+
+      try {
+         let countries;
+         if (continent === "all continents") {
+            countries = await getAllCountries();
+         }
+
+         if (continent !== "all continents") {
+            countries = await getCountriesByContinent(continent);
+         }
+
+         let result = [];
+         for (let i = 0; i < quantityCountries; i++) {
+            let randomCountry =
+               countries[Math.floor(Math.random() * countries.length)];
+            let formattedName = formatWord(
+               randomCountry.translations.spa.common
             );
 
-        try {
-            let countries;
-            if (continent === "all continents") {
-                countries = await getAllCountries();
+            // No deben repetirse los países
+            if (result.some((element) => element.name === formattedName)) {
+               i--;
+               continue;
             }
 
-            if (continent !== "all continents") {
-                countries = await getCountriesByContinent(continent);
+            // Ignorar elemntos con más de 2 palabras
+            if (moreThan2Words(formattedName)) {
+               i--;
+               continue;
             }
 
-            let result = [];
-            for (let i = 0; i < quantityCountries; i++) {
-                let randomCountry =
-                    countries[Math.floor(Math.random() * countries.length)];
-                let formattedName = formatWord(randomCountry.name.common);
+            result.push({
+               name: formattedName,
+               code: randomCountry.cca2.toLowerCase(),
+               region: randomCountry.region,
+               flagUrl: urlFlag(randomCountry.cca2.toLowerCase()),
+            });
+         }
 
-                // No deben repetirse los países
-                if (result.some((element) => element.name === formattedName)) {
-                    i--;
-                    continue;
-                }
-
-                // Ignorar elemntos con más de 2 palabras
-                if (moreThan2Words(formattedName)) {
-                    i--;
-                    continue;
-                }
-
-                result.push({
-                    name: formattedName,
-                    code: randomCountry.cca2.toLowerCase(),
-                    region: randomCountry.region,
-                    flagUrl: urlFlag(randomCountry.cca2.toLowerCase()),
-                });
-            }
-
-            resolve(result);
-        } catch (err) {
-            reject(new Error(`Error request getRandomCoutries: ${err}`));
-        }
-    });
+         resolve(result);
+      } catch (err) {
+         reject(new Error(`Error request getRandomCoutries: ${err}`));
+      }
+   });
 }
 
 export const allCountries = getAllCountries;
 export const countryByName = getCoutryByName;
+export const coutryByTranslation = getCoutryByTranslation;

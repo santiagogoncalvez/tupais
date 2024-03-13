@@ -9,7 +9,6 @@ const menu = document.getElementsByClassName("navbar");
 const menuButtonClose = document.getElementsByClassName(
    "navbar__button--close"
 );
-const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
 const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
 
 // Bindings
@@ -138,10 +137,13 @@ function insertAnswerResults(element, correctAnswers, time) {
     <span class="answer-results__span">00:${time}</span>
     </p>
     <button class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></button>
-     <button class="answer-results__button--change-mode"><span>CAMBIAR DE MODO</span></button>
+
     </div>
     <div class="blurry-background"></div>`;
-
+   /*<button class="answer-results__button--change-mode">
+      <span>CAMBIAR DE MODO</span>
+   </button> */
+   
    element.insertAdjacentHTML("beforeend", textHtml);
 
    // Quitar eventos del teclado
@@ -282,6 +284,10 @@ function typeResponse(game) {
       setTimeout(function () {
          responseDiv.style.opacity = 0;
       }, 2000);
+
+      setTimeout(function () {
+         responseDiv.remove();
+      }, 3000);
    }
 
    const correctAnswerSpan = document.getElementsByClassName(
@@ -583,6 +589,7 @@ menuButtonClose[0].addEventListener("click", function () {
 });
 
 document.addEventListener("click", function (event) {
+   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
    if (
       !Array.from(menuButtonOpenSpan).some((element) => {
          return event.target === element;

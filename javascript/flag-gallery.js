@@ -383,7 +383,10 @@ function removeAccents(word) {
 document.addEventListener("keyup", (event) => {
    if (event.key === "Escape") event.target.value = "";
 
-   if (event.target.matches(".flag-gallery__search")) {
+   if (
+      event.target.matches(".flag-gallery__search") ||
+      event.target.matches(".flag-gallery__search--dynamic")
+   ) {
       let enteredText = removeAccents(event.target.value.toLowerCase());
       var regex = new RegExp(`${enteredText}`);
 
@@ -547,28 +550,51 @@ document.addEventListener("click", (event) => {
    }
 });
 
-// Input Search dinamic
-const [search] = document.getElementsByClassName("flag-gallery__search");
+// Input Search dynamic
 let flagSearch = true;
+(() => {
+   function detectScrollDirection() {
+      const currentPosition = document.documentElement.scrollTop;
+      const searchDynamicHtml = `
+      <input
+         type="search"
+         name="search"
+         class="flag-gallery__search--dynamic"
+         placeholder="Buscar país"
+      />
+   `;
+      const [body] = document.getElementsByClassName("flag-gallery");
+      const [searchCommon] = document.getElementsByClassName(
+         "flag-gallery__search"
+      );
 
-function detectScrollDirection() {
-   const currentPosition = document.documentElement.scrollTop;
-   console.log(currentPosition);
-   if (currentPosition >= 200 && flagSearch) {
-      search.classList.add("search-dinamic");
-      flagSearch = false;
-      setTimeout(() => {
-         search.style.backgroundColor = "rgb(245, 245, 245)";
-         search.style.top = "0";
-      }, 50);
+      if (currentPosition >= 200 && flagSearch) {
+         body.insertAdjacentHTML("beforeend", searchDynamicHtml);
+         const [searchDynamic] = document.getElementsByClassName(
+            "flag-gallery__search--dynamic"
+         );
+
+         flagSearch = false;
+         searchDynamic.value = searchCommon.value;
+         searchDynamic.focus();
+         setTimeout(() => {
+            searchDynamic.style.top = "0";
+         }, 50);
+
+      }
+
+      if (currentPosition < 200 && !flagSearch) {
+         const [searchDynamic] = document.getElementsByClassName(
+            "flag-gallery__search--dynamic"
+         );
+         searchDynamic.style.top = "-100px";
+         searchCommon.value = searchDynamic.value;
+         flagSearch = true;
+         searchCommon.focus();
+         setTimeout(() => {
+            searchDynamic.remove();
+         }, 50);
+      }
    }
-
-   if (currentPosition < 200) {
-      search.classList.remove("search-dinamic");
-      flagSearch = true;
-      search.style.top = "";
-      search.style.backgroundColor = "white";
-   }
-}
-
-window.addEventListener("scroll", detectScrollDirection);
+   window.addEventListener("scroll", detectScrollDirection);
+})();

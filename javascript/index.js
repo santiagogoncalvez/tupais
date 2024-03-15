@@ -9,7 +9,6 @@ const menu = document.getElementsByClassName("navbar");
 const menuButtonClose = document.getElementsByClassName(
    "navbar__button--close"
 );
-const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
 
 // Bindings
 let game;
@@ -22,13 +21,9 @@ const presentationHtml = `
                 <h2 class="presentation__header-title">TU PAÍS</h2>
 
                 <!-- icono de cruz para salir -->
-                <a href="#" class="presentation__header-link"
-                    ><img
-                        src="../images/close.png"
-                        alt=""
-                        class="presentation__header-close"
-                    />
-                </a>
+                <button class="presentation__header-link" title="Cerrar"
+                    >
+                </button>
             </header>
 
             <div class="presentation__div">
@@ -41,10 +36,10 @@ const presentationHtml = `
                     correctas ¡Ganás!
                 </p>
 
-                <label
+                <div
                     for="continents-dropdown"
                     class="presentation__label-continents"
-                    >Elige el continente de los paises</label
+                    >Elige el continente de los paises</div
                 >
 
                 <select name="" id="continents-dropdown">
@@ -61,7 +56,7 @@ const presentationHtml = `
                         ÁFRICA
                     </option>
                     <option
-                        value="america"
+                        value="americas"
                         class="presentation__continents-dropdown-option"
                     >
                         AMÉRICA
@@ -95,8 +90,8 @@ const presentationHtml = `
                     <button class="presentation__button-time">1:00</button>
                 </div>
 
-                <a href="#" class="presentation__button-start"
-                    ><span>¡EMPEZAR!</span></a
+                <button class="presentation__button-start" title="Empezar"
+                    ><span>¡EMPEZAR!</span></button
                 >
             </div>
         </section>
@@ -122,7 +117,7 @@ function deleteAllLetters() {
 function insertAnswerResults(element, correctAnswers, time) {
    const textHtml = `
     <div class="answer-results">
-    <button class="answer-results__close">
+    <button class="answer-results__close" title="Cerrar">
     </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
@@ -136,17 +131,18 @@ function insertAnswerResults(element, correctAnswers, time) {
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
     </p>
-    <button class="answer-results__button--start-again"><span>JUGAR DE NUEVO</span></button>
+    <button class="answer-results__button--start-again" title="Jugar d nuevo"><span>JUGAR DE NUEVO</span></button>
 
     </div>
     <div class="blurry-background"></div>`;
-   /*<button class="answer-results__button--change-mode">
+   /*<button class="answer-results__button--change-mode" title="Cambiar de modo">
       <span>CAMBIAR DE MODO</span>
    </button> */
-   
+
    element.insertAdjacentHTML("beforeend", textHtml);
 
    // Quitar eventos del teclado
+   const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
    for (let element of buttonsKeyboard) {
       element.removeEventListener("click", listenKeyboard);
    }
@@ -182,12 +178,15 @@ function insertLetter(game) {
    const answerLetterElements = document.getElementsByClassName(
       "game__answer-letter"
    );
+
    let letterElement;
    if (game.answerUser.length === 1) {
       letterElement = answerLetterElements[0];
-   } else {
+   }
+   if (game.answerUser.length !== 1) {
       letterElement = answerLetterElements[game.answerUser.length - 1];
    }
+
    letterElement.textContent = game.answerUser[game.answerUser.length - 1];
 }
 function deleteLetter(game) {
@@ -250,8 +249,10 @@ function innerLetterElements(string, element) {
 }
 
 function showNewFlag(game) {
-   const flagImg = document.getElementsByClassName("game__flag");
-   flagImg[0].src = game.countries[game.correctAnswers].flagUrl;
+   const [flagImg] = document.getElementsByClassName("country__flag");
+   flagImg.src = game.countries[0].flagUrl;
+   let alt = `Bandera de ${game.name}`;
+   flagImg.alt = alt;
 }
 
 function typeResponse(game) {
@@ -293,9 +294,7 @@ function typeResponse(game) {
    const correctAnswerSpan = document.getElementsByClassName(
       "game__correct-answers"
    )[0];
-   let countryName = game.countries[game.correctAnswers].name
-      .toLowerCase()
-      .replace(/\s/g, "");
+   let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
 
    if (!game.lastResponseStatus) {
       // Incomplete answer
@@ -327,12 +326,12 @@ function typeResponse(game) {
 
 function insertTextContinent(continent) {
    let result = {
-      africa: "ÁFRICA",
-      america: "AMÉRICA",
-      asia: "ASIA",
-      europa: "EUROPA",
-      oceania: "OCEANÍA",
-      ["all continents"]: "TODOS LOS CONTINENTES",
+      africa: "Continente: ÁFRICA",
+      americas: "Continente: AMÉRICA",
+      asia: "Continente: ASIA",
+      europa: "Continente: EUROPA",
+      oceania: "Continente: OCEANÍA",
+      ["all continents"]: "Continente: TODOS",
    };
 
    return result[continent];
@@ -357,22 +356,26 @@ async function createNewGame() {
       countDown(timeStorage, timerElement[0]);
    }
 
-   const flagImg = document.getElementsByClassName("game__flag")[0];
-   const answerContainer = document.getElementsByClassName("game__answer")[0];
-   const continentElement = document.getElementsByClassName(
-      "game__countrie-description"
-   )[0];
-   const correctAnswerSpan = document.getElementsByClassName(
+   const [flagImg] = document.getElementsByClassName("country__flag");
+   const [answerContainer] = document.getElementsByClassName("game__answer");
+   const [continentElement] = document.getElementsByClassName(
+      "country__description"
+   );
+   const [correctAnswerSpan] = document.getElementsByClassName(
       "game__correct-answers"
-   )[0];
+   );
+   const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
 
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountries(gameContinent, 10);
+   let randomCountries = await getRandomCountries(gameContinent, -1);
 
    innerLetterElements(randomCountries[0].name, answerContainer);
    flagImg.src = randomCountries[0].flagUrl;
+   let alt = `Bandera de ${randomCountries[0].name}`;
+   flagImg.alt = alt;
+
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
@@ -385,7 +388,6 @@ async function createNewGame() {
       answerUser: "",
       correctAnswers: 0,
       lastResponseStatus: false,
-      elementsHtml: {},
    };
 
    game = new NewGame(stateGame);
@@ -465,10 +467,11 @@ function listenKeyboard(event) {
    if (!typeKey(pressedKey)) return;
 
    if (pressedKey === "enter") {
-      game = game.verifyAnswer(
-         game.answerUser,
-         game.countries[game.correctAnswers].name
-      );
+      const [answerContainer] = document.getElementsByClassName("game__answer");
+
+      game = game.verifyAnswer(game.answerUser, game.countries[0].name);
+
+      typeResponse(game);
 
       // Mostrar resultados
       if (game.correctAnswers === 10) {
@@ -476,17 +479,11 @@ function listenKeyboard(event) {
          return;
       }
 
-      typeResponse(game);
-
-      const answerContainer =
-         document.getElementsByClassName("game__answer")[0];
       if (game.lastResponseStatus) {
          showNewFlag(game);
-         innerLetterElements(
-            game.countries[game.correctAnswers].name,
-            answerContainer
-         );
+         innerLetterElements(game.countries[0].name, answerContainer);
       }
+
       return;
    }
 
@@ -518,7 +515,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       let bgBlurry = document.getElementsByClassName("blurry-background")[0];
 
       async function insertPresentation() {
-         return new Promise((resolve, reject) => {
+         return new Promise((resolve) => {
             const continentsDropdown = document.getElementById(
                "continents-dropdown"
             );
@@ -574,6 +571,14 @@ document.addEventListener("DOMContentLoaded", async function () {
    }
 
    createNewGame();
+
+   const [nextBt] = document.getElementsByClassName("country__btNext");
+   nextBt.addEventListener("click", () => {
+      const [answerContainer] = document.getElementsByClassName("game__answer");
+      game = game.nextCountry();
+      showNewFlag(game);
+      innerLetterElements(game.countries[0].name, answerContainer);
+   });
 });
 
 startAgain[0].addEventListener("click", async function () {

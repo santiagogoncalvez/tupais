@@ -309,7 +309,7 @@ async function insertFlagsAll(element) {
       textHtml += `
       <li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
-              <img src="../images/flags-svg/${code}.svg" alt="" class="flag-gallery__flag" />
+              <img src="../images/flags-svg/${code}.svg" alt="Bandera de ${countryName}" loading="eager" class="flag-gallery__flag" />
               <div class="flag-gallery__description-container">
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
               <div class="flag-gallery__flag-fullname">${country.name.official}</div>
@@ -469,15 +469,37 @@ function formatProperties(property, type) {
       if (!property) return "--";
 
       let keys = Object.keys(property);
-      if (keys.length > 1) throw new Error("Mas de una moneda");
-
       let text = "";
-      let currencie = property[keys[0]];
-      let keysCurrencie = Object.keys(currencie);
 
-      text += `${currencie[keysCurrencie[0]]} (${
-         currencie[keysCurrencie[1]]
-      }) `;
+      if (keys.length === 1) {
+         let currencie = property[keys[0]];
+         let keysCurrencie = Object.keys(currencie);
+
+         text += `${currencie[keysCurrencie[0]]} (${
+            currencie[keysCurrencie[1]]
+         })`;
+      }
+
+      if (keys.length > 1) {
+         for (let i = 0; i < keys.length; i++) {
+            if (i === keys.length - 1) {
+               let currencie = property[keys[i]];
+               let keysCurrencie = Object.keys(currencie);
+
+               text += `${currencie[keysCurrencie[0]]} (${
+                  currencie[keysCurrencie[1]]
+               })`;
+               continue;
+            }
+
+            let currencie = property[keys[i]];
+            let keysCurrencie = Object.keys(currencie);
+
+            text += `${currencie[keysCurrencie[0]]} (${
+               currencie[keysCurrencie[1]]
+            }), `;
+         }
+      }
 
       return text;
    }
@@ -578,9 +600,8 @@ let flagSearch = true;
          searchDynamic.value = searchCommon.value;
          searchDynamic.focus();
          setTimeout(() => {
-            searchDynamic.style.top = "0";
+            searchDynamic.style.top = "25px";
          }, 50);
-
       }
 
       if (currentPosition < 200 && !flagSearch) {
@@ -593,7 +614,7 @@ let flagSearch = true;
          searchCommon.focus();
          setTimeout(() => {
             searchDynamic.remove();
-         }, 50);
+         }, 200);
       }
    }
    window.addEventListener("scroll", detectScrollDirection);

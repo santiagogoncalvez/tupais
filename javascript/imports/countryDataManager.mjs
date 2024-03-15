@@ -52,6 +52,14 @@ function urlFlag(code) {
    return "./images/flags-svg/" + code + ".svg";
 }
 
+function shuffleArray(arr) {
+   for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+   }
+   return arr;
+}
+
 function getCoutryByName(name) {
    return new Promise(async (resolve, reject) => {
       let url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
@@ -112,7 +120,7 @@ export function getRandomCountries(continent, quantityCountries = 10) {
          "all continents",
          "asia",
          "europe",
-         "america",
+         "americas",
          "oceania",
          "africa",
       ];
@@ -131,23 +139,20 @@ export function getRandomCountries(continent, quantityCountries = 10) {
             countries = await getCountriesByContinent(continent);
          }
 
+         if (quantityCountries === -1) {
+            quantityCountries = countries.length;
+         }
+
          let result = [];
          for (let i = 0; i < quantityCountries; i++) {
             let randomCountry =
-               countries[Math.floor(Math.random() * countries.length)];
+               countries[i];
             let formattedName = formatWord(
                randomCountry.translations.spa.common
             );
 
-            // No deben repetirse los países
-            if (result.some((element) => element.name === formattedName)) {
-               i--;
-               continue;
-            }
-
             // Ignorar elemntos con más de 2 palabras
             if (moreThan2Words(formattedName)) {
-               i--;
                continue;
             }
 
@@ -159,7 +164,7 @@ export function getRandomCountries(continent, quantityCountries = 10) {
             });
          }
 
-         resolve(result);
+         resolve(shuffleArray(result));
       } catch (err) {
          reject(new Error(`Error request getRandomCoutries: ${err}`));
       }

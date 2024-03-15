@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Multiple choise</title>
+      <meta
+         name="description"
+         content="TU PAÍS es un juego de adivinanzas
+                    geográficas en el que tenés que acertar el nombre de países
+                    de los diferentes continentes. Si completás las respuestas ¡Ganás!"
+      />
+      <meta name="author" content="Santiago Gonçalvez" />
+      <meta http-equiv="Content-Language" content="es" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:title" content="Tu país" />
+      <meta
+         property="og:description"
+         content="Juega a Tu País y descubre nuevas banderas y países de todo el mundo"
+      />
+      <meta name="keywords" content="Banderas, Juego, Adivinanzas, Países" />
+      <meta name="robots" content="index, follow" />
+      <link rel="author" href="https://github.com/santiagogoncalvez" />
+      <link rel="next" href="./pages-html/flag-gallery.html" />
+      <link rel="next" href="./pages-html/about-the-game.html" />
+      <link rel="next" href="./pages-html/about-the-game.html" />
+      <script src="../javascript/multiple-choise.js" type="module"></script>
+      <link rel="stylesheet" href="../css/index.css" type="text/css" />
+   </head>
+   <body class="multiple-choise">
+      <header class="header">
+         <button class="navbar__button--open" title="Abrir barra de navegación">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <h1 class="header__title">TU PAÍS</h1>
+
+         <!-- Solo es para rellenar -->
+         <button class="navbar__button--open" title="Abrir barra de navegación">
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+            <span class="navbar__icon"></span>
+         </button>
+
+         <nav class="navbar">
+            <button class="navbar__button--close" title="Cerrar">
+               <span class="navbar__icon--close1"></span>
+               <span class="navbar__icon--close2"></span>
+            </button>
+            <ul class="navbar__list">
+               <li class="navbar__item--1">
+                  <a href="./index.html" class="navbar__link--1">
+                     <!-- Modos de juego -->Inicio
+                  </a>
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--2">
+                  <a
+                     href="./pages-html/flag-gallery.html"
+                     class="navbar__link--2"
+                     >Banderas</a
+                  >
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--3">
+                  <a
+                     href="./pages-html/about-the-game.html"
+                     class="navbar__link--3"
+                     >Acerca del juego</a
+                  >
+                  <span class="navbar__division"></span>
+               </li>
+               <li class="navbar__item--4">
+                  <a href="./pages-html/credits.html" class="navbar__link--4"
+                     >Créditos</a
+                  >
+                  <span class="navbar__division"></span>
+               </li>
+            </ul>
+         </nav>
+
+         <!-- <nav class="settings">
+                <button class="settings__buttom"></button>
+                <ul class="settings-list">
+                    <li class="settings__item">Modo oscuro</li>
+                    <li class="settings__item">Continente</li>
+                    <li class="settings__item">Tiempo de juego</li>
+                </ul>
+            </nav> -->
+      </header>
+
+      <main class="multiple-choise__main">
+         <ul class="game__statistics">
+            <li class="game__statistics-item">
+               Tiempo<br />
+               <span class="game__time">00:00</span>
+            </li>
+            <li class="game__statistics-item">
+               Aciertos<br />
+               <span class="game__correct-answers">0/10</span>
+            </li>
+         </ul>
+
+         <figure class="country">
+            <figcaption class="country__description">Texto</figcaption>
+
+            <div class="country__container">
+               <div class="country__fill"></div>
+
+               <img
+                  src="https://flagcdn.com/w640/ua.png"
+                  srcset="https://flagcdn.com/w640/ua.png 2x"
+                  width="640"
+                  class="country__flag"
+                  loading="eager"
+                  alt=""
+               />
+
+               <button class="country__btNext" title="Siguiente">
+                  <span class="country__btNext--span1"></span>
+                  <span class="country__btNext--span2"></span>
+               </button>
+            </div>
+         </figure>
+
+         <div class="multiple-choise__options">
+            <div class="multiple-choise__option-column1">
+               <button
+                  class="multiple-choise__option"
+                  title="Opcion A"
+               >aaa</button>
+               <button
+                  class="multiple-choise__option"
+                  title="Opcion B"
+               >aaa</button>
+            </div>
+
+            <div class="multiple-choise__option-column2">
+               <button
+                  class="multiple-choise__option"
+                  title="Opcion C"
+               >aaa</button
+               ><button
+                  class="multiple-choise__option"
+                  title="Opcion D"
+               >aaaa</button>
+            </div>
+         </div>
+
+         <button class="game__start-again" title="Empezar de nuevo">
+            EMPEZAR DE NUEVO
+         </button>
+      </main>
+      <footer class="footer">
+         <!-- <button class="footer__github"></button> -->
+         <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
+      </footer>
+   </body>
+</html>

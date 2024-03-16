@@ -48,8 +48,9 @@ function removeParentheses(text) {
    return text.replace(/\s*\([^)]*\)/g, "").trim();
 }
 
-function urlFlag(code) {
-   return "./images/flags-svg/" + code + ".svg";
+function urlFlag(code, imageRute) {
+   let url = imageRute + "/" + code + ".svg";
+   return url;
 }
 
 function shuffleArray(arr) {
@@ -100,7 +101,7 @@ function getAllCountries() {
    });
 }
 
-function getCountriesByContinent(continent) {
+function getCountriesByContinent(continent,) {
    return new Promise(async (resolve, reject) => {
       if (continent === "america") continent = "americas";
       let url = "https://restcountries.com/v3.1/region/" + continent;
@@ -114,7 +115,7 @@ function getCountriesByContinent(continent) {
    });
 }
 
-export function getRandomCountries(continent, quantityCountries = 10) {
+export function getRandomCountries(continent, quantityCountries = 10, imageRute) {
    return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
          "all continents",
@@ -145,8 +146,7 @@ export function getRandomCountries(continent, quantityCountries = 10) {
 
          let result = [];
          for (let i = 0; i < quantityCountries; i++) {
-            let randomCountry =
-               countries[i];
+            let randomCountry = countries[i];
             let formattedName = formatWord(
                randomCountry.translations.spa.common
             );
@@ -160,7 +160,7 @@ export function getRandomCountries(continent, quantityCountries = 10) {
                name: formattedName,
                code: randomCountry.cca2.toLowerCase(),
                region: randomCountry.region,
-               flagUrl: urlFlag(randomCountry.cca2.toLowerCase()),
+               flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
             });
          }
 

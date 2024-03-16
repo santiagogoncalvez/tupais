@@ -251,11 +251,11 @@ function innerLetterElements(string, element) {
 function showNewFlag(game) {
    const [flagImg] = document.getElementsByClassName("country__flag");
    flagImg.src = game.countries[0].flagUrl;
-   let alt = `Bandera de ${game.name}`;
+   let alt = `Bandera de ${game.countries[0].name}`;
    flagImg.alt = alt;
 }
 
-function typeResponse(game) {
+function typeResponse(game, element) {
    function showTypeResponse(type, element) {
       let responseDiv = document.createElement("div");
       responseDiv.className = "response";
@@ -291,36 +291,23 @@ function typeResponse(game) {
       }, 3000);
    }
 
-   const correctAnswerSpan = document.getElementsByClassName(
-      "game__correct-answers"
-   )[0];
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
 
    if (!game.lastResponseStatus) {
       // Incomplete answer
       if (game.answerUser.length !== countryName.length) {
-         showTypeResponse(
-            "incomplete",
-            document.getElementsByClassName("homepage")[0]
-         );
+         showTypeResponse("incomplete", element);
       }
 
       // Incorrect answer
       if (game.answerUser.length === countryName.length) {
-         showTypeResponse(
-            "incorrect",
-            document.getElementsByClassName("homepage")[0]
-         );
+         showTypeResponse("incorrect", element);
       }
    }
 
    // Correct answer
    if (game.lastResponseStatus) {
-      showTypeResponse(
-         "correct",
-         document.getElementsByClassName("homepage")[0]
-      );
-      correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+      showTypeResponse("correct", element);
    }
 }
 
@@ -369,7 +356,11 @@ async function createNewGame() {
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountries(gameContinent, -1);
+   let randomCountries = await getRandomCountries(
+      gameContinent,
+      -1,
+      "./images/flags-svg"
+   );
 
    innerLetterElements(randomCountries[0].name, answerContainer);
    flagImg.src = randomCountries[0].flagUrl;
@@ -399,6 +390,13 @@ async function createNewGame() {
    }
 
    document.addEventListener("keydown", listenKeyboard);
+}
+
+// Timer
+
+// Función para añadir ceros delante de un número si es necesario
+function pad(number, length) {
+   return ("0" + number).slice(-length);
 }
 
 function formatTime(milliseconds) {
@@ -450,11 +448,6 @@ function countDown(milliseconds, element) {
    }
 }
 
-// Función para añadir ceros delante de un número si es necesario
-function pad(number, length) {
-   return ("0" + number).slice(-length);
-}
-
 function listenKeyboard(event) {
    let pressedKey;
    if (event.key) {
@@ -468,11 +461,17 @@ function listenKeyboard(event) {
 
    if (pressedKey === "enter") {
       const [answerContainer] = document.getElementsByClassName("game__answer");
+      const [correctAnswerSpan] = document.getElementsByClassName(
+         "game__correct-answers"
+      );
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      typeResponse(game);
+      typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
+      if (game.lastResponseStatus) {
+         correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+      }
       // Mostrar resultados
       if (game.correctAnswers === 10) {
          showResults(timeElapsed, game);

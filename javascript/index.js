@@ -4,11 +4,6 @@ import { NewGame } from "./imports/classNewGame.mjs";
 
 // Elements
 const startAgain = document.getElementsByClassName("game__start-again");
-const menuButtonOpen = document.getElementsByClassName("navbar__button--open");
-const menu = document.getElementsByClassName("navbar");
-const menuButtonClose = document.getElementsByClassName(
-   "navbar__button--close"
-);
 
 // Bindings
 let game;
@@ -469,18 +464,30 @@ function listenKeyboard(event) {
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
-      if (game.lastResponseStatus) {
-         correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
-      }
-      // Mostrar resultados
-      if (game.correctAnswers === 10) {
-         showResults(timeElapsed, game);
+      // Incomplete answer
+      if (game.answerUser.length !== game.countries[0].name.length) {
+         typeResponse(game, document.getElementsByClassName("homepage")[0]);
          return;
       }
 
+      // Incorrect answer
+      if (!game.lastResponseStatus) {
+         typeResponse(game, document.getElementsByClassName("homepage")[0]);
+         return;
+      }
+
+      // Correct answer
       if (game.lastResponseStatus) {
+         correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+         game = game.resetAnswerUser();
          showNewFlag(game);
          innerLetterElements(game.countries[0].name, answerContainer);
+      }
+
+      // Show results
+      if (game.correctAnswers === 10) {
+         showResults(timeElapsed, game);
+         return;
       }
 
       return;
@@ -571,9 +578,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
    createNewGame();
 
+   
    const [nextBt] = document.getElementsByClassName("country__btNext");
    nextBt.addEventListener("click", () => {
       const [answerContainer] = document.getElementsByClassName("game__answer");
+      game = game.resetAnswerUser();
       game = game.nextCountry();
       showNewFlag(game);
       innerLetterElements(game.countries[0].name, answerContainer);
@@ -584,29 +593,41 @@ startAgain[0].addEventListener("click", async function () {
    createNewGame();
 });
 
-menuButtonOpen[0].addEventListener("click", function () {
-   menu[0].style.left = "0rem";
-});
+function addMenuEvents() {
+   const menuButtonOpen = document.getElementsByClassName(
+      "navbar__button--open"
+   );
+   const menu = document.getElementsByClassName("navbar");
+   const menuButtonClose = document.getElementsByClassName(
+      "navbar__button--close"
+   );
 
-menuButtonClose[0].addEventListener("click", function () {
-   menu[0].style.left = "-25rem";
-});
+   menuButtonOpen[0].addEventListener("click", function () {
+      menu[0].style.left = "0rem";
+   });
 
-document.addEventListener("click", function (event) {
-   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
-   if (
-      !Array.from(menuButtonOpenSpan).some((element) => {
-         return event.target === element;
-      }) &&
-      event.target !== menuButtonOpen[0]
-   ) {
-      if (menu[0].style.left === "0rem") {
-         if (
-            !menu[0].contains(event.target) &&
-            !menuButtonClose[0].contains(event.target)
-         ) {
-            menu[0].style.left = "-25rem";
+   menuButtonClose[0].addEventListener("click", function () {
+      menu[0].style.left = "-25rem";
+   });
+
+   document.addEventListener("click", function (event) {
+      const menuButtonOpenSpan =
+         document.getElementsByClassName("navbar__icon");
+      if (
+         !Array.from(menuButtonOpenSpan).some((element) => {
+            return event.target === element;
+         }) &&
+         event.target !== menuButtonOpen[0]
+      ) {
+         if (menu[0].style.left === "0rem") {
+            if (
+               !menu[0].contains(event.target) &&
+               !menuButtonClose[0].contains(event.target)
+            ) {
+               menu[0].style.left = "-25rem";
+            }
          }
       }
-   }
-});
+   });
+}
+addMenuEvents();

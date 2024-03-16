@@ -76,7 +76,6 @@ export class NewGame {
 
       // Correct answer
       let newState = this.modifyProperty({
-         answerUser: "",
          correctAnswers: this.correctAnswers + 1,
          lastResponseStatus: true,
          countries: this.countries.slice(1, this.countries.length),
@@ -105,6 +104,10 @@ export class NewGame {
       }
 
       return result;
+   }
+
+   resetAnswerUser() {
+      return new NewGame(this.modifyProperty({ answerUser: "" }));
    }
 }
 
@@ -136,7 +139,6 @@ export class MultipleChoice {
       if (answerUser !== countryName) {
          return new MultipleChoice(
             this.modifyProperty({
-               answerUser: "",
                lastResponseStatus: false,
                countries: this.countries.slice(1, this.countries.length),
             })
@@ -145,7 +147,6 @@ export class MultipleChoice {
 
       // Correct answer
       let newState = this.modifyProperty({
-         answerUser: "",
          correctAnswers: this.correctAnswers + 1,
          lastResponseStatus: true,
          countries: this.countries.slice(1, this.countries.length),
@@ -180,5 +181,9 @@ export class MultipleChoice {
       return new MultipleChoice(
          this.modifyProperty({ countriesShown: this.countriesShown + 1 })
       );
+   }
+
+   resetAnswerUser() {
+      return new MultipleChoice(this.modifyProperty({ answerUser: ""}));
    }
 }

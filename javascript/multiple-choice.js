@@ -1,6 +1,6 @@
 // Imports
 import { getRandomCountries } from "./imports/countryDataManager.mjs";
-import { MultipleChoise } from "./imports/classNewGame.mjs";
+import { MultipleChoice } from "./imports/classNewGame.mjs";
 
 // Bindigs
 let freeTimeInterval,
@@ -146,7 +146,6 @@ function countDown(milliseconds, element) {
 
 function showResults(timeElapsed, game, element) {
    insertAnswerResults(element, game.correctAnswers, timeElapsed);
-   deleteAllLetters();
 }
 
 function insertAnswerResults(element, correctAnswers, time) {
@@ -287,7 +286,7 @@ function insertTextContinent(continent) {
 
 function showOptions(game) {
    const optionButtons = document.getElementsByClassName(
-      "multiple-choise__option"
+      "multiple-choice__option"
    );
 
    for (let option of optionButtons) {
@@ -382,12 +381,12 @@ async function createNewGame() {
       countriesShown: 0
    };
 
-   game = new MultipleChoise(stateGame);
+   game = new MultipleChoice(stateGame);
    console.log(game);
 
    showOptions(game);
    const optionButtons = document.getElementsByClassName(
-      "multiple-choise__option"
+      "multiple-choice__option"
    );
    for (let option of optionButtons) {
       option.addEventListener("click", () => {
@@ -409,7 +408,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       sessionStorage.getItem("time") === null &&
       sessionStorage.getItem("continent") === null
    ) {
-      let body = document.getElementsByClassName("multiple-choise")[0];
+      let body = document.getElementsByClassName("multiple-choice")[0];
       body.insertAdjacentHTML("beforeend", presentationHtml);
       let presentation = document.getElementsByClassName(
          "presentation__section"
@@ -483,12 +482,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (game.answerUser.length === 0) {
          typeResponse(
             game,
-            document.getElementsByClassName("multiple-choise")[0]
+            document.getElementsByClassName("multiple-choice")[0]
          );
          return;
       }
 
-      typeResponse(game, document.getElementsByClassName("multiple-choise")[0]);
+      typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
@@ -503,12 +502,10 @@ document.addEventListener("DOMContentLoaded", async function () {
          showResults(
             timeElapsed,
             game,
-            document.getElementsByClassName("multiple-choise")[0]
+            document.getElementsByClassName("multiple-choice")[0]
          );
          return;
       }
-
-      console.log(game)
 
       showNewFlag(game);
       showOptions(game);

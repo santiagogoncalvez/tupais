@@ -1354,14 +1354,14 @@ html {
    margin-top: 0rem;
 }
 
-/* multiple choise page */
-.multiple-choise {
+/* multiple choice page */
+.multiple-choice {
    height: 100%;
    width: 100%;
    margin: 0 auto;
 }
 
-.multiple-choise__main {
+.multiple-choice__main {
    height: 84vh;
    width: 100%;
    display: flex;
@@ -1372,7 +1372,7 @@ html {
    flex: 1;
 }
 
-.multiple-choise__options {
+.multiple-choice__options {
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -1382,7 +1382,7 @@ html {
    margin-bottom: 2rem;
 }
 
-.multiple-choise__option {
+.multiple-choice__option {
    height: 5rem;
    max-height: 5rem;
    width: 14em;
@@ -1398,49 +1398,74 @@ html {
    cursor: pointer;
    user-select: none;
    font-weight: 500;
-   font-size: clamp(0.2px, 1.2rem, 8vw);
+   font-size: clamp(0.2px, 1.2rem, 4vw);
    text-align: start;
    padding-left: 2rem;
 }
 
-.multiple-choise__option-column1 {
+.multiple-choice__option-column1 {
    display: flex;
    justify-content: center;
    align-items: center;
+   max-width: 90vw;
 }
 
-.multiple-choise__option-column2 {
+.multiple-choice__option-column2 {
    display: flex;
    justify-content: center;
    align-items: center;
    margin-top: 1rem;
+   max-width: 90vw;
 }
 
-.multiple-choise__option-column1 > .multiple-choise__option:nth-child(1) {
+.multiple-choice__option-column1 > .multiple-choice__option:nth-child(1) {
    margin-right: 0.5rem;
 }
 
-.multiple-choise__option-column1 > .multiple-choise__option:nth-child(2) {
+.multiple-choice__option-column1 > .multiple-choice__option:nth-child(2) {
    margin-left: 0.5rem;
 }
 
-.multiple-choise__option-column2 > .multiple-choise__option:nth-child(1) {
+.multiple-choice__option-column2 > .multiple-choice__option:nth-child(1) {
    margin-right: 0.5rem;
 }
 
-.multiple-choise__option-column2 > .multiple-choise__option:nth-child(2) {
+.multiple-choice__option-column2 > .multiple-choice__option:nth-child(2) {
    margin-left: 0.5rem;
 }
 
-.multiple-choise .game__start-again {
+.multiple-choice .game__start-again {
    margin-bottom: 1rem;
 }
 
-.multiple-choise .footer {
+.multiple-choice .footer {
    position: fixed;
    z-index: 1;
    bottom: 0;
    left: 50%;
    transform: translateX(-50%);
    margin-top: 0rem;
+}
+
+@media only screen and (max-device-width: 480px) {
+   .multiple-choice__option {
+      height: 4rem;
+      max-height: 5rem;
+      width: 14em;
+      max-width: 13rem;
+      border-radius: 0.8em;
+      border-color: none;
+      border-style: none;
+      margin-left: 0.2rem;
+      margin-right: 0.2rem;
+      text-align: center;
+      box-sizing: border-box;
+      background: rgb(233, 233, 233);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+      font-size: clamp(0.2px, 1.2rem, 4vw);
+      text-align: start;
+      padding-left: 2rem;
+   }
 }

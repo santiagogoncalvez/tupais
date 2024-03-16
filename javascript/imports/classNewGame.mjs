@@ -108,7 +108,7 @@ export class NewGame {
    }
 }
 
-export class MultipleChoise {
+export class MultipleChoice {
    constructor(state) {
       for (let property in state) {
          this[property] = state[property];
@@ -121,7 +121,7 @@ export class MultipleChoise {
             `The arguments are not strings. enteredAnswer: ${enteredAnswer}`
          );
       }
-      return new MultipleChoise(
+      return new MultipleChoice(
          this.modifyProperty({
             answerUser: enteredAnswer,
          })
@@ -134,7 +134,7 @@ export class MultipleChoise {
 
       // Incorrect answer
       if (answerUser !== countryName) {
-         return new MultipleChoise(
+         return new MultipleChoice(
             this.modifyProperty({
                answerUser: "",
                lastResponseStatus: false,
@@ -151,7 +151,7 @@ export class MultipleChoise {
          countries: this.countries.slice(1, this.countries.length),
       });
 
-      return new MultipleChoise(newState);
+      return new MultipleChoice(newState);
    }
 
    nextCountry() {
@@ -159,7 +159,7 @@ export class MultipleChoise {
       let result = this.countries.slice(1, this.countries.length);
       result.push(first);
 
-      return new MultipleChoise(this.modifyProperty({ countries: result }));
+      return new MultipleChoice(this.modifyProperty({ countries: result }));
    }
 
    modifyProperty(state = {}) {
@@ -177,7 +177,7 @@ export class MultipleChoise {
    }
 
    addCountryShown() {
-      return new MultipleChoise(
+      return new MultipleChoice(
          this.modifyProperty({ countriesShown: this.countriesShown + 1 })
       );
    }

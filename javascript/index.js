@@ -131,8 +131,8 @@ function insertAnswerResults(element, correctAnswers, time) {
     </div>
     <div class="blurry-background"></div>`;
    /*<button class="answer-results__button--change-mode" title="Cambiar de modo">
-      <span>CAMBIAR DE MODO</span>
-   </button> */
+       <span>CAMBIAR DE MODO</span>
+    </button> */
 
    element.insertAdjacentHTML("beforeend", textHtml);
 
@@ -460,33 +460,37 @@ function listenKeyboard(event) {
          "game__correct-answers"
       );
 
-      game = game.verifyAnswer(game.answerUser, game.countries[0].name);
-
-      typeResponse(game, document.getElementsByClassName("homepage")[0]);
-
       // Incomplete answer
-      if (game.answerUser.length !== game.countries[0].name.length) {
+      if (
+         game.answerUser.length !==
+         game.countries[0].name.replace(/\s/g, "").length
+      ) {
          typeResponse(game, document.getElementsByClassName("homepage")[0]);
          return;
       }
 
+      game = game.verifyAnswer(game.answerUser, game.countries[0].name);
+
+      typeResponse(game, document.getElementsByClassName("homepage")[0]);
+
       // Incorrect answer
       if (!game.lastResponseStatus) {
-         typeResponse(game, document.getElementsByClassName("homepage")[0]);
          return;
       }
 
       // Correct answer
       if (game.lastResponseStatus) {
          correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
-         game = game.resetAnswerUser();
          showNewFlag(game);
          innerLetterElements(game.countries[0].name, answerContainer);
-      }
+         game = game.resetAnswerUser();
 
-      // Show results
-      if (game.correctAnswers === 10) {
-         showResults(timeElapsed, game);
+         // Show results
+         if (game.correctAnswers === 10) {
+            showResults(timeElapsed, game);
+            return;
+         }
+
          return;
       }
 
@@ -497,11 +501,13 @@ function listenKeyboard(event) {
 
    if (pressedKey === "backspace") {
       deleteLetter(game);
+      return;
    }
 
    // other letter
    if (pressedKey !== "backspace") {
       insertLetter(game);
+      return;
    }
 }
 
@@ -578,7 +584,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
    createNewGame();
 
-   
    const [nextBt] = document.getElementsByClassName("country__btNext");
    nextBt.addEventListener("click", () => {
       const [answerContainer] = document.getElementsByClassName("game__answer");

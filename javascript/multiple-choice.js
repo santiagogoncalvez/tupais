@@ -301,11 +301,10 @@ function showOptions(game) {
 
    let nameOptions = [game.countries[0].name];
    for (let i = 0; i < optionButtons.length; i++) {
-      let listOptions = ["A)", "B)", "C)", "D)"];
       let text, name;
       if (i === positionCorrcAnsw) {
          name = game.countries[0].name;
-         text = `${listOptions[i]} ${game.countries[0].name}`;
+         text = `${game.countries[0].name}`;
          optionButtons[i].textContent = text;
          optionButtons[i].value = name;
          continue;
@@ -316,12 +315,12 @@ function showOptions(game) {
             game.countries[Math.floor(Math.random() * game.countries.length)]
                .name;
          if (!nameOptions.some((optionName) => optionName === name)) {
-            listOptions.push(name);
+            nameOptions.push(name);
             break;
          }
       }
 
-      text = `${listOptions[i]} ${name}`;
+      text = `${name}`;
 
       optionButtons[i].textContent = text;
       optionButtons[i].value = name;

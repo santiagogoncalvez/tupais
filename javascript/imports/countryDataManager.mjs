@@ -50,6 +50,7 @@ function removeParentheses(text) {
 
 function urlFlag(code, imageRute) {
    let url = imageRute + "/" + code + ".svg";
+   if (code === "om") url = imageRute + "/" + code + ".png";
    return url;
 }
 
@@ -59,6 +60,28 @@ function shuffleArray(arr) {
       [arr[i], arr[j]] = [arr[j], arr[i]];
    }
    return arr;
+}
+
+function getClues(country) {
+   let requiredClues = [
+      "capital",
+      "region",
+      "subregion",
+      "landlocked",
+      "borders",
+      "area",
+      "population",
+      "timezones",
+      "languages",
+      "currencies",
+   ];
+
+   let clues = {};
+   for (let property of requiredClues) {
+      clues[property] = country[property] ? country[property] : null;
+   }
+
+   return clues;
 }
 
 function getCoutryByName(name) {
@@ -101,7 +124,7 @@ function getAllCountries() {
    });
 }
 
-function getCountriesByContinent(continent,) {
+function getCountriesByContinent(continent) {
    return new Promise(async (resolve, reject) => {
       if (continent === "america") continent = "americas";
       let url = "https://restcountries.com/v3.1/region/" + continent;
@@ -115,7 +138,11 @@ function getCountriesByContinent(continent,) {
    });
 }
 
-export function getRandomCountries(continent, quantityCountries = 10, imageRute) {
+export function getRandomCountries(
+   continent,
+   quantityCountries = 10,
+   imageRute
+) {
    return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
          "all continents",
@@ -161,6 +188,67 @@ export function getRandomCountries(continent, quantityCountries = 10, imageRute)
                code: randomCountry.cca2.toLowerCase(),
                region: randomCountry.region,
                flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
+            });
+         }
+
+         resolve(shuffleArray(result));
+      } catch (err) {
+         reject(new Error(`Error request getRandomCoutries: ${err}`));
+      }
+   });
+}
+
+export function getRandomCountriesClues(
+   continent,
+   quantityCountries = 10,
+   imageRute
+) {
+   return new Promise(async (resolve, reject) => {
+      let aceptedStrings = [
+         "all continents",
+         "asia",
+         "europe",
+         "americas",
+         "oceania",
+         "africa",
+      ];
+      if (!aceptedStrings.includes(continent))
+         throw new Error(
+            `Incorrect string of argument 'continent'. Value: ${continent}`
+         );
+
+      try {
+         let countries;
+         if (continent === "all continents") {
+            countries = await getAllCountries();
+         }
+
+         if (continent !== "all continents") {
+            countries = await getCountriesByContinent(continent);
+         }
+
+         if (quantityCountries === -1) {
+            quantityCountries = countries.length;
+         }
+
+         let result = [];
+         for (let i = 0; i < quantityCountries; i++) {
+            let randomCountry = countries[i];
+            let formattedName = formatWord(
+               randomCountry.translations.spa.common
+            );
+
+            // Ignorar elemntos con más de 2 palabras
+            if (moreThan2Words(formattedName)) {
+               continue;
+            }
+
+            result.push({
+               name: formattedName,
+               code: randomCountry.cca2.toLowerCase(),
+               region: randomCountry.region,
+               flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
+               clues: getClues(randomCountry),
             });
          }
 

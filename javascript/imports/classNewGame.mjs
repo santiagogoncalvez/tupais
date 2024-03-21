@@ -187,3 +187,81 @@ export class MultipleChoice {
       return new MultipleChoice(this.modifyProperty({ answerUser: ""}));
    }
 }
+
+
+export class Clues {
+   constructor(state) {
+      for (let property in state) {
+         this[property] = state[property];
+      }
+   }
+
+   modifyAnswer(enteredAnswer) {
+      if (typeof enteredAnswer !== "string") {
+         throw new Error(
+            `The arguments are not strings. enteredAnswer: ${enteredAnswer}`
+         );
+      }
+      return new MultipleChoice(
+         this.modifyProperty({
+            answerUser: enteredAnswer,
+         })
+      );
+   }
+
+   verifyAnswer(answerUser, countryName) {
+      answerUser = answerUser.toLowerCase().replace(/\s/g, "");
+      countryName = countryName.toLowerCase().replace(/\s/g, "");
+
+      // Incorrect answer
+      if (answerUser !== countryName) {
+         return new MultipleChoice(
+            this.modifyProperty({
+               lastResponseStatus: false,
+               countries: this.countries.slice(1, this.countries.length),
+            })
+         );
+      }
+
+      // Correct answer
+      let newState = this.modifyProperty({
+         correctAnswers: this.correctAnswers + 1,
+         lastResponseStatus: true,
+         countries: this.countries.slice(1, this.countries.length),
+      });
+
+      return new MultipleChoice(newState);
+   }
+
+   nextCountry() {
+      let first = this.countries[0];
+      let result = this.countries.slice(1, this.countries.length);
+      result.push(first);
+
+      return new MultipleChoice(this.modifyProperty({ countries: result }));
+   }
+
+   modifyProperty(state = {}) {
+      let result = {};
+
+      for (let property in this) {
+         result[property] = this[property];
+      }
+
+      for (let property in state) {
+         result[property] = state[property];
+      }
+
+      return result;
+   }
+
+   addCountryShown() {
+      return new MultipleChoice(
+         this.modifyProperty({ countriesShown: this.countriesShown + 1 })
+      );
+   }
+
+   resetAnswerUser() {
+      return new MultipleChoice(this.modifyProperty({ answerUser: "" }));
+   }
+}

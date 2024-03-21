@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Multiple choice</title>
+      <title>Modo multiple choice</title>
       <meta
          name="description"
          content="TU PAÍS es un juego de adivinanzas
@@ -29,7 +29,8 @@
    </head>
    <body class="multiple-choice">
       <header class="header">
-         <button class="navbar__button--open" title="Abrir barra de navegación">
+         <div class="header__container">
+            <button class="navbar__button--open" title="Abrir barra de navegación" type="button">
             <span class="navbar__icon"></span>
             <span class="navbar__icon"></span>
             <span class="navbar__icon"></span>
@@ -38,41 +39,40 @@
          <h1 class="header__title">TU PAÍS</h1>
 
          <!-- Solo es para rellenar -->
-         <button class="navbar__button--open" title="Abrir barra de navegación">
-            <span class="navbar__icon"></span>
-            <span class="navbar__icon"></span>
-            <span class="navbar__icon"></span>
-         </button>
+         <div class="header__fill-space" title="Abrir barra de navegación">
+         </div>
+         </div>
 
          <nav class="navbar">
-            <button class="navbar__button--close" title="Cerrar">
+            <button class="navbar__button--close" title="Cerrar" type="button">
                <span class="navbar__icon--close1"></span>
                <span class="navbar__icon--close2"></span>
             </button>
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <a href="../index.html" class="navbar__link--1">
+                  <a href="./index.html" class="navbar__link--1">
                      <!-- Modos de juego -->Inicio
                   </a>
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--2">
                   <a
-                     href="flag-gallery.html"
+                     href="./pages-html/flag-gallery.html"
                      class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
                </li>
+
                <li class="navbar__item--2">
                   <a
-                     href="multipleChoise.html"
+                     href="./pages-html/game-modes.html"
                      class="navbar__link--2"
-                     >Multiple choise</a
+                     >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
-               <!-- 
+               
                   <li class="navbar__item--3">
                   <a
                      href="./pages-html/about-the-game.html"
@@ -87,7 +87,7 @@
                   >
                   <span class="navbar__division"></span>
                </li>
-                -->
+               
             </ul>
          </nav>
 

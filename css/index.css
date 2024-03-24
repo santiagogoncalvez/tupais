@@ -1643,3 +1643,15 @@ html {
 .game-modes .footer {
    margin-top: 0rem;
 }
+
+
+/* Clues-mode page */
+.clues-mode{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+   margin: 0;
+   height: 100%;
+}

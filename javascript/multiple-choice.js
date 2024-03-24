@@ -398,6 +398,7 @@ async function createNewGame() {
          for (let element of optionButtons) {
             if (element === option) continue;
             element.style.backgroundColor = "rgb(233, 233, 233)";
+            element.style.border = "none"
          }
       });
    }

@@ -392,8 +392,8 @@ async function createNewGame() {
    for (let option of optionButtons) {
       option.addEventListener("click", () => {
          game = game.modifyAnswer(option.value, game.countries[0].name);
-         option.style.backgroundColor = "rgb(204, 204, 204)";
-         option.style.border = "0.2rem solid whitesmoke";
+         option.style.backgroundColor = "#b3dbff";
+         option.style.border = "0.25rem solid whitesmoke";
 
          for (let element of optionButtons) {
             if (element === option) continue;

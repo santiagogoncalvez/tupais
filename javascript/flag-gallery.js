@@ -598,7 +598,6 @@ let flagSearch = true;
 
          flagSearch = false;
          searchDynamic.value = searchCommon.value;
-         searchDynamic.focus();
          setTimeout(() => {
             searchDynamic.style.top = "25px";
          }, 50);

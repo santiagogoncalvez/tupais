@@ -468,7 +468,7 @@ function listenKeyboard(event) {
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      addIconAnimation(game.lastResponseStatus);
+      addIconAnimation(game.lastResponseStatus, "./images");
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
@@ -641,16 +641,16 @@ function addMenuEvents() {
 addMenuEvents();
 
 // Animación de icono de respuesta correcta o incorrecta
-function addIconAnimation(typeAnswer) {
+function addIconAnimation(typeAnswer, url) {
    const [countryElement] =
       document.getElementsByClassName("country__container");
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
 
    if (typeAnswer) {
-      iconImg.src = "../images/icons-correct.svg";
+      iconImg.src = url + "/icons-correct.svg";
    } else {
-      iconImg.src = "../images/icons-incorrect.svg";
+      iconImg.src = url + "/icons-incorrect.svg";
    }
 
    blurryBackground.classList.add("multiple-choice__iconBackground");

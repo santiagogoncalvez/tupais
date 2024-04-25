@@ -392,6 +392,7 @@ async function createNewGame() {
 
 document.addEventListener("DOMContentLoaded", async function () {
    const [startAgain] = document.getElementsByClassName("game__start-again");
+   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
 
    // Presentation
    if (
@@ -464,7 +465,6 @@ document.addEventListener("DOMContentLoaded", async function () {
    createNewGame();
 
    // Animacion de tilde correcto-incorrecto
-   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
    sendBt.addEventListener("click", () => {
       const [correctAnswerSpan] = document.getElementsByClassName(
          "game__correct-answers"
@@ -506,19 +506,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                option.style.backgroundColor = "#f2dede";
             }
          }
-
-         // Desactivar clic sobre los botones al responder
-
-         /*
-         activeBtOptions("deactivate");
-         option.classList.add("multiple-choice__option--disabled");
-
-         setTimeout(() => {
-            activeBtOptions("activate");
-            option.classList.remove("multiple-choice__option--disabled");
-         }, 3500);
-         */
       }
+
+      activeBtOptions("deactivate");
+      setTimeout(() => {
+         activeBtOptions("activate");
+      }, 3500);
 
       game = game.resetAnswerUser();
 
@@ -629,27 +622,32 @@ function activeBtOptions(state) {
 
    if (state === "activate") {
       for (let option of optionButtons) {
-         option.addEventListener("click", function selectOption() {
-            /* Esta parte debo cambiar */
-            game = game.modifyAnswer(option.value, game.countries[0].name);
-            option.style.backgroundColor = "#b3dbff";
-            option.style.border = "0.25rem solid whitesmoke";
-
-            for (let element of optionButtons) {
-               if (element === option) continue;
-               element.style.backgroundColor = "rgb(233, 233, 233)";
-               element.style.border = "none";
-            }
-         });
+         option.addEventListener("click", selectOption);
+         option.style.cursor = "pointer";
       }
    }
 
-   /*
-   
    if (state === "deactivate") {
       for (let option of optionButtons) {
          option.removeEventListener("click", selectOption);
+         option.style.cursor = "initial";
       }
    }
-   */
+   return;
+}
+
+function selectOption(event) {
+   const optionBt = document.getElementsByClassName("multiple-choice__option");
+   /* Esta parte debo cambiar */
+   let optionSelect = event.target;
+   game = game.modifyAnswer(optionSelect.value, game.countries[0].name);
+
+   optionSelect.style.backgroundColor = "#b3dbff";
+   optionSelect.style.border = "0.25rem solid whitesmoke";
+
+   for (let element of optionBt) {
+      if (element === optionSelect) continue;
+      element.style.backgroundColor = "rgb(233, 233, 233)";
+      element.style.border = "none";
+   }
 }

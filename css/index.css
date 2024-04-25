@@ -253,6 +253,7 @@ html {
    max-width: 20vw;
    user-select: none;
    background-color: transparent;
+   margin-right: 0.5rem;
 }
 
 .navbar__button--open {
@@ -272,6 +273,7 @@ html {
    padding-left: 0.3rem;
    padding-right: 0.42rem;
    user-select: none;
+   margin-left: 0.5rem;
 }
 
 .navbar {
@@ -1518,7 +1520,7 @@ html {
 .multiple-choice__option {
    height: 5rem;
    max-height: 5rem;
-   width: 14em;
+   width: 11em;
    max-width: 13rem;
    border-radius: 0.8em;
    border-color: none;
@@ -1537,24 +1539,21 @@ html {
    transition: all 0.15s ease-in-out;
 }
 
-.multiple-choice__option--disabled {
-   cursor: initial;
-}
-
 .multiple-choice__send {
    height: 2.5rem;
    max-height: 5rem;
    width: 27rem;
    max-width: 100%;
-   border-radius: 0.25em;
-   border-color: none;
-   border-style: none;
+   border-radius: 0.4em;
+   border-color: whitesmoke;
+   border-style: solid;
+   border-width: 3px;
    margin-left: 0.2rem;
    margin-right: 0.2rem;
    text-align: center;
    box-sizing: border-box;
    background: rgb(233, 233, 233);
-   background-color: #aad7ff;
+   background-color: #ced6da;
    cursor: pointer;
    user-select: none;
    font-weight: 500;
@@ -1563,8 +1562,9 @@ html {
 }
 
 .multiple-choice__send:hover {
-   background-color: #aad7ffe3;
+   background-color: #c7cfd4;
    transition: all 0.3s ease;
+   border-color: rgb(250, 250, 250);
 }
 
 .multiple-choice .game__start-again {
@@ -1653,6 +1653,7 @@ html {
 .about-the-game__modes-list {
    max-width: 90vw;
    margin-right: auto;
+   margin-top: 0rem;
    padding-left: 2rem;
 }
 

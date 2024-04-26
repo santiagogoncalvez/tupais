@@ -13,8 +13,10 @@ const presentationHtml = `
                 <h2 class="presentation__header-title">TU PAÍS</h2>
 
                 <!-- icono de cruz para salir -->
-                <button class="presentation__header-link" title="Cerrar"
+                <button class="presentation__header-link" title="Cerrar" type="button"
                     >
+                    <span class="presentation__icon--close1"></span>
+               <span class="presentation__icon--close2"></span>
                 </button>
             </header>
 
@@ -648,9 +650,11 @@ function addIconAnimation(typeAnswer, url) {
    let iconImg = document.createElement("img");
 
    if (typeAnswer) {
-      iconImg.src = url + "/icons-correct.svg";
+      url += "/icons-correct.svg";
+      iconImg.src = url;
    } else {
-      iconImg.src = url + "/icons-incorrect.svg";
+      url += "/icons-incorrect.svg";
+      iconImg.src = url;
    }
 
    blurryBackground.classList.add("multiple-choice__iconBackground");

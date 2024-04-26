@@ -15,6 +15,8 @@ const presentationHtml = `
                 <!-- icono de cruz para salir -->
                 <button class="presentation__header-link" title="Cerrar"
                     >
+                    <span class="presentation__icon--close1"></span>
+               <span class="presentation__icon--close2"></span>
                 </button>
             </header>
 
@@ -291,10 +293,10 @@ function showOptions(game) {
       "multiple-choice__option"
    );
 
-   for (let option of optionButtons) {
-      option.style.backgroundColor = "rgb(233, 233, 233)";
-      option.style.border = "none";
-   }
+   // for (let option of optionButtons) {
+   //    option.style.backgroundColor = "rgb(233, 233, 233)";
+   //    option.style.border = "none";
+   // }
 
    // Answer options buttons event
    let positionCorrcAnsw = Math.floor(Math.random() * optionButtons.length);
@@ -390,6 +392,58 @@ async function createNewGame() {
    activeBtOptions("activate");
 }
 
+function sendAnswer() {
+   const [correctAnswerSpan] = document.getElementsByClassName(
+      "game__correct-answers"
+   );
+   let answerUser = game.answerUser.toLowerCase().replace(/\s/g, "");
+   let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
+
+   if (game.answerUser.length === 0) {
+      typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
+      return;
+   }
+
+   game = game.verifyAnswer(answerUser, countryName);
+
+   addIconAnimation(game.lastResponseStatus, "../images");
+
+   typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
+
+   activeBtOptions("deactivate");
+   showCorrectAnswer("activate", countryName);
+
+   setTimeout(() => {
+      activeBtOptions("activate");
+      showCorrectAnswer("deactivate");
+   }, 3500);
+
+   game = game.resetAnswerUser();
+
+   if (game.lastResponseStatus) {
+      correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+   }
+
+   game = game.addCountryShown();
+
+   // Mostrar resultados
+   if (game.countriesShown === 10) {
+      setTimeout(() => {
+         showResults(
+            timeElapsed,
+            game,
+            document.getElementsByClassName("multiple-choice")[0]
+         );
+      }, 4000);
+      return;
+   }
+
+   setTimeout(() => {
+      showNewFlag(game);
+      showOptions(game);
+   }, 3500);
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
    const [startAgain] = document.getElementsByClassName("game__start-again");
    const [sendBt] = document.getElementsByClassName("multiple-choice__send");
@@ -465,83 +519,18 @@ document.addEventListener("DOMContentLoaded", async function () {
    createNewGame();
 
    // Animacion de tilde correcto-incorrecto
-   sendBt.addEventListener("click", () => {
-      const [correctAnswerSpan] = document.getElementsByClassName(
-         "game__correct-answers"
-      );
-      const optionButtons = document.getElementsByClassName(
-         "multiple-choice__option"
-      );
-      let answerUser = game.answerUser.toLowerCase().replace(/\s/g, "");
-      let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
-
-      if (game.answerUser.length === 0) {
-         typeResponse(
-            game,
-            document.getElementsByClassName("multiple-choice")[0]
-         );
-         return;
-      }
-
-      game = game.verifyAnswer(answerUser, countryName);
-
-      addIconAnimation(game.lastResponseStatus, "../images");
-
-      typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
-
-      for (let option of optionButtons) {
-         let optionValue = option.value.toLowerCase().replace(/\s/g, "");
-
-         if (game.lastResponseStatus) {
-            if (optionValue === countryName) {
-               option.style.backgroundColor = "#dff0d8";
-            }
-         }
-
-         if (!game.lastResponseStatus) {
-            if (optionValue === countryName) {
-               option.style.backgroundColor = "#dff0d8";
-            }
-            if (optionValue !== countryName) {
-               option.style.backgroundColor = "#f2dede";
-            }
-         }
-      }
-
-      activeBtOptions("deactivate");
-      setTimeout(() => {
-         activeBtOptions("activate");
-      }, 3500);
-
-      game = game.resetAnswerUser();
-
-      if (game.lastResponseStatus) {
-         correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
-      }
-
-      game = game.addCountryShown();
-
-      // Mostrar resultados
-      if (game.countriesShown === 10) {
-         setTimeout(() => {
-            showResults(
-               timeElapsed,
-               game,
-               document.getElementsByClassName("multiple-choice")[0]
-            );
-         }, 4000);
-         return;
-      }
-
-      setTimeout(() => {
-         showNewFlag(game);
-         showOptions(game);
-      }, 3500);
-   });
+   sendBt.addEventListener("click", sendAnswer);
 
    startAgain.addEventListener("click", async function () {
       createNewGame();
    });
+});
+
+// Escuchar "enter"
+document.addEventListener("keydown", (event) => {
+   if (event.key === "Enter") {
+      sendAnswer();
+   }
 });
 
 // Menu events
@@ -592,9 +581,11 @@ function addIconAnimation(typeAnswer, url) {
    let iconImg = document.createElement("img");
 
    if (typeAnswer) {
-      iconImg.src = url + "/icons-correct.svg";
+      url += "/icons-correct.svg";
+      iconImg.src = url;
    } else {
-      iconImg.src = url + "/icons-incorrect.svg";
+      url += "/icons-incorrect.svg";
+      iconImg.src = url;
    }
 
    blurryBackground.classList.add("multiple-choice__iconBackground");
@@ -638,16 +629,56 @@ function activeBtOptions(state) {
 
 function selectOption(event) {
    const optionBt = document.getElementsByClassName("multiple-choice__option");
-   /* Esta parte debo cambiar */
    let optionSelect = event.target;
+
    game = game.modifyAnswer(optionSelect.value, game.countries[0].name);
 
-   optionSelect.style.backgroundColor = "#b3dbff";
-   optionSelect.style.border = "0.25rem solid whitesmoke";
+   optionSelect.classList.add("multiple-choice__option--active");
 
    for (let element of optionBt) {
-      if (element === optionSelect) continue;
-      element.style.backgroundColor = "rgb(233, 233, 233)";
-      element.style.border = "none";
+      if (element === optionSelect) {
+         continue;
+      }
+      element.classList.remove("multiple-choice__option--active");
+   }
+}
+
+function showCorrectAnswer(state, countryName) {
+   const optionButtons = document.getElementsByClassName(
+      "multiple-choice__option"
+   );
+
+   if (state === "activate") {
+      for (let option of optionButtons) {
+         let optionValue = option.value.toLowerCase().replace(/\s/g, "");
+
+         option.classList.remove("multiple-choice__option--active");
+
+         if (game.lastResponseStatus) {
+            if (optionValue === countryName) {
+               option.style.backgroundColor = "#dff0d8";
+               console.log("CORRECT");
+            }
+         }
+
+         if (!game.lastResponseStatus) {
+            console.log(optionValue, countryName);
+
+            if (optionValue === countryName) {
+               option.style.backgroundColor = "#dff0d8";
+               console.log("CORRECT");
+            }
+            if (optionValue !== countryName) {
+               option.style.backgroundColor = "#f2dede";
+               console.log("INCORRECT");
+            }
+         }
+      }
+   }
+
+   if (state === "deactivate") {
+      for (let option of optionButtons) {
+         option.style.backgroundColor = "";
+      }
    }
 }

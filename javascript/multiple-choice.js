@@ -110,6 +110,21 @@ function formatTime(milliseconds) {
    // Concatenar minutos y segundos formateados
    return formattedMinutes + ":" + formattedSeconds;
 }
+
+function formatTimeResults(seconds) {
+   // Calculate minutes and remaining seconds
+   var minutes = Math.floor(seconds / 60);
+   var remainingSeconds = seconds % 60;
+
+   // Format minutes and seconds with leading zeros if necessary
+   var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+   var formattedSeconds =
+      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+
+   // Return formatted time
+   return formattedMinutes + ":" + formattedSeconds;
+}
+
 // Timer
 function countDown(milliseconds, element) {
    if (milliseconds === -1) {
@@ -151,9 +166,12 @@ function showResults(timeElapsed, game, element) {
 }
 
 function insertAnswerResults(element, correctAnswers, time) {
+   time = formatTimeResults(time);
    const textHtml = `
     <div class="answer-results">
-    <button class="answer-results__close" title="Cerrar">
+    <button class="answer-results__close" title="Cerrar" type="button">
+      <span class="answer-results__icon--close1"></span>
+      <span class="answer-results__icon--close2"></span>
     </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
@@ -165,9 +183,10 @@ function insertAnswerResults(element, correctAnswers, time) {
       ${correctAnswers}/10
     </span>
     <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">00:${time}</span>
+    <span class="answer-results__span">${time}</span>
     </p>
-    <button class="answer-results__button--start-again" title="Jugar d nuevo"><span>JUGAR DE NUEVO</span></button>
+    <a href="./game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
+    <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
     <div class="blurry-background"></div>`;
@@ -355,6 +374,9 @@ async function createNewGame() {
    const [correctAnswerSpan] = document.getElementsByClassName(
       "game__correct-answers"
    );
+   const [remainingCountries] = document.getElementsByClassName(
+      "game__remaining-countries"
+   );
 
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
@@ -372,7 +394,8 @@ async function createNewGame() {
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
-   correctAnswerSpan.textContent = "0/10";
+   correctAnswerSpan.textContent = "0";
+   remainingCountries.textContent = "10";
 
    let stateGame = {
       time: timeStorage,
@@ -395,6 +418,9 @@ async function createNewGame() {
 function sendAnswer() {
    const [correctAnswerSpan] = document.getElementsByClassName(
       "game__correct-answers"
+   );
+   const [remainingCountries] = document.getElementsByClassName(
+      "game__remaining-countries"
    );
    let answerUser = game.answerUser.toLowerCase().replace(/\s/g, "");
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
@@ -421,7 +447,7 @@ function sendAnswer() {
    game = game.resetAnswerUser();
 
    if (game.lastResponseStatus) {
-      correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+      correctAnswerSpan.textContent = `${game.correctAnswers}`;
    }
 
    game = game.addCountryShown();
@@ -441,6 +467,7 @@ function sendAnswer() {
    setTimeout(() => {
       showNewFlag(game);
       showOptions(game);
+      remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
    }, 3500);
 }
 
@@ -657,20 +684,15 @@ function showCorrectAnswer(state, countryName) {
          if (game.lastResponseStatus) {
             if (optionValue === countryName) {
                option.style.backgroundColor = "#dff0d8";
-               console.log("CORRECT");
             }
          }
 
          if (!game.lastResponseStatus) {
-            console.log(optionValue, countryName);
-
             if (optionValue === countryName) {
                option.style.backgroundColor = "#dff0d8";
-               console.log("CORRECT");
             }
             if (optionValue !== countryName) {
                option.style.backgroundColor = "#f2dede";
-               console.log("INCORRECT");
             }
          }
       }

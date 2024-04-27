@@ -3,258 +3,8 @@ import {
    countryByName,
 } from "../javascript/imports/countryDataManager.mjs";
 
-const orderedCountries = [
-   "Afghanistan",
-   "Albania",
-   "Algeria",
-   "American Samoa",
-   "Andorra",
-   "Angola",
-   "Anguilla",
-   "Antarctica",
-   "Antigua and Barbuda",
-   "Argentina",
-   "Armenia",
-   "Aruba",
-   "Australia",
-   "Austria",
-   "Azerbaijan",
-   "Bahamas",
-   "Bahrain",
-   "Bangladesh",
-   "Barbados",
-   "Belarus",
-   "Belgium",
-   "Belize",
-   "Benin",
-   "Bermuda",
-   "Bhutan",
-   "Bolivia",
-   "Bosnia and Herzegovina",
-   "Botswana",
-   "Bouvet Island",
-   "Brazil",
-   "British Indian Ocean Territory",
-   "British Virgin Islands",
-   "Brunei",
-   "Bulgaria",
-   "Burkina Faso",
-   "Burundi",
-   "Cambodia",
-   "Cameroon",
-   "Canada",
-   "Cape Verde",
-   "Caribbean Netherlands",
-   "Cayman Islands",
-   "Central African Republic",
-   "Chad",
-   "Chile",
-   "China",
-   "Christmas Island",
-   "Cocos (Keeling) Islands",
-   "Colombia",
-   "Comoros",
-   "Cook Islands",
-   "Costa Rica",
-   "Croatia",
-   "Cuba",
-   "Curaçao",
-   "Cyprus",
-   "Czechia",
-   "DR Congo",
-   "Denmark",
-   "Djibouti",
-   "Dominica",
-   "Dominican Republic",
-   "Ecuador",
-   "Egypt",
-   "El Salvador",
-   "Equatorial Guinea",
-   "Eritrea",
-   "Estonia",
-   "Eswatini",
-   "Ethiopia",
-   "Falkland Islands",
-   "Faroe Islands",
-   "Fiji",
-   "Finland",
-   "France",
-   "French Guiana",
-   "French Polynesia",
-   "French Southern and Antarctic Lands",
-   "Gabon",
-   "Gambia",
-   "Georgia",
-   "Germany",
-   "Ghana",
-   "Gibraltar",
-   "Greece",
-   "Greenland",
-   "Grenada",
-   "Guadeloupe",
-   "Guam",
-   "Guatemala",
-   "Guernsey",
-   "Guinea",
-   "Guinea-Bissau",
-   "Guyana",
-   "Haiti",
-   "Heard Island and McDonald Islands",
-   "Honduras",
-   "Hong Kong",
-   "Hungary",
-   "Iceland",
-   "India",
-   "Indonesia",
-   "Iran",
-   "Iraq",
-   "Ireland",
-   "Isle of Man",
-   "Israel",
-   "Italy",
-   "Ivory Coast",
-   "Jamaica",
-   "Japan",
-   "Jersey",
-   "Jordan",
-   "Kazakhstan",
-   "Kenya",
-   "Kiribati",
-   "Kosovo",
-   "Kuwait",
-   "Kyrgyzstan",
-   "Laos",
-   "Latvia",
-   "Lebanon",
-   "Lesotho",
-   "Liberia",
-   "Libya",
-   "Liechtenstein",
-   "Lithuania",
-   "Luxembourg",
-   "Macau",
-   "Madagascar",
-   "Malawi",
-   "Malaysia",
-   "Maldives",
-   "Mali",
-   "Malta",
-   "Marshall Islands",
-   "Martinique",
-   "Mauritania",
-   "Mauritius",
-   "Mayotte",
-   "Mexico",
-   "Micronesia",
-   "Moldova",
-   "Monaco",
-   "Mongolia",
-   "Montenegro",
-   "Montserrat",
-   "Morocco",
-   "Mozambique",
-   "Myanmar",
-   "Namibia",
-   "Nauru",
-   "Nepal",
-   "Netherlands",
-   "New Caledonia",
-   "New Zealand",
-   "Nicaragua",
-   "Niger",
-   "Nigeria",
-   "Niue",
-   "Norfolk Island",
-   "North Korea",
-   "North Macedonia",
-   "Northern Mariana Islands",
-   "Norway",
-   "Oman",
-   "Pakistan",
-   "Palau",
-   "Palestine",
-   "Panama",
-   "Papua New Guinea",
-   "Paraguay",
-   "Peru",
-   "Philippines",
-   "Pitcairn Islands",
-   "Poland",
-   "Portugal",
-   "Puerto Rico",
-   "Qatar",
-   "Republic of the Congo",
-   "Romania",
-   "Russia",
-   "Rwanda",
-   "Réunion",
-   "Saint Barthélemy",
-   "Saint Helena, Ascension and Tristan da Cunha",
-   "Saint Kitts and Nevis",
-   "Saint Lucia",
-   "Saint Martin",
-   "Saint Pierre and Miquelon",
-   "Saint Vincent and the Grenadines",
-   "Samoa",
-   "San Marino",
-   "Saudi Arabia",
-   "Senegal",
-   "Serbia",
-   "Seychelles",
-   "Sierra Leone",
-   "Singapore",
-   "Sint Maarten",
-   "Slovakia",
-   "Slovenia",
-   "Solomon Islands",
-   "Somalia",
-   "South Africa",
-   "South Georgia",
-   "South Korea",
-   "South Sudan",
-   "Spain",
-   "Sri Lanka",
-   "Sudan",
-   "Suriname",
-   "Svalbard and Jan Mayen",
-   "Sweden",
-   "Switzerland",
-   "Syria",
-   "São Tomé and Príncipe",
-   "Taiwan",
-   "Tajikistan",
-   "Tanzania",
-   "Thailand",
-   "Timor-Leste",
-   "Togo",
-   "Tokelau",
-   "Tonga",
-   "Trinidad and Tobago",
-   "Tunisia",
-   "Turkey",
-   "Turkmenistan",
-   "Turks and Caicos Islands",
-   "Tuvalu",
-   "Uganda",
-   "Ukraine",
-   "United Arab Emirates",
-   "United Kingdom",
-   "United States",
-   "United States Minor Outlying Islands",
-   "United States Virgin Islands",
-   "Uruguay",
-   "Uzbekistan",
-   "Vanuatu",
-   "Vatican City",
-   "Venezuela",
-   "Vietnam",
-   "Wallis and Futuna",
-   "Western Sahara",
-   "Yemen",
-   "Zambia",
-   "Zimbabwe",
-   "Åland Islands",
-];
+// Bindings
+let flagSearch = true;
 
 // Elements
 const infoButton = document.getElementsByClassName("flag-gallery__button-info");
@@ -274,8 +24,7 @@ function filter(array, callback) {
    return resultado;
 }
 
-// Pidiendo toddos los paises juntos
-
+// Pidiendo todos los paises juntos
 async function insertFlagsAll(element) {
    let countries = await allCountries();
    let textHtml = "";
@@ -313,7 +62,7 @@ async function insertFlagsAll(element) {
               <div class="flag-gallery__description-container">
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
               <div class="flag-gallery__flag-fullname">${country.name.official}</div>
-               <button class="flag-gallery__button-info">
+               <button class="flag-gallery__button-info" type="button" title="Info">
                   <span class="flag-gallery__button-info--text">
                      !
                   </span>
@@ -326,38 +75,7 @@ async function insertFlagsAll(element) {
    element.innerHTML = textHtml;
 }
 
-// Events
-menuButtonOpen[0].addEventListener("click", function () {
-   menu[0].style.left = "0rem";
-});
-
-menuButtonClose[0].addEventListener("click", function () {
-   menu[0].style.left = "-25rem";
-});
-document.addEventListener("click", function (event) {
-   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
-   if (
-      !Array.from(menuButtonOpenSpan).some((element) => {
-         return event.target === element;
-      }) &&
-      event.target !== menuButtonOpen[0]
-   ) {
-      if (menu[0].style.left === "0rem") {
-         if (
-            !menu[0].contains(event.target) &&
-            !menuButtonClose[0].contains(event.target)
-         ) {
-            menu[0].style.left = "-25rem";
-         }
-      }
-   }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-   const list = document.getElementsByClassName("flag-gallery__list")[0];
-   insertFlagsAll(list);
-});
-
+//Functions
 function removeAccents(word) {
    const accentMap = {
       á: "a",
@@ -378,54 +96,6 @@ function removeAccents(word) {
       return accentMap[match];
    });
 }
-
-// Search
-document.addEventListener("keyup", (event) => {
-   if (event.key === "Escape") event.target.value = "";
-
-   if (
-      event.target.matches(".flag-gallery__search") ||
-      event.target.matches(".flag-gallery__search--dynamic")
-   ) {
-      let enteredText = removeAccents(event.target.value.toLowerCase());
-      var regex = new RegExp(`${enteredText}`);
-
-      document.querySelectorAll(".flag-gallery__item").forEach((item) => {
-         const description = item.querySelector(
-            ".flag-gallery__flag-description"
-         );
-
-         if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
-            setTimeout(function () {
-               item.classList.remove("filter");
-            }, 100);
-            setTimeout(function () {
-               item.style.opacity = 1;
-            }, 200);
-         }
-
-         if (
-            !regex.test(removeAccents(description.textContent.toLowerCase()))
-         ) {
-            setTimeout(function () {
-               item.classList.add("filter");
-            }, 300);
-            item.style.opacity = 0;
-         }
-      });
-   }
-});
-
-setTimeout(() => {
-   const fullName = document.getElementsByClassName(
-      "flag-gallery__flag-fullname"
-   );
-   for (let i = 0; i < infoButton.length; i++) {
-      infoButton[i].addEventListener("click", () => {
-         insertFeatures(fullName[i].textContent);
-      });
-   }
-}, 1000);
 
 function formatProperties(property, type) {
    if (type === "gini") {
@@ -510,6 +180,12 @@ async function insertFeatures(countrie) {
    let country = await countryByName(countrie);
    let textHtml = `
       <div class="features">
+         <button class="features__close-button" title="Cerrar" type="button"
+                    >
+                    <span class="features__icon--close1"></span>
+               <span class="features__icon--close2"></span>
+                </button>
+      
          <h3 class="features__title">Características</h3>
          <ul class="features__list">
             <li class="features__item">
@@ -561,19 +237,15 @@ async function insertFeatures(countrie) {
    `;
 
    body.insertAdjacentHTML("beforeend", textHtml);
+
+   let [closeFt] = document.getElementsByClassName("features__close-button");
+   closeFt.addEventListener("click", () => {
+      const [features] = document.getElementsByClassName("features");
+      features.remove();
+   });
 }
 
-document.addEventListener("click", (event) => {
-   const features = document.getElementsByClassName("features")[0];
-   if (features) {
-      if (event.target !== features) {
-         features.remove();
-      }
-   }
-});
-
 // Input Search dynamic
-let flagSearch = true;
 (() => {
    function detectScrollDirection() {
       const currentPosition = document.documentElement.scrollTop;
@@ -618,3 +290,103 @@ let flagSearch = true;
    }
    window.addEventListener("scroll", detectScrollDirection);
 })();
+
+// Events
+menuButtonOpen[0].addEventListener("click", function () {
+   menu[0].style.left = "0rem";
+});
+
+menuButtonClose[0].addEventListener("click", function () {
+   menu[0].style.left = "-25rem";
+});
+document.addEventListener("click", function (event) {
+   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
+   if (
+      !Array.from(menuButtonOpenSpan).some((element) => {
+         return event.target === element;
+      }) &&
+      event.target !== menuButtonOpen[0]
+   ) {
+      if (menu[0].style.left === "0rem") {
+         if (
+            !menu[0].contains(event.target) &&
+            !menuButtonClose[0].contains(event.target)
+         ) {
+            menu[0].style.left = "-25rem";
+         }
+      }
+   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+   const [list] = document.getElementsByClassName("flag-gallery__list");
+   const [scrollUp] = document.getElementsByClassName(
+      "flag-gallery__scroll-top"
+   );
+   
+   insertFlagsAll(list);
+   
+   scrollUp.addEventListener("click", () => {
+      window.scrollTo({
+         top: 0, behavior:"smooth"
+      })
+   });
+});
+
+// Search
+document.addEventListener("keyup", (event) => {
+   if (event.key === "Escape") event.target.value = "";
+
+   if (
+      event.target.matches(".flag-gallery__search") ||
+      event.target.matches(".flag-gallery__search--dynamic")
+   ) {
+      let enteredText = removeAccents(event.target.value.toLowerCase());
+      var regex = new RegExp(`${enteredText}`);
+
+      document.querySelectorAll(".flag-gallery__item").forEach((item) => {
+         const description = item.querySelector(
+            ".flag-gallery__flag-description"
+         );
+
+         if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
+            setTimeout(function () {
+               item.classList.remove("filter");
+            }, 100);
+            setTimeout(function () {
+               item.style.opacity = 1;
+            }, 200);
+         }
+
+         if (
+            !regex.test(removeAccents(description.textContent.toLowerCase()))
+         ) {
+            setTimeout(function () {
+               item.classList.add("filter");
+            }, 300);
+            item.style.opacity = 0;
+         }
+      });
+   }
+});
+
+document.addEventListener("click", (event) => {
+   const [features] = document.getElementsByClassName("features");
+   if (features) {
+      if (!features.contains(event.target)) {
+         features.remove();
+      }
+   }
+});
+
+setTimeout(() => {
+   const fullName = document.getElementsByClassName(
+      "flag-gallery__flag-fullname"
+   );
+   for (let i = 0; i < infoButton.length; i++) {
+      infoButton[i].addEventListener("click", () => {
+         insertFeatures(fullName[i].textContent);
+      });
+   }
+}, 1000);
+

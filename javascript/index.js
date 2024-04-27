@@ -15,8 +15,8 @@ const presentationHtml = `
                 <!-- icono de cruz para salir -->
                 <button class="presentation__header-link" title="Cerrar" type="button"
                     >
-                    <span class="presentation__icon--close1"></span>
-               <span class="presentation__icon--close2"></span>
+                     <span class="presentation__icon--close1"></span>
+                     <span class="presentation__icon--close2"></span>
                 </button>
             </header>
 
@@ -109,9 +109,10 @@ function deleteAllLetters() {
 }
 
 function insertAnswerResults(element, correctAnswers, time) {
+   time = formatTimeResults(time);
    const textHtml = `
     <div class="answer-results">
-    <button class="answer-results__close" title="Cerrar">
+    <button class="answer-results__close" title="Cerrar" type="button">
     </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
@@ -125,13 +126,11 @@ function insertAnswerResults(element, correctAnswers, time) {
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
     </p>
-    <button class="answer-results__button--start-again" title="Jugar d nuevo"><span>JUGAR DE NUEVO</span></button>
+    <a href="./pages/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
+    <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
     <div class="blurry-background"></div>`;
-   /*<button class="answer-results__button--change-mode" title="Cambiar de modo">
-       <span>CAMBIAR DE MODO</span>
-    </button> */
 
    element.insertAdjacentHTML("beforeend", textHtml);
 
@@ -346,6 +345,9 @@ async function createNewGame() {
       "game__correct-answers"
    );
    const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
+   const [remainingCountries] = document.getElementsByClassName(
+      "game__remaining-countries"
+   );
 
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
@@ -364,7 +366,9 @@ async function createNewGame() {
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
-   correctAnswerSpan.textContent = "0/10";
+   correctAnswerSpan.textContent = "0";
+   remainingCountries.textContent = "10";
+
 
    let stateGame = {
       time: timeStorage,
@@ -406,6 +410,21 @@ function formatTime(milliseconds) {
    // Concatenar minutos y segundos formateados
    return formattedMinutes + ":" + formattedSeconds;
 }
+
+function formatTimeResults(seconds) {
+   // Calculate minutes and remaining seconds
+   var minutes = Math.floor(seconds / 60);
+   var remainingSeconds = seconds % 60;
+
+   // Format minutes and seconds with leading zeros if necessary
+   var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+   var formattedSeconds =
+      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+
+   // Return formatted time
+   return formattedMinutes + ":" + formattedSeconds;
+}
+
 // Timer
 function countDown(milliseconds, element) {
    if (milliseconds === -1) {
@@ -458,6 +477,9 @@ function listenKeyboard(event) {
       const [correctAnswerSpan] = document.getElementsByClassName(
          "game__correct-answers"
       );
+      const [remainingCountries] = document.getElementsByClassName(
+         "game__remaining-countries"
+      );
 
       // Incomplete answer
       if (
@@ -469,6 +491,8 @@ function listenKeyboard(event) {
       }
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
+
+      correctAnswerSpan.textContent = `${game.correctAnswers}`;
 
       addIconAnimation(game.lastResponseStatus, "./images");
 
@@ -482,7 +506,7 @@ function listenKeyboard(event) {
       // Correct answer
       if (game.lastResponseStatus) {
          setTimeout(() => {
-            correctAnswerSpan.textContent = `${game.correctAnswers}/10`;
+            remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
             showNewFlag(game);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();

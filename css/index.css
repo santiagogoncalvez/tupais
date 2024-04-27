@@ -11,6 +11,7 @@ html {
    display: flex;
    flex-direction: column;
    align-items: center;
+   scroll-behavior: smooth;
 }
 
 /* Presentacion */
@@ -525,7 +526,7 @@ html {
 
 .game__time,
 .game__correct-answers,
-.game__clues {
+.game__remaining-countries {
    font-weight: initial;
    font-size: clamp(0.2px, 1.3rem, 8vw);
 }
@@ -608,6 +609,10 @@ html {
    padding: 0rem;
    user-select: none;
    margin-left: 3vw;
+}
+
+.country__btNext:focus{
+   outline: none;
 }
 
 .country__btNext:hover {
@@ -1004,19 +1009,56 @@ html {
 }
 
 .answer-results__close {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
    border-radius: 20rem;
    border-color: black;
    height: 1.2rem;
    width: 1.2rem;
-   position: fixed;
-   top: 0%;
-   left: 100%;
-   transform: translate(-50%, -50%);
-   z-index: 2;
+   position: absolute;
    cursor: pointer;
    border-width: 0.15rem;
    border-style: solid;
    background-color: white;
+   top: -0.15rem;
+   right: -1.1rem;
+   transform: translate(-50%, -50%);
+   padding: 0rem;
+   margin: 0 auto;
+}
+
+.answer-results__icon--close1{
+position: absolute;
+   top: 0.44rem;
+   left: 0.5rem;
+   transition: top 0.8s ease-out;
+   transform: translateY(0rem) translateX(-0.36rem) rotate(45deg);
+   width: 0.7rem;
+   max-width: 0.7rem;
+   height: 0.1rem;
+   max-height: 0.1rem;
+   background-color: #222223;
+   border-radius: 2rem;
+   border-width: 4rem;
+   padding: 0rem;
+   margin: 0 auto;
+}
+.answer-results__icon--close2{
+position: absolute;
+   top: 0.44rem;
+   left: 0.5rem;
+   transition: top 0.8s ease-out;
+   transform: translateY(0rem) translateX(-0.36rem) rotate(-45deg);
+   width: 0.7rem;
+   max-width: 0.7rem;
+   height: 0.1rem;
+   max-height: 0.1rem;
+   background-color: #222223;
+   border-radius: 2rem;
+   border-width: 4rem;
+   padding: 0rem;
+   margin: 0 auto;
 }
 
 /* Card timer-mode */
@@ -1164,6 +1206,7 @@ html {
    width: 100%;
    margin: 0;
    transition: height 1s ease-out;
+   scroll-behavior: smooth;
 }
 
 .flag-gallery__main {
@@ -1327,6 +1370,24 @@ html {
    width: 100%;
 }
 
+.flag-gallery__scroll-top{
+   position: fixed;
+   right: 4rem;
+   bottom: 4rem;
+   background-color: rgb(236, 247, 255);
+   width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 0.2rem solid rgb(212, 212, 212);
+    background-image: url('../images/icons-up-arrow.png');
+    background-size: cover;
+}
+
+.flag-gallery__scroll-top:hover{
+   cursor: pointer;
+}
+
+/* Features */
 .features {
    display: flex;
    justify-content: center;
@@ -1350,6 +1411,58 @@ html {
    border-radius: 10px;
    border-width: 0.18em;
    border-style: solid;
+}
+
+.features__close-button{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 20rem;
+   border-color: black;
+   height: 1.2rem;
+   width: 1.2rem;
+   position: absolute;
+   cursor: pointer;
+   border-width: 0.15rem;
+   border-style: solid;
+   background-color: white;
+   top: -0.15rem;
+   right: -1.1rem;
+   transform: translate(-50%, -50%);
+   padding: 0rem;
+   margin: 0 auto;
+}
+.features__icon--close1{
+   position: absolute;
+   top: 0.44rem;
+   left: 0.5rem;
+   transition: top 0.8s ease-out;
+   transform: translateY(0rem) translateX(-0.36rem) rotate(45deg);
+   width: 0.7rem;
+   max-width: 0.7rem;
+   height: 0.1rem;
+   max-height: 0.1rem;
+   background-color: #222223;
+   border-radius: 2rem;
+   border-width: 4rem;
+   padding: 0rem;
+   margin: 0 auto;
+}
+.features__icon--close2{
+position: absolute;
+   top: 0.44rem;
+   left: 0.5rem;
+   transition: top 0.8s ease-out;
+   transform: translateY(0rem) translateX(-0.36rem) rotate(-45deg);
+   width: 0.7rem;
+   max-width: 0.7rem;
+   height: 0.1rem;
+   max-height: 0.1rem;
+   background-color: #222223;
+   border-radius: 2rem;
+   border-width: 4rem;
+   padding: 0rem;
+   margin: 0 auto;
 }
 
 @media only screen and (max-device-width: 426px) {
@@ -1406,7 +1519,7 @@ html {
    border-radius: 50%;
    width: 20px;
    height: 20px;
-   transition: border-color 0.2s ease;
+   transition: all 0.2s ease-in;
 }
 
 .flag-gallery__button-info:hover {

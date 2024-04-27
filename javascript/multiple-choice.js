@@ -312,11 +312,6 @@ function showOptions(game) {
       "multiple-choice__option"
    );
 
-   // for (let option of optionButtons) {
-   //    option.style.backgroundColor = "rgb(233, 233, 233)";
-   //    option.style.border = "none";
-   // }
-
    // Answer options buttons event
    let positionCorrcAnsw = Math.floor(Math.random() * optionButtons.length);
 
@@ -660,14 +655,19 @@ function selectOption(event) {
 
    game = game.modifyAnswer(optionSelect.value, game.countries[0].name);
 
-   optionSelect.classList.add("multiple-choice__option--active");
+   optionSelect.style.backgroundColor = "#b3dbff";
+   optionSelect.style.border = "0.25rem solid whitesmoke";
+
 
    for (let element of optionBt) {
       if (element === optionSelect) {
          continue;
       }
-      element.classList.remove("multiple-choice__option--active");
+
+      element.style.backgroundColor = "";
+      element.style.border = "";
    }
+
 }
 
 function showCorrectAnswer(state, countryName) {

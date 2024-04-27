@@ -250,12 +250,19 @@ async function insertFeatures(countrie) {
    function detectScrollDirection() {
       const currentPosition = document.documentElement.scrollTop;
       const searchDynamicHtml = `
-      <input
-         type="search"
-         name="search"
-         class="flag-gallery__search--dynamic"
-         placeholder="Buscar país"
-      />
+      <form class="flag-gallery__form--dynamic">
+               <input
+                  class="flag-gallery__search--dynamic"
+                  type="search"
+                  name="search"
+                  placeholder="Buscar país"
+               />
+               <button
+                  class="flag-gallery__btSearch--dynamic"
+                  type="button"
+                  title="Buscar"
+               ></button>
+            </form>
    `;
       const [body] = document.getElementsByClassName("flag-gallery");
       const [searchCommon] = document.getElementsByClassName(
@@ -264,27 +271,46 @@ async function insertFeatures(countrie) {
 
       if (currentPosition >= 200 && flagSearch) {
          body.insertAdjacentHTML("beforeend", searchDynamicHtml);
+         const [formDynamic] = document.getElementsByClassName(
+            "flag-gallery__form--dynamic"
+         );
          const [searchDynamic] = document.getElementsByClassName(
             "flag-gallery__search--dynamic"
          );
+         const [btSearchDynamic] = document.getElementsByClassName(
+            "flag-gallery__btSearch--dynamic"
+         );
+         btSearchDynamic.addEventListener("click", activeSearchBt);
+         searchDynamic.addEventListener("input", (event) => {
+            searchCommon.value = event.target.value;
+         });
+         searchDynamic.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+               event.preventDefault();
+               activeSearchBt();
+            }
+         });
 
          flagSearch = false;
          searchDynamic.value = searchCommon.value;
          setTimeout(() => {
-            searchDynamic.style.top = "25px";
+            formDynamic.style.top = "26px";
          }, 50);
       }
 
       if (currentPosition < 200 && !flagSearch) {
+         const [formDynamic] = document.getElementsByClassName(
+            "flag-gallery__form--dynamic"
+         );
          const [searchDynamic] = document.getElementsByClassName(
             "flag-gallery__search--dynamic"
          );
-         searchDynamic.style.top = "-100px";
-         searchCommon.value = searchDynamic.value;
+
+         formDynamic.style.top = "-100px";
          flagSearch = true;
-         searchCommon.focus();
+         // searchCommon.focus();
          setTimeout(() => {
-            searchDynamic.remove();
+            formDynamic.remove();
          }, 200);
       }
    }
@@ -323,26 +349,34 @@ document.addEventListener("DOMContentLoaded", function () {
    const [scrollUp] = document.getElementsByClassName(
       "flag-gallery__scroll-top"
    );
-   
+   const [btSearch] = document.getElementsByClassName("flag-gallery__btSearch");
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+   const [homeBt] = document.getElementsByClassName("flag-gallery__home");
+
    insertFlagsAll(list);
-   
+
    scrollUp.addEventListener("click", () => {
       window.scrollTo({
-         top: 0, behavior:"smooth"
-      })
+         top: 0,
+         behavior: "smooth",
+      });
    });
-});
 
-// Search
-document.addEventListener("keyup", (event) => {
-   if (event.key === "Escape") event.target.value = "";
-
-   if (
-      event.target.matches(".flag-gallery__search") ||
-      event.target.matches(".flag-gallery__search--dynamic")
-   ) {
-      let enteredText = removeAccents(event.target.value.toLowerCase());
+   btSearch.addEventListener("click", activeSearchBt);
+   search.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+         event.preventDefault();
+         activeSearchBt();
+      }
+   });
+   homeBt.addEventListener("click", () => {
+      const [inputSearch] = document.getElementsByClassName(
+         "flag-gallery__search"
+      );
+      let enteredText = "";
       var regex = new RegExp(`${enteredText}`);
+
+      inputSearch.value = "";
 
       document.querySelectorAll(".flag-gallery__item").forEach((item) => {
          const description = item.querySelector(
@@ -367,8 +401,47 @@ document.addEventListener("keyup", (event) => {
             item.style.opacity = 0;
          }
       });
-   }
+   });
 });
+
+document.addEventListener("keydown", (event) => {
+   const [features] = document.getElementsByClassName("features");
+
+   if (features) {
+      if (event.key === "Escape") {
+         features.remove();
+      }
+   }
+})
+
+// Search
+function activeSearchBt() {
+   const [inputSearch] = document.getElementsByClassName(
+      "flag-gallery__search"
+   );
+   let enteredText = removeAccents(inputSearch.value.toLowerCase());
+   var regex = new RegExp(`${enteredText}`);
+
+   document.querySelectorAll(".flag-gallery__item").forEach((item) => {
+      const description = item.querySelector(".flag-gallery__flag-description");
+
+      if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
+         setTimeout(function () {
+            item.classList.remove("filter");
+         }, 100);
+         setTimeout(function () {
+            item.style.opacity = 1;
+         }, 200);
+      }
+
+      if (!regex.test(removeAccents(description.textContent.toLowerCase()))) {
+         setTimeout(function () {
+            item.classList.add("filter");
+         }, 300);
+         item.style.opacity = 0;
+      }
+   });
+}
 
 document.addEventListener("click", (event) => {
    const [features] = document.getElementsByClassName("features");
@@ -389,4 +462,3 @@ setTimeout(() => {
       });
    }
 }, 1000);
-

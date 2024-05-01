@@ -467,85 +467,12 @@ function sendAnswer() {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-   const [startAgain] = document.getElementsByClassName("game__start-again");
    const [sendBt] = document.getElementsByClassName("multiple-choice__send");
 
-   // Presentation
-   if (
-      sessionStorage.getItem("time") === null &&
-      sessionStorage.getItem("continent") === null
-   ) {
-      let body = document.getElementsByClassName("multiple-choice")[0];
-      body.insertAdjacentHTML("beforeend", presentationHtml);
-      let presentation = document.getElementsByClassName(
-         "presentation__section"
-      )[0];
-      let bgBlurry = document.getElementsByClassName("blurry-background")[0];
-
-      async function insertPresentation() {
-         return new Promise((resolve) => {
-            const continentsDropdown = document.getElementById(
-               "continents-dropdown"
-            );
-            const buttonsTime = document.getElementsByClassName(
-               "presentation__button-time"
-            );
-            const startButton = document.getElementsByClassName(
-               "presentation__button-start"
-            )[0];
-            const closeIcon = document.getElementsByClassName(
-               "presentation__header-link"
-            )[0];
-
-            // Millisenconds
-            let continent = "all continents";
-            let time = -1; //free time
-            let timesOptions = [-1, 30000, 60000];
-
-            // Events
-            continentsDropdown.addEventListener("change", function (event) {
-               continent = event.target.value;
-            });
-
-            for (let i = 0; i < buttonsTime.length; i++) {
-               buttonsTime[i].addEventListener("click", function () {
-                  time = timesOptions[i];
-               });
-            }
-
-            startButton.addEventListener("click", function () {
-               sessionStorage.setItem("continent", continent);
-               sessionStorage.setItem("time", time);
-               presentation.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
-               bgBlurry.remove();
-               presentation.remove();
-               resolve();
-            });
-
-            closeIcon.addEventListener("click", function () {
-               sessionStorage.setItem("continent", continent);
-               sessionStorage.setItem("time", time);
-               presentation.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
-               bgBlurry.remove();
-               presentation.remove();
-               resolve();
-            });
-         });
-      }
-
-      await insertPresentation();
-   }
-
-   createNewGame();
+   await startupEvents();
 
    // Animacion de tilde correcto-incorrecto
    sendBt.addEventListener("click", sendAnswer);
-
-   startAgain.addEventListener("click", async function () {
-      createNewGame();
-   });
 });
 
 // Escuchar "enter"
@@ -610,7 +537,7 @@ function addIconAnimation(typeAnswer, url) {
       iconImg.src = url;
    }
 
-   blurryBackground.classList.add("multiple-choice__iconBackground");
+   blurryBackground.classList.add("overlappingBackground");
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);
@@ -658,7 +585,6 @@ function selectOption(event) {
    optionSelect.style.backgroundColor = "#b3dbff";
    optionSelect.style.border = "0.25rem solid whitesmoke";
 
-
    for (let element of optionBt) {
       if (element === optionSelect) {
          continue;
@@ -667,7 +593,6 @@ function selectOption(event) {
       element.style.backgroundColor = "";
       element.style.border = "";
    }
-
 }
 
 function showCorrectAnswer(state, countryName) {
@@ -703,4 +628,302 @@ function showCorrectAnswer(state, countryName) {
          option.style.backgroundColor = "";
       }
    }
+}
+
+async function startupEvents() {
+   const presentationHtml = `        
+            <section class="presentation__section">
+            <button class="presentation__header-link" title="Cerrar" type="button"
+                    >
+                     <span class="presentation__icon--close1"></span>
+                     <span class="presentation__icon--close2"></span>
+                </button>
+            <header class="presentation__header">
+                <h2 class="presentation__header-title">TU PAÍS</h2>   
+            </header>
+
+            <div class="presentation__div">
+                <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
+
+                <p class="presentation__paragraph">
+                    <strong>TU PAÍS</strong> es un juego de adivinanzas
+                    geográficas en el que tenés que acertar el nombre de países
+                    de los diferentes continentes. Si llegas a las 10 respuestas
+                    correctas ¡Ganás!
+                </p>
+
+                <div
+                    for="continents-dropdown"
+                    class="presentation__label-continents"
+                    >Elige el continente de los paises</div
+                >
+
+                <select name="" id="continents-dropdown">
+                    <option
+                        value="all continents"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        TODO EL MUNDO
+                    </option>
+                    <option
+                        value="africa"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        ÁFRICA
+                    </option>
+                    <option
+                        value="americas"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        AMÉRICA
+                    </option>
+                    <option
+                        value="asia"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        ASIA
+                    </option>
+                    <option
+                        value="europe"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        EUROPA
+                    </option>
+                    <option
+                        value="oceania"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        OCEANÍA
+                    </option>
+                </select>
+
+                <label for="" class="presentation__label-time">
+                    Elige el tiempo
+                </label>
+                <div class="presentation__div-time">
+                    <button class="presentation__button-time">LIBRE</button>
+                    <button class="presentation__button-time">0:30</button>
+                    <button class="presentation__button-time">1:00</button>
+                </div>
+
+                <button class="presentation__button-start" title="Empezar"
+                    ><span>EMPEZAR</span></button
+                >
+            </div>
+        </section>
+        <div class="blurry-background"></div>
+`;
+
+   const settingsHtml = `       
+            <section class="presentation__section">
+            <button class="presentation__header-link" title="Cerrar" type="button"
+                    >
+                     <span class="presentation__icon--close1"></span>
+                     <span class="presentation__icon--close2"></span>
+                </button>
+
+            <div class="presentation__div">
+                <h3 class="presentation__subtitle">Configuración</h3>
+
+                <div
+                    for="continents-dropdown"
+                    class="presentation__label-continents"
+                    >Elige el continente de los paises</div
+                >
+
+                <select name="" id="continents-dropdown">
+                    <option
+                        value="all continents"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        TODO EL MUNDO
+                    </option>
+                    <option
+                        value="africa"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        ÁFRICA
+                    </option>
+                    <option
+                        value="americas"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        AMÉRICA
+                    </option>
+                    <option
+                        value="asia"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        ASIA
+                    </option>
+                    <option
+                        value="europe"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        EUROPA
+                    </option>
+                    <option
+                        value="oceania"
+                        class="presentation__continents-dropdown-option"
+                    >
+                        OCEANÍA
+                    </option>
+                </select>
+
+                <label for="" class="presentation__label-time">
+                    Elige el tiempo
+                </label>
+                <div class="presentation__div-time">
+                    <button class="presentation__button-time">LIBRE</button>
+                    <button class="presentation__button-time">0:30</button>
+                    <button class="presentation__button-time">1:00</button>
+                </div>
+
+                <button class="presentation__button-start" title="Empezar"
+                    ><span>EMPEZAR</span></button
+                >
+            </div>
+        </section>
+        <div class="blurry-background"></div>
+`;
+
+   const [btSettings] = document.getElementsByClassName("header__settings");
+   let [body] = document.getElementsByClassName("multiple-choice");
+
+   async function insertPresentation(type) {
+      return new Promise((resolve) => {
+         if (type === "presentation") {
+            body.insertAdjacentHTML("beforeend", presentationHtml);
+         }
+
+         if (type === "settings") {
+            body.insertAdjacentHTML("beforeend", settingsHtml);
+         }
+
+         let [presentation] = document.getElementsByClassName(
+            "presentation__section"
+         );
+         let [bgBlurry] = document.getElementsByClassName("blurry-background");
+
+         const continentsDropdown = document.getElementById(
+            "continents-dropdown"
+         );
+         const buttonsTime = document.getElementsByClassName(
+            "presentation__button-time"
+         );
+         const [startButton] = document.getElementsByClassName(
+            "presentation__button-start"
+         );
+         const [closeIcon] = document.getElementsByClassName(
+            "presentation__header-link"
+         );
+
+         if (type === "presentation") {
+            presentation.classList.add("presentation");
+         }
+
+         if (type === "settings") {
+            presentation.classList.add("settings");
+         }
+
+         // Millisenconds
+         let continent = "all continents";
+         let time = -1; //free time
+         let timesOptions = [-1, 30000, 60000];
+
+         // Events
+         continentsDropdown.addEventListener("change", function (event) {
+            continent = event.target.value;
+         });
+
+         for (let i = 0; i < buttonsTime.length; i++) {
+            buttonsTime[i].addEventListener("click", function () {
+               time = timesOptions[i];
+            });
+         }
+
+         startButton.addEventListener("click", function () {
+            sessionStorage.setItem("continent", continent);
+            sessionStorage.setItem("time", time);
+            presentation.style.top = "-20rem";
+            bgBlurry.style.opacity = "0";
+            bgBlurry.remove();
+            presentation.remove();
+            // document.removeEventListener("click", listenOutsidePresent);
+            createNewGame();
+            resolve();
+         });
+
+         function listenOutsidePresent(event) {
+            if (
+               !presentation.contains(event.target) &&
+               event.target !== btSettings
+            ) {
+               if (presentation.classList.contains("settings")) {
+                  presentation.style.top = "-20rem";
+                  bgBlurry.style.opacity = "0";
+                  bgBlurry.remove();
+                  presentation.remove();
+                  document.removeEventListener("click", listenOutsidePresent);
+                  resolve();
+               }
+
+               if (presentation.classList.contains("presentation")) {
+                  sessionStorage.setItem("continent", continent);
+                  sessionStorage.setItem("time", time);
+                  presentation.style.top = "-20rem";
+                  bgBlurry.style.opacity = "0";
+                  bgBlurry.remove();
+                  presentation.remove();
+                  document.removeEventListener("click", listenOutsidePresent);
+                  createNewGame();
+                  resolve();
+               }
+            }
+         }
+
+         if (type === "presentation") {
+            closeIcon.addEventListener("click", function () {
+               sessionStorage.setItem("continent", continent);
+               sessionStorage.setItem("time", time);
+               presentation.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               presentation.remove();
+               document.removeEventListener("click", listenOutsidePresent);
+               createNewGame();
+               resolve();
+            });
+         }
+
+         if (type === "settings") {
+            closeIcon.addEventListener("click", function () {
+               presentation.style.top = "-20rem";
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               presentation.remove();
+               document.removeEventListener("click", listenOutsidePresent);
+               resolve();
+            });
+         }
+
+         document.addEventListener("click", listenOutsidePresent);
+      });
+   }
+
+   // Presentation
+   if (
+      !sessionStorage.getItem("time") &&
+      !sessionStorage.getItem("continent")
+   ) {
+      await insertPresentation("presentation");
+   } else {
+      createNewGame();
+   }
+
+   // Events
+
+   btSettings.addEventListener("click", async () => {
+      await insertPresentation("settings");
+   });
 }

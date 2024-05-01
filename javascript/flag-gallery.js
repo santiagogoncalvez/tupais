@@ -15,8 +15,8 @@ const menuButtonClose = document.getElementsByClassName(
 );
 
 function filter(array, callback) {
-   var resultado = [];
-   for (var i = 0; i < array.length; i++) {
+   let resultado = [];
+   for (let i = 0; i < array.length; i++) {
       if (callback(array[i], i, array)) {
          resultado.push(array[i]);
       }
@@ -246,6 +246,7 @@ async function insertFeatures(countrie) {
 }
 
 // Input Search dynamic
+/*
 (() => {
    function detectScrollDirection() {
       const currentPosition = document.documentElement.scrollTop;
@@ -287,7 +288,7 @@ async function insertFeatures(countrie) {
          searchDynamic.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                event.preventDefault();
-               activeSearchBt();
+               activeSearchBt(event);
             }
          });
 
@@ -316,6 +317,7 @@ async function insertFeatures(countrie) {
    }
    window.addEventListener("scroll", detectScrollDirection);
 })();
+*/
 
 // Events
 menuButtonOpen[0].addEventListener("click", function () {
@@ -366,42 +368,64 @@ document.addEventListener("DOMContentLoaded", function () {
    search.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
          event.preventDefault();
-         activeSearchBt();
+         activeSearchBt(event);
       }
    });
-   homeBt.addEventListener("click", () => {
-      const [inputSearch] = document.getElementsByClassName(
-         "flag-gallery__search"
-      );
-      let enteredText = "";
-      var regex = new RegExp(`${enteredText}`);
 
-      inputSearch.value = "";
+   homeBt.addEventListener("click", activeSearchBt);
 
-      document.querySelectorAll(".flag-gallery__item").forEach((item) => {
-         const description = item.querySelector(
-            ".flag-gallery__flag-description"
+   // Correjir esta parte
+   /*
+   search.addEventListener("input", function activePreviwNames (event) {
+      if (event.target.value !== "") {
+         const [inputSearch] = document.getElementsByClassName(
+            "flag-gallery__search"
          );
-
-         if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
-            setTimeout(function () {
-               item.classList.remove("filter");
-            }, 100);
-            setTimeout(function () {
-               item.style.opacity = 1;
-            }, 200);
+         let enteredText = removeAccents(inputSearch.value.toLowerCase());
+         let regex = new RegExp(`${enteredText}`);
+         const previewNamesItems = document.getElementsByClassName(
+            "preview-names__item"
+         );
+ 
+         for (let item of previewNamesItems) {
+            if (
+               regex.test(removeAccents(item.textContent.toLowerCase()))
+            ) {
+               item.remove();
+            }
          }
 
-         if (
-            !regex.test(removeAccents(description.textContent.toLowerCase()))
-         ) {
-            setTimeout(function () {
-               item.classList.add("filter");
-            }, 300);
-            item.style.opacity = 0;
-         }
-      });
+         document.querySelectorAll(".flag-gallery__item").forEach((item) => {
+            const description = item.querySelector(
+               ".flag-gallery__flag-description"
+            );
+
+            for (let item of previewNamesItems) {
+               if (
+                  removeAccents(description.textContent.toLowerCase()) ===
+                  removeAccents(item.textContent.toLowerCase())
+               ) {
+                  return;
+               }
+            }
+
+            if (
+               regex.test(removeAccents(description.textContent.toLowerCase()))
+            ) {
+               const [previewNamesList] = document.getElementsByClassName(
+                  "preview-names__list"
+               );
+               const previewNamesItem = document.createElement("li");
+
+               previewNamesList.style.display = "block";
+               previewNamesItem.classList.add("preview-names__item");
+               previewNamesItem.textContent = description.textContent;
+               previewNamesList.appendChild(previewNamesItem);
+            }
+         });
+      }
    });
+   */
 });
 
 document.addEventListener("keydown", (event) => {
@@ -412,15 +436,14 @@ document.addEventListener("keydown", (event) => {
          features.remove();
       }
    }
-})
+});
 
-// Search
-function activeSearchBt() {
+async function searchItem() {
    const [inputSearch] = document.getElementsByClassName(
       "flag-gallery__search"
    );
    let enteredText = removeAccents(inputSearch.value.toLowerCase());
-   var regex = new RegExp(`${enteredText}`);
+   let regex = new RegExp(`${enteredText}`);
 
    document.querySelectorAll(".flag-gallery__item").forEach((item) => {
       const description = item.querySelector(".flag-gallery__flag-description");
@@ -441,6 +464,73 @@ function activeSearchBt() {
          item.style.opacity = 0;
       }
    });
+}
+
+async function searchItemHome() {
+   const [inputSearch] = document.getElementsByClassName(
+      "flag-gallery__search"
+   );
+   let enteredText = "";
+   let regex = new RegExp(`${enteredText}`);
+
+   inputSearch.value = "";
+
+   document.querySelectorAll(".flag-gallery__item").forEach((item) => {
+      const description = item.querySelector(".flag-gallery__flag-description");
+
+      if (regex.test(removeAccents(description.textContent.toLowerCase()))) {
+         setTimeout(function () {
+            item.classList.remove("filter");
+         }, 100);
+         setTimeout(function () {
+            item.style.opacity = 1;
+         }, 200);
+      }
+
+      if (!regex.test(removeAccents(description.textContent.toLowerCase()))) {
+         setTimeout(function () {
+            item.classList.add("filter");
+         }, 300);
+         item.style.opacity = 0;
+      }
+   });
+}
+
+// Search
+async function activeSearchBt(event) {
+   const [btHome] = document.getElementsByClassName("flag-gallery__home");
+
+   const [galleryContainer] = document.getElementsByClassName(
+      "flag-gallery__container--1"
+   );
+
+   const loadingBackground = document.createElement("div");
+   const loagingImg = document.createElement("img");
+
+   document.body.style.overflow = "hidden";
+
+   galleryContainer.appendChild(loadingBackground);
+   loadingBackground.classList.add("overlappingBackground__flag-gallery");
+   loadingBackground.style.height = `${galleryContainer.clientHeight}px`;
+
+   loagingImg.src = "../images/icons-loading.gif";
+   loagingImg.alt = "Cargando gif";
+   loagingImg.classList.add("flag-gallery__loading");
+   galleryContainer.appendChild(loagingImg);
+
+   if (event.target === btHome) await searchItemHome();
+   if (event.target !== btHome) await searchItem();
+
+   setTimeout(() => {
+      loadingBackground.style.opacity = "0";
+      loagingImg.style.opacity = "0";
+   }, 1500);
+
+   setTimeout(() => {
+      loadingBackground.remove();
+      loagingImg.remove();
+      document.body.style.overflow = "";
+   }, 1800);
 }
 
 document.addEventListener("click", (event) => {

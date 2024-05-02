@@ -142,7 +142,11 @@ function countDown(milliseconds, element) {
          if (milliseconds < 0) {
             clearInterval(timeInterval);
 
-            showResults(timeElapsed, game);
+            showResults(
+               timeElapsed,
+               game,
+               document.getElementsByClassName("multiple-choice")[0]
+            );
          } else {
             let minutes = Math.floor(milliseconds / 60000);
             let seconds = Math.floor((milliseconds % 60000) / 1000);
@@ -299,7 +303,7 @@ function insertTextContinent(continent) {
       africa: "Continente: ÁFRICA",
       americas: "Continente: AMÉRICA",
       asia: "Continente: ASIA",
-      europa: "Continente: EUROPA",
+      europe: "Continente: EUROPA",
       oceania: "Continente: OCEANÍA",
       ["all continents"]: "Continente: TODOS",
    };
@@ -849,7 +853,7 @@ async function startupEvents() {
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
             presentation.remove();
-            // document.removeEventListener("click", listenOutsidePresent);
+            document.removeEventListener("click", listenOutsidePresent);
             createNewGame();
             resolve();
          });

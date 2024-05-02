@@ -225,7 +225,7 @@ function insertTextContinent(continent) {
       africa: "Continente: ÁFRICA",
       americas: "Continente: AMÉRICA",
       asia: "Continente: ASIA",
-      europa: "Continente: EUROPA",
+      europe: "Continente: EUROPA",
       oceania: "Continente: OCEANÍA",
       ["all continents"]: "Continente: TODOS",
    };
@@ -279,6 +279,7 @@ async function createNewGame() {
    let alt = `Bandera de ${randomCountries[0].name}`;
    flagImg.alt = alt;
 
+   console.log(gameContinent);
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
@@ -477,13 +478,12 @@ async function startupEvents() {
                     correctas ¡Ganás!
                 </p>
 
-                <div
-                    for="continents-dropdown"
+                <p
                     class="presentation__label-continents"
-                    >Elige el continente de los paises</div
+                    >Elige el continente de los paises</p
                 >
 
-                <select name="" id="continents-dropdown">
+                <select name="countries" title="countries" class="continents-dropdown">
                     <option
                         value="all continents"
                         class="presentation__continents-dropdown-option"
@@ -522,16 +522,16 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <label for="" class="presentation__label-time">
+                <p class="presentation__label-time">
                     Elige el tiempo
-                </label>
+                </p>
                 <div class="presentation__div-time">
                     <button class="presentation__button-time">LIBRE</button>
                     <button class="presentation__button-time">0:30</button>
                     <button class="presentation__button-time">1:00</button>
                 </div>
 
-                <button class="presentation__button-start" title="Empezar"
+                <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
             </div>
@@ -550,13 +550,12 @@ async function startupEvents() {
             <div class="presentation__div">
                 <h3 class="presentation__subtitle">Configuración</h3>
 
-                <div
-                    for="continents-dropdown"
+                <p
                     class="presentation__label-continents"
-                    >Elige el continente de los paises</div
+                    >Elige el continente de los paises</p
                 >
 
-                <select name="" id="continents-dropdown">
+                <select name="countries" class="continents-dropdown" title="countries">
                     <option
                         value="all continents"
                         class="presentation__continents-dropdown-option"
@@ -595,16 +594,16 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <label for="" class="presentation__label-time">
+                <p class="presentation__label-time">
                     Elige el tiempo
-                </label>
+                </p>
                 <div class="presentation__div-time">
                     <button class="presentation__button-time">LIBRE</button>
                     <button class="presentation__button-time">0:30</button>
                     <button class="presentation__button-time">1:00</button>
                 </div>
 
-                <button class="presentation__button-start" title="Empezar"
+                <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
             </div>
@@ -630,7 +629,7 @@ async function startupEvents() {
          );
          let [bgBlurry] = document.getElementsByClassName("blurry-background");
 
-         const continentsDropdown = document.getElementById(
+         const [continentsDropdown] = document.getElementsByClassName(
             "continents-dropdown"
          );
          const buttonsTime = document.getElementsByClassName(
@@ -659,13 +658,27 @@ async function startupEvents() {
          // Events
          continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
+            console.log(event.target)
+            event.target.classList.add("continents-dropdown--focus");
          });
 
          for (let i = 0; i < buttonsTime.length; i++) {
-            buttonsTime[i].addEventListener("click", function () {
+            buttonsTime[i].addEventListener("click", function (event) {
                time = timesOptions[i];
+
+               for (let button of buttonsTime) {
+                  if (event.target === button) {
+                     buttonsTime[i].classList.add(
+                        "presentation__button-time--focus"
+                     );
+                     continue;
+                  }
+                  button.classList.remove("presentation__button-time--focus");
+               }
             });
          }
+
+
 
          startButton.addEventListener("click", function () {
             sessionStorage.setItem("continent", continent);
@@ -679,7 +692,6 @@ async function startupEvents() {
             resolve();
          });
 
-         
          function listenOutsidePresent(event) {
             if (
                !presentation.contains(event.target) &&
@@ -707,7 +719,6 @@ async function startupEvents() {
                }
             }
          }
-         
 
          if (type === "presentation") {
             closeIcon.addEventListener("click", function () {
@@ -749,7 +760,6 @@ async function startupEvents() {
    }
 
    // Events
-
    btSettings.addEventListener("click", async () => {
       await insertPresentation("settings");
    });

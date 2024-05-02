@@ -245,80 +245,6 @@ async function insertFeatures(countrie) {
    });
 }
 
-// Input Search dynamic
-/*
-(() => {
-   function detectScrollDirection() {
-      const currentPosition = document.documentElement.scrollTop;
-      const searchDynamicHtml = `
-      <form class="flag-gallery__form--dynamic">
-               <input
-                  class="flag-gallery__search--dynamic"
-                  type="search"
-                  name="search"
-                  placeholder="Buscar país"
-               />
-               <button
-                  class="flag-gallery__btSearch--dynamic"
-                  type="button"
-                  title="Buscar"
-               ></button>
-            </form>
-   `;
-      const [body] = document.getElementsByClassName("flag-gallery");
-      const [searchCommon] = document.getElementsByClassName(
-         "flag-gallery__search"
-      );
-
-      if (currentPosition >= 200 && flagSearch) {
-         body.insertAdjacentHTML("beforeend", searchDynamicHtml);
-         const [formDynamic] = document.getElementsByClassName(
-            "flag-gallery__form--dynamic"
-         );
-         const [searchDynamic] = document.getElementsByClassName(
-            "flag-gallery__search--dynamic"
-         );
-         const [btSearchDynamic] = document.getElementsByClassName(
-            "flag-gallery__btSearch--dynamic"
-         );
-         btSearchDynamic.addEventListener("click", activeSearchBt);
-         searchDynamic.addEventListener("input", (event) => {
-            searchCommon.value = event.target.value;
-         });
-         searchDynamic.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-               event.preventDefault();
-               activeSearchBt(event);
-            }
-         });
-
-         flagSearch = false;
-         searchDynamic.value = searchCommon.value;
-         setTimeout(() => {
-            formDynamic.style.top = "26px";
-         }, 50);
-      }
-
-      if (currentPosition < 200 && !flagSearch) {
-         const [formDynamic] = document.getElementsByClassName(
-            "flag-gallery__form--dynamic"
-         );
-         const [searchDynamic] = document.getElementsByClassName(
-            "flag-gallery__search--dynamic"
-         );
-
-         formDynamic.style.top = "-100px";
-         flagSearch = true;
-         // searchCommon.focus();
-         setTimeout(() => {
-            formDynamic.remove();
-         }, 200);
-      }
-   }
-   window.addEventListener("scroll", detectScrollDirection);
-})();
-*/
-
 // Events
 menuButtonOpen[0].addEventListener("click", function () {
    menu[0].style.left = "0rem";
@@ -354,6 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const [btSearch] = document.getElementsByClassName("flag-gallery__btSearch");
    const [search] = document.getElementsByClassName("flag-gallery__search");
    const [homeBt] = document.getElementsByClassName("flag-gallery__home");
+   const [clearBt] = document.getElementsByClassName("flag-gallery__clearSearch");
 
    insertFlagsAll(list);
 
@@ -368,39 +295,86 @@ document.addEventListener("DOMContentLoaded", function () {
    search.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
          event.preventDefault();
+         const [previewNamesList] = document.getElementsByClassName(
+            "preview-names__list"
+         );
+         previewNamesList.style.display = "none";
          activeSearchBt(event);
       }
    });
 
    homeBt.addEventListener("click", activeSearchBt);
 
-   // Correjir esta parte
-   /*
-   search.addEventListener("input", function activePreviwNames (event) {
-      if (event.target.value !== "") {
-         const [inputSearch] = document.getElementsByClassName(
-            "flag-gallery__search"
-         );
-         let enteredText = removeAccents(inputSearch.value.toLowerCase());
-         let regex = new RegExp(`${enteredText}`);
-         const previewNamesItems = document.getElementsByClassName(
+   search.addEventListener("input", activePreviwNames);
+
+   search.addEventListener("focus", (event) => {
+      const [previewNamesList] = document.getElementsByClassName(
+         "preview-names__list"
+      );
+      const previewNamesItems = document.getElementsByClassName(
+         "preview-names__item"
+      );
+      const [search] = document.getElementsByClassName("flag-gallery__search");
+
+      previewNamesList.style.display = "block";
+
+      if (previewNamesItems.length === 0 && search.value === "") {
+         document
+            .querySelectorAll(".flag-gallery__flag-description")
+            .forEach((description) => {
+               const newItem = document.createElement("li");
+               const span = document.createElement("span");
+               span.textContent = description.textContent;
+               span.classList.add("preview-names__span");
+               newItem.classList.add("preview-names__item");
+               newItem.appendChild(span);
+               previewNamesList.appendChild(newItem);
+
+               newItem.addEventListener("click", selectPreviewName);
+            });
+      }
+
+      if (search.value === "") {
+         activePreviwNames(event);
+      }
+   });
+
+   clearBt.addEventListener("click", () => {
+      search.value = "";
+      clearBt.style.display = "none";
+   });
+});
+
+function activePreviwNames(event) {
+   const [previewNamesList] = document.getElementsByClassName(
+      "preview-names__list"
+   );
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+   const [clearBt] = document.getElementsByClassName(
+      "flag-gallery__clearSearch"
+   );
+   let enteredText = removeAccents(event.target.value.toLowerCase());
+   let searchRegex = new RegExp(`${enteredText}`);
+
+   if (search.value !== "") {
+      clearBt.style.display = "block";
+   }
+
+   if (search.value === "") {
+      clearBt.style.display = "none";
+   }
+
+
+   document
+      .querySelectorAll(".flag-gallery__flag-description")
+      .forEach((description) => {
+         const itemsStatus = document.getElementsByClassName(
             "preview-names__item"
          );
- 
-         for (let item of previewNamesItems) {
-            if (
-               regex.test(removeAccents(item.textContent.toLowerCase()))
-            ) {
-               item.remove();
-            }
-         }
 
-         document.querySelectorAll(".flag-gallery__item").forEach((item) => {
-            const description = item.querySelector(
-               ".flag-gallery__flag-description"
-            );
-
-            for (let item of previewNamesItems) {
+         // Si el texto insertado es un string vacio
+         if (search.value === "") {
+            for (let item of itemsStatus) {
                if (
                   removeAccents(description.textContent.toLowerCase()) ===
                   removeAccents(item.textContent.toLowerCase())
@@ -409,23 +383,120 @@ document.addEventListener("DOMContentLoaded", function () {
                }
             }
 
-            if (
-               regex.test(removeAccents(description.textContent.toLowerCase()))
-            ) {
-               const [previewNamesList] = document.getElementsByClassName(
-                  "preview-names__list"
-               );
-               const previewNamesItem = document.createElement("li");
+            const newItem = document.createElement("li");
+            const span = document.createElement("span");
+            span.textContent = description.textContent;
+            newItem.classList.add("preview-names__item");
+            span.classList.add("preview-names__span");
+            newItem.appendChild(span);
+            previewNamesList.appendChild(newItem);
 
-               previewNamesList.style.display = "block";
-               previewNamesItem.classList.add("preview-names__item");
-               previewNamesItem.textContent = description.textContent;
-               previewNamesList.appendChild(previewNamesItem);
+            newItem.addEventListener("click", selectPreviewName);
+         }
+         // Buscar coincidencias entre input-descriptionCountries
+         if (
+            searchRegex.test(
+               removeAccents(description.textContent.toLowerCase())
+            )
+         ) {
+            // Verificar si existe ese nombre en la lista de previewNames
+            for (let item of itemsStatus) {
+               if (
+                  removeAccents(description.textContent.toLowerCase()) ===
+                  removeAccents(item.textContent.toLowerCase())
+               ) {
+                  return;
+               }
             }
-         });
-      }
-   });
-   */
+
+            const newItem = document.createElement("li");
+            const span = document.createElement("span");
+            span.textContent = description.textContent;
+            newItem.classList.add("preview-names__item");
+            span.classList.add("preview-names__span");
+            newItem.appendChild(span);
+            previewNamesList.appendChild(newItem);
+
+            newItem.addEventListener("click", selectPreviewName);
+         }
+
+         // Buscar coincidencias entre input-previewItems
+         const listStatus = document.getElementsByClassName(
+            "preview-names__item"
+         );
+         for (let item of listStatus) {
+            if (
+               !searchRegex.test(removeAccents(item.textContent.toLowerCase()))
+            ) {
+               item.remove();
+            }
+         }
+
+         // Ordenar alfabéticamente la lista
+         Array.from(previewNamesList.children)
+            .sort((a, b) => a.textContent.localeCompare(b.textContent))
+            .forEach((li) => previewNamesList.appendChild(li));
+      });
+
+   const previewItems = previewNamesList.getElementsByClassName(
+      "preview-names__item"
+   );
+
+   if (
+      previewItems.length === 0 &&
+      !document.getElementsByClassName("preview-names__item--not-found")[0]
+   ) {
+      const newItem = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = "No se encontraron resultados";
+      newItem.classList.add("preview-names__item--not-found");
+      span.classList.add("preview-names__span");
+      newItem.appendChild(span);
+      previewNamesList.appendChild(newItem);
+   }
+
+   if (previewItems.length !== 0) {
+      const [itemNotfound] = document.getElementsByClassName(
+         "preview-names__item--not-found"
+      );
+      if (itemNotfound) itemNotfound.remove();
+   }
+}
+
+function selectPreviewName(event) {
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+   const [previewNamesList] = document.getElementsByClassName(
+      "preview-names__list"
+   );
+
+   // Verificar si el elemento clickeado es un <li>
+   if (event.target.nodeName === "LI") {
+      const [span] = event.target.getElementsByClassName("preview-names__span");
+
+      search.value = span.textContent;
+      previewNamesList.style.display = "none";
+      activeSearchBt(event);
+   }
+
+   // Verificar si el elemento clickeado es un <span>
+   if (event.target.nodeName === "SPAN") {
+      search.value = event.target.textContent;
+      previewNamesList.style.display = "none";
+      activeSearchBt(event);
+   }
+}
+
+document.addEventListener("click", (event) => {
+   const [previewNamesList] = document.getElementsByClassName(
+      "preview-names__list"
+   );
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+
+   if (event.target !== search && !previewNamesList.contains(event.target)) {
+      if (document.activeElement === search) return;
+      previewNamesList.style.display = "none";
+      return;
+   }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -518,8 +589,8 @@ async function activeSearchBt(event) {
    loagingImg.classList.add("flag-gallery__loading");
    galleryContainer.appendChild(loagingImg);
 
-   if (event.target === btHome) await searchItemHome();
    if (event.target !== btHome) await searchItem();
+   if (event.target === btHome) await searchItemHome();
 
    setTimeout(() => {
       loadingBackground.style.opacity = "0";

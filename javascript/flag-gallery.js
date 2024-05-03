@@ -622,7 +622,7 @@ async function activeSearchBt(event) {
    loadingBackground.classList.add("overlappingBackground__flag-gallery");
    loadingBackground.style.height = `${galleryContainer.clientHeight}px`;
 
-   loagingImg.src = "../images/icons-loading.gif";
+   loagingImg.src = "../images/icons/icons-loading.gif";
    loagingImg.alt = "Cargando gif";
    loagingImg.classList.add("flag-gallery__loading");
    galleryContainer.appendChild(loagingImg);

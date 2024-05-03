@@ -426,7 +426,7 @@ function listenKeyboard(event) {
 
       correctAnswerSpan.textContent = `${game.correctAnswers}`;
 
-      addIconAnimation(game.lastResponseStatus, "./images/icons");
+      addIconAnimation(game.lastResponseStatus, "./images/icons-images");
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 

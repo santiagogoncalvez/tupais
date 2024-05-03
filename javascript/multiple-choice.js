@@ -7,90 +7,6 @@ let freeTimeInterval,
    timeInterval,
    game,
    timeElapsed = 0;
-const presentationHtml = `        
-            <section class="presentation__section">
-            <header class="presentation__header">
-                <h2 class="presentation__header-title">TU PAÍS</h2>
-
-                <!-- icono de cruz para salir -->
-                <button class="presentation__header-link" title="Cerrar"
-                    >
-                    <span class="presentation__icon--close1"></span>
-               <span class="presentation__icon--close2"></span>
-                </button>
-            </header>
-
-            <div class="presentation__div">
-                <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
-
-                <p class="presentation__paragraph">
-                    <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si llegas a las 10 respuestas
-                    correctas ¡Ganás!
-                </p>
-
-                <div
-                    for="continents-dropdown"
-                    class="presentation__label-continents"
-                    >Elige el continente de los paises</div
-                >
-
-                <select name="" id="continents-dropdown">
-                    <option
-                        value="all continents"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        TODO EL MUNDO
-                    </option>
-                    <option
-                        value="africa"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ÁFRICA
-                    </option>
-                    <option
-                        value="americas"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        AMÉRICA
-                    </option>
-                    <option
-                        value="asia"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ASIA
-                    </option>
-                    <option
-                        value="europe"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        EUROPA
-                    </option>
-                    <option
-                        value="oceania"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        OCEANÍA
-                    </option>
-                </select>
-
-                <label for="" class="presentation__label-time">
-                    Elige el tiempo
-                </label>
-                <div class="presentation__div-time">
-                    <button class="presentation__button-time">LIBRE</button>
-                    <button class="presentation__button-time">0:30</button>
-                    <button class="presentation__button-time">1:00</button>
-                </div>
-
-                <button class="presentation__button-start" title="Empezar"
-                    ><span>¡EMPEZAR!</span></button
-                >
-            </div>
-        </section>
-        <div class="blurry-background"></div>
-`;
 
 // Función para añadir ceros delante de un número si es necesario
 function pad(number, length) {
@@ -435,7 +351,7 @@ function sendAnswer() {
 
    game = game.verifyAnswer(answerUser, countryName);
 
-   addIconAnimation(game.lastResponseStatus, "../images/icons");
+   addIconAnimation(game.lastResponseStatus, "../images/icons-images");
 
    typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
 

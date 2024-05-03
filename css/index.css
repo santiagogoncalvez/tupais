@@ -76,7 +76,7 @@ html {
    top: -0.15rem;
    right: -1.1rem;
    transform: translate(-50%, -50%);
-   background-image: url("../images/icons/icons8-cruz-30.png");
+   background-image: url("../images/icons-images/icons8-cruz-30.png");
    background-size: 1rem 1rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -308,7 +308,7 @@ html {
    border-radius: 50%;
    border: 0.1px solid transparent;
    background-color: transparent;
-   background-image: url("../images/icons/icons8-ajustes-3.svg");
+   background-image: url("../images/icons-images/icons8-ajustes-3.svg");
    background-size: 1.6rem 1.6rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1316,7 +1316,7 @@ html {
    height: 2.4rem;
    border-radius: 0.6rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("../images/icons/icons-home.svg");
+   background-image: url("../images/icons-images/icons-home.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1368,7 +1368,7 @@ html {
    min-width: 2.3rem;
    height: 2.4rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("../images/icons/icons-search.svg");
+   background-image: url("../images/icons-images/icons-search.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1393,7 +1393,7 @@ html {
    border-radius: 5px;
    border: 2px solid transparent;
    background-color: transparent;
-   background-image: url("../images/icons/icons8-cruz-30.png");
+   background-image: url("../images/icons-images/icons8-cruz-30.png");
    background-size: 1.2rem 1.2rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1565,7 +1565,7 @@ html {
    height: 3rem;
    border-radius: 0.6rem;
    border: 0.2rem solid rgb(212, 212, 212);
-   background-image: url("../images/icons/icons-up-arrow.png");
+   background-image: url("../images/icons-images/icons-up-arrow.png");
    background-size: cover;
    user-select: none;
    z-index: 10;
@@ -1621,7 +1621,7 @@ html {
    right: -1.1rem;
    transform: translate(-50%, -50%);
    margin: 0 auto;
-   background-image: url("../images/icons/icons8-cruz-30.png");
+   background-image: url("../images/icons-images/icons8-cruz-30.png");
    background-size: 1rem 1rem;
    background-repeat: no-repeat;
    background-position: center;

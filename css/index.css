@@ -76,7 +76,11 @@ html {
    top: -0.15rem;
    right: -1.1rem;
    transform: translate(-50%, -50%);
-   padding: 0rem;
+   background-image: url("../images/icons/icons8-cruz-30.png");
+   background-size: 1rem 1rem;
+   background-repeat: no-repeat;
+   background-position: center;
+   padding: 0;
    margin: 0 auto;
    z-index: 1;
 }
@@ -304,7 +308,7 @@ html {
    border-radius: 50%;
    border: 0.1px solid transparent;
    background-color: transparent;
-   background-image: url("../images/Icons/icons8-ajustes-3.svg");
+   background-image: url("../images/icons/icons8-ajustes-3.svg");
    background-size: 1.6rem 1.6rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -838,6 +842,7 @@ html {
    user-select: none;
    margin-top: 0rem;
    margin-bottom: 0rem;
+   transition: all 0.2s ease;
 }
 
 .game__start-again:hover {
@@ -1311,7 +1316,7 @@ html {
    height: 2.4rem;
    border-radius: 0.6rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("../images/icons-home.svg");
+   background-image: url("../images/icons/icons-home.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1363,7 +1368,7 @@ html {
    min-width: 2.3rem;
    height: 2.4rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("../images/icons-search.svg");
+   background-image: url("../images/icons/icons-search.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1388,7 +1393,7 @@ html {
    border-radius: 5px;
    border: 2px solid transparent;
    background-color: transparent;
-   background-image: url("../images/Icons/icons8-cruz-30.png");
+   background-image: url("../images/icons/icons8-cruz-30.png");
    background-size: 1.2rem 1.2rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1560,7 +1565,7 @@ html {
    height: 3rem;
    border-radius: 0.6rem;
    border: 0.2rem solid rgb(212, 212, 212);
-   background-image: url("../images/icons-up-arrow.png");
+   background-image: url("../images/icons/icons-up-arrow.png");
    background-size: cover;
    user-select: none;
    z-index: 10;
@@ -1615,8 +1620,14 @@ html {
    top: -0.15rem;
    right: -1.1rem;
    transform: translate(-50%, -50%);
-   padding: 0rem;
    margin: 0 auto;
+   background-image: url("../images/icons/icons8-cruz-30.png");
+   background-size: 1rem 1rem;
+   background-repeat: no-repeat;
+   background-position: center;
+   padding: 0;
+   user-select: none;
+
 }
 .features__icon--close1 {
    position: absolute;
@@ -1624,8 +1635,8 @@ html {
    left: 0.5rem;
    transition: top 0.8s ease-out;
    transform: translateY(0rem) translateX(-0.36rem) rotate(45deg);
-   width: 0.7rem;
-   max-width: 0.7rem;
+   width: 10px;
+   max-width: 10px;
    height: 0.1rem;
    max-height: 0.1rem;
    background-color: #222223;
@@ -1640,8 +1651,8 @@ html {
    left: 0.5rem;
    transition: top 0.8s ease-out;
    transform: translateY(0rem) translateX(-0.36rem) rotate(-45deg);
-   width: 0.7rem;
-   max-width: 0.7rem;
+   width: 10px;
+   max-width: 10px;
    height: 0.1rem;
    max-height: 0.1rem;
    background-color: #222223;
@@ -1915,7 +1926,7 @@ html {
 
 .flag-gallery__loading {
    position: absolute;
-   margin-top: 25vh;
+   margin-top: 22vh;
    z-index: 1;
 }
 
@@ -1985,10 +1996,10 @@ html {
 
 .about-the-game__h3 {
    width: 100%;
-   margin-top: 2rem;
    font-size: clamp(0.2px, 1.2rem, 3vw);
    text-align: start;
-   margin-bottom: 1rem;
+   margin-top: 1.8rem;
+   margin-bottom: 0.9rem;
 }
 .about-the-game__paragraph {
    width: 100%;
@@ -1997,27 +2008,22 @@ html {
    margin-top: 0rem;
 }
 
-.about-the-game__modes-list {
+.description-list {
    max-width: 90vw;
    margin-right: auto;
    margin-top: 0rem;
-   padding-left: 2rem;
+   margin-bottom: 0rem;
 }
 
-.about-the-game__modes-item {
+.description-term {
    max-width: 100%;
    font-size: clamp(0.2px, 1.1rem, 3vw);
 }
 
-.about-the-game__options {
-   max-width: 90vw;
-   margin-right: auto;
-   padding-left: 2rem;
-}
-
-.about-the-game__option {
-   max-width: 100%;
-   font-size: clamp(0.2px, 1.1rem, 3vw);
+.description-description{
+      max-width: 100%;
+      margin-left: 0rem;
+      margin-bottom: 1.2rem;
 }
 
 .about-the-game .about-the-game__text-link {
@@ -2171,7 +2177,8 @@ html {
    margin-top: 2rem;
    font-size: clamp(0.2px, 1.2rem, 3vw);
    text-align: start;
-   margin-bottom: 1rem;
+   margin-top: 1.8rem;
+   margin-bottom: 0.9rem;
 }
 .credits__paragraph {
    width: 100%;

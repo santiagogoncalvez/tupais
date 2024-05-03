@@ -423,6 +423,10 @@ function sendAnswer() {
    );
    let answerUser = game.answerUser.toLowerCase().replace(/\s/g, "");
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
+   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
+
+   // Pausar entrada de respuestas
+   sendBt.removeEventListener("click", sendAnswer);
 
    if (game.answerUser.length === 0) {
       typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
@@ -431,7 +435,7 @@ function sendAnswer() {
 
    game = game.verifyAnswer(answerUser, countryName);
 
-   addIconAnimation(game.lastResponseStatus, "../images");
+   addIconAnimation(game.lastResponseStatus, "../images/icons");
 
    typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
 
@@ -467,16 +471,19 @@ function sendAnswer() {
       showNewFlag(game);
       showOptions(game);
       remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
-   }, 3500);
+      sendBt.addEventListener("click", sendAnswer);
+   }, 3400);
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
    const [sendBt] = document.getElementsByClassName("multiple-choice__send");
+   const [startAgain] = document.getElementsByClassName("game__start-again");
 
    await startupEvents();
 
    // Animacion de tilde correcto-incorrecto
    sendBt.addEventListener("click", sendAnswer);
+   startAgain.addEventListener("click", createNewGame);
 });
 
 // Escuchar "enter"
@@ -639,8 +646,6 @@ async function startupEvents() {
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
-                     <span class="presentation__icon--close1"></span>
-                     <span class="presentation__icon--close2"></span>
                 </button>
             <header class="presentation__header">
                 <h2 class="presentation__header-title">TU PAÍS</h2>   
@@ -656,13 +661,12 @@ async function startupEvents() {
                     correctas ¡Ganás!
                 </p>
 
-                <div
-                    for="continents-dropdown"
+                <p
                     class="presentation__label-continents"
-                    >Elige el continente de los paises</div
+                    >Elige el continente de los paises</p
                 >
 
-                <select name="" id="continents-dropdown">
+                <select name="countries" title="countries" class="continents-dropdown">
                     <option
                         value="all continents"
                         class="presentation__continents-dropdown-option"
@@ -701,16 +705,16 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <label for="" class="presentation__label-time">
+                <p class="presentation__label-time">
                     Elige el tiempo
-                </label>
+                </p>
                 <div class="presentation__div-time">
                     <button class="presentation__button-time">LIBRE</button>
                     <button class="presentation__button-time">0:30</button>
                     <button class="presentation__button-time">1:00</button>
                 </div>
 
-                <button class="presentation__button-start" title="Empezar"
+                <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
             </div>
@@ -722,20 +726,17 @@ async function startupEvents() {
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
-                     <span class="presentation__icon--close1"></span>
-                     <span class="presentation__icon--close2"></span>
                 </button>
 
             <div class="presentation__div">
                 <h3 class="presentation__subtitle">Configuración</h3>
 
-                <div
-                    for="continents-dropdown"
+                <p
                     class="presentation__label-continents"
-                    >Elige el continente de los paises</div
+                    >Elige el continente de los paises</p
                 >
 
-                <select name="" id="continents-dropdown">
+                <select name="countries" class="continents-dropdown" title="countries">
                     <option
                         value="all continents"
                         class="presentation__continents-dropdown-option"
@@ -774,16 +775,16 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <label for="" class="presentation__label-time">
+                <p class="presentation__label-time">
                     Elige el tiempo
-                </label>
+                </p>
                 <div class="presentation__div-time">
                     <button class="presentation__button-time">LIBRE</button>
                     <button class="presentation__button-time">0:30</button>
                     <button class="presentation__button-time">1:00</button>
                 </div>
 
-                <button class="presentation__button-start" title="Empezar"
+                <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
             </div>
@@ -809,7 +810,7 @@ async function startupEvents() {
          );
          let [bgBlurry] = document.getElementsByClassName("blurry-background");
 
-         const continentsDropdown = document.getElementById(
+         const [continentsDropdown] = document.getElementsByClassName(
             "continents-dropdown"
          );
          const buttonsTime = document.getElementsByClassName(
@@ -838,11 +839,22 @@ async function startupEvents() {
          // Events
          continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
+            event.target.classList.add("continents-dropdown--focus");
          });
 
          for (let i = 0; i < buttonsTime.length; i++) {
-            buttonsTime[i].addEventListener("click", function () {
+            buttonsTime[i].addEventListener("click", function (event) {
                time = timesOptions[i];
+
+               for (let button of buttonsTime) {
+                  if (event.target === button) {
+                     buttonsTime[i].classList.add(
+                        "presentation__button-time--focus"
+                     );
+                     continue;
+                  }
+                  button.classList.remove("presentation__button-time--focus");
+               }
             });
          }
 

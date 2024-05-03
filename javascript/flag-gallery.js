@@ -182,8 +182,6 @@ async function insertFeatures(countrie) {
       <div class="features">
          <button class="features__close-button" title="Cerrar" type="button"
                     >
-                    <span class="features__icon--close1"></span>
-               <span class="features__icon--close2"></span>
                 </button>
       
          <h3 class="features__title">Características</h3>
@@ -280,7 +278,9 @@ document.addEventListener("DOMContentLoaded", function () {
    const [btSearch] = document.getElementsByClassName("flag-gallery__btSearch");
    const [search] = document.getElementsByClassName("flag-gallery__search");
    const [homeBt] = document.getElementsByClassName("flag-gallery__home");
-   const [clearBt] = document.getElementsByClassName("flag-gallery__clearSearch");
+   const [clearBt] = document.getElementsByClassName(
+      "flag-gallery__clearSearch"
+   );
 
    insertFlagsAll(list);
 
@@ -363,7 +363,6 @@ function activePreviwNames(event) {
    if (search.value === "") {
       clearBt.style.display = "none";
    }
-
 
    document
       .querySelectorAll(".flag-gallery__flag-description")
@@ -535,6 +534,29 @@ async function searchItem() {
          item.style.opacity = 0;
       }
    });
+
+   setTimeout(() => {
+      const flagItems = document.getElementsByClassName("flag-gallery__item");
+      const [itemNotFound] = document.getElementsByClassName(
+         "flag-gallery__item--not-found"
+      );
+
+      for (let item of flagItems) {
+         if (!item.classList.contains("filter")) {
+            if (itemNotFound) {
+               itemNotFound.remove();
+            }
+            return;
+         }
+      }
+
+      const [flagList] = document.getElementsByClassName("flag-gallery__list");
+      const item = document.createElement("li");
+      item.textContent = "No se encontraron resultados";
+      item.classList.add("flag-gallery__item--not-found");
+      item.style.display = "block";
+      flagList.appendChild(item);
+   }, 500)
 }
 
 async function searchItemHome() {
@@ -565,6 +587,22 @@ async function searchItemHome() {
          item.style.opacity = 0;
       }
    });
+
+   setTimeout(() => {
+      const flagItems = document.getElementsByClassName("flag-gallery__item");
+      const [itemNotFound] = document.getElementsByClassName(
+         "flag-gallery__item--not-found"
+      );
+
+      for (let item of flagItems) {
+         if (!item.classList.contains("filter")) {
+            if (itemNotFound) {
+               itemNotFound.remove();
+            }
+            return;
+         }
+      }
+   }, 500);
 }
 
 // Search

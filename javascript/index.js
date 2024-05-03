@@ -202,12 +202,13 @@ function typeResponse(game, element) {
 
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
 
-   if (!game.lastResponseStatus) {
-      // Incomplete answer
-      if (game.answerUser.length !== countryName.length) {
-         showTypeResponse("incomplete", element);
-      }
+   // Incomplete answer
+   if (game.answerUser.length !== countryName.length) {
+      showTypeResponse("incomplete", element);
+      return;
+   }
 
+   if (!game.lastResponseStatus) {
       // Incorrect answer
       if (game.answerUser.length === countryName.length) {
          showTypeResponse("incorrect", element);
@@ -279,7 +280,6 @@ async function createNewGame() {
    let alt = `Bandera de ${randomCountries[0].name}`;
    flagImg.alt = alt;
 
-   console.log(gameContinent);
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
@@ -396,6 +396,16 @@ function listenKeyboard(event) {
       const [remainingCountries] = document.getElementsByClassName(
          "game__remaining-countries"
       );
+      const [nextBt] = document.getElementsByClassName("country__btNext");
+      const buttonsKeyboard =
+         document.getElementsByClassName("keyboard__button");
+
+      // Pausar eventos de entrada
+      for (let element of buttonsKeyboard) {
+         element.removeEventListener("click", listenKeyboard);
+      }
+      document.removeEventListener("keydown", listenKeyboard);
+      nextBt.removeEventListener("click", activeNextBt);
 
       // Incomplete answer
       if (
@@ -403,6 +413,12 @@ function listenKeyboard(event) {
          game.countries[0].name.replace(/\s/g, "").length
       ) {
          typeResponse(game, document.getElementsByClassName("homepage")[0]);
+         // Pausar eventos de entrada
+         for (let element of buttonsKeyboard) {
+            element.addEventListener("click", listenKeyboard);
+         }
+         document.addEventListener("keydown", listenKeyboard);
+         nextBt.addEventListener("click", activeNextBt);
          return;
       }
 
@@ -410,14 +426,9 @@ function listenKeyboard(event) {
 
       correctAnswerSpan.textContent = `${game.correctAnswers}`;
 
-      addIconAnimation(game.lastResponseStatus, "./images");
+      addIconAnimation(game.lastResponseStatus, "./images/icons");
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
-
-      // Incorrect answer
-      if (!game.lastResponseStatus) {
-         return;
-      }
 
       // Correct answer
       if (game.lastResponseStatus) {
@@ -428,16 +439,23 @@ function listenKeyboard(event) {
             showNewFlag(game);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 3500);
+         }, 3400);
 
          // Show results
          if (game.correctAnswers === 10) {
             showResults(timeElapsed, game);
             return;
          }
-
-         return;
       }
+
+      setTimeout(() => {
+         // Pausar eventos de entrada
+         for (let element of buttonsKeyboard) {
+            element.addEventListener("click", listenKeyboard);
+         }
+         document.addEventListener("keydown", listenKeyboard);
+         nextBt.addEventListener("click", activeNextBt);
+      }, 3500);
 
       return;
    }
@@ -461,8 +479,6 @@ async function startupEvents() {
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
-                     <span class="presentation__icon--close1"></span>
-                     <span class="presentation__icon--close2"></span>
                 </button>
             <header class="presentation__header">
                 <h2 class="presentation__header-title">TU PAÍS</h2>   
@@ -543,8 +559,6 @@ async function startupEvents() {
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
-                     <span class="presentation__icon--close1"></span>
-                     <span class="presentation__icon--close2"></span>
                 </button>
 
             <div class="presentation__div">
@@ -658,7 +672,6 @@ async function startupEvents() {
          // Events
          continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
-            console.log(event.target)
             event.target.classList.add("continents-dropdown--focus");
          });
 
@@ -677,8 +690,6 @@ async function startupEvents() {
                }
             });
          }
-
-
 
          startButton.addEventListener("click", function () {
             sessionStorage.setItem("continent", continent);
@@ -769,19 +780,23 @@ async function startupEvents() {
 // Event after loading content
 document.addEventListener("DOMContentLoaded", async function () {
    const [nextBt] = document.getElementsByClassName("country__btNext");
+   const [startAgain] = document.getElementsByClassName("game__start-again");
 
    await startupEvents();
 
-   nextBt.addEventListener("click", () => {
-      const [answerContainer] = document.getElementsByClassName("game__answer");
-      game = game.resetAnswerUser();
-      game = game.nextCountry();
-      showNewFlag(game);
-      innerLetterElements(game.countries[0].name, answerContainer);
-   });
+   nextBt.addEventListener("click", activeNextBt);
+   startAgain.addEventListener("click", createNewGame);
 
    addMenuEvents();
 });
+
+function activeNextBt() {
+   const [answerContainer] = document.getElementsByClassName("game__answer");
+   game = game.resetAnswerUser();
+   game = game.nextCountry();
+   showNewFlag(game);
+   innerLetterElements(game.countries[0].name, answerContainer);
+}
 
 function addMenuEvents() {
    const menuButtonOpen = document.getElementsByClassName(
@@ -836,7 +851,7 @@ function addIconAnimation(typeAnswer, url) {
       iconImg.src = url;
    }
 
-   blurryBackground.classList.add("multiple-choice__iconBackground");
+   blurryBackground.classList.add("overlappingBackground");
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);

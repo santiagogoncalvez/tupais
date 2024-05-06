@@ -290,6 +290,7 @@ async function createNewGame() {
    const [remainingCountries] = document.getElementsByClassName(
       "game__remaining-countries"
    );
+   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
 
    let gameContinent = sessionStorage.getItem("continent")
       ? sessionStorage.getItem("continent")
@@ -325,6 +326,8 @@ async function createNewGame() {
    showOptions(game);
 
    activeBtOptions("activate");
+
+   sendBt.addEventListener("click", sendAnswer);
 }
 
 function sendAnswer() {

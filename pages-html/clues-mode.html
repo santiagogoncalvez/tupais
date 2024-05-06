@@ -24,7 +24,12 @@
       <link rel="next" href="./pages-html/flag-gallery.html" />
       <link rel="next" href="./pages-html/about-the-game.html" />
       <link rel="next" href="./pages-html/about-the-game.html" />
-      <link rel="icon" type="image/png" sizes="64x64" href="../images/icons-images/icon-page(64px).png">
+      <link
+         rel="icon"
+         type="image/png"
+         sizes="64x64"
+         href="../images/icons-images/icon-page(64px).png"
+      />
       <link rel="stylesheet" href="../css/index.css" type="text/css" />
       <script src="../javascript/clues-mode.js" type="module"></script>
    </head>
@@ -43,11 +48,11 @@
 
             <h1 class="header__title">TU PAÍS</h1>
 
-            <!-- Solo es para rellenar -->
-            <div
-               class="header__fill-space"
-               title="Abrir barra de navegación"
-            ></div>
+            <button
+               class="header__settings"
+               title="Configuración"
+               type="button"
+            ></button>
          </div>
 
          <nav class="navbar">
@@ -87,16 +92,308 @@
                </li>
             </ul>
          </nav>
-
-         <!-- <nav class="settings">
-                <button class="settings__buttom"></button>
-                <ul class="settings-list">
-                    <li class="settings__item">Modo oscuro</li>
-                    <li class="settings__item">Continente</li>
-                    <li class="settings__item">Tiempo de juego</li>
-                </ul>
-            </nav> -->
       </header>
+
+      <main class="clues-mode__main">
+         <ul class="game__statistics">
+            <li class="game__statistics-item">
+               Tiempo<br />
+               <span class="game__time">00:00</span>
+            </li>
+            <li class="game__statistics-item">
+               Pistas<br />
+               <span class="game__clues">10</span>
+            </li>
+            <li class="game__statistics-item">
+               Puntaje<br />
+               <span class="game__score">10</span>
+            </li>
+         </ul>
+         <div class="clues-mode__country--description">Continente:</div>
+
+         <div class="clues-mode__container--1">
+            <button class="country__btNext" title="Siguiente" type="button">
+               <span class="country__btNext--span1"></span>
+               <span class="country__btNext--span2"></span>
+            </button>
+
+            <ul class="clues-mode__clues-list">
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+               <li class="clues-mode__clues-item">
+                  Pista: texto texto texto texto texto
+               </li>
+            </ul>
+
+            <button class="country__btNext" title="Siguiente" type="button">
+               <span class="country__btNext--span1"></span>
+               <span class="country__btNext--span2"></span>
+            </button>
+         </div>
+
+         <div class="game__answer"></div>
+
+         <div class="keyborad">
+            <div class="keyboard__column--1">
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="Q"
+                  class="keyboard__button"
+               >
+                  Q
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="W"
+                  class="keyboard__button"
+               >
+                  W
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="E"
+                  class="keyboard__button"
+               >
+                  E
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="R"
+                  class="keyboard__button"
+               >
+                  R
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="T"
+                  class="keyboard__button"
+               >
+                  T
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="Y"
+                  class="keyboard__button"
+               >
+                  Y
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="U"
+                  class="keyboard__button"
+               >
+                  U
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="I"
+                  class="keyboard__button"
+               >
+                  I</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="O"
+                  class="keyboard__button"
+               >
+                  O</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="P"
+                  class="keyboard__button"
+               >
+                  P
+               </button>
+            </div>
+            <div class="keyboard__column--2">
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="A"
+                  class="keyboard__button"
+               >
+                  A</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="S"
+                  class="keyboard__button"
+               >
+                  S</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="D"
+                  class="keyboard__button"
+               >
+                  D</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="F"
+                  class="keyboard__button"
+               >
+                  F</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="G"
+                  class="keyboard__button"
+               >
+                  G</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="H"
+                  class="keyboard__button"
+               >
+                  H</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="I"
+                  class="keyboard__button"
+               >
+                  I</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="J"
+                  class="keyboard__button"
+               >
+                  J</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="K"
+                  class="keyboard__button"
+               >
+                  K</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="L"
+                  class="keyboard__button"
+               >
+                  L
+               </button>
+            </div>
+            <div class="keyboard__column--3">
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="Z"
+                  class="keyboard__button"
+               >
+                  Z</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="X"
+                  class="keyboard__button"
+               >
+                  X</button
+               ><button
+                  type="button"
+                  name="button-keyboard"
+                  value="C"
+                  class="keyboard__button"
+               >
+                  C
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="V"
+                  class="keyboard__button"
+               >
+                  V
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="B"
+                  class="keyboard__button"
+               >
+                  B
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="N"
+                  class="keyboard__button"
+               >
+                  N
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="M"
+                  class="keyboard__button"
+               >
+                  M
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="backspace"
+                  class="keyboard__button"
+               >
+                  ←
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="enter"
+                  class="keyboard__button"
+               >
+                  ENTER
+               </button>
+            </div>
+         </div>
+
+         <button
+            class="game__start-again"
+            title="Empezar de nuevo"
+            type="button"
+         >
+            EMPEZAR DE NUEVO
+         </button>
+      </main>
 
       <footer class="footer">
          <!-- <button class="footer__github"></button> -->

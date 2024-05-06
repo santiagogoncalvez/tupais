@@ -193,6 +193,12 @@ function typeResponse(game, element) {
 
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
 
+   // Incomplete options
+   if (game.answerUser.length === 0) {
+      showTypeResponse("incomplete option", element);
+      return;
+   }
+
    // Correct answer
    if (game.lastResponseStatus) {
       showTypeResponse("correct", element);
@@ -201,16 +207,8 @@ function typeResponse(game, element) {
 
    // Incorrect answer
    if (!game.lastResponseStatus) {
-      // Incomplete options
-      if (game.answerUser.length === 0) {
-         showTypeResponse("incomplete option", element);
-         return;
-      }
-
-      if (game.answerUser !== countryName) {
-         showTypeResponse("incorrect", element);
-         return;
-      }
+      showTypeResponse("incorrect", element);
+      return;
    }
 }
 
@@ -323,7 +321,6 @@ async function createNewGame() {
    };
 
    game = new MultipleChoice(stateGame);
-   console.log(game);
 
    showOptions(game);
 
@@ -337,15 +334,17 @@ function sendAnswer() {
    const [remainingCountries] = document.getElementsByClassName(
       "game__remaining-countries"
    );
+   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
+   const optionBt = document.getElementsByClassName("multiple-choice__option");
    let answerUser = game.answerUser.toLowerCase().replace(/\s/g, "");
    let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
-   const [sendBt] = document.getElementsByClassName("multiple-choice__send");
 
    // Pausar entrada de respuestas
    sendBt.removeEventListener("click", sendAnswer);
 
    if (game.answerUser.length === 0) {
       typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
+      sendBt.addEventListener("click", sendAnswer);
       return;
    }
 
@@ -388,6 +387,10 @@ function sendAnswer() {
       showOptions(game);
       remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
       sendBt.addEventListener("click", sendAnswer);
+      for (let button of optionBt) {
+         button.style.backgroundColor = "";
+         button.style.border = "";
+      }
    }, 3400);
 }
 

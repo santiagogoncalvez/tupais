@@ -191,8 +191,6 @@ function typeResponse(game, element) {
       }, 4000);
    }
 
-   let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
-
    // Incomplete options
    if (game.answerUser.length === 0) {
       showTypeResponse("incomplete option", element);
@@ -354,7 +352,6 @@ function sendAnswer() {
    game = game.verifyAnswer(answerUser, countryName);
 
    addIconAnimation(game.lastResponseStatus, "../images/icons-images");
-
    typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
 
    activeBtOptions("deactivate");
@@ -381,14 +378,14 @@ function sendAnswer() {
             game,
             document.getElementsByClassName("multiple-choice")[0]
          );
-      }, 4000);
+      }, 3400);
       return;
    }
 
    setTimeout(() => {
+      remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
       showNewFlag(game);
       showOptions(game);
-      remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
       sendBt.addEventListener("click", sendAnswer);
       for (let button of optionBt) {
          button.style.backgroundColor = "";

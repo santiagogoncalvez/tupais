@@ -200,24 +200,22 @@ function typeResponse(game, element) {
       }, 3000);
    }
 
-   let countryName = game.countries[0].name.toLowerCase().replace(/\s/g, "");
-
-   // Incomplete answer
-   if (game.answerUser.length !== countryName.length) {
+   // Incomplete options
+   if (game.answerUser.length === 0) {
       showTypeResponse("incomplete", element);
       return;
-   }
-
-   if (!game.lastResponseStatus) {
-      // Incorrect answer
-      if (game.answerUser.length === countryName.length) {
-         showTypeResponse("incorrect", element);
-      }
    }
 
    // Correct answer
    if (game.lastResponseStatus) {
       showTypeResponse("correct", element);
+      return;
+   }
+
+   // Incorrect answer
+   if (!game.lastResponseStatus) {
+      showTypeResponse("incorrect", element);
+      return;
    }
 }
 
@@ -424,14 +422,25 @@ function listenKeyboard(event) {
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      correctAnswerSpan.textContent = `${game.correctAnswers}`;
-
       addIconAnimation(game.lastResponseStatus, "./images/icons-images");
-
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
       // Correct answer
       if (game.lastResponseStatus) {
+         correctAnswerSpan.textContent = `${game.correctAnswers}`;
+         
+         // Show results
+         if (game.correctAnswers === 10) {
+            setTimeout(() => {
+               showResults(
+                  timeElapsed,
+                  game,
+                  document.getElementsByClassName("multiple-choice")[0]
+               );
+            }, 3400);
+            return;
+         }
+
          setTimeout(() => {
             remainingCountries.textContent = `${
                remainingCountries.textContent - 1
@@ -440,12 +449,6 @@ function listenKeyboard(event) {
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
          }, 3400);
-
-         // Show results
-         if (game.correctAnswers === 10) {
-            showResults(timeElapsed, game);
-            return;
-         }
       }
 
       setTimeout(() => {

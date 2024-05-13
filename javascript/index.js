@@ -81,6 +81,22 @@ function insertAnswerResults(element, correctAnswers, time) {
       cardResults.remove();
       createNewGame();
    });
+
+   document.addEventListener("keydown", escAnswerResults);
+   function escAnswerResults(event) {
+      const [answerResults] = document.getElementsByClassName("answer-results");
+
+      if (event.key === "Escape") {
+         if (answerResults) {
+            cardResults.style.top = "-20rem";
+            bgBlurry.style.opacity = "0";
+            bgBlurry.remove();
+            cardResults.remove();
+            createNewGame();
+            document.removeEventListener("keydown", escAnswerResults);  
+         }
+      }
+   }
 }
 
 function insertLetter(game) {

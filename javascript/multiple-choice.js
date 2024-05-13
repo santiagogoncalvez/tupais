@@ -90,8 +90,6 @@ function insertAnswerResults(element, correctAnswers, time) {
    const textHtml = `
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
-      <span class="answer-results__icon--close1"></span>
-      <span class="answer-results__icon--close2"></span>
     </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
@@ -414,20 +412,20 @@ document.addEventListener("keydown", (event) => {
 
 // Menu events
 function addMenuEvents() {
-   const menuButtonOpen = document.getElementsByClassName(
+   const [menuButtonOpen] = document.getElementsByClassName(
       "navbar__button--open"
    );
-   const menu = document.getElementsByClassName("navbar");
-   const menuButtonClose = document.getElementsByClassName(
+   const [menu] = document.getElementsByClassName("navbar");
+   const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
 
-   menuButtonOpen[0].addEventListener("click", function () {
-      menu[0].style.left = "0rem";
+   menuButtonOpen.addEventListener("click", function () {
+      menu.style.left = "0rem";
    });
 
-   menuButtonClose[0].addEventListener("click", function () {
-      menu[0].style.left = "-25rem";
+   menuButtonClose.addEventListener("click", function () {
+      menu.style.left = "-25rem";
    });
 
    document.addEventListener("click", function (event) {
@@ -437,15 +435,23 @@ function addMenuEvents() {
          !Array.from(menuButtonOpenSpan).some((element) => {
             return event.target === element;
          }) &&
-         event.target !== menuButtonOpen[0]
+         event.target !== menuButtonOpen
       ) {
-         if (menu[0].style.left === "0rem") {
+         if (menu.style.left === "0rem") {
             if (
-               !menu[0].contains(event.target) &&
-               !menuButtonClose[0].contains(event.target)
+               !menu.contains(event.target) &&
+               !menuButtonClose.contains(event.target)
             ) {
-               menu[0].style.left = "-25rem";
+               menu.style.left = "-25rem";
             }
+         }
+      }
+   });
+
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+         if (menu.style.left === "0rem") {
+            menu.style.left = "-25rem";
          }
       }
    });
@@ -829,6 +835,8 @@ async function startupEvents() {
                createNewGame();
                resolve();
             });
+
+            document.addEventListener("keydown", actPresentation);
          }
 
          if (type === "settings") {
@@ -840,9 +848,54 @@ async function startupEvents() {
                document.removeEventListener("click", listenOutsidePresent);
                resolve();
             });
+
+            document.addEventListener("keydown", actPresentation);
          }
 
          document.addEventListener("click", listenOutsidePresent);
+
+         function actPresentation(event) {
+            escPresentation(event, type);
+         }
+
+         function escPresentation(event, type) {
+            if (type === "presentation") {
+               if (event.key === "Escape") {
+                  if (presentation) {
+                     sessionStorage.setItem("continent", continent);
+                     sessionStorage.setItem("time", time);
+                     presentation.style.top = "-20rem";
+                     bgBlurry.style.opacity = "0";
+                     bgBlurry.remove();
+                     presentation.remove();
+                     document.removeEventListener(
+                        "click",
+                        listenOutsidePresent
+                     );
+                     createNewGame();
+                     resolve();
+                     document.removeEventListener("keydown", actPresentation);
+                  }
+               }
+            }
+
+            if (type === "settings") {
+               if (event.key === "Escape") {
+                  if (presentation) {
+                     presentation.style.top = "-20rem";
+                     bgBlurry.style.opacity = "0";
+                     bgBlurry.remove();
+                     presentation.remove();
+                     document.removeEventListener(
+                        "click",
+                        listenOutsidePresent
+                     );
+                     resolve();
+                     document.removeEventListener("keydown", actPresentation);
+                  }
+               }
+            }
+         }
       });
    }
 
@@ -857,7 +910,6 @@ async function startupEvents() {
    }
 
    // Events
-
    btSettings.addEventListener("click", async () => {
       await insertPresentation("settings");
    });

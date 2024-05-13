@@ -4,15 +4,8 @@ import {
 } from "../javascript/imports/countryDataManager.mjs";
 
 // Bindings
-let flagSearch = true;
 
-// Elements
-const infoButton = document.getElementsByClassName("flag-gallery__button-info");
-const menu = document.getElementsByClassName("navbar");
-const menuButtonOpen = document.getElementsByClassName("navbar__button--open");
-const menuButtonClose = document.getElementsByClassName(
-   "navbar__button--close"
-);
+// Elements;
 
 function filter(array, callback) {
    let resultado = [];
@@ -25,37 +18,38 @@ function filter(array, callback) {
 }
 
 // Pidiendo todos los paises juntos
-async function insertFlagsAll(element) {
-   let countries = await allCountries();
-   let textHtml = "";
+async function insertAllFlags(element) {
+   return new Promise(async (resolve, reject) => {
+      let countries = await allCountries();
+      let textHtml = "";
 
-   let orderedName = [];
+      let orderedName = [];
 
-   for (let country of countries) {
-      orderedName.push(country.name.common);
-   }
+      for (let country of countries) {
+         orderedName.push(country.name.common);
+      }
 
-   orderedName = orderedName.sort();
+      orderedName = orderedName.sort();
 
-   for (let i = 0; i < orderedName.length; i++) {
-      let country = filter(
-         countries,
-         (country) => country.name.common === orderedName[i]
-      )[0];
+      for (let i = 0; i < orderedName.length; i++) {
+         let country = filter(
+            countries,
+            (country) => country.name.common === orderedName[i]
+         )[0];
 
-      let code = country.cca2.toLowerCase();
-      let countryName = country.translations.spa.common;
+         let code = country.cca2.toLowerCase();
+         let countryName = country.translations.spa.common;
 
-      if (country.name.official === "Sultanate of Oman") {
-         textHtml += `<li class="flag-gallery__item">
+         if (country.name.official === "Sultanate of Oman") {
+            textHtml += `<li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
               <img src="../images/flags-svg/om.png" alt="" class="flag-gallery__flag" />
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
            </figure></li>`;
-         continue;
-      }
+            continue;
+         }
 
-      textHtml += `
+         textHtml += `
       <li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
               <img src="../images/flags-svg/${code}.svg" alt="Bandera de ${countryName}" loading="eager" class="flag-gallery__flag" />
@@ -70,9 +64,11 @@ async function insertFlagsAll(element) {
            </figure>
               </div>
       </li>`;
-   }
+      }
 
-   element.innerHTML = textHtml;
+      element.innerHTML = textHtml;
+      resolve();
+   });
 }
 
 //Functions
@@ -244,32 +240,6 @@ async function insertFeatures(countrie) {
 }
 
 // Events
-menuButtonOpen[0].addEventListener("click", function () {
-   menu[0].style.left = "0rem";
-});
-
-menuButtonClose[0].addEventListener("click", function () {
-   menu[0].style.left = "-25rem";
-});
-document.addEventListener("click", function (event) {
-   const menuButtonOpenSpan = document.getElementsByClassName("navbar__icon");
-   if (
-      !Array.from(menuButtonOpenSpan).some((element) => {
-         return event.target === element;
-      }) &&
-      event.target !== menuButtonOpen[0]
-   ) {
-      if (menu[0].style.left === "0rem") {
-         if (
-            !menu[0].contains(event.target) &&
-            !menuButtonClose[0].contains(event.target)
-         ) {
-            menu[0].style.left = "-25rem";
-         }
-      }
-   }
-});
-
 document.addEventListener("DOMContentLoaded", function () {
    const [list] = document.getElementsByClassName("flag-gallery__list");
    const [scrollUp] = document.getElementsByClassName(
@@ -278,11 +248,27 @@ document.addEventListener("DOMContentLoaded", function () {
    const [btSearch] = document.getElementsByClassName("flag-gallery__btSearch");
    const [search] = document.getElementsByClassName("flag-gallery__search");
    const [homeBt] = document.getElementsByClassName("flag-gallery__home");
+   ("flag-gallery__clearSearch");
    const [clearBt] = document.getElementsByClassName(
       "flag-gallery__clearSearch"
    );
+   const [namesPreviewList] = document.getElementsByClassName(
+      "preview-names__list"
+   );
 
-   insertFlagsAll(list);
+   insertAllFlags(list).then(() => {
+      const fullName = document.getElementsByClassName(
+         "flag-gallery__flag-fullname"
+      );
+      const infoButton = document.getElementsByClassName(
+         "flag-gallery__button-info"
+      );
+      for (let i = 0; i < infoButton.length; i++) {
+         infoButton[i].addEventListener("click", () => {
+            insertFeatures(fullName[i].textContent);
+         });
+      }
+   });
 
    scrollUp.addEventListener("click", () => {
       window.scrollTo({
@@ -316,6 +302,8 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       const [search] = document.getElementsByClassName("flag-gallery__search");
 
+      activePreviwNames({ target: search });
+
       previewNamesList.style.display = "block";
 
       if (previewNamesItems.length === 0 && search.value === "") {
@@ -341,8 +329,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
    clearBt.addEventListener("click", () => {
       search.value = "";
+      search.focus();
       clearBt.style.display = "none";
    });
+
+   namesPreviewList.addEventListener("mouseenter", () => {
+      const previewNamesItems = document.getElementsByClassName(
+         "preview-names__item"
+      );
+
+      for (let i = 0; i < previewNamesItems.length; i++) {
+         if (
+            previewNamesItems[i].style.backgroundColor === "rgb(245, 245, 245)"
+         ) {
+            previewNamesItems[i].style.backgroundColor = "";
+            break;
+         }
+      }
+   });
+
+   addMenuEvents();
 });
 
 function activePreviwNames(event) {
@@ -353,6 +359,12 @@ function activePreviwNames(event) {
    const [clearBt] = document.getElementsByClassName(
       "flag-gallery__clearSearch"
    );
+   const [itemInputSearch] = document.getElementsByClassName(
+      "preview-names__inputText"
+   );
+
+   itemInputSearch.textContent = event.target.value;
+
    let enteredText = removeAccents(event.target.value.toLowerCase());
    let searchRegex = new RegExp(`${enteredText}`);
 
@@ -460,6 +472,17 @@ function activePreviwNames(event) {
       );
       if (itemNotfound) itemNotfound.remove();
    }
+
+   const previewNamesItems = document.getElementsByClassName(
+      "preview-names__item"
+   );
+
+   for (let i = 0; i < previewNamesItems.length; i++) {
+      if (previewNamesItems[i].style.backgroundColor === "rgb(245, 245, 245)") {
+         previewNamesItems[i].style.backgroundColor = "";
+         break;
+      }
+   }
 }
 
 function selectPreviewName(event) {
@@ -484,29 +507,6 @@ function selectPreviewName(event) {
       activeSearchBt(event);
    }
 }
-
-document.addEventListener("click", (event) => {
-   const [previewNamesList] = document.getElementsByClassName(
-      "preview-names__list"
-   );
-   const [search] = document.getElementsByClassName("flag-gallery__search");
-
-   if (event.target !== search && !previewNamesList.contains(event.target)) {
-      if (document.activeElement === search) return;
-      previewNamesList.style.display = "none";
-      return;
-   }
-});
-
-document.addEventListener("keydown", (event) => {
-   const [features] = document.getElementsByClassName("features");
-
-   if (features) {
-      if (event.key === "Escape") {
-         features.remove();
-      }
-   }
-});
 
 async function searchItem() {
    const [inputSearch] = document.getElementsByClassName(
@@ -556,13 +556,21 @@ async function searchItem() {
       item.classList.add("flag-gallery__item--not-found");
       item.style.display = "block";
       flagList.appendChild(item);
-   }, 500)
+   }, 500);
+
+   inputSearch.blur();
 }
 
 async function searchItemHome() {
+   const [btClearInput] = document.getElementsByClassName(
+      "flag-gallery__clearSearch"
+   );
    const [inputSearch] = document.getElementsByClassName(
       "flag-gallery__search"
    );
+
+   btClearInput.style.display = "none";
+
    let enteredText = "";
    let regex = new RegExp(`${enteredText}`);
 
@@ -644,6 +652,7 @@ async function activeSearchBt(event) {
 
 document.addEventListener("click", (event) => {
    const [features] = document.getElementsByClassName("features");
+
    if (features) {
       if (!features.contains(event.target)) {
          features.remove();
@@ -651,13 +660,231 @@ document.addEventListener("click", (event) => {
    }
 });
 
-setTimeout(() => {
-   const fullName = document.getElementsByClassName(
-      "flag-gallery__flag-fullname"
+document.addEventListener("click", (event) => {
+   const [previewNamesList] = document.getElementsByClassName(
+      "preview-names__list"
    );
-   for (let i = 0; i < infoButton.length; i++) {
-      infoButton[i].addEventListener("click", () => {
-         insertFeatures(fullName[i].textContent);
-      });
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+
+   if (event.target !== search && !previewNamesList.contains(event.target)) {
+      if (document.activeElement === search) return;
+      previewNamesList.style.display = "none";
+      return;
    }
-}, 1000);
+});
+
+document.addEventListener("keydown", (event) => {
+   const [features] = document.getElementsByClassName("features");
+   const [search] = document.getElementsByClassName("flag-gallery__search");
+   const [previewNamesList] = document.getElementsByClassName(
+      "preview-names__list"
+   );
+   const [inputSearchItem] = document.getElementsByClassName(
+      "preview-names__inputText"
+   );
+   const [clearBt] = document.getElementsByClassName(
+      "flag-gallery__clearSearch"
+   );
+
+   if (document.activeElement === search) {
+      const previewNamesItems = document.getElementsByClassName(
+         "preview-names__item"
+      );
+
+      if (event.key === "Escape") {
+         event.preventDefault();
+         // Sacarle el focus al search cuando se hace click
+         search.blur();
+         search.value = inputSearchItem.textContent;
+         previewNamesList.style.display = "none";
+         return;
+      }
+
+      if (event.key === "ArrowUp") {
+         event.preventDefault();
+         if (previewNamesItems.length === 0) return;
+
+         let index = null;
+         for (let i = 0; i < previewNamesItems.length; i++) {
+            if (
+               previewNamesItems[i].style.backgroundColor ===
+               "rgb(245, 245, 245)"
+            ) {
+               index = i - 1;
+               break;
+            }
+         }
+
+         // Mostrar texto introducido
+         if (index === -1) {
+            previewNamesItems[0].style.backgroundColor = "";
+            search.value = inputSearchItem.textContent;
+
+            if (search.value !== "") {
+               clearBt.style.display = "block";
+            } else {
+               clearBt.style.display = "none";
+            }
+            return;
+         }
+
+         // Ir al final de la lista
+         if (index === null) {
+            index = previewNamesItems.length - 1;
+            previewNamesItems[index].style.backgroundColor =
+               "rgb(245, 245, 245)";
+            search.value = previewNamesItems[index].textContent;
+
+            // Desplazar la vista de la lista al elemento
+            previewNamesList.scrollTo({
+               top:
+                  previewNamesItems[previewNamesItems.length - 1].offsetTop -
+                  50,
+               behavior: "smooth",
+            });
+
+            if (search.value !== "") {
+               clearBt.style.display = "block";
+            } else {
+               clearBt.style.display = "none";
+            }
+            return;
+         }
+
+         // Desplazar la vista de la lista al elemento
+         previewNamesList.scrollTo({
+            top: previewNamesItems[index].offsetTop - 50,
+            behavior: "smooth",
+         });
+
+         previewNamesItems[index + 1].style.backgroundColor = "";
+         previewNamesItems[index].style.backgroundColor = "rgb(245, 245, 245)";
+         search.value = previewNamesItems[index].textContent;
+
+         if (search.value !== "") {
+            clearBt.style.display = "block";
+         } else {
+            clearBt.style.display = "none";
+         }
+      }
+
+      if (event.key === "ArrowDown") {
+         if (previewNamesItems.length === 0) return;
+
+         let index = null;
+         for (let i = 0; i < previewNamesItems.length; i++) {
+            if (
+               previewNamesItems[i].style.backgroundColor ===
+               "rgb(245, 245, 245)"
+            ) {
+               index = i + 1;
+               break;
+            }
+         }
+
+         // Mostrar texto introducido
+         if (index === previewNamesItems.length) {
+            previewNamesItems[
+               previewNamesItems.length - 1
+            ].style.backgroundColor = "";
+            search.value = inputSearchItem.textContent;
+
+            if (search.value !== "") {
+               clearBt.style.display = "block";
+            } else {
+               clearBt.style.display = "none";
+            }
+            return;
+         }
+
+         // Ir al principio de la lista
+         if (index === null) {
+            index = 0;
+            previewNamesItems[index].style.backgroundColor =
+               "rgb(245, 245, 245)";
+            search.value = previewNamesItems[index].textContent;
+
+            // Desplazar la vista de la lista al elemento
+            previewNamesList.scrollTo({
+               top: previewNamesItems[0].offsetTop - 50,
+               behavior: "smooth",
+            });
+
+            if (search.value !== "") {
+               clearBt.style.display = "block";
+            } else {
+               clearBt.style.display = "none";
+            }
+            return;
+         }
+
+         // Desplazar la vista de la lista al elemento
+         previewNamesList.scrollTo({
+            top: previewNamesItems[index].offsetTop - 50,
+            behavior: "smooth",
+         });
+
+         previewNamesItems[index - 1].style.backgroundColor = "";
+         previewNamesItems[index].style.backgroundColor = "rgb(245, 245, 245)";
+         search.value = previewNamesItems[index].textContent;
+
+         if (search.value !== "") {
+            clearBt.style.display = "block";
+         } else {
+            clearBt.style.display = "none";
+         }
+      }
+   }
+
+   if (event.key === "Escape") {
+      if (features) {
+         features.remove();
+      }
+   }
+});
+
+function addMenuEvents() {
+   const [menuButtonOpen] = document.getElementsByClassName(
+      "navbar__button--open"
+   );
+   const [menu] = document.getElementsByClassName("navbar");
+   const [menuButtonClose] = document.getElementsByClassName(
+      "navbar__button--close"
+   );
+
+   menuButtonOpen.addEventListener("click", function () {
+      menu.style.left = "0rem";
+   });
+
+   menuButtonClose.addEventListener("click", function () {
+      menu.style.left = "-25rem";
+   });
+
+   document.addEventListener("click", function (event) {
+      const menuButtonOpenSpan =
+         document.getElementsByClassName("navbar__icon");
+      if (
+         !Array.from(menuButtonOpenSpan).some((element) => {
+            return event.target === element;
+         }) &&
+         event.target !== menuButtonOpen
+      ) {
+         if (menu.style.left === "0rem") {
+            if (
+               !menu.contains(event.target) &&
+               !menuButtonClose.contains(event.target)
+            ) {
+               menu.style.left = "-25rem";
+            }
+         }
+      }
+   });
+
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+         if (menu.style.left === "0rem") {
+            menu.style.left = "-25rem";
+         }
+      }
+   });
+}

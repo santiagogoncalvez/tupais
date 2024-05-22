@@ -275,8 +275,13 @@ function showOptions(game) {
 
 async function createNewGame() {
    // Clean timer
-   clearInterval(freeTimeInterval);
-   clearInterval(timeInterval);
+   if (freeTimeInterval) {
+      clearInterval(freeTimeInterval);
+   }
+
+   if (timeInterval) {
+      clearInterval(timeInterval);
+   }
 
    // Create timer
    const timerElement = document.getElementsByClassName("game__time");
@@ -334,6 +339,7 @@ async function createNewGame() {
    };
 
    game = new MultipleChoice(stateGame);
+   console.log(game)
 
    showOptions(game);
 

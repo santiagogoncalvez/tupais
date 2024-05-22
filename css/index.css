@@ -2184,6 +2184,11 @@ html {
    text-align: center;
 }
 
+.game__clues, .game__score {
+   font-weight: initial;
+   font-size: clamp(0.2px, 1.3rem, 8vw);
+}
+
 /* Credits page */
 
 .credits {

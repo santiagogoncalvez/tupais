@@ -5,7 +5,7 @@ import { NewGame } from "./imports/classNewGame.mjs";
 // Bindings
 let game;
 let timeElapsed = 0;
-let freeTimeInterval;
+let freeTimeInterval = null;
 let timeInterval;
 
 // Functions
@@ -42,7 +42,7 @@ function insertAnswerResults(element, correctAnswers, time) {
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
     </p>
-    <a href="./pages/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
+    <a href="./pages-html/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
@@ -93,7 +93,7 @@ function insertAnswerResults(element, correctAnswers, time) {
             bgBlurry.remove();
             cardResults.remove();
             createNewGame();
-            document.removeEventListener("keydown", escAnswerResults);  
+            document.removeEventListener("keydown", escAnswerResults);
          }
       }
    }
@@ -216,11 +216,7 @@ function typeResponse(game, element) {
       }, 3000);
    }
 
-   // Incomplete options
-   if (game.answerUser.length === 0) {
-      showTypeResponse("incomplete", element);
-      return;
-   }
+   let nameCountry = game.countries[0].name.replace(/\s/g, "");
 
    // Correct answer
    if (game.lastResponseStatus) {
@@ -230,7 +226,13 @@ function typeResponse(game, element) {
 
    // Incorrect answer
    if (!game.lastResponseStatus) {
-      showTypeResponse("incorrect", element);
+      // Incomplete options
+      if (game.answerUser.length !== nameCountry.length) {
+         showTypeResponse("incomplete", element);
+      } else {
+         showTypeResponse("incorrect", element);
+      }
+
       return;
    }
 }
@@ -250,8 +252,13 @@ function insertTextContinent(continent) {
 
 async function createNewGame() {
    // Clean timer
-   clearInterval(freeTimeInterval);
-   clearInterval(timeInterval);
+   if (freeTimeInterval) {
+      clearInterval(freeTimeInterval);
+   }
+
+   if (timeInterval) {
+      clearInterval(timeInterval);
+   }
 
    // Create timer
    const timerElement = document.getElementsByClassName("game__time");
@@ -421,25 +428,27 @@ function listenKeyboard(event) {
       document.removeEventListener("keydown", listenKeyboard);
       nextBt.removeEventListener("click", activeNextBt);
 
-      // Incomplete answer
-      if (
-         game.answerUser.length !==
-         game.countries[0].name.replace(/\s/g, "").length
-      ) {
-         typeResponse(game, document.getElementsByClassName("homepage")[0]);
-         // Pausar eventos de entrada
-         for (let element of buttonsKeyboard) {
-            element.addEventListener("click", listenKeyboard);
-         }
-         document.addEventListener("keydown", listenKeyboard);
-         nextBt.addEventListener("click", activeNextBt);
-         return;
-      }
-
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      addIconAnimation(game.lastResponseStatus, "./images/icons-images");
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
+
+      // Incomplete answer
+      if (!game.lastResponseStatus) {
+         if (
+            game.answerUser.length !==
+            game.countries[0].name.replace(/\s/g, "").length
+         ) {
+            // Pausar eventos de entrada
+            for (let element of buttonsKeyboard) {
+               element.addEventListener("click", listenKeyboard);
+            }
+            document.addEventListener("keydown", listenKeyboard);
+            nextBt.addEventListener("click", activeNextBt);
+            return;
+         }
+      }
+
+      addIconAnimation(game.lastResponseStatus, "./images/icons-images");
 
       // Correct answer
       if (game.lastResponseStatus) {

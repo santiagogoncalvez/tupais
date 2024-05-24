@@ -1,12 +1,11 @@
-import { getRandomCountriesClues } from "./imports/countryDataManager.mjs";
+import { getRandomCountrie_Clues } from "../javascript/imports/countryDataManager.mjs";
 
-let country = await getRandomCountriesClues(
+let country = await getRandomCountrie_Clues(
    "all continents",
-   1,
    "./images/flags-svg"
 );
 
-console.log(country)
+console.log(country);
 
 function addMenuEvents() {
    const [menuButtonOpen] = document.getElementsByClassName(

@@ -349,6 +349,8 @@ document.addEventListener("DOMContentLoaded", function () {
    });
 
    addMenuEvents();
+
+   window.addEventListener("scroll", showBtScroll);
 });
 
 function activePreviwNames(event) {
@@ -887,4 +889,30 @@ function addMenuEvents() {
          }
       }
    });
+}
+
+function showBtScroll() {
+   const [btScroll] = document.getElementsByClassName(
+      "flag-gallery__scroll-top"
+   );
+   let scrollTop = window.scrollY;
+
+   if (scrollTop >= 400) {
+      if (btScroll.style.display !== "block") {
+         btScroll.style.display = "block";
+
+         // Animacion
+         setTimeout(() => {
+            btScroll.style.opacity = "1";
+         }, 0);
+      }
+   } else {
+      if (btScroll.style.display === "block") {
+         btScroll.style.opacity = "0";
+
+         setTimeout(() => {
+            btScroll.style.display = "none";
+         }, 400);
+      }
+   }
 }

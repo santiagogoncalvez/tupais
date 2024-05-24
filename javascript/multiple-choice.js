@@ -45,10 +45,12 @@ function formatTimeResults(seconds) {
 function countDown(milliseconds, element) {
    if (milliseconds === -1) {
       freeTimeInterval = setInterval(function () {
-         if (game.correctAnswers === 10) {
-            clearInterval(freeTimeInterval);
-         } else {
-            timeElapsed++;
+         if (game) {
+            if (game.correctAnswers === 10) {
+               clearInterval(freeTimeInterval);
+            } else {
+               timeElapsed++;
+            }
          }
       }, 1000);
    }
@@ -339,7 +341,7 @@ async function createNewGame() {
    };
 
    game = new MultipleChoice(stateGame);
-   console.log(game)
+   console.log(game);
 
    showOptions(game);
 

@@ -198,11 +198,7 @@ export function getRandomCountries(
    });
 }
 
-export function getRandomCountriesClues(
-   continent,
-   quantityCountries = 10,
-   imageRute
-) {
+export function getRandomCountrie_Clues(continent, imageRute) {
    return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
          "all continents",
@@ -227,20 +223,22 @@ export function getRandomCountriesClues(
             countries = await getCountriesByContinent(continent);
          }
 
-         if (quantityCountries === -1) {
-            quantityCountries = countries.length;
-         }
-
          let result = [];
-         for (let i = 0; i < quantityCountries; i++) {
-            let randomCountry = countries[i];
+         let more2Words = false;
+         do {
+            let randomCountry =
+               countries[Math.floor(Math.random() * countries.length)];
             let formattedName = formatWord(
                randomCountry.translations.spa.common
             );
 
             // Ignorar elemntos con más de 2 palabras
             if (moreThan2Words(formattedName)) {
+               more2Words = true;
+               console.log("Executing");
                continue;
+            } else {
+               more2Words = false;
             }
 
             result.push({
@@ -250,9 +248,9 @@ export function getRandomCountriesClues(
                flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
                clues: getClues(randomCountry),
             });
-         }
+         } while (more2Words);
 
-         resolve(shuffleArray(result));
+         resolve(result);
       } catch (err) {
          reject(new Error(`Error request getRandomCoutries: ${err}`));
       }

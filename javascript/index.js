@@ -262,8 +262,8 @@ async function createNewGame() {
 
    // Create timer
    const timerElement = document.getElementsByClassName("game__time");
-   let timeStorage = sessionStorage.getItem("time")
-      ? Number(sessionStorage.getItem("time"))
+   let timeStorage = localStorage.getItem("time")
+      ? Number(localStorage.getItem("time"))
       : -1;
    if (timeStorage === -1) {
       timerElement[0].textContent = "LIBRE";
@@ -287,8 +287,8 @@ async function createNewGame() {
       "game__remaining-countries"
    );
 
-   let gameContinent = sessionStorage.getItem("continent")
-      ? sessionStorage.getItem("continent")
+   let gameContinent = localStorage.getItem("continent")
+      ? localStorage.getItem("continent")
       : "all continents";
    let randomCountries = await getRandomCountries(
       gameContinent,
@@ -366,10 +366,12 @@ function formatTimeResults(seconds) {
 function countDown(milliseconds, element) {
    if (milliseconds === -1) {
       freeTimeInterval = setInterval(function () {
-         if (game.correctAnswers === 10) {
-            clearInterval(freeTimeInterval);
-         } else {
-            timeElapsed++;
+         if (game) {
+            if (game.correctAnswers === 10) {
+               clearInterval(freeTimeInterval);
+            } else {
+               timeElapsed++;
+            }
          }
       }, 1000);
    }
@@ -720,8 +722,8 @@ async function startupEvents() {
          }
 
          startButton.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
-            sessionStorage.setItem("time", time);
+            localStorage.setItem("continent", continent);
+            localStorage.setItem("time", time);
             presentation.style.top = "-20rem";
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -746,8 +748,8 @@ async function startupEvents() {
                }
 
                if (presentation.classList.contains("presentation")) {
-                  sessionStorage.setItem("continent", continent);
-                  sessionStorage.setItem("time", time);
+                  localStorage.setItem("continent", continent);
+                  localStorage.setItem("time", time);
                   presentation.style.top = "-20rem";
                   bgBlurry.style.opacity = "0";
                   bgBlurry.remove();
@@ -761,8 +763,8 @@ async function startupEvents() {
 
          if (type === "presentation") {
             closeIcon.addEventListener("click", function () {
-               sessionStorage.setItem("continent", continent);
-               sessionStorage.setItem("time", time);
+               localStorage.setItem("continent", continent);
+               localStorage.setItem("time", time);
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
@@ -798,8 +800,8 @@ async function startupEvents() {
             if (type === "presentation") {
                if (event.key === "Escape") {
                   if (presentation) {
-                     sessionStorage.setItem("continent", continent);
-                     sessionStorage.setItem("time", time);
+                     localStorage.setItem("continent", continent);
+                     localStorage.setItem("time", time);
                      presentation.style.top = "-20rem";
                      bgBlurry.style.opacity = "0";
                      bgBlurry.remove();
@@ -837,8 +839,8 @@ async function startupEvents() {
 
    // Presentation
    if (
-      !sessionStorage.getItem("time") &&
-      !sessionStorage.getItem("continent")
+      !localStorage.getItem("time") &&
+      !localStorage.getItem("continent")
    ) {
       await insertPresentation("presentation");
    } else {

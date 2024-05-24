@@ -184,41 +184,71 @@ export class MultipleChoice {
    }
 
    resetAnswerUser() {
-      return new MultipleChoice(this.modifyProperty({ answerUser: ""}));
+      return new MultipleChoice(this.modifyProperty({ answerUser: "" }));
    }
 }
-
 
 export class Clues {
    constructor(state) {
       for (let property in state) {
          this[property] = state[property];
       }
+      this.cluesShown = 1;
    }
 
-   modifyAnswer(enteredAnswer) {
-      if (typeof enteredAnswer !== "string") {
+   modifyAnswer(pressedKey, lastAnswer) {
+      if (typeof pressedKey !== "string" || typeof lastAnswer !== "string") {
          throw new Error(
-            `The arguments are not strings. enteredAnswer: ${enteredAnswer}`
+            `The arguments are not strings. pressedKey: ${pressedKey}, arrAnswer: ${lastAnswer}`
          );
       }
-      return new MultipleChoice(
+
+      let currentAnswer,
+         countryName = this.countries[0].name.toLowerCase().replace(/\s/g, "");
+
+      // Delete letter
+      if (pressedKey === "backspace") {
+         if (this.answerUser.length === 0) {
+            return new NewGame(this.modifyProperty());
+         }
+         currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
+         return new NewGame(this.modifyProperty({ answerUser: currentAnswer }));
+      }
+
+      // completed word
+      if (this.answerUser.length === countryName.length) {
+         return new NewGame(this.modifyProperty());
+      }
+
+      if (this.answerUser.length === countryName.length) {
+         return new NewGame(this.modifyProperty());
+      }
+
+      currentAnswer = lastAnswer + pressedKey;
+      return new NewGame(
          this.modifyProperty({
-            answerUser: enteredAnswer,
+            answerUser: currentAnswer,
          })
       );
    }
 
    verifyAnswer(answerUser, countryName) {
-      answerUser = answerUser.toLowerCase().replace(/\s/g, "");
       countryName = countryName.toLowerCase().replace(/\s/g, "");
+
+      // Incomplete answer
+      if (answerUser.length !== countryName.length) {
+         return new NewGame(
+            this.modifyProperty({
+               lastResponseStatus: false,
+            })
+         );
+      }
 
       // Incorrect answer
       if (answerUser !== countryName) {
-         return new MultipleChoice(
+         return new NewGame(
             this.modifyProperty({
                lastResponseStatus: false,
-               countries: this.countries.slice(1, this.countries.length),
             })
          );
       }
@@ -230,15 +260,7 @@ export class Clues {
          countries: this.countries.slice(1, this.countries.length),
       });
 
-      return new MultipleChoice(newState);
-   }
-
-   nextCountry() {
-      let first = this.countries[0];
-      let result = this.countries.slice(1, this.countries.length);
-      result.push(first);
-
-      return new MultipleChoice(this.modifyProperty({ countries: result }));
+      return new NewGame(newState);
    }
 
    modifyProperty(state = {}) {
@@ -255,13 +277,22 @@ export class Clues {
       return result;
    }
 
-   addCountryShown() {
-      return new MultipleChoice(
-         this.modifyProperty({ countriesShown: this.countriesShown + 1 })
-      );
+   resetAnswerUser() {
+      return new NewGame(this.modifyProperty({ answerUser: "" }));
    }
 
-   resetAnswerUser() {
-      return new MultipleChoice(this.modifyProperty({ answerUser: "" }));
+   addClueShown() {
+      return new Clues(
+         this.modifyProperty({ cluesShown: this.cluesShown + 1 })
+      );
    }
 }
+
+/*
+//Funcion contar las pistas mostradas
+   addClueShown() {
+      return new Clues(
+         this.modifyProperty({ cluesShown: this.cluesShown + 1 })
+      );
+   }
+*/

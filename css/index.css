@@ -262,7 +262,7 @@ html {
    display: flex;
    flex-direction: column;
    align-items: center;
-   height: 100vh;
+   height: 100%;
    max-height: 100vh;
    margin: 0 auto;
 }
@@ -560,7 +560,8 @@ html {
    width: 24rem;
    max-width: 90vw;
    background-color: #fffffff7;
-   flex-grow: 1;
+   height: 100%;
+   flex: 1;
 }
 
 .game__statistics {
@@ -568,6 +569,7 @@ html {
    justify-content: space-between;
    align-items: center;
    width: 100%;
+   max-width: 90vw;
    list-style-type: none;
    padding: 0;
    margin-top: 1rem;
@@ -914,8 +916,7 @@ html {
    border-radius: 8px;
    border-width: 0.18em;
    border-style: solid;
-   margin-top: 0.5rem;
-   margin-bottom: 0rem;
+   margin: 0;
 }
 
 .footer__paragraph {
@@ -2193,7 +2194,6 @@ html {
    width: 100%;
    margin: 0;
    height: 100%;
-   flex-grow: 1;
 }
 
 .clues-mode__main {
@@ -2202,7 +2202,6 @@ html {
    align-items: center;
    justify-content: space-evenly;
    width: 24rem;
-   flex-grow: 1;
 }
 
 .clues-mode__country--description {
@@ -2221,6 +2220,7 @@ html {
    justify-content: space-evenly;
    align-items: center;
    width: 100%;
+   max-width: 70vw;
    height: 8rem;
    position:relative;
 }
@@ -2235,6 +2235,7 @@ html {
    flex-wrap: nowrap;
    height: 8rem;
    width: 18rem;
+   max-width: 70vw;
    margin-bottom: 0rem;
    margin-top: 0rem;
    list-style: none;
@@ -2247,7 +2248,7 @@ html {
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   font-size: clamp(0.2px, 1.4rem, 4vw);
+   font-size: clamp(0.2px, 1.4rem, 5vw);
    min-width: 100%;
    text-align: center;
    white-space: pre-wrap;

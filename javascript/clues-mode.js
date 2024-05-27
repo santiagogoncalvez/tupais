@@ -576,6 +576,7 @@ function listenKeyboard(event) {
             }
             document.addEventListener("keydown", listenKeyboard);
             nextBt.addEventListener("click", activeNextBt);
+            previousBt.addEventListener("click", activeNextBt);
             return;
          }
       }
@@ -605,6 +606,7 @@ function listenKeyboard(event) {
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
+         previousBt.addEventListener("click", activeNextBt);
       }, 3500);
 
       return;
@@ -1145,7 +1147,7 @@ function addMenuEvents() {
 // Animación de icono de respuesta correcta o incorrecta
 function addIconAnimation(typeAnswer, url) {
    const [countryElement] = document.getElementsByClassName(
-      "clues-mode__clues-list"
+      "clues-mode__sliderClues"
    );
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");

@@ -193,7 +193,6 @@ export class Clues {
       for (let property in state) {
          this[property] = state[property];
       }
-      this.cluesShown = 1;
    }
 
    modifyAnswer(pressedKey, lastAnswer) {
@@ -209,23 +208,23 @@ export class Clues {
       // Delete letter
       if (pressedKey === "backspace") {
          if (this.answerUser.length === 0) {
-            return new NewGame(this.modifyProperty());
+            return new Clues(this.modifyProperty());
          }
          currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
-         return new NewGame(this.modifyProperty({ answerUser: currentAnswer }));
+         return new Clues(this.modifyProperty({ answerUser: currentAnswer }));
       }
 
       // completed word
       if (this.answerUser.length === countryName.length) {
-         return new NewGame(this.modifyProperty());
+         return new Clues(this.modifyProperty());
       }
 
       if (this.answerUser.length === countryName.length) {
-         return new NewGame(this.modifyProperty());
+         return new Clues(this.modifyProperty());
       }
 
       currentAnswer = lastAnswer + pressedKey;
-      return new NewGame(
+      return new Clues(
          this.modifyProperty({
             answerUser: currentAnswer,
          })
@@ -237,7 +236,7 @@ export class Clues {
 
       // Incomplete answer
       if (answerUser.length !== countryName.length) {
-         return new NewGame(
+         return new Clues(
             this.modifyProperty({
                lastResponseStatus: false,
             })
@@ -246,7 +245,7 @@ export class Clues {
 
       // Incorrect answer
       if (answerUser !== countryName) {
-         return new NewGame(
+         return new Clues(
             this.modifyProperty({
                lastResponseStatus: false,
             })
@@ -257,10 +256,9 @@ export class Clues {
       let newState = this.modifyProperty({
          correctAnswers: this.correctAnswers + 1,
          lastResponseStatus: true,
-         countries: this.countries.slice(1, this.countries.length),
       });
 
-      return new NewGame(newState);
+      return new Clues(newState);
    }
 
    modifyProperty(state = {}) {
@@ -278,21 +276,24 @@ export class Clues {
    }
 
    resetAnswerUser() {
-      return new NewGame(this.modifyProperty({ answerUser: "" }));
+      return new Clues(this.modifyProperty({ answerUser: "" }));
    }
 
-   addClueShown() {
+   addShownClue() {
       return new Clues(
-         this.modifyProperty({ cluesShown: this.cluesShown + 1 })
+         this.modifyProperty({ shownClues: this.shownClues + 1 })
+      );
+   }
+
+   addCurrentClue() {
+      return new Clues(
+         this.modifyProperty({ currentClue: this.currentClue + 1 })
+      );
+   }
+
+   substractCurrentClue() {
+      return new Clues(
+         this.modifyProperty({ currentClue: this.currentClue - 1 })
       );
    }
 }
-
-/*
-//Funcion contar las pistas mostradas
-   addClueShown() {
-      return new Clues(
-         this.modifyProperty({ cluesShown: this.cluesShown + 1 })
-      );
-   }
-*/

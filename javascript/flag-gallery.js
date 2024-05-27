@@ -196,7 +196,7 @@ async function insertFeatures(countrie) {
             </li>
             <li class="features__item">
             Capital: <br />
-            ${country.capital}
+            ${country.capital ? country.capital : "--"}
             </li>
             <li class="features__item">
                Área: <br />
@@ -897,7 +897,7 @@ function showBtScroll() {
    );
    let scrollTop = window.scrollY;
 
-   if (scrollTop >= 400) {
+   if (scrollTop >= 200) {
       if (btScroll.style.display !== "block") {
          btScroll.style.display = "block";
 

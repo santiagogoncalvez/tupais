@@ -287,8 +287,8 @@ async function createNewGame() {
 
    // Create timer
    const timerElement = document.getElementsByClassName("game__time");
-   let timeStorage = sessionStorage.getItem("time")
-      ? Number(sessionStorage.getItem("time"))
+   let timeStorage = localStorage.getItem("time")
+      ? Number(localStorage.getItem("time"))
       : -1;
    if (timeStorage === -1) {
       timerElement[0].textContent = "LIBRE";
@@ -311,8 +311,8 @@ async function createNewGame() {
    );
    const [sendBt] = document.getElementsByClassName("multiple-choice__send");
 
-   let gameContinent = sessionStorage.getItem("continent")
-      ? sessionStorage.getItem("continent")
+   let gameContinent = localStorage.getItem("continent")
+      ? localStorage.getItem("continent")
       : "all continents";
    let randomCountries = await getRandomCountries(
       gameContinent,
@@ -569,12 +569,14 @@ function showCorrectAnswer(state, countryName) {
          if (game.lastResponseStatus) {
             if (optionValue === countryName) {
                option.style.backgroundColor = "#dff0d8";
+               option.style.borderColor = "#a3cc91";
             }
          }
 
          if (!game.lastResponseStatus) {
             if (optionValue === countryName) {
                option.style.backgroundColor = "#dff0d8";
+               option.style.borderColor = "#a3cc91";
             }
             if (optionValue !== countryName) {
                option.style.backgroundColor = "#f2dede";
@@ -808,8 +810,8 @@ async function startupEvents() {
          }
 
          startButton.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
-            sessionStorage.setItem("time", time);
+            localStorage.setItem("continent", continent);
+            localStorage.setItem("time", time);
             presentation.style.top = "-20rem";
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -834,8 +836,8 @@ async function startupEvents() {
                }
 
                if (presentation.classList.contains("presentation")) {
-                  sessionStorage.setItem("continent", continent);
-                  sessionStorage.setItem("time", time);
+                  localStorage.setItem("continent", continent);
+                  localStorage.setItem("time", time);
                   presentation.style.top = "-20rem";
                   bgBlurry.style.opacity = "0";
                   bgBlurry.remove();
@@ -849,8 +851,8 @@ async function startupEvents() {
 
          if (type === "presentation") {
             closeIcon.addEventListener("click", function () {
-               sessionStorage.setItem("continent", continent);
-               sessionStorage.setItem("time", time);
+               localStorage.setItem("continent", continent);
+               localStorage.setItem("time", time);
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
@@ -886,8 +888,8 @@ async function startupEvents() {
             if (type === "presentation") {
                if (event.key === "Escape") {
                   if (presentation) {
-                     sessionStorage.setItem("continent", continent);
-                     sessionStorage.setItem("time", time);
+                     localStorage.setItem("continent", continent);
+                     localStorage.setItem("time", time);
                      presentation.style.top = "-20rem";
                      bgBlurry.style.opacity = "0";
                      bgBlurry.remove();
@@ -924,10 +926,7 @@ async function startupEvents() {
    }
 
    // Presentation
-   if (
-      !sessionStorage.getItem("time") &&
-      !sessionStorage.getItem("continent")
-   ) {
+   if (!localStorage.getItem("time") && !localStorage.getItem("continent")) {
       await insertPresentation("presentation");
    } else {
       createNewGame();

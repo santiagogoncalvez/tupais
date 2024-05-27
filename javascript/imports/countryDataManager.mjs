@@ -65,13 +65,13 @@ function shuffleArray(arr) {
 function getClues(country) {
    let requiredClues = [
       "capital",
-      "region",
+      "coatOfArms",
       "subregion",
       "landlocked",
       "borders",
       "area",
       "population",
-      "timezones",
+      "car",
       "languages",
       "currencies",
    ];
@@ -98,7 +98,6 @@ function getCoutryByName(name) {
 }
 
 function getCoutryByTranslation(translation) {
-   console.log(translation);
    return new Promise(async (resolve, reject) => {
       let url = `https://restcountries.com/v3.1/translation/${translation}`;
       try {
@@ -235,7 +234,6 @@ export function getRandomCountrie_Clues(continent, imageRute) {
             // Ignorar elemntos con más de 2 palabras
             if (moreThan2Words(formattedName)) {
                more2Words = true;
-               console.log("Executing");
                continue;
             } else {
                more2Words = false;

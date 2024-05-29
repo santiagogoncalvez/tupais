@@ -585,7 +585,6 @@ function listenKeyboard(event) {
 
       // Correct answer
       if (game.lastResponseStatus) {
-         console.log(game.correctAnswers);
          // Show results
          if (game.correctAnswers === 1) {
             setTimeout(() => {

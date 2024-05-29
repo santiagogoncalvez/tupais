@@ -911,7 +911,9 @@ html {
    border-radius: 8px;
    border-width: 0.18em;
    border-style: solid;
-   margin: 0;
+   margin: 0 auto;
+   position: relative;
+   bottom: 0rem;
 }
 
 .footer__paragraph {

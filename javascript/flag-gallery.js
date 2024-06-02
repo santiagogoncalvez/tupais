@@ -26,16 +26,16 @@ async function insertAllFlags(element) {
       let orderedName = [];
 
       for (let country of countries) {
-         orderedName.push(country.name.common);
+         orderedName.push(country.translations.spa.common);
       }
 
       orderedName = orderedName.sort();
 
       for (let i = 0; i < orderedName.length; i++) {
-         let country = filter(
+         let [country] = filter(
             countries,
-            (country) => country.name.common === orderedName[i]
-         )[0];
+            (country) => country.translations.spa.common === orderedName[i]
+         );
 
          let code = country.cca2.toLowerCase();
          let countryName = country.translations.spa.common;

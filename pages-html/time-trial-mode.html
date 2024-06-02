@@ -96,16 +96,19 @@
       </header>
 
       <main class="time-trial-mode__main">
-         <ul class="game__statistics">
-            <li class="game__statistics-item">
-               Tiempo<br />
-               <span class="game__time">00:00</span>
-            </li>
-            <li class="game__statistics-item">
-               Aciertos<br />
-               <span class="game__correct-answers">0</span>
-            </li>
-         </ul>
+         <div class="game__container">
+            <ul class="game__statistics">
+               <li class="game__statistics-item">
+                  Tiempo<br />
+                  <span class="game__time">00:00</span>
+               </li>
+               <li class="game__statistics-item">
+                  Aciertos<br />
+                  <span class="game__correct-answers">0</span>
+               </li>
+            </ul>
+            <bt class="game__bt-information" title="¿Cómo jugar?" type="button">?</bt>
+         </div>
 
          <figure class="country">
             <figcaption class="country__description"></figcaption>
@@ -362,7 +365,10 @@
       </main>
 
       <footer class="footer">
+         <div class="footer__fill-space"></div>
          <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
+         <a href="https://github.com/santiagogoncalvez"
+         target="_blank" class="footer__icon-github" title="Perfil de Github"></a>
       </footer>
 
       <script src="../javascript/time-trial-mode.js" type="module"></script>

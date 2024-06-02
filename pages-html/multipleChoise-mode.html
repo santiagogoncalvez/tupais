@@ -89,16 +89,19 @@
       </header>
 
       <main class="multiple-choice__main">
-         <ul class="game__statistics">
-            <li class="game__statistics-item">
-               País<br />
-               <span class="game__remaining-countries"></span>
-            </li>
-            <li class="game__statistics-item">
-               Aciertos<br />
-               <span class="game__correct-answers">0</span>
-            </li>
-         </ul>
+         <div class="game__container">
+            <ul class="game__statistics">
+               <li class="game__statistics-item">
+                  País<br />
+                  <span class="game__remaining-countries">10</span>
+               </li>
+               <li class="game__statistics-item">
+                  Aciertos<br />
+                  <span class="game__correct-answers">0</span>
+               </li>
+            </ul>
+            <bt class="game__bt-information" title="¿Cómo jugar?" type="button">?</bt>
+         </div>
 
          <figure class="country">
             <figcaption class="country__description">Texto</figcaption>
@@ -134,7 +137,6 @@
                   type="button"
                ></button>
             </div>
-            <div class="multiple-choice__option--column3">
                <button
                   class="multiple-choice__send"
                   title="Enviar"
@@ -142,7 +144,6 @@
                >
                   ENVIAR
                </button>
-            </div>
          </div>
 
          <button
@@ -154,8 +155,10 @@
          </button>
       </main>
       <footer class="footer">
-         <!-- <button class="footer__github"></button> -->
+         <div class="footer__fill-space"></div>
          <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
+         <a href="https://github.com/santiagogoncalvez"
+         target="_blank" class="footer__icon-github" title="Perfil de Github"></a>
       </footer>
 
       <!-- Script -->

@@ -319,12 +319,21 @@ function sendAnswer() {
 document.addEventListener("DOMContentLoaded", async function () {
    const [sendBt] = document.getElementsByClassName("multiple-choice__send");
    const [startAgain] = document.getElementsByClassName("game__start-again");
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
 
    await startupEvents();
 
    // Animacion de tilde correcto-incorrecto
    sendBt.addEventListener("click", sendAnswer);
    startAgain.addEventListener("click", createNewGame);
+   btInformation.addEventListener("click", () => {
+      const [cardInformation] = document.getElementsByClassName("information-card");
+      if (!cardInformation) {
+         insertInformation();
+      }
+   });
 });
 
 // Escuchar "enter"
@@ -476,7 +485,7 @@ function showCorrectAnswer(state, countryName) {
          if (!game.lastResponseStatus) {
             if (optionValue === countryName) {
                option.style.backgroundColor = "#dff0d8";
-               option.style.borderColor = "#a3cc91";
+               option.style.borderColor = "#a3cc91";  
             }
             if (optionValue !== countryName) {
                option.style.backgroundColor = "#f2dede";
@@ -811,4 +820,63 @@ async function startupEvents() {
    btSettings.addEventListener("click", async () => {
       await insertPresentation("settings");
    });
+}
+
+
+function insertInformation(event) {
+   const cardHtml = `       
+            <section class="information-card">
+            <div class="presentation__div">
+                <h3 class="information-card__subtitle">¿Cómo jugar?</h3>
+
+                <p
+                    class="information-card__paragraph"
+                    >En este formato hay que adivinar 10 países. Por cada país, se
+                    van a mostrar 4 opciones para poder adivinar el nombre, con la
+                    temática múltiple choice.</p
+                >
+            </div>
+        </section>
+`;
+
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
+   const [container] = document.getElementsByClassName("game__container");
+   container.insertAdjacentHTML("beforeend", cardHtml);
+
+   const [presentation] = document.getElementsByClassName("information-card");
+
+   btInformation.style.backgroundColor = "rgb(225, 225, 225)";
+
+   function listenOutsidePresent(event) {
+      if (
+         !presentation.contains(event.target) &&
+         event.target !== btInformation
+      ) {
+         presentation.remove();
+         btInformation.style.backgroundColor = "white";
+         document.removeEventListener("keydown", actPresentation);
+         document.removeEventListener("click", listenOutsidePresent);
+      }
+   }
+
+   document.addEventListener("keydown", actPresentation);
+
+   document.addEventListener("click", listenOutsidePresent);
+
+   function actPresentation(event) {
+      escPresentation(event);
+   }
+
+   function escPresentation(event) {
+      if (event.key === "Escape") {
+         if (presentation) {
+            presentation.remove();
+            btInformation.style.backgroundColor = "white";
+            document.removeEventListener("keydown", actPresentation);
+            document.removeEventListener("click", listenOutsidePresent);
+         }
+      }
+   }
 }

@@ -832,11 +832,21 @@ async function startupEvents() {
 document.addEventListener("DOMContentLoaded", async function () {
    const [nextBt] = document.getElementsByClassName("country__btNext");
    const [startAgain] = document.getElementsByClassName("game__start-again");
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
 
    await startupEvents();
 
    nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
+   btInformation.addEventListener("click", () => {
+      const [cardInformation] =
+         document.getElementsByClassName("information-card");
+      if (!cardInformation) {
+         insertInformation();
+      }
+   });
 
    addMenuEvents();
 });
@@ -925,4 +935,61 @@ function addIconAnimation(typeAnswer, url) {
       blurryBackground.remove();
       iconImg.remove();
    }, 3500);
+}
+
+function insertInformation(event) {
+   const cardHtml = `       
+            <section class="information-card">
+            <div class="presentation__div">
+                <h3 class="information-card__subtitle">¿Cómo jugar?</h3>
+
+                <p
+                    class="information-card__paragraph"
+                    >En este formato hay que adivinar la mayor cantidad de países en
+                    el menor tiempo posible antes de que se acabe el contador.</p
+                >
+            </div>
+        </section>
+`;
+
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
+   const [container] = document.getElementsByClassName("game__container");
+   container.insertAdjacentHTML("beforeend", cardHtml);
+
+   const [presentation] = document.getElementsByClassName("information-card");
+
+   btInformation.style.backgroundColor = "rgb(225, 225, 225)";
+
+   function listenOutsidePresent(event) {
+      if (
+         !presentation.contains(event.target) &&
+         event.target !== btInformation
+      ) {
+         presentation.remove();
+         btInformation.style.backgroundColor = "white";
+         document.removeEventListener("keydown", actPresentation);
+         document.removeEventListener("click", listenOutsidePresent);
+      }
+   }
+
+   document.addEventListener("keydown", actPresentation);
+
+   document.addEventListener("click", listenOutsidePresent);
+
+   function actPresentation(event) {
+      escPresentation(event);
+   }
+
+   function escPresentation(event) {
+      if (event.key === "Escape") {
+         if (presentation) {
+            presentation.remove();
+            btInformation.style.backgroundColor = "white";
+            document.removeEventListener("keydown", actPresentation);
+            document.removeEventListener("click", listenOutsidePresent);
+         }
+      }
+   }
 }

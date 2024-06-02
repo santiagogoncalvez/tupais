@@ -4,14 +4,11 @@ import { NewGame } from "./imports/classNewGame.mjs";
 
 // Bindings
 let game;
-let timeElapsed = 0;
-let freeTimeInterval = null;
-let timeInterval;
 
 // Functions
-function showResults(timeElapsed, game) {
+function showResults(game) {
    let body = document.getElementsByClassName("homepage")[0];
-   insertAnswerResults(body, game.correctAnswers, timeElapsed);
+   insertAnswerResults(body, game.correctAnswers);
    deleteAllLetters();
 }
 
@@ -24,8 +21,7 @@ function deleteAllLetters() {
    }
 }
 
-function insertAnswerResults(element, correctAnswers, time) {
-   time = formatTimeResults(time);
+function insertAnswerResults(element, correctAnswers) {
    const textHtml = `
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
@@ -39,9 +35,6 @@ function insertAnswerResults(element, correctAnswers, time) {
     <span class="answer-results__span">
       ${correctAnswers}/10
     </span>
-    <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">00:${time}</span>
-    </p>
     <a href="./pages-html/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
@@ -205,7 +198,7 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 1;
-      }, 10);
+      }, 0);
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
@@ -213,7 +206,7 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 3000);
+      }, 2200);
    }
 
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
@@ -251,29 +244,6 @@ function insertTextContinent(continent) {
 }
 
 async function createNewGame() {
-   // Clean timer
-   if (freeTimeInterval) {
-      clearInterval(freeTimeInterval);
-   }
-
-   if (timeInterval) {
-      clearInterval(timeInterval);
-   }
-
-   // Create timer
-   const timerElement = document.getElementsByClassName("game__time");
-   let timeStorage = localStorage.getItem("time")
-      ? Number(localStorage.getItem("time"))
-      : -1;
-   if (timeStorage === -1) {
-      timerElement[0].textContent = "LIBRE";
-      countDown(timeStorage);
-   }
-   if (timeStorage !== -1) {
-      timerElement[0].textContent = formatTime(timeStorage);
-      countDown(timeStorage, timerElement[0]);
-   }
-
    const [flagImg] = document.getElementsByClassName("country__flag");
    const [answerContainer] = document.getElementsByClassName("game__answer");
    const [continentElement] = document.getElementsByClassName(
@@ -308,7 +278,6 @@ async function createNewGame() {
    remainingCountries.textContent = "10";
 
    let stateGame = {
-      time: timeStorage,
       continent: gameContinent,
       countries: randomCountries,
       answerUser: "",
@@ -325,79 +294,6 @@ async function createNewGame() {
    }
 
    document.addEventListener("keydown", listenKeyboard);
-}
-
-// Timer
-
-// Función para añadir ceros delante de un número si es necesario
-function pad(number, length) {
-   return ("0" + number).slice(-length);
-}
-
-function formatTime(milliseconds) {
-   // Calcular minutos y segundos
-   let totalSeconds = Math.floor(milliseconds / 1000);
-   let minutes = Math.floor(totalSeconds / 60);
-   let seconds = totalSeconds % 60;
-
-   // Formatear los minutos y segundos
-   let formattedMinutes = pad(minutes, 2);
-   let formattedSeconds = pad(seconds, 2);
-
-   // Concatenar minutos y segundos formateados
-   return formattedMinutes + ":" + formattedSeconds;
-}
-
-function formatTimeResults(seconds) {
-   // Calculate minutes and remaining seconds
-   var minutes = Math.floor(seconds / 60);
-   var remainingSeconds = seconds % 60;
-
-   // Format minutes and seconds with leading zeros if necessary
-   var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-   var formattedSeconds =
-      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
-
-   // Return formatted time
-   return formattedMinutes + ":" + formattedSeconds;
-}
-
-// Timer
-function countDown(milliseconds, element) {
-   if (milliseconds === -1) {
-      freeTimeInterval = setInterval(function () {
-         if (game) {
-            if (game.correctAnswers === 10) {
-               clearInterval(freeTimeInterval);
-            } else {
-               timeElapsed++;
-            }
-         }
-      }, 1000);
-   }
-
-   if (milliseconds !== -1) {
-      timeInterval = setInterval(function () {
-         if (milliseconds < 0) {
-            clearInterval(timeInterval);
-
-            showResults(timeElapsed, game);
-         } else {
-            let minutes = Math.floor(milliseconds / 60000);
-            let seconds = Math.floor((milliseconds % 60000) / 1000);
-
-            // Formatear los minutos y segundos en un string en formato MM:SS
-            let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
-
-            // Mostrar el tiempo restante en el elemento
-            element.textContent = formattedTime;
-
-            // Restar un segundo al tiempo restante
-            milliseconds -= 1000;
-            timeElapsed++;
-         }
-      }, 1000);
-   }
 }
 
 function listenKeyboard(event) {
@@ -459,11 +355,7 @@ function listenKeyboard(event) {
          // Show results
          if (game.correctAnswers === 10) {
             setTimeout(() => {
-               showResults(
-                  timeElapsed,
-                  game,
-                  document.getElementsByClassName("multiple-choice")[0]
-               );
+               showResults(game);
             }, 3400);
             return;
          }
@@ -568,15 +460,6 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <p class="presentation__label-time">
-                    Elige el tiempo
-                </p>
-                <div class="presentation__div-time">
-                    <button class="presentation__button-time">LIBRE</button>
-                    <button class="presentation__button-time">0:30</button>
-                    <button class="presentation__button-time">1:00</button>
-                </div>
-
                 <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
@@ -638,15 +521,6 @@ async function startupEvents() {
                     </option>
                 </select>
 
-                <p class="presentation__label-time">
-                    Elige el tiempo
-                </p>
-                <div class="presentation__div-time">
-                    <button class="presentation__button-time">LIBRE</button>
-                    <button class="presentation__button-time">0:30</button>
-                    <button class="presentation__button-time">1:00</button>
-                </div>
-
                 <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
@@ -696,8 +570,6 @@ async function startupEvents() {
 
          // Millisenconds
          let continent = "all continents";
-         let time = -1; //free time
-         let timesOptions = [-1, 30000, 60000];
 
          // Events
          continentsDropdown.addEventListener("change", function (event) {
@@ -707,8 +579,6 @@ async function startupEvents() {
 
          for (let i = 0; i < buttonsTime.length; i++) {
             buttonsTime[i].addEventListener("click", function (event) {
-               time = timesOptions[i];
-
                for (let button of buttonsTime) {
                   if (event.target === button) {
                      buttonsTime[i].classList.add(
@@ -723,7 +593,6 @@ async function startupEvents() {
 
          startButton.addEventListener("click", function () {
             localStorage.setItem("continent", continent);
-            localStorage.setItem("time", time);
             presentation.style.top = "-20rem";
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -749,7 +618,7 @@ async function startupEvents() {
 
                if (presentation.classList.contains("presentation")) {
                   localStorage.setItem("continent", continent);
-                  localStorage.setItem("time", time);
+
                   presentation.style.top = "-20rem";
                   bgBlurry.style.opacity = "0";
                   bgBlurry.remove();
@@ -764,7 +633,7 @@ async function startupEvents() {
          if (type === "presentation") {
             closeIcon.addEventListener("click", function () {
                localStorage.setItem("continent", continent);
-               localStorage.setItem("time", time);
+
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
@@ -801,7 +670,7 @@ async function startupEvents() {
                if (event.key === "Escape") {
                   if (presentation) {
                      localStorage.setItem("continent", continent);
-                     localStorage.setItem("time", time);
+
                      presentation.style.top = "-20rem";
                      bgBlurry.style.opacity = "0";
                      bgBlurry.remove();
@@ -838,10 +707,7 @@ async function startupEvents() {
    }
 
    // Presentation
-   if (
-      !localStorage.getItem("time") &&
-      !localStorage.getItem("continent")
-   ) {
+   if (!localStorage.getItem("time") && !localStorage.getItem("continent")) {
       await insertPresentation("presentation");
    } else {
       createNewGame();

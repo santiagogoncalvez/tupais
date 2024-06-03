@@ -975,8 +975,6 @@ function changeBtDarkMode() {
 
    let darkMode;
 
-   console.log(localStorage.getItem("darkMode"));
-
    if (localStorage.getItem("darkMode") === "") {
       if (
          window.matchMedia &&
@@ -989,7 +987,6 @@ function changeBtDarkMode() {
          darkMode = Number(localStorage.getItem("darkMode"));
       }
       if (darkMode) {
-         console.log("darkMode: true");
          addClassDarkMode("activate");
          return;
       }
@@ -1000,19 +997,15 @@ function changeBtDarkMode() {
    }
 
    if (darkMode) {
-      console.log("darkMode: true");
       addClassDarkMode("activate");
    } else {
       addClassDarkMode("deactivate");
    }
 
-   console.log(darkMode);
-
    if (btDarkMode) {
       if (darkMode) {
          circle.style.left = "32px";
          btDarkMode.style.backgroundColor = "#0D336B";
-         console.log("Executing");
       } else {
          circle.style.left = "3px";
          btDarkMode.style.backgroundColor = "#BFE1FF";
@@ -1031,7 +1024,6 @@ function changeBtDarkMode() {
             circle.style.left = "3px";
             btDarkMode.style.backgroundColor = "#BFE1FF";
             localStorage.setItem("darkMode", "0");
-            console.log(localStorage.getItem("darkMode"));
             addClassDarkMode("deactivate");
          }
       });

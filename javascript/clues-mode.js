@@ -587,63 +587,72 @@ async function startupEvents() {
 `;
 
    const settingsHtml = `       
-            <section class="presentation__section">
-            <button class="presentation__header-link" title="Cerrar" type="button"
-                    >
-                </button>
+   <section class="presentation__section">
+   <button class="presentation__header-link" title="Cerrar" type="button"
+           >
+       </button>
+   
+      <div class="presentation__div">
+      <h3 class="presentation__subtitle">Configuración</h3>
 
-            <div class="presentation__div">
-                <h3 class="presentation__subtitle">Configuración</h3>
+      <div class="presentation__subtitle">Modo oscuro</div>
+      <button class="dark-mode-bt">
+         <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
 
-                <p
-                    class="presentation__label-continents"
-                    >Elige el continente de los paises</p
-                >
+         <div class="dark-mode-bt__circle"></div>
+  
+         <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+      </button>
+      <div class="presentation__subtitle">Juego</div>
+       <p
+           class="presentation__label-continents"
+           >Elige el continente de los paises</p
+       >
 
-                <select name="countries" class="continents-dropdown" title="countries">
-                    <option
-                        value="all continents"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        TODO EL MUNDO
-                    </option>
-                    <option
-                        value="africa"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ÁFRICA
-                    </option>
-                    <option
-                        value="americas"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        AMÉRICA
-                    </option>
-                    <option
-                        value="asia"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ASIA
-                    </option>
-                    <option
-                        value="europe"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        EUROPA
-                    </option>
-                    <option
-                        value="oceania"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        OCEANÍA
-                    </option>
-                </select>
+       <select name="countries" class="continents-dropdown" title="countries">
+           <option
+               value="all continents"
+               class="presentation__continents-dropdown-option"
+           >
+               TODO EL MUNDO
+           </option>
+           <option
+               value="africa"
+               class="presentation__continents-dropdown-option"
+           >
+               ÁFRICA
+           </option>
+           <option
+               value="americas"
+               class="presentation__continents-dropdown-option"
+           >
+               AMÉRICA
+           </option>
+           <option
+               value="asia"
+               class="presentation__continents-dropdown-option"
+           >
+               ASIA
+           </option>
+           <option
+               value="europe"
+               class="presentation__continents-dropdown-option"
+           >
+               EUROPA
+           </option>
+           <option
+               value="oceania"
+               class="presentation__continents-dropdown-option"
+           >
+               OCEANÍA
+           </option>
+       </select>
 
-                <button class="presentation__button-start" title="Empezar" type="button"
-                    ><span>EMPEZAR</span></button
-                >
-            </div>
-        </section>
+       <button class="presentation__button-start" title="Empezar" type="button"
+           ><span>EMPEZAR</span></button
+       >
+   </div>
+</section>
         <div class="blurry-background"></div>
 `;
 
@@ -711,7 +720,7 @@ async function startupEvents() {
 
          startButton.addEventListener("click", function () {
             localStorage.setItem("continent", continent);
-            
+
             presentation.style.top = "-20rem";
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -737,7 +746,7 @@ async function startupEvents() {
 
                if (presentation.classList.contains("presentation")) {
                   localStorage.setItem("continent", continent);
-                  
+
                   presentation.style.top = "-20rem";
                   bgBlurry.style.opacity = "0";
                   bgBlurry.remove();
@@ -752,7 +761,7 @@ async function startupEvents() {
          if (type === "presentation") {
             closeIcon.addEventListener("click", function () {
                localStorage.setItem("continent", continent);
-               
+
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
@@ -766,6 +775,8 @@ async function startupEvents() {
          }
 
          if (type === "settings") {
+            changeBtDarkMode();
+
             closeIcon.addEventListener("click", function () {
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
@@ -789,7 +800,7 @@ async function startupEvents() {
                if (event.key === "Escape") {
                   if (presentation) {
                      localStorage.setItem("continent", continent);
-                     
+
                      presentation.style.top = "-20rem";
                      bgBlurry.style.opacity = "0";
                      bgBlurry.remove();
@@ -850,13 +861,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", () => {
-      const [cardInformation] = document.getElementsByClassName("information-card");
+      const [cardInformation] =
+         document.getElementsByClassName("information-card");
       if (!cardInformation) {
          insertInformation();
       }
    });
 
    addMenuEvents();
+   changeBtDarkMode();
 });
 
 function activeNextBt(event) {
@@ -1052,7 +1065,6 @@ function addIconAnimation(typeAnswer, url) {
    }, 3500);
 }
 
-
 function insertInformation(event) {
    const cardHtml = `       
             <section class="information-card">
@@ -1108,5 +1120,141 @@ function insertInformation(event) {
             document.removeEventListener("click", listenOutsidePresent);
          }
       }
+   }
+}
+
+function changeBtDarkMode() {
+   function addClassDarkMode(type) {
+      const [header] = document.getElementsByClassName("header");
+      const [footer] = document.getElementsByClassName("footer");
+      const [title] = document.getElementsByClassName("header__title");
+      const [descriptionCountry] = document.getElementsByClassName(
+         "country__description"
+      );
+      const [body] = document.getElementsByClassName("clues-mode");
+      const [main] = document.getElementsByClassName("clues-mode__main");
+      const [navbarButton] = document.getElementsByClassName(
+         "navbar__button--open"
+      );
+      const [footerParagraph] =
+         document.getElementsByClassName("footer__paragraph");
+      const [btSettings] = document.getElementsByClassName("header__settings");
+      const [startAgain] = document.getElementsByClassName("game__start-again");
+      const [github] = document.getElementsByClassName("footer__icon-github");
+      const navbarIcon = document.getElementsByClassName("navbar__icon");
+      const buttonsKeyboard =
+         document.getElementsByClassName("button-keyboard");
+
+      const statistics = document.getElementsByClassName(
+         "game__statistics-item"
+      );
+
+      if (type === "activate") {
+         header.classList.add("dark-mode__header");
+         footer.classList.add("dark-mode__footer");
+         title.classList.add("dark-mode__header--title");
+         descriptionCountry.classList.add("dark-mode__game-text");
+         footerParagraph.classList.add("dark-mode__game-text");
+         body.classList.add("dark-mode__page");
+         main.classList.add("dark-mode__page");
+         btSettings.classList.add("dark-mode__button-settings");
+         navbarButton.classList.add("dark-mode__navbar-button-open");
+         startAgain.classList.add("dark-mode__start-again");
+         github.classList.add("dark-mode__github-bt");
+
+         for (let element of statistics) {
+            element.classList.add("dark-mode__game-text");
+         }
+         for (let element of navbarIcon) {
+            element.classList.add("dark-mode__navbar-icon");
+         }
+         for (let element of buttonsKeyboard) {
+            element.classList.add("dark-mode__keyboard-button");
+         }
+      }
+
+      if (type === "deactivate") {
+         header.classList.remove("dark-mode__header");
+         footer.classList.remove("dark-mode__footer");
+         title.classList.remove("dark-mode__header--title");
+         descriptionCountry.classList.remove("dark-mode__game-text");
+         footerParagraph.classList.remove("dark-mode__game-text");
+         body.classList.remove("dark-mode__page");
+         main.classList.remove("dark-mode__page");
+         btSettings.classList.remove("dark-mode__button-settings");
+         navbarButton.classList.remove("dark-mode__navbar-button-open");
+         startAgain.classList.remove("dark-mode__start-again");
+         github.classList.remove("dark-mode__github-bt");
+
+         for (let element of statistics) {
+            element.classList.remove("dark-mode__game-text");
+         }
+         for (let element of navbarIcon) {
+            element.classList.remove("dark-mode__navbar-icon");
+         }
+         for (let element of buttonsKeyboard) {
+            element.classList.remove("dark-mode__keyboard-button");
+         }
+      }
+   }
+
+   const [btDarkMode] = document.getElementsByClassName("dark-mode-bt");
+   const [circle] = document.getElementsByClassName("dark-mode-bt__circle");
+
+   let darkMode;
+
+   if (localStorage.getItem("darkMode") === "") {
+      if (
+         window.matchMedia &&
+         window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+         localStorage.setItem("darkMode", "1");
+         darkMode = Number(localStorage.getItem("darkMode"));
+      } else {
+         localStorage.setItem("darkMode", "0");
+         darkMode = Number(localStorage.getItem("darkMode"));
+      }
+      if (darkMode) {
+         addClassDarkMode("activate");
+         return;
+      }
+
+      return;
+   } else {
+      darkMode = Number(localStorage.getItem("darkMode"));
+   }
+
+   if (darkMode) {
+      addClassDarkMode("activate");
+   } else {
+      addClassDarkMode("deactivate");
+   }
+
+
+   if (btDarkMode) {
+      if (darkMode) {
+         circle.style.left = "32px";
+         btDarkMode.style.backgroundColor = "#0D336B";
+      } else {
+         circle.style.left = "3px";
+         btDarkMode.style.backgroundColor = "#BFE1FF";
+      }
+   }
+
+   if (btDarkMode) {
+      btDarkMode.addEventListener("click", function activeDarkMode() {
+         // Activar
+         if (circle.style.left === "3px") {
+            circle.style.left = "32px";
+            btDarkMode.style.backgroundColor = "#0D336B";
+            localStorage.setItem("darkMode", "1");
+            addClassDarkMode("activate");
+         } else {
+            circle.style.left = "3px";
+            btDarkMode.style.backgroundColor = "#BFE1FF";
+            localStorage.setItem("darkMode", "0");
+            addClassDarkMode("deactivate");
+         }
+      });
    }
 }

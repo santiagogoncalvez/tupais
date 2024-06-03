@@ -894,14 +894,16 @@ function insertInformation(event) {
 
 function changeBtDarkMode() {
    function addClassDarkMode(type) {
+      // Página actual
+      const [body] = document.getElementsByClassName("homepage");
+      const [main] = document.getElementsByClassName("game");
+
       const [header] = document.getElementsByClassName("header");
       const [footer] = document.getElementsByClassName("footer");
       const [title] = document.getElementsByClassName("header__title");
       const [descriptionCountry] = document.getElementsByClassName(
          "country__description"
       );
-      const [body] = document.getElementsByClassName("homepage");
-      const [main] = document.getElementsByClassName("game");
       const [navbarButton] = document.getElementsByClassName(
          "navbar__button--open"
       );
@@ -910,8 +912,6 @@ function changeBtDarkMode() {
       const [btSettings] = document.getElementsByClassName("header__settings");
       const [startAgain] = document.getElementsByClassName("game__start-again");
       const [github] = document.getElementsByClassName("footer__icon-github");
-      const [span1] = document.getElementsByClassName("country__btNext--span1");
-      const [span2] = document.getElementsByClassName("country__btNext--span2");
       const navbarIcon = document.getElementsByClassName("navbar__icon");
       const buttonsKeyboard =
          document.getElementsByClassName("button-keyboard");
@@ -932,8 +932,6 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          startAgain.classList.add("dark-mode__start-again");
          github.classList.add("dark-mode__github-bt");
-         span1.classList.add("dark-mode__bar-icon");
-         span2.classList.add("dark-mode__bar-icon");
 
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
@@ -958,8 +956,6 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          startAgain.classList.remove("dark-mode__start-again");
          github.classList.remove("dark-mode__github-bt");
-         span1.classList.remove("dark-mode__bar-icon");
-         span2.classList.remove("dark-mode__bar-icon");
 
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");
@@ -978,8 +974,6 @@ function changeBtDarkMode() {
 
    let darkMode;
 
-   console.log(localStorage.getItem("darkMode"));
-
    if (localStorage.getItem("darkMode") === "") {
       if (
          window.matchMedia &&
@@ -992,7 +986,6 @@ function changeBtDarkMode() {
          darkMode = Number(localStorage.getItem("darkMode"));
       }
       if (darkMode) {
-         console.log("darkMode: true");
          addClassDarkMode("activate");
          return;
       }
@@ -1003,19 +996,15 @@ function changeBtDarkMode() {
    }
 
    if (darkMode) {
-      console.log("darkMode: true");
       addClassDarkMode("activate");
    } else {
       addClassDarkMode("deactivate");
    }
 
-   console.log(darkMode);
-
    if (btDarkMode) {
       if (darkMode) {
          circle.style.left = "32px";
          btDarkMode.style.backgroundColor = "#0D336B";
-         console.log("Executing");
       } else {
          circle.style.left = "3px";
          btDarkMode.style.backgroundColor = "#BFE1FF";
@@ -1034,7 +1023,6 @@ function changeBtDarkMode() {
             circle.style.left = "3px";
             btDarkMode.style.backgroundColor = "#BFE1FF";
             localStorage.setItem("darkMode", "0");
-            console.log(localStorage.getItem("darkMode"));
             addClassDarkMode("deactivate");
          }
       });

@@ -44,6 +44,11 @@ html {
    user-select: none;
 }
 
+.settings{
+   padding-top: 1.5rem;
+   padding-bottom: 1.5rem;
+}
+
 .presentation__header {
    position: relative;
    display: flex;
@@ -131,10 +136,12 @@ html {
    justify-content: center;
    align-items: center;
    width: 80%;
+   margin-top: 0.5rem;
+   margin-bottom: 0.5rem;
 }
 
 .presentation__subtitle {
-   margin-top: 1.5rem;
+   margin-top: 0rem;
    margin-bottom: 0.5rem;
    font-size: clamp(0.2px, 1.4rem, 6vw);
    color: #0d336bd4;
@@ -728,7 +735,7 @@ html {
    justify-content: space-between;
    height: 2.8rem;
    width: 2rem;
-   background-color: transparent;
+   background-color: whitesmoke;
    border-radius: 0.6rem;
    border-color: rgba(255, 255, 255, 0);
    border-style: none;
@@ -2126,7 +2133,7 @@ html {
    left: 50%;
    transform: translateX(-50%);
    margin-top: 0rem;
-   width: 99.6%;
+   width: 100%;
 }
 
 .about-the-game__main {
@@ -2650,7 +2657,7 @@ html {
 /* Dark-mode */
 .dark-mode__header {
    background-color: #0d336b;
-   border-color: #323f6b;
+   border-color: #3b4b7e;
 }
 
 .dark-mode__header--title {
@@ -2671,7 +2678,7 @@ html {
 
 .dark-mode__footer {
    background-color: #0d336b;
-   border-color: #323f6b;
+   border-color: #3b4b7e;
 }
 
 .dark-mode__keyboard-button {
@@ -2688,6 +2695,10 @@ html {
    color: #bfe1ff;
 }
 
+.dark-mode__info-button {
+   border-color: #305681;
+}
+
 .dark-mode__button-settings {
    background-image: url("../images/icons-images/icons-settings-dark-modesvg.svg");
 }
@@ -2698,6 +2709,14 @@ html {
 
 .dark-mode__game-text {
    color: #bfe1ff;
+}
+
+ .about-the-game .dark-mode__links-text {
+   color: #36aef3;
+}
+
+.credits .dark-mode__links-text {
+   color: #36aef3;
 }
 
 .dark-mode__country-btNext {

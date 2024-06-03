@@ -473,10 +473,19 @@ async function startupEvents() {
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
                 </button>
+            
+               <div class="presentation__div">
+               <h3 class="presentation__subtitle">Configuración</h3>
 
-            <div class="presentation__div">
-                <h3 class="presentation__subtitle">Configuración</h3>
-
+               <div class="presentation__subtitle">Modo oscuro</div>
+               <button class="dark-mode-bt" type="button" title="Modo oscuro">
+                  <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+    
+                  <div class="dark-mode-bt__circle"></div>
+           
+                  <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+               </button>
+               <div class="presentation__subtitle">Juego</div>
                 <p
                     class="presentation__label-continents"
                     >Elige el continente de los paises</p
@@ -643,6 +652,7 @@ async function startupEvents() {
          }
 
          if (type === "settings") {
+            changeBtDarkMode();
             closeIcon.addEventListener("click", function () {
                presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
@@ -728,13 +738,15 @@ document.addEventListener("DOMContentLoaded", async function () {
    nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", () => {
-      const [cardInformation] = document.getElementsByClassName("information-card");
+      const [cardInformation] =
+         document.getElementsByClassName("information-card");
       if (!cardInformation) {
          insertInformation();
       }
    });
 
    addMenuEvents();
+   changeBtDarkMode();
 });
 
 function activeNextBt() {
@@ -877,5 +889,154 @@ function insertInformation(event) {
             document.removeEventListener("click", listenOutsidePresent);
          }
       }
+   }
+}
+
+function changeBtDarkMode() {
+   function addClassDarkMode(type) {
+      const [header] = document.getElementsByClassName("header");
+      const [footer] = document.getElementsByClassName("footer");
+      const [title] = document.getElementsByClassName("header__title");
+      const [descriptionCountry] = document.getElementsByClassName(
+         "country__description"
+      );
+      const [body] = document.getElementsByClassName("homepage");
+      const [main] = document.getElementsByClassName("game");
+      const [navbarButton] = document.getElementsByClassName(
+         "navbar__button--open"
+      );
+      const [footerParagraph] =
+         document.getElementsByClassName("footer__paragraph");
+      const [btSettings] = document.getElementsByClassName("header__settings");
+      const [startAgain] = document.getElementsByClassName("game__start-again");
+      const [github] = document.getElementsByClassName("footer__icon-github");
+      const [span1] = document.getElementsByClassName("country__btNext--span1");
+      const [span2] = document.getElementsByClassName("country__btNext--span2");
+      const navbarIcon = document.getElementsByClassName("navbar__icon");
+      const buttonsKeyboard =
+         document.getElementsByClassName("button-keyboard");
+
+      const statistics = document.getElementsByClassName(
+         "game__statistics-item"
+      );
+
+      if (type === "activate") {
+         header.classList.add("dark-mode__header");
+         footer.classList.add("dark-mode__footer");
+         title.classList.add("dark-mode__header--title");
+         descriptionCountry.classList.add("dark-mode__game-text");
+         footerParagraph.classList.add("dark-mode__game-text");
+         body.classList.add("dark-mode__page");
+         main.classList.add("dark-mode__page");
+         btSettings.classList.add("dark-mode__button-settings");
+         navbarButton.classList.add("dark-mode__navbar-button-open");
+         startAgain.classList.add("dark-mode__start-again");
+         github.classList.add("dark-mode__github-bt");
+         span1.classList.add("dark-mode__bar-icon");
+         span2.classList.add("dark-mode__bar-icon");
+
+         for (let element of statistics) {
+            element.classList.add("dark-mode__game-text");
+         }
+         for (let element of navbarIcon) {
+            element.classList.add("dark-mode__navbar-icon");
+         }
+         for (let element of buttonsKeyboard) {
+            element.classList.add("dark-mode__keyboard-button");
+         }
+      }
+
+      if (type === "deactivate") {
+         header.classList.remove("dark-mode__header");
+         footer.classList.remove("dark-mode__footer");
+         title.classList.remove("dark-mode__header--title");
+         descriptionCountry.classList.remove("dark-mode__game-text");
+         footerParagraph.classList.remove("dark-mode__game-text");
+         body.classList.remove("dark-mode__page");
+         main.classList.remove("dark-mode__page");
+         btSettings.classList.remove("dark-mode__button-settings");
+         navbarButton.classList.remove("dark-mode__navbar-button-open");
+         startAgain.classList.remove("dark-mode__start-again");
+         github.classList.remove("dark-mode__github-bt");
+         span1.classList.remove("dark-mode__bar-icon");
+         span2.classList.remove("dark-mode__bar-icon");
+
+         for (let element of statistics) {
+            element.classList.remove("dark-mode__game-text");
+         }
+         for (let element of navbarIcon) {
+            element.classList.remove("dark-mode__navbar-icon");
+         }
+         for (let element of buttonsKeyboard) {
+            element.classList.remove("dark-mode__keyboard-button");
+         }
+      }
+   }
+
+   const [btDarkMode] = document.getElementsByClassName("dark-mode-bt");
+   const [circle] = document.getElementsByClassName("dark-mode-bt__circle");
+
+   let darkMode;
+
+   console.log(localStorage.getItem("darkMode"));
+
+   if (localStorage.getItem("darkMode") === "") {
+      if (
+         window.matchMedia &&
+         window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+         localStorage.setItem("darkMode", "1");
+         darkMode = Number(localStorage.getItem("darkMode"));
+      } else {
+         localStorage.setItem("darkMode", "0");
+         darkMode = Number(localStorage.getItem("darkMode"));
+      }
+      if (darkMode) {
+         console.log("darkMode: true");
+         addClassDarkMode("activate");
+         return;
+      }
+
+      return;
+   } else {
+      darkMode = Number(localStorage.getItem("darkMode"));
+   }
+
+   if (darkMode) {
+      console.log("darkMode: true");
+      addClassDarkMode("activate");
+   } else {
+      addClassDarkMode("deactivate");
+   }
+
+   console.log(darkMode);
+
+   if (btDarkMode) {
+      if (darkMode) {
+         circle.style.left = "32px";
+         btDarkMode.style.backgroundColor = "#0D336B";
+         console.log("Executing");
+      } else {
+         circle.style.left = "3px";
+         btDarkMode.style.backgroundColor = "#BFE1FF";
+      }
+   }
+
+   if (btDarkMode) {
+      btDarkMode.addEventListener("click", function activeDarkMode() {
+         // Activar
+         if (circle.style.left === "3px") {
+            circle.style.left = "32px";
+            btDarkMode.style.backgroundColor = "#0D336B";
+            localStorage.setItem("darkMode", "1");
+            addClassDarkMode("activate");
+         } else {
+            circle.style.left = "3px";
+            btDarkMode.style.backgroundColor = "#BFE1FF";
+            localStorage.setItem("darkMode", "0");
+            console.log(localStorage.getItem("darkMode"));
+            addClassDarkMode("deactivate");
+         }
+      });
    }
 }

@@ -41,6 +41,7 @@ html {
    border-style: outset;
    border-color: rgba(245, 245, 245, 0.109);
    padding: 0;
+   user-select: none;
 }
 
 .presentation__header {
@@ -63,7 +64,6 @@ html {
    color: #0d336bf7;
    text-shadow: 2px 1.5px 2px rgba(245, 245, 245, 0.853);
    margin-top: 0.5rem;
-   margin-bottom: 0.5rem;
 }
 
 .presentation__header-link {
@@ -134,8 +134,8 @@ html {
 }
 
 .presentation__subtitle {
-   margin-top: 1rem;
-   margin-bottom: 1rem;
+   margin-top: 1.5rem;
+   margin-bottom: 0.5rem;
    font-size: clamp(0.2px, 1.4rem, 6vw);
    color: #0d336bd4;
 }
@@ -311,9 +311,9 @@ html {
 }
 
 .header__settings {
-   height: 2.1rem;
-   width: 2.1rem;
-   border-radius: 50%;
+   height: 1.8rem;
+   width: 1.8rem;
+   border-radius: 0.3rem;
    border: 0.1px solid transparent;
    background-color: transparent;
    background-image: url("../images/icons-images/icons8-ajustes-3.svg");
@@ -352,18 +352,18 @@ html {
    flex-direction: column;
    justify-content: space-between;
    height: 1.8rem;
-   width: 2rem;
+   width: 1.8rem;
    max-width: 20vw;
-   background-color: #bfe1ff;
-   border-radius: 0.4rem;
-   border-color: rgba(107, 13, 13, 0);
-   border-style: none;
-   border-width: 0rem;
-   padding-top: 0.32rem;
-   padding-bottom: 0.32rem;
-   padding-right: 0.32rem;
-   padding-left: 0.3rem;
+   background-color: transparent;
+   border-radius: 0.3rem;
+   background-image: url("../images/icons-images/icons-menu.svg");
+   background-size: 1.8rem 1.8rem;
+   background-repeat: no-repeat;
+   background-position: center;
+   border: 0 solid transparent;
+   padding: 0;
    user-select: none;
+   margin: 0;
    transition: all 0.4 ease;
    margin-left: 0.3rem;
 }
@@ -728,7 +728,7 @@ html {
    justify-content: space-between;
    height: 2.8rem;
    width: 2rem;
-   background-color: white;
+   background-color: transparent;
    border-radius: 0.6rem;
    border-color: rgba(255, 255, 255, 0);
    border-style: none;
@@ -1931,6 +1931,7 @@ html {
    width: 100%;
    height: 100%;
    background-color: white;
+   border-radius: 0.4rem;
    z-index: 1;
 }
 
@@ -2644,4 +2645,113 @@ html {
    flex-grow: 1;
    margin: 0;
    padding: 0;
+}
+
+/* Dark-mode */
+.dark-mode__header {
+   background-color: #0d336b;
+   border-color: #323f6b;
+}
+
+.dark-mode__header--title {
+   color: #bfe1ff;
+}
+
+.dark-mode__navbar-button-open {
+   background-image: url("../images/icons-images/icons-menu-dark-mode.svg");
+}
+
+.dark-mode__navbar-button-open:hover{
+   background-image: url("../images/icons-images/icons-menu.svg");
+}
+
+.dark-mode__page {
+   background-color: #102038;
+}
+
+.dark-mode__footer {
+   background-color: #0d336b;
+   border-color: #323f6b;
+}
+
+.dark-mode__keyboard-button {
+   background-color: rgb(190, 190, 190);
+}
+
+.dark-mode__start-again {
+   background-color: #335080;
+   color: #bfe1ff;
+}
+
+.dark-mode__start-again:hover {
+   background-color: #395d96;
+   color: #bfe1ff;
+}
+
+.dark-mode__button-settings {
+   background-image: url("../images/icons-images/icons-settings-dark-modesvg.svg");
+}
+
+.dark-mode__button-settings:hover {
+   background-image: url("../images/icons-images/icons8-ajustes-3.svg");
+}
+
+.dark-mode__game-text {
+   color: #bfe1ff;
+}
+
+.dark-mode__country-btNext {
+   background-color: transparent;
+}
+
+.dark-mode__country-btNext{
+   background-color: transparent;
+}
+
+.dark-mode__country-description {
+   color: #bfe1ff;
+}
+
+.dark-mode__bar-icon {
+   background-color: #bfe1ff;
+}
+
+.dark-mode__github-bt {
+   background-image: url("../images/icons-images/icons-github-dark-mode.svg");
+}
+
+.dark-mode__github-bt:hover {
+   background-image: url("../images/icons-images/icons-github-dark-mode-hover.svg");
+}
+
+/* Boton dark-mode */
+.dark-mode-bt {
+   position: relative;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   background-color: #bfe1ff;
+   width: 4rem;
+   height: 2rem;
+   border-radius: 3rem;
+   border: 2px solid #0d336b;
+   padding: 0;
+   margin: 0;
+   transition: all 0.3s ease-in-out;
+}
+
+.dark-mode-bt:hover {
+   cursor: pointer;
+}
+
+.dark-mode-bt__circle {
+   width: 1.5rem;
+   height: 1.5rem;
+   border-radius: 50%;
+   border: 0px solid transparent;
+   margin: 0;
+   padding: 0;
+   background-color: whitesmoke;
+   position: absolute;
+   left: 3px;
 }

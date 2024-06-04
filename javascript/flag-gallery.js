@@ -643,7 +643,9 @@ async function activeSearchBt(event) {
 
    galleryContainer.appendChild(loadingBackground);
    loadingBackground.classList.add("overlappingBackground__flag-gallery");
-   localStorage.getItem("darkMode") === "1" ? loadingBackground.classList.add("dark-mode__page") : null;
+   localStorage.getItem("darkMode") === "1"
+      ? loadingBackground.classList.add("dark-mode__page")
+      : null;
    loadingBackground.style.height = `${galleryContainer.clientHeight}px`;
 
    loagingImg.src = "../images/icons-images/icons-loading.gif";
@@ -950,7 +952,9 @@ function changeBtDarkMode() {
          "flag-gallery__subtitle"
       );
       const [github] = document.getElementsByClassName("footer__icon-github");
-      const infoButton = document.getElementsByClassName("flag-gallery__button-info");
+      const infoButton = document.getElementsByClassName(
+         "flag-gallery__button-info"
+      );
       const navbarIcon = document.getElementsByClassName("navbar__icon");
       const descriptionCountry = document.getElementsByClassName(
          "flag-gallery__flag-description"
@@ -1071,7 +1075,7 @@ function activeBtSettings() {
                 </button>
             
                <div class="presentation__div">
-               <h3 class="presentation__subtitle">Configuración</h3>
+               <h2 class="presentation__subtitle">Configuración</h2>
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
@@ -1094,6 +1098,7 @@ function activeBtSettings() {
 
    async function insertCardSettings(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "settings") {
             body.insertAdjacentHTML("beforeend", settingsHtml);
          }

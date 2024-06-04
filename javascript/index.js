@@ -356,7 +356,7 @@ function listenKeyboard(event) {
          if (game.correctAnswers === 10) {
             setTimeout(() => {
                showResults(game);
-            }, 3400);
+            }, 2500);
             return;
          }
 
@@ -367,7 +367,7 @@ function listenKeyboard(event) {
             showNewFlag(game);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 3400);
+         }, 2300);
       }
 
       setTimeout(() => {
@@ -377,7 +377,7 @@ function listenKeyboard(event) {
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
-      }, 3500);
+      }, 2500);
 
       return;
    }
@@ -475,7 +475,7 @@ async function startupEvents() {
                 </button>
             
                <div class="presentation__div">
-               <h3 class="presentation__subtitle">Configuración</h3>
+               <h2 class="presentation__subtitle">Configuración</h2>
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
@@ -529,7 +529,6 @@ async function startupEvents() {
                         OCEANÍA
                     </option>
                 </select>
-
                 <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
@@ -543,6 +542,7 @@ async function startupEvents() {
 
    async function insertPresentation(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "presentation") {
             body.insertAdjacentHTML("beforeend", presentationHtml);
          }
@@ -744,6 +744,11 @@ document.addEventListener("DOMContentLoaded", async function () {
          insertInformation();
       }
    });
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+         activeNextBt();
+      }
+   });
 
    addMenuEvents();
    changeBtDarkMode();
@@ -826,13 +831,13 @@ function addIconAnimation(typeAnswer, url) {
 
    setTimeout(() => {
       iconImg.classList.add("multiple-choice__iconAnswer--active");
-   }, 300);
+   }, 200);
 
    // Borrar elementos
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 3500);
+   }, 2500);
 }
 
 function insertInformation(event) {

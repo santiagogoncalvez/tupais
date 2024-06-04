@@ -293,7 +293,7 @@ async function createNewGame() {
    nextBt.style.opacity = "1";
    nextBt.disabled = false;
    nextBt.addEventListener("click", activeNextBt);
-   previousBt.addEventListener("click", activeNextBt);
+   previousBt.addEventListener("click", activePreviousBt);
 
    // Keyboards buttons event
    for (let element of buttonsKeyboard) {
@@ -482,7 +482,7 @@ function listenKeyboard(event) {
          if (game.correctAnswers === 1) {
             setTimeout(() => {
                showResults(timeElapsed, game);
-            }, 3400);
+            }, 2500);
             return;
          }
       }
@@ -495,7 +495,7 @@ function listenKeyboard(event) {
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
          previousBt.addEventListener("click", activeNextBt);
-      }, 3500);
+      }, 2500);
 
       return;
    }
@@ -593,7 +593,7 @@ async function startupEvents() {
        </button>
    
       <div class="presentation__div">
-      <h3 class="presentation__subtitle">Configuración</h3>
+      <h2 class="presentation__subtitle">Configuración</h2>
 
       <div class="presentation__subtitle">Modo oscuro</div>
       <button class="dark-mode-bt">
@@ -661,6 +661,7 @@ async function startupEvents() {
 
    async function insertPresentation(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "presentation") {
             body.insertAdjacentHTML("beforeend", presentationHtml);
          }
@@ -868,11 +869,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
    });
 
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+         activeNextBt();
+      }
+
+      if (event.key === "ArrowLeft") {
+         activePreviousBt();
+      }
+   });
+
    addMenuEvents();
    changeBtDarkMode();
 });
 
-function activeNextBt(event) {
+function activeNextBt() {
+   if (game.currentClue === 9) return;
    const [cluesList] = document.getElementsByClassName(
       "clues-mode__clues-list"
    );
@@ -884,105 +896,96 @@ function activeNextBt(event) {
    const regex = /[0-9]+/;
    let numberTranslate;
 
-   function matchesSpan(target) {
-      const [spanNext1] = document.getElementsByClassName(
-         "clues-mode__btNext--span1"
-      );
-      const [spanNext2] = document.getElementsByClassName(
-         "clues-mode__btNext--span2"
-      );
+   // Next button
+   const [score] = document.getElementsByClassName("game__score");
+   const [currentClue] = document.getElementsByClassName("game__clues");
 
-      // Si es true es span de nextBt
-      if (target === spanNext1 || target === spanNext2) {
-         return true;
-      }
+   game = game.addCurrentClue();
 
-      // Si es false es span de previousBt
-      if (target !== spanNext1 && target !== spanNext2) {
-         return false;
+   if (game.shownClues <= 10) {
+      if (game.shownClues + 1 - game.currentClue === 1) {
+         game = game.addShownClue();
+         score.textContent = `${11 - game.shownClues}`;
+         currentClue.textContent = `${game.currentClue + 1}`;
       }
    }
 
-   if (event.target === nextBt || matchesSpan(event.target)) {
-      const [score] = document.getElementsByClassName("game__score");
-      const [currentClue] = document.getElementsByClassName("game__clues");
+   if (cluesList.style.transform === "") {
+      cluesList.style.transform = "translateX(-100%)";
 
-      game = game.addCurrentClue();
-
-      if (game.shownClues <= 10) {
-         if (game.shownClues + 1 - game.currentClue === 1) {
-            game = game.addShownClue();
-            score.textContent = `${11 - game.shownClues}`;
-            currentClue.textContent = `${game.currentClue + 1}`;
-         }
+      if (game.currentClue === 1) {
+         previousBt.style.opacity = "1";
+         previousBt.style.cursor = "pointer";
+         previousBt.disabled = false;
       }
-
-      if (cluesList.style.transform === "") {
-         cluesList.style.transform = "translateX(-100%)";
-
-         if (game.currentClue === 1) {
-            previousBt.style.opacity = "1";
-            previousBt.style.cursor = "pointer";
-            previousBt.disabled = false;
-         }
-         return;
-      }
-
-      if (cluesList.style.transform !== "") {
-         numberTranslate = Number(regex.exec(cluesList.style.transform));
-
-         if (game.currentClue === 1) {
-            previousBt.style.opacity = "1";
-            previousBt.style.cursor = "pointer";
-            previousBt.disabled = false;
-         }
-
-         if (game.currentClue === cluesItems.length - 1) {
-            nextBt.style.opacity = "0";
-            nextBt.style.cursor = "initial";
-            nextBt.disabled = true;
-         } else {
-            nextBt.style.opacity = "1";
-            nextBt.style.cursor = "pointer";
-            nextBt.disabled = false;
-         }
-
-         if (numberTranslate === 900) return;
-
-         cluesList.style.transform = `translateX(-${numberTranslate + 100}%)`;
-         return;
-      }
+      return;
    }
 
-   if (event.target === previousBt || !matchesSpan(event.target)) {
-      const [currentClue] = document.getElementsByClassName("game__clues");
+   if (cluesList.style.transform !== "") {
+      numberTranslate = Number(regex.exec(cluesList.style.transform));
 
-      game = game.substractCurrentClue();
+      if (game.currentClue === 1) {
+         previousBt.style.opacity = "1";
+         previousBt.style.cursor = "pointer";
+         previousBt.disabled = false;
+      }
+
+      if (game.currentClue === cluesItems.length - 1) {
+         nextBt.style.opacity = "0";
+         nextBt.style.cursor = "initial";
+         nextBt.disabled = true;
+      } else {
+         nextBt.style.opacity = "1";
+         nextBt.style.cursor = "pointer";
+         nextBt.disabled = false;
+      }
+
+      if (numberTranslate === 900) return;
+
+      cluesList.style.transform = `translateX(-${numberTranslate + 100}%)`;
+      return;
+   }
+}
+
+function activePreviousBt() {
+   if (game.currentClue === 0) return;
+
+   const [cluesList] = document.getElementsByClassName(
+      "clues-mode__clues-list"
+   );
+   const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
+   const [previousBt] = document.getElementsByClassName(
+      "clues-mode__btPrevious"
+   );
+   const cluesItems = document.getElementsByClassName("clues-mode__clues-item");
+   const regex = /[0-9]+/;
+   let numberTranslate;
+   // Previous button
+   game = game.substractCurrentClue();
+
+   numberTranslate = Number(regex.exec(cluesList.style.transform));
+   if (cluesList.style.transform === "" || numberTranslate === 1) {
+      return;
+   }
+
+   if (cluesList.style.transform !== "") {
+      if (game.currentClue === cluesItems.length - 2) {
+         nextBt.style.opacity = "1";
+         nextBt.style.cursor = "pointer";
+         nextBt.disabled = false;
+      }
+
+      if (game.currentClue === 0) {
+         previousBt.style.opacity = "0";
+         previousBt.style.cursor = "initial";
+         previousBt.disabled = true;
+      }
 
       numberTranslate = Number(regex.exec(cluesList.style.transform));
-      if (cluesList.style.transform === "" || numberTranslate === 1) {
-         return;
-      }
 
-      if (cluesList.style.transform !== "") {
-         if (game.currentClue === cluesItems.length - 2) {
-            nextBt.style.opacity = "1";
-            nextBt.style.cursor = "pointer";
-            nextBt.disabled = false;
-         }
-
-         if (game.currentClue === 0) {
-            previousBt.style.opacity = "0";
-            previousBt.style.cursor = "initial";
-            previousBt.disabled = true;
-         }
-
-         numberTranslate = Number(regex.exec(cluesList.style.transform));
-
-         if (numberTranslate === 0) return;
-         cluesList.style.transform = `translateX(-${numberTranslate - 100}%)`;
-         return;
-      }
+      if (numberTranslate === 0) return;
+      cluesList.style.transform = `translateX(-${numberTranslate - 100}%)`;
+      return;
    }
 }
 
@@ -1056,13 +1059,13 @@ function addIconAnimation(typeAnswer, url) {
 
    setTimeout(() => {
       iconImg.classList.add("multiple-choice__iconAnswer--active");
-   }, 300);
+   }, 200);
 
    // Borrar elementos
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 3500);
+   }, 2500);
 }
 
 function insertInformation(event) {
@@ -1229,7 +1232,6 @@ function changeBtDarkMode() {
    } else {
       addClassDarkMode("deactivate");
    }
-
 
    if (btDarkMode) {
       if (darkMode) {

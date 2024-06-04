@@ -735,23 +735,25 @@ html {
    justify-content: space-between;
    height: 2.8rem;
    width: 2rem;
-   background-color: whitesmoke;
+   background-color: white;
    border-radius: 0.6rem;
    border-color: rgba(255, 255, 255, 0);
    border-style: none;
    border-width: 0rem;
    user-select: none;
    z-index: 1;
+   transition: all 0.2s ease-in-out;
 }
 
 .country__btNext {
    padding: 0rem;
+   padding-left: 4px;
    margin-left: 2vw;
 }
 
 .country__btPrevious {
-   padding-right: 0.2rem;
-   padding-left: 0.2rem;
+   padding: 0rem;
+   padding-right: 4px;
    margin-right: 2vw;
    opacity: 0;
 }
@@ -764,16 +766,11 @@ html {
 .country__btPrevious:hover {
    background-color: whitesmoke;
    cursor: pointer;
-   padding-right: 0rem;
-   padding-left: 0rem;
-   transition: all 0.2s ease;
 }
 
 .country__btNext:hover {
    background-color: whitesmoke;
    cursor: pointer;
-   padding-left: 0.2rem;
-   transition: all 0.2s ease-in-out;
 }
 
 .country__btNext--span1 {
@@ -1904,7 +1901,7 @@ html {
 }
 
 .flag-gallery .header {
-   z-index: 2;
+   z-index: 1;
    position: fixed;
    top: 0;
    left: 50%;
@@ -2132,7 +2129,7 @@ html {
 }
 
 .about-the-game .header {
-   z-index: 2;
+   z-index: 1;
    position: fixed;
    top: 0;
    left: 50%;
@@ -2399,10 +2396,12 @@ html {
    user-select: none;
    z-index: 2;
    position: absolute;
+   transition: all 0.2s ease;
 }
 
 .clues-mode__btNext {
    padding: 0rem;
+   padding-left: 4px;
    margin-left: 2vw;
    transform: translateY(0rem) translateX(10.5rem);
 }
@@ -2433,16 +2432,11 @@ html {
 .clues-mode__btPrevious:hover {
    background-color: whitesmoke;
    cursor: pointer;
-   padding-right: 0rem;
-   padding-left: 0rem;
-   transition: all 0.2s ease;
 }
 
 .clues-mode__btNext:hover {
    background-color: whitesmoke;
    cursor: pointer;
-   padding-left: 0.2rem;
-   transition: all 0.2s ease-in-out;
 }
 
 .clues-mode__btNext--span1 {
@@ -2542,7 +2536,7 @@ html {
 }
 
 .credits .header {
-   z-index: 2;
+   z-index: 1;
    position: fixed;
    top: 0;
    left: 50%;

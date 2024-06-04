@@ -37,7 +37,7 @@ function insertAnswerResults(element, correctAnswers, time) {
       Respuestas correctas
     </span>
     <span class="answer-results__span">
-      ${correctAnswers}/10
+      ${correctAnswers}
     </span>
     <span class="answer-results__span">Tiempo</span>
     <span class="answer-results__span">00:${time}</span>
@@ -47,6 +47,18 @@ function insertAnswerResults(element, correctAnswers, time) {
 
     </div>
     <div class="blurry-background"></div>`;
+   const [presentation] = document.getElementsByClassName(
+      "presentation__section"
+   );
+   const [bgBlurryPresentation] =
+      document.getElementsByClassName("blurry-background");
+   const [btSettings] = document.getElementsByClassName("header__settings");
+   btSettings.blur();
+
+   if (presentation) {
+      presentation.remove();
+      bgBlurryPresentation.remove();
+   }
 
    element.insertAdjacentHTML("beforeend", textHtml);
 
@@ -450,7 +462,7 @@ function listenKeyboard(event) {
             showNewFlag(game);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 3400);
+         }, 1000);
       }
 
       setTimeout(() => {
@@ -460,7 +472,7 @@ function listenKeyboard(event) {
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
-      }, 3500);
+      }, 1000);
 
       return;
    }
@@ -567,7 +579,7 @@ async function startupEvents() {
        </button>
    
       <div class="presentation__div">
-      <h3 class="presentation__subtitle">Configuración</h3>
+      <h2 class="presentation__subtitle">Configuración</h2>
 
       <div class="presentation__subtitle">Modo oscuro</div>
       <button class="dark-mode-bt">
@@ -622,6 +634,15 @@ async function startupEvents() {
            </option>
        </select>
 
+       <p   class="presentation__label-continents"
+                    >Elige el tiempo</p
+                >
+                <div class="presentation__div-time">
+                <button class="presentation__button-time" type="button" title="15 segundos">00:15</button>
+                <button class="presentation__button-time" type="button" title="30 segundos">00:30</button>
+                <button class="presentation__button-time" type="button" title="1:00 minuto">1:30</button>
+                </div>
+
        <button class="presentation__button-start" title="Empezar" type="button"
            ><span>EMPEZAR</span></button
        >
@@ -635,6 +656,7 @@ async function startupEvents() {
 
    async function insertPresentation(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "presentation") {
             body.insertAdjacentHTML("beforeend", presentationHtml);
          }
@@ -672,7 +694,7 @@ async function startupEvents() {
          // Millisenconds
          let continent = "all continents";
          let time = 30000; //free time
-         let timesOptions = [30000, 60000, 90000];
+         let timesOptions = [15000, 30000, 60000];
 
          // Events
          continentsDropdown.addEventListener("change", function (event) {
@@ -846,6 +868,13 @@ document.addEventListener("DOMContentLoaded", async function () {
          insertInformation();
       }
    });
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+         activeNextBt();
+      } else {
+         return;
+      }
+   });
 
    addMenuEvents();
    changeBtDarkMode();
@@ -928,13 +957,13 @@ function addIconAnimation(typeAnswer, url) {
 
    setTimeout(() => {
       iconImg.classList.add("multiple-choice__iconAnswer--active");
-   }, 300);
+   }, 100);
 
    // Borrar elementos
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 3500);
+   }, 1000);
 }
 
 function insertInformation(event) {
@@ -1017,9 +1046,11 @@ function changeBtDarkMode() {
       const buttonsKeyboard = document.getElementsByClassName(
          "multiple-choice__option"
       );
-   
-      const statistics = document.getElementsByClassName("game__statistics-item");
-   
+
+      const statistics = document.getElementsByClassName(
+         "game__statistics-item"
+      );
+
       if (type === "activate") {
          header.classList.add("dark-mode__header");
          footer.classList.add("dark-mode__footer");
@@ -1032,7 +1063,7 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          startAgain.classList.add("dark-mode__start-again");
          github.classList.add("dark-mode__github-bt");
-   
+
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
          }
@@ -1043,7 +1074,7 @@ function changeBtDarkMode() {
             element.classList.add("dark-mode__keyboard-button");
          }
       }
-   
+
       if (type === "deactivate") {
          header.classList.remove("dark-mode__header");
          footer.classList.remove("dark-mode__footer");
@@ -1056,7 +1087,7 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          startAgain.classList.remove("dark-mode__start-again");
          github.classList.remove("dark-mode__github-bt");
-   
+
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");
          }

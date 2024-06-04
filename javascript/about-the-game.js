@@ -45,7 +45,6 @@ function addMenuEvents() {
    });
 }
 
-
 document.addEventListener("DOMContentLoaded", async function () {
    addMenuEvents();
    activeBtSettings();
@@ -67,14 +66,20 @@ function changeBtDarkMode() {
       const [footerParagraph] =
          document.getElementsByClassName("footer__paragraph");
       const [btSettings] = document.getElementsByClassName("header__settings");
-      const [subtitle] = document.getElementsByClassName("about-the-game__subtitle");
+      const [subtitle] = document.getElementsByClassName(
+         "about-the-game__subtitle"
+      );
       const [github] = document.getElementsByClassName("footer__icon-github");
-      const [descriptionList] = document.getElementsByClassName("description-list");
-      const links = document.getElementsByClassName("about-the-game__text-link");
+      const [descriptionList] =
+         document.getElementsByClassName("description-list");
+      const links = document.getElementsByClassName(
+         "about-the-game__text-link"
+      );
       const navbarIcon = document.getElementsByClassName("navbar__icon");
       const h3 = document.getElementsByClassName("about-the-game__h3");
-      const paragraph = document.getElementsByClassName("about-the-game__paragraph");
-      
+      const paragraph = document.getElementsByClassName(
+         "about-the-game__paragraph"
+      );
 
       if (type === "activate") {
          header.classList.add("dark-mode__header");
@@ -199,7 +204,7 @@ function activeBtSettings() {
                 </button>
             
                <div class="presentation__div">
-               <h3 class="presentation__subtitle">Configuración</h3>
+               <h2 class="presentation__subtitle">Configuración</h2>
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
@@ -222,6 +227,7 @@ function activeBtSettings() {
 
    async function insertCardSettings(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "settings") {
             body.insertAdjacentHTML("beforeend", settingsHtml);
          }

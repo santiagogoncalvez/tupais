@@ -283,7 +283,7 @@ function sendAnswer() {
    setTimeout(() => {
       activeBtOptions("activate");
       showCorrectAnswer("deactivate");
-   }, 3500);
+   }, 2500);
 
    game = game.resetAnswerUser();
 
@@ -300,7 +300,7 @@ function sendAnswer() {
             game,
             document.getElementsByClassName("multiple-choice")[0]
          );
-      }, 3400);
+      }, 2500);
       return;
    }
 
@@ -313,7 +313,7 @@ function sendAnswer() {
          button.style.backgroundColor = "";
          button.style.border = "";
       }
-   }, 3400);
+   }, 2300);
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -417,13 +417,13 @@ function addIconAnimation(typeAnswer, url) {
 
    setTimeout(() => {
       iconImg.classList.add("multiple-choice__iconAnswer--active");
-   }, 300);
+   }, 200);
 
    // Borrar elementos
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 3500);
+   }, 2500);
 }
 
 // Activar botones de opciones
@@ -583,7 +583,7 @@ async function startupEvents() {
        </button>
    
       <div class="presentation__div">
-      <h3 class="presentation__subtitle">Configuración</h3>
+      <h2 class="presentation__subtitle">Configuración</h2>
 
       <div class="presentation__subtitle">Modo oscuro</div>
       <button class="dark-mode-bt">
@@ -651,6 +651,7 @@ async function startupEvents() {
 
    async function insertPresentation(type) {
       return new Promise((resolve) => {
+         btSettings.blur();
          if (type === "presentation") {
             body.insertAdjacentHTML("beforeend", presentationHtml);
          }
@@ -916,9 +917,11 @@ function changeBtDarkMode() {
       const buttonsKeyboard = document.getElementsByClassName(
          "multiple-choice__option"
       );
-   
-      const statistics = document.getElementsByClassName("game__statistics-item");
-   
+
+      const statistics = document.getElementsByClassName(
+         "game__statistics-item"
+      );
+
       if (type === "activate") {
          header.classList.add("dark-mode__header");
          footer.classList.add("dark-mode__footer");
@@ -932,7 +935,7 @@ function changeBtDarkMode() {
          startAgain.classList.add("dark-mode__start-again");
          github.classList.add("dark-mode__github-bt");
          send.classList.add("dark-mode__start-again");
-   
+
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
          }
@@ -943,7 +946,7 @@ function changeBtDarkMode() {
             element.classList.add("dark-mode__keyboard-button");
          }
       }
-   
+
       if (type === "deactivate") {
          header.classList.remove("dark-mode__header");
          footer.classList.remove("dark-mode__footer");
@@ -957,7 +960,7 @@ function changeBtDarkMode() {
          startAgain.classList.remove("dark-mode__start-again");
          github.classList.remove("dark-mode__github-bt");
          send.classList.remove("dark-mode__start-again");
-   
+
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");
          }

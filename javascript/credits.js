@@ -195,7 +195,7 @@ function activeBtSettings() {
                 </button>
             
                <div class="presentation__div">
-               <h3 class="presentation__subtitle">Configuración</h3>
+               <h2 class="presentation__subtitle">Configuración</h2>
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
@@ -218,6 +218,7 @@ function activeBtSettings() {
 
    async function insertCardSettings(type) {
       return new Promise((resolve) => {
+   btSettings.blur();
          if (type === "settings") {
             body.insertAdjacentHTML("beforeend", settingsHtml);
          }

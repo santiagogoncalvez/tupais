@@ -76,7 +76,7 @@ function changeBtDarkMode() {
          "about-the-game__text-link"
       );
       const navbarIcon = document.getElementsByClassName("navbar__icon");
-      const h3 = document.getElementsByClassName("about-the-game__h3");
+      const h3 = document.getElementsByClassName("about-the-game__h4");
       const paragraph = document.getElementsByClassName(
          "about-the-game__paragraph"
       );

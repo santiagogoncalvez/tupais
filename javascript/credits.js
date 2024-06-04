@@ -70,7 +70,7 @@ function changeBtDarkMode() {
       const [subtitle] = document.getElementsByClassName("credits__subtitle");
       const [github] = document.getElementsByClassName("footer__icon-github");
       const navbarIcon = document.getElementsByClassName("navbar__icon");
-      const h3 = document.getElementsByClassName("credits__h3");
+      const h3 = document.getElementsByClassName("credits__h4");
       const paragraph = document.getElementsByClassName("credits__paragraph");
       const links = document.getElementsByClassName("credits__text-link");
 

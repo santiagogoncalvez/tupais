@@ -26,7 +26,7 @@ html {
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   z-index: 2;
+   z-index: 11;
    position: fixed;
    top: 50%;
    left: 50%;
@@ -44,7 +44,7 @@ html {
    user-select: none;
 }
 
-.settings{
+.settings {
    padding-top: 1.5rem;
    padding-bottom: 1.5rem;
 }
@@ -601,6 +601,7 @@ html {
    font-weight: 700;
    user-select: none;
    transition: all 0.2s ease;
+   z-index: 9;
 }
 
 .game__bt-information:hover {
@@ -619,15 +620,18 @@ html {
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   z-index: 2;
-   transition: top 0.3s ease-out;
+   max-width: 90vw;
    background-color: rgb(236, 247, 255);
    border-radius: 0.6rem;
    border-style: outset;
    border-color: rgba(245, 245, 245, 0.109);
    padding: 0;
-   margin-right: 1rem;
-   margin-top: 1rem;
+   margin-right: 0.8rem;
+   margin-top: 0.6rem;
+   width: 22rem;
+   height: 12rem;
+   transition: all 0.1s ease-out;
+   z-index: 8;
 }
 
 .information-card__subtitle {
@@ -656,11 +660,24 @@ html {
 }
 
 .game__statistics-item {
-   width: 16%;
+   width: 4rem;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
    text-align: center;
    font-size: clamp(0.2px, 1rem, 5vw);
    margin-right: 0.5rem;
    margin-left: 0.5rem;
+}
+
+.game__span-container {
+   height: 2rem;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .game__time,
@@ -668,6 +685,11 @@ html {
 .game__remaining-countries {
    font-weight: initial;
    font-size: clamp(0.2px, 1.3rem, 6vw);
+   transition: all 0.15s ease;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 2rem;
 }
 
 .game__clues {
@@ -740,7 +762,7 @@ html {
    border-style: none;
    border-width: 0rem;
    user-select: none;
-   z-index: 1;
+   z-index: 0;
    transition: all 0.2s ease-in-out;
 }
 
@@ -849,27 +871,36 @@ html {
    margin-bottom: 0em;
 }
 
+.keyboard__container-button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 2.2rem;
+   width: 2.2em;
+}
+
 .game__answer-letter {
-   border-radius: 0.15em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 0.3em;
+   border: 2px solid rgb(175, 190, 211);
+   /* border: 2px solid #5f8fd8; */
    height: 2rem;
-   width: 1.4em;
-   max-width: 1.7em;
+   width: 2rem;
    background-color: rgb(227, 243, 255);
-   border-bottom: 0.4em solid #0d336bf7;
-   border-style: inset;
-   border-right-width: 0px;
-   border-left-width: 0px;
-   border-top-width: 0px;
-   border-bottom-width: 0.35em;
    margin-left: 0.1em;
    margin-right: 0.1em;
    font-size: 1rem;
+   font-weight: 800;
    text-align: center;
-   padding-top: 0.3em;
-   transition: transform 3s ease;
+   transition: all 0.1s ease;
    text-transform: uppercase;
    user-select: none;
-   /* animation: shake 0.5s ease-in-out infinite; */
+}
+
+.game__answer > .game__answer-letter:nth-child(1) {
+   border: 2px solid rgb(62, 125, 214);
 }
 
 .game__answer-letter--space {
@@ -1216,7 +1247,7 @@ html {
    height: 100%;
    backdrop-filter: blur(0.2rem);
    opacity: 1;
-   z-index: 1;
+   z-index: 10;
    user-select: none;
 }
 
@@ -2666,7 +2697,7 @@ html {
    background-image: url("../images/icons-images/icons-menu-dark-mode.svg");
 }
 
-.dark-mode__navbar-button-open:hover{
+.dark-mode__navbar-button-open:hover {
    background-image: url("../images/icons-images/icons-menu.svg");
 }
 
@@ -2709,7 +2740,7 @@ html {
    color: #bfe1ff;
 }
 
- .about-the-game .dark-mode__links-text {
+.about-the-game .dark-mode__links-text {
    color: #36aef3;
 }
 
@@ -2721,7 +2752,7 @@ html {
    background-color: transparent;
 }
 
-.dark-mode__country-btNext{
+.dark-mode__country-btNext {
    background-color: transparent;
 }
 

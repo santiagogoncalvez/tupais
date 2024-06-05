@@ -97,22 +97,84 @@ function insertLetter(game) {
       "game__answer-letter"
    );
 
+   if (answerLetterElements[answerLetterElements.length - 1].textContent !== "")
+      return;
+
    let letterElement;
    if (game.answerUser.length === 1) {
       letterElement = answerLetterElements[0];
+      letterElement.style.border = "2px solid rgb(190, 190, 190)";
+      answerLetterElements[1].style.border = "2px solid rgb(62, 125, 214)";
    }
    if (game.answerUser.length !== 1) {
+      if (game.answerUser.length === answerLetterElements.length) {
+         letterElement = answerLetterElements[game.answerUser.length - 1];
+         letterElement.style.border = "2px solid rgb(190, 190, 190)";
+         letterElement.textContent =
+            game.answerUser[game.answerUser.length - 1];
+
+         letterAnimation(letterElement);
+
+         return;
+      }
       letterElement = answerLetterElements[game.answerUser.length - 1];
+      letterElement.style.border = "2px solid rgb(190, 190, 190)";
+      answerLetterElements[game.answerUser.length].style.border =
+         "2px solid rgb(62, 125, 214)";
    }
 
    letterElement.textContent = game.answerUser[game.answerUser.length - 1];
+   letterAnimation(letterElement);
 }
 function deleteLetter(game) {
    const answerLetterElements = document.getElementsByClassName(
       "game__answer-letter"
    );
    let letterElement = answerLetterElements[game.answerUser.length];
+
+   if (game.answerUser.length + 1 === answerLetterElements.length) {
+      answerLetterElements[game.answerUser.length].style.border =
+         "2px solid rgb(62, 125, 214)";
+      letterElement.textContent = "";
+      return;
+   }
+
+   answerLetterElements[game.answerUser.length + 1].style.border =
+      "2px solid rgb(175, 190, 211)";
+   answerLetterElements[game.answerUser.length].style.border =
+      "2px solid rgb(62, 125, 214)";
    letterElement.textContent = "";
+}
+
+function letterAnimation(element) {
+   element.style.opacity = "0.9";
+
+   setTimeout(() => {
+      element.style.opacity = "1";
+   }, 20);
+
+   element.style.height = "1.7rem";
+   element.style.width = "1.7rem";
+   element.style.fontSize = "0.8rem";
+
+   setTimeout(() => {
+      element.style.height = "2.2rem";
+      element.style.width = "2.2rem";
+   }, 60);
+
+   setTimeout(() => {
+      element.style.height = "2rem";
+      element.style.width = "2rem";
+      element.style.fontSize = "1rem";
+   }, 70);
+}
+
+function textChangeAnimation(element) {
+   element.style.fontSize = "1.5rem";
+
+   setTimeout(() => {
+      element.style.fontSize = "1.2rem";
+   }, 140);
 }
 
 function typeKey(key) {
@@ -161,7 +223,8 @@ function innerLetterElements(string, element) {
          textHtml += '<div class="game__answer-letter--space"></div>';
          continue;
       }
-      textHtml += '<div class="game__answer-letter"></div>';
+      textHtml +=
+         '<div class="keyboard__container-button"><div class="game__answer-letter"></div></div>';
    }
    element.innerHTML = textHtml;
 }
@@ -351,6 +414,7 @@ function listenKeyboard(event) {
       // Correct answer
       if (game.lastResponseStatus) {
          correctAnswerSpan.textContent = `${game.correctAnswers}`;
+         textChangeAnimation(correctAnswerSpan);
 
          // Show results
          if (game.correctAnswers === 10) {
@@ -364,6 +428,7 @@ function listenKeyboard(event) {
             remainingCountries.textContent = `${
                remainingCountries.textContent - 1
             }`;
+            textChangeAnimation(remainingCountries);
             showNewFlag(game);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
@@ -737,13 +802,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
    nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
-   btInformation.addEventListener("click", () => {
-      const [cardInformation] =
-         document.getElementsByClassName("information-card");
-      if (!cardInformation) {
-         insertInformation();
-      }
-   });
+   btInformation.addEventListener("click", mouseClickCardInformation);
+   btInformation.addEventListener("mouseenter", mouseInCardInformation);
+
    document.addEventListener("keydown", (event) => {
       if (event.key === "ArrowRight") {
          activeNextBt();
@@ -753,6 +814,107 @@ document.addEventListener("DOMContentLoaded", async function () {
    addMenuEvents();
    changeBtDarkMode();
 });
+
+function mouseClickCardInformation() {
+   const [cardInformation] =
+      document.getElementsByClassName("information-card");
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
+
+   if (!cardInformation) {
+      insertInformation();
+
+      document.addEventListener("mousemove", outOfTarjetInformation);
+
+      btInformation.removeEventListener("mouseenter", mouseInCardInformation);
+   } else {
+      cardAnimationOut(cardInformation).then(() => {
+         cardInformation.remove();
+         btInformation.addEventListener("mouseenter", mouseInCardInformation);
+      });
+   }
+}
+
+function mouseInCardInformation() {
+   const [cardInformation] =
+      document.getElementsByClassName("information-card");
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
+
+   if (!cardInformation) {
+      insertInformation();
+
+      document.addEventListener("mousemove", outOfTarjetInformation);
+
+      btInformation.removeEventListener("mouseenter", mouseInCardInformation);
+   }
+}
+
+function outOfTarjetInformation(event) {
+   const [cardInformationActive] =
+      document.getElementsByClassName("information-card");
+   const [div] = document.getElementsByClassName("presentation__div");
+   const [subtitle] = document.getElementsByClassName(
+      "information-card__subtitle"
+   );
+   const [cardParagraph] = document.getElementsByClassName(
+      "information-card__paragraph"
+   );
+   const [btInformation] = document.getElementsByClassName(
+      "game__bt-information"
+   );
+
+   if (cardInformationActive) {
+      if (
+         event.target !== cardInformationActive &&
+         event.target !== div &&
+         event.target !== subtitle &&
+         event.target !== cardParagraph &&
+         event.target !== btInformation
+      ) {
+         cardAnimationOut(cardInformationActive).then(() => {
+            cardInformationActive.remove();
+            btInformation.addEventListener(
+               "mouseenter",
+               mouseInCardInformation
+            );
+            document.removeEventListener("mousemove", outOfTarjetInformation);
+         });
+      }
+   }
+}
+
+function cardAnimationIn(element) {
+   element.style.opacity = "0";
+
+   setTimeout(() => {
+      element.style.opacity = "1";
+   }, 30);
+
+   setTimeout(() => {
+      element.style.width = "21rem";
+      element.style.height = "11rem";
+   }, 40);
+
+   setTimeout(() => {
+      element.style.width = "22rem";
+      element.style.height = "12rem";
+   }, 100);
+}
+
+async function cardAnimationOut(element) {
+   return new Promise((resolve) => {
+      element.style.width = "21rem";
+      element.style.height = "11rem";
+
+      setTimeout(() => {
+         element.style.opacity = "0";
+         resolve();
+      }, 60);
+   });
+}
 
 function activeNextBt() {
    const [answerContainer] = document.getElementsByClassName("game__answer");
@@ -862,6 +1024,8 @@ function insertInformation(event) {
    container.insertAdjacentHTML("beforeend", cardHtml);
 
    const [presentation] = document.getElementsByClassName("information-card");
+
+   cardAnimationIn(presentation);
 
    btInformation.style.backgroundColor = "rgb(225, 225, 225)";
 

@@ -206,6 +206,7 @@ function typeKey(key) {
       "y",
       "z",
       "ç",
+      "ñ",
    ];
    const enterString = "enter";
    const backspaceString = "backspace";
@@ -238,12 +239,38 @@ function showNewFlag(game) {
 
 function typeResponse(game, element) {
    function showTypeResponse(type, element) {
+      const [responseElement] = document.getElementsByClassName("response");
+
+      if (responseElement) {
+         if (
+            type === "correct" &&
+            responseElement.classList.contains("correct")
+         ) {
+            return;
+         }
+
+         if (
+            type === "incorrect" &&
+            responseElement.classList.contains("incorrect")
+         ) {
+            return;
+         }
+
+         if (
+            type === "incomplete" &&
+            responseElement.classList.contains("incomplete")
+         ) {
+            return;
+         }
+      }
+
       let responseDiv = document.createElement("div");
       responseDiv.className = "response";
       responseDiv.style.opacity = 0;
 
       if (type === "correct") {
          responseDiv.textContent = "Respuesta correcta";
+         responseDiv.classList.add("correct");
       }
 
       if (type === "incorrect") {
@@ -261,15 +288,15 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 1;
-      }, 0);
+      }, 100);
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
-      }, 2000);
+      }, 1500);
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 2200);
+      }, 1600);
    }
 
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
@@ -409,20 +436,29 @@ function listenKeyboard(event) {
          }
       }
 
-      addIconAnimation(game.lastResponseStatus, "./images/icons-images");
+      // Incorrect answer
+      if (!game.lastResponseStatus) {
+         incorrecLetterAnimation();
+         addIconAnimation(game.lastResponseStatus, "./images/icons-images");
+      }
 
       // Correct answer
       if (game.lastResponseStatus) {
          correctAnswerSpan.textContent = `${game.correctAnswers}`;
          textChangeAnimation(correctAnswerSpan);
+         correcLetterAnimation();
+         addIconAnimation(game.lastResponseStatus, "./images/icons-images");
 
          // Show results
          if (game.correctAnswers === 10) {
             setTimeout(() => {
                showResults(game);
-            }, 2500);
+            }, 1500);
             return;
          }
+         setTimeout(() => {
+            innerLetterElements(game.countries[0].name, answerContainer);
+         }, 1500);
 
          setTimeout(() => {
             remainingCountries.textContent = `${
@@ -430,19 +466,18 @@ function listenKeyboard(event) {
             }`;
             textChangeAnimation(remainingCountries);
             showNewFlag(game);
-            innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 2300);
+         }, 1300);
       }
 
       setTimeout(() => {
-         // Pausar eventos de entrada
+         // Activar los eventos
          for (let element of buttonsKeyboard) {
             element.addEventListener("click", listenKeyboard);
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
-      }, 2500);
+      }, 1500);
 
       return;
    }
@@ -459,11 +494,48 @@ function listenKeyboard(event) {
       insertLetter(game);
       return;
    }
+
+   function correcLetterAnimation() {
+      const letterElements = document.getElementsByClassName(
+         "game__answer-letter"
+      );
+
+      for (let element of letterElements) {
+         element.style.border = "2px solid #a1cc8e";
+         element.style.backgroundColor = "#ecfde4";
+      }
+   }
+   function incorrecLetterAnimation() {
+      const letterElements = document.getElementsByClassName(
+         "game__answer-letter"
+      );
+
+      for (let element of letterElements) {
+         element.style.border = "2px solid #f5abab";
+         element.style.backgroundColor = "#ffeeee";
+      }
+
+      setTimeout(() => {
+         for (let element of letterElements) {
+            element.style.border = "";
+            element.style.backgroundColor = "";
+         }
+      }, 1500);
+   }
 }
 
 async function startupEvents() {
-   const presentationHtml = `        
-            <section class="presentation__section">
+   const [btSettings] = document.getElementsByClassName("header__settings");
+   const [body] = document.getElementsByClassName("multiple-choice");
+
+   // Events
+   btSettings.addEventListener("click", () => {
+      insertSettings(body);
+   });
+
+   async function insertPresentation(body) {
+      const presentationHtml = `        
+            <div class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
                     >
                 </button>
@@ -529,92 +601,12 @@ async function startupEvents() {
                     ><span>EMPEZAR</span></button
                 >
             </div>
-        </section>
+        </div>
         <div class="blurry-background"></div>
 `;
-
-   const settingsHtml = `       
-            <section class="presentation__section">
-            <button class="presentation__header-link" title="Cerrar" type="button"
-                    >
-                </button>
-            
-               <div class="presentation__div">
-               <h2 class="presentation__subtitle">Configuración</h2>
-
-               <div class="presentation__subtitle">Modo oscuro</div>
-               <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
-    
-                  <div class="dark-mode-bt__circle"></div>
-           
-                  <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
-               </button>
-               <div class="presentation__subtitle">Juego</div>
-                <p
-                    class="presentation__label-continents"
-                    >Elige el continente de los paises</p
-                >
-
-                <select name="countries" class="continents-dropdown" title="countries">
-                    <option
-                        value="all continents"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        TODO EL MUNDO
-                    </option>
-                    <option
-                        value="africa"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ÁFRICA
-                    </option>
-                    <option
-                        value="americas"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        AMÉRICA
-                    </option>
-                    <option
-                        value="asia"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ASIA
-                    </option>
-                    <option
-                        value="europe"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        EUROPA
-                    </option>
-                    <option
-                        value="oceania"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        OCEANÍA
-                    </option>
-                </select>
-                <button class="presentation__button-start" title="Empezar" type="button"
-                    ><span>EMPEZAR</span></button
-                >
-            </div>
-        </section>
-        <div class="blurry-background"></div>
-`;
-
-   const [btSettings] = document.getElementsByClassName("header__settings");
-   let [body] = document.getElementsByClassName("homepage");
-
-   async function insertPresentation(type) {
       return new Promise((resolve) => {
          btSettings.blur();
-         if (type === "presentation") {
-            body.insertAdjacentHTML("beforeend", presentationHtml);
-         }
-
-         if (type === "settings") {
-            body.insertAdjacentHTML("beforeend", settingsHtml);
-         }
+         body.insertAdjacentHTML("beforeend", presentationHtml);
 
          let [presentation] = document.getElementsByClassName(
             "presentation__section"
@@ -624,9 +616,6 @@ async function startupEvents() {
          const [continentsDropdown] = document.getElementsByClassName(
             "continents-dropdown"
          );
-         const buttonsTime = document.getElementsByClassName(
-            "presentation__button-time"
-         );
          const [startButton] = document.getElementsByClassName(
             "presentation__button-start"
          );
@@ -634,13 +623,7 @@ async function startupEvents() {
             "presentation__header-link"
          );
 
-         if (type === "presentation") {
-            presentation.classList.add("presentation");
-         }
-
-         if (type === "settings") {
-            presentation.classList.add("settings");
-         }
+         presentation.classList.add("presentation");
 
          // Millisenconds
          let continent = "all continents";
@@ -651,23 +634,9 @@ async function startupEvents() {
             event.target.classList.add("continents-dropdown--focus");
          });
 
-         for (let i = 0; i < buttonsTime.length; i++) {
-            buttonsTime[i].addEventListener("click", function (event) {
-               for (let button of buttonsTime) {
-                  if (event.target === button) {
-                     buttonsTime[i].classList.add(
-                        "presentation__button-time--focus"
-                     );
-                     continue;
-                  }
-                  button.classList.remove("presentation__button-time--focus");
-               }
-            });
-         }
-
          startButton.addEventListener("click", function () {
             localStorage.setItem("continent", continent);
-            presentation.style.top = "-20rem";
+
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
             presentation.remove();
@@ -680,125 +649,261 @@ async function startupEvents() {
                !presentation.contains(event.target) &&
                event.target !== btSettings
             ) {
-               if (presentation.classList.contains("settings")) {
-                  presentation.style.top = "-20rem";
-                  bgBlurry.style.opacity = "0";
-                  bgBlurry.remove();
-                  presentation.remove();
-                  document.removeEventListener("click", listenOutsidePresent);
-               }
-
-               if (presentation.classList.contains("presentation")) {
-                  localStorage.setItem("continent", continent);
-
-                  presentation.style.top = "-20rem";
-                  bgBlurry.style.opacity = "0";
-                  bgBlurry.remove();
-                  presentation.remove();
-                  document.removeEventListener("click", listenOutsidePresent);
-                  createNewGame();
-               }
-            }
-         }
-
-         if (type === "presentation") {
-            closeIcon.addEventListener("click", function () {
                localStorage.setItem("continent", continent);
 
-               presentation.style.top = "-20rem";
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
                presentation.remove();
                document.removeEventListener("click", listenOutsidePresent);
                createNewGame();
-            });
-
-            document.addEventListener("keydown", actPresentation);
+            }
          }
 
-         if (type === "settings") {
-            changeBtDarkMode();
-            closeIcon.addEventListener("click", function () {
-               presentation.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
-               bgBlurry.remove();
-               presentation.remove();
-               document.removeEventListener("click", listenOutsidePresent);
-            });
+         closeIcon.addEventListener("click", function () {
+            localStorage.setItem("continent", continent);
 
-            document.addEventListener("keydown", actPresentation);
-         }
+            bgBlurry.style.opacity = "0";
+            bgBlurry.remove();
+            presentation.remove();
+            document.removeEventListener("click", listenOutsidePresent);
+            createNewGame();
+         });
+
+         document.addEventListener("keydown", actPresentation);
 
          document.addEventListener("click", listenOutsidePresent);
 
          function actPresentation(event) {
-            escPresentation(event, type);
+            escPresentation(event);
          }
 
-         function escPresentation(event, type) {
-            if (type === "presentation") {
-               if (event.key === "Escape") {
-                  if (presentation) {
-                     localStorage.setItem("continent", continent);
+         function escPresentation(event) {
+            if (event.key === "Escape") {
+               if (presentation) {
+                  localStorage.setItem("continent", continent);
 
-                     presentation.style.top = "-20rem";
-                     bgBlurry.style.opacity = "0";
-                     bgBlurry.remove();
-                     presentation.remove();
-                     document.removeEventListener(
-                        "click",
-                        listenOutsidePresent
-                     );
-                     createNewGame();
+                  bgBlurry.style.opacity = "0";
+                  bgBlurry.remove();
+                  presentation.remove();
+                  document.removeEventListener("click", listenOutsidePresent);
+                  createNewGame();
 
-                     document.removeEventListener("keydown", actPresentation);
-                  }
-               }
-            }
-
-            if (type === "settings") {
-               if (event.key === "Escape") {
-                  if (presentation) {
-                     presentation.style.top = "-20rem";
-                     bgBlurry.style.opacity = "0";
-                     bgBlurry.remove();
-                     presentation.remove();
-                     document.removeEventListener(
-                        "click",
-                        listenOutsidePresent
-                     );
-
-                     document.removeEventListener("keydown", actPresentation);
-                  }
+                  document.removeEventListener("keydown", actPresentation);
                }
             }
          }
       });
    }
+   function insertSettings(body) {
+      function animationIn(element) {
+         element.style.height = "23rem";
+         element.style.width = "26rem";
+         element.style.opacity = "0";
+
+         setTimeout(() => {
+            element.style.opacity = "1";
+         }, 15);
+
+         setTimeout(() => {
+            element.style.height = "25rem";
+            element.style.width = "28rem";
+         }, 15);
+      }
+
+      async function animationOut(element) {
+         return new Promise((resolve) => {
+            element.style.height = "23rem";
+            element.style.width = "26rem";
+
+            setTimeout(() => {
+               element.style.opacity = "0";
+            }, 15);
+            setTimeout(() => {
+               resolve();
+            }, 100);
+         });
+      }
+      const settingsHtml = `       
+               <div class="presentation__section">
+               <button class="presentation__header-link" title="Cerrar" type="button"
+                       >
+                   </button>
+               
+                  <div class="presentation__div">
+                  <h2 class="presentation__subtitle">Configuración</h2>
+   
+                  <div class="presentation__subtitle">Modo oscuro</div>
+                  <button class="dark-mode-bt" type="button" title="Modo oscuro">
+                     <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+       
+                     <div class="dark-mode-bt__circle"></div>
+              
+                     <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  </button>
+                  <div class="presentation__subtitle">Juego</div>
+                   <p
+                       class="presentation__label-continents"
+                       >Elige el continente de los paises</p
+                   >
+   
+                   <select name="countries" class="continents-dropdown" title="countries">
+                       <option
+                           value="all continents"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           TODO EL MUNDO
+                       </option>
+                       <option
+                           value="africa"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           ÁFRICA
+                       </option>
+                       <option
+                           value="americas"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           AMÉRICA
+                       </option>
+                       <option
+                           value="asia"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           ASIA
+                       </option>
+                       <option
+                           value="europe"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           EUROPA
+                       </option>
+                       <option
+                           value="oceania"
+                           class="presentation__continents-dropdown-option"
+                       >
+                           OCEANÍA
+                       </option>
+                   </select>
+                   <button class="presentation__button-start" title="Empezar" type="button"
+                       ><span>EMPEZAR</span></button
+                   >
+               </div>
+           </div>
+           <div class="blurry-background"></div>
+   `;
+
+      const [btSettings] = document.getElementsByClassName("header__settings");
+
+      btSettings.blur();
+
+      body.insertAdjacentHTML("beforeend", settingsHtml);
+
+      const [presentation] = document.getElementsByClassName(
+         "presentation__section"
+      );
+
+      animationIn(presentation);
+
+      const [bgBlurry] = document.getElementsByClassName("blurry-background");
+
+      const [continentsDropdown] = document.getElementsByClassName(
+         "continents-dropdown"
+      );
+      const [startButton] = document.getElementsByClassName(
+         "presentation__button-start"
+      );
+      const [closeIcon] = document.getElementsByClassName(
+         "presentation__header-link"
+      );
+      presentation.classList.add("settings");
+      // Millisenconds
+      let continent = "all continents";
+
+      // Events
+      continentsDropdown.addEventListener("change", function (event) {
+         continent = event.target.value;
+         event.target.classList.add("continents-dropdown--focus");
+      });
+      startButton.addEventListener("click", function () {
+         localStorage.setItem("continent", continent);
+
+         bgBlurry.style.opacity = "0";
+         bgBlurry.remove();
+         animationOut(presentation).then((result) => {
+            presentation.remove();
+            document.removeEventListener("click", listenOutsidePresent);
+            document.removeEventListener("keydown", actPresentation);
+            createNewGame();
+         });
+      });
+      function listenOutsidePresent(event) {
+         if (
+            !presentation.contains(event.target) &&
+            event.target !== btSettings
+         ) {
+            if (presentation.classList.contains("settings")) {
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               animationOut(presentation).then((result) => {
+                  presentation.remove();
+                  document.removeEventListener("click", listenOutsidePresent);
+                  document.removeEventListener("keydown", actPresentation);
+               });
+            }
+         }
+      }
+
+      changeBtDarkMode();
+      closeIcon.addEventListener("click", function () {
+         bgBlurry.style.opacity = "0";
+         bgBlurry.remove();
+         animationOut(presentation).then((result) => {
+            presentation.remove();
+            document.removeEventListener("click", listenOutsidePresent);
+            document.removeEventListener("keydown", actPresentation);
+         });
+      });
+
+      document.addEventListener("keydown", actPresentation);
+      document.addEventListener("click", listenOutsidePresent);
+
+      function actPresentation(event) {
+         escPresentation(event);
+      }
+
+      function escPresentation(event) {
+         if (event.key === "Escape") {
+            if (presentation) {
+               bgBlurry.style.opacity = "0";
+               bgBlurry.remove();
+               animationOut(presentation).then((result) => {
+                  presentation.remove();
+                  document.removeEventListener("click", listenOutsidePresent);
+                  document.removeEventListener("keydown", actPresentation);
+               });
+            }
+         }
+      }
+   }
 
    // Presentation
    if (!localStorage.getItem("time") && !localStorage.getItem("continent")) {
-      await insertPresentation("presentation");
+      await insertPresentation(body);
    } else {
       createNewGame();
    }
-
-   // Events
-   btSettings.addEventListener("click", async () => {
-      await insertPresentation("settings");
-   });
 }
 
 // Eventos
 // Event after loading content
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
    const [nextBt] = document.getElementsByClassName("country__btNext");
    const [startAgain] = document.getElementsByClassName("game__start-again");
    const [btInformation] = document.getElementsByClassName(
       "game__bt-information"
    );
 
-   await startupEvents();
+   startupEvents();
 
    nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
@@ -830,6 +935,7 @@ function mouseClickCardInformation() {
       btInformation.removeEventListener("mouseenter", mouseInCardInformation);
    } else {
       cardAnimationOut(cardInformation).then(() => {
+         btInformation.style.backgroundColor = "";
          cardInformation.remove();
          btInformation.addEventListener("mouseenter", mouseInCardInformation);
       });
@@ -843,13 +949,19 @@ function mouseInCardInformation() {
       "game__bt-information"
    );
 
-   if (!cardInformation) {
-      insertInformation();
-
-      document.addEventListener("mousemove", outOfTarjetInformation);
-
-      btInformation.removeEventListener("mouseenter", mouseInCardInformation);
+   if (cardInformation) {
+      btInformation.style.backgroundColor = "";
+      cardInformation.remove();
+      btInformation.addEventListener("mouseenter", mouseInCardInformation);
+      document.removeEventListener("mousemove", outOfTarjetInformation);
+      return;
    }
+
+   insertInformation();
+
+   document.addEventListener("mousemove", outOfTarjetInformation);
+
+   btInformation.removeEventListener("mouseenter", mouseInCardInformation);
 }
 
 function outOfTarjetInformation(event) {
@@ -875,6 +987,7 @@ function outOfTarjetInformation(event) {
          event.target !== btInformation
       ) {
          cardAnimationOut(cardInformationActive).then(() => {
+            btInformation.style.backgroundColor = "";
             cardInformationActive.remove();
             btInformation.addEventListener(
                "mouseenter",
@@ -888,20 +1001,17 @@ function outOfTarjetInformation(event) {
 
 function cardAnimationIn(element) {
    element.style.opacity = "0";
+   element.style.width = "21rem";
+   element.style.height = "11rem";
 
    setTimeout(() => {
       element.style.opacity = "1";
-   }, 30);
-
-   setTimeout(() => {
-      element.style.width = "21rem";
-      element.style.height = "11rem";
-   }, 40);
+   }, 15);
 
    setTimeout(() => {
       element.style.width = "22rem";
       element.style.height = "12rem";
-   }, 100);
+   }, 15);
 }
 
 async function cardAnimationOut(element) {
@@ -911,13 +1021,17 @@ async function cardAnimationOut(element) {
 
       setTimeout(() => {
          element.style.opacity = "0";
+      }, 15);
+      setTimeout(() => {
          resolve();
-      }, 60);
+      }, 100);
    });
 }
 
 function activeNextBt() {
+   const [nextBt] = document.getElementsByClassName("country__btNext");
    const [answerContainer] = document.getElementsByClassName("game__answer");
+   nextBt.blur();
    game = game.resetAnswerUser();
    game = game.nextCountry();
    showNewFlag(game);
@@ -933,32 +1047,37 @@ function addMenuEvents() {
       "navbar__button--close"
    );
 
-   menuButtonOpen.addEventListener("click", function () {
-      menu.style.left = "0rem";
+   menuButtonOpen.addEventListener("click", function (event) {
+      if (menu.style.left === "-25rem" || menu.style.left === "") {
+         new Promise((resolve) => {
+            menu.style.left = "0rem";
+            resolve();
+         }).then((resolve) => {
+            setTimeout(() => {
+               document.addEventListener("click", closeNavbar);
+            }, 0);
+         });
+         return;
+      }
+      if (menu.style.left === "0rem") {
+         if (!menu.contains(event.target)) {
+            menu.style.left = "-25rem";
+            document.removeEventListener("click", closeNavbar);
+         }
+         return;
+      }
    });
+
+   function closeNavbar(event) {
+      if (!menu.contains(event.target)) {
+         menu.style.left = "-25rem";
+         document.removeEventListener("click", closeNavbar);
+      }
+   }
 
    menuButtonClose.addEventListener("click", function () {
       menu.style.left = "-25rem";
-   });
-
-   document.addEventListener("click", function (event) {
-      const menuButtonOpenSpan =
-         document.getElementsByClassName("navbar__icon");
-      if (
-         !Array.from(menuButtonOpenSpan).some((element) => {
-            return event.target === element;
-         }) &&
-         event.target !== menuButtonOpen
-      ) {
-         if (menu.style.left === "0rem") {
-            if (
-               !menu.contains(event.target) &&
-               !menuButtonClose.contains(event.target)
-            ) {
-               menu.style.left = "-25rem";
-            }
-         }
-      }
+      document.removeEventListener("click", closeNavbar);
    });
 
    document.addEventListener("keydown", (event) => {
@@ -993,18 +1112,18 @@ function addIconAnimation(typeAnswer, url) {
 
    setTimeout(() => {
       iconImg.classList.add("multiple-choice__iconAnswer--active");
-   }, 200);
+   }, 100);
 
    // Borrar elementos
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 2500);
+   }, 1500);
 }
 
 function insertInformation(event) {
    const cardHtml = `       
-            <section class="information-card">
+            <div class="information-card">
             <div class="presentation__div">
                 <h3 class="information-card__subtitle">¿Cómo jugar?</h3>
 
@@ -1014,7 +1133,7 @@ function insertInformation(event) {
                     nombres completos. Se pueden saltear los países.</p
                 >
             </div>
-        </section>
+        </div>
 `;
 
    const [btInformation] = document.getElementsByClassName(
@@ -1051,11 +1170,21 @@ function insertInformation(event) {
 
    function escPresentation(event) {
       if (event.key === "Escape") {
+         const [cardInformation] =
+            document.getElementsByClassName("information-card");
+         const [btInformation] = document.getElementsByClassName(
+            "game__bt-information"
+         );
+
          if (presentation) {
-            presentation.remove();
-            btInformation.style.backgroundColor = "white";
-            document.removeEventListener("keydown", actPresentation);
-            document.removeEventListener("click", listenOutsidePresent);
+            cardAnimationOut(cardInformation).then(() => {
+               btInformation.style.backgroundColor = "";
+               cardInformation.remove();
+               btInformation.addEventListener(
+                  "mouseenter",
+                  mouseInCardInformation
+               );
+            });
          }
       }
    }

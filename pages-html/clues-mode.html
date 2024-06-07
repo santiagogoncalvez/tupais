@@ -96,11 +96,15 @@
             <ul class="game__statistics">
                <li class="game__statistics-item">
                   Pistas<br />
-                  <span class="game__clues">1</span>
+                  <span class="game__span-container"
+                     ><span class="game__clues">1</span></span
+                  >
                </li>
                <li class="game__statistics-item">
                   Puntaje<br />
-                  <span class="game__score">10</span>
+                  <span class="game__span-container"
+                     ><span class="game__score">10</span></span
+                  >
                </li>
             </ul>
             <bt class="game__bt-information" title="¿Cómo jugar?" type="button"
@@ -223,8 +227,9 @@
                   value="I"
                   class="keyboard__button"
                >
-                  I</button
-               ><button
+                  I
+               </button>
+               <button
                   type="button"
                   name="button-keyboard"
                   value="O"
@@ -286,13 +291,6 @@
                ><button
                   type="button"
                   name="button-keyboard"
-                  value="I"
-                  class="keyboard__button"
-               >
-                  I</button
-               ><button
-                  type="button"
-                  name="button-keyboard"
                   value="J"
                   class="keyboard__button"
                >
@@ -311,6 +309,14 @@
                   class="keyboard__button"
                >
                   L
+               </button>
+               <button
+                  type="button"
+                  name="button-keyboard"
+                  value="Ñ"
+                  class="keyboard__button"
+               >
+                  Ñ
                </button>
             </div>
             <div class="keyboard__column--3">
@@ -380,7 +386,7 @@
                   type="button"
                   name="button-keyboard"
                   value="enter"
-                  class="keyboard__button"
+                  class="keyboard__button keyboard__button--enter"
                >
                   ENTER
                </button>

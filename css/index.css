@@ -33,7 +33,7 @@ html {
    transform: translate(-50%, -50%);
    margin: 0 auto;
    background-color: rgb(236, 247, 255);
-   height: 25rem;
+   height: 28rem;
    width: 28rem;
    max-width: 90vw;
    max-height: 90vh;
@@ -43,6 +43,10 @@ html {
    padding: 0;
    user-select: none;
    transition: all 0.05s ease-in;
+}
+
+.presentation-with-time {
+   height: 33rem;
 }
 
 .settings {
@@ -62,13 +66,14 @@ html {
    border-color: whitesmoke;
    border-width: 2px;
    border-style: solid;
-   margin-bottom: 0.5rem;
+   margin-bottom: 0rem;
 }
 
 .presentation__header-title {
    font-size: clamp(0.2px, 1.8rem, 8vw);
    color: #0d336bf7;
    text-shadow: 2px 1.5px 2px rgba(245, 245, 245, 0.853);
+   margin: 0;
 }
 
 .presentation__header-link {
@@ -135,8 +140,9 @@ html {
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   flex-grow: 1;
    width: 80%;
-   margin-top: 0.5rem;
+   margin-top: 0rem;
    margin-bottom: 0.5rem;
 }
 
@@ -152,6 +158,8 @@ html {
    text-align: center;
    width: 100%;
    color: #0d336bd4;
+   margin-top: 0rem;
+   margin-bottom: 1rem;
 }
 
 .presentation__label-continents {
@@ -200,7 +208,7 @@ html {
 }
 .presentation__div-time {
    display: flex;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
    width: 100%;
    padding: 0rem;
@@ -219,7 +227,7 @@ html {
    color: white;
    border-radius: 4rem;
    border: 0.1rem solid transparent;
-   width: 30%;
+   width: 27%;
    height: 2.2rem;
    max-height: 8vh;
    font-weight: bold;
@@ -307,6 +315,7 @@ html {
    padding: 0;
    width: 10rem;
    max-width: 75vw;
+   user-select: none;
 }
 
 .header__container {
@@ -393,6 +402,7 @@ html {
    border-style: solid;
    z-index: 10;
    transition: left 0.2s ease;
+   user-select: none;
 }
 
 .header > .navbar__button--open:nth-child(3) {
@@ -480,6 +490,7 @@ html {
    margin-bottom: 0rem;
    z-index: 100;
    overflow-y: auto;
+   user-select: none;
 }
 
 .navbar__list::-webkit-scrollbar {
@@ -535,6 +546,7 @@ html {
    border: 0.2rem solid rgba(255, 255, 255, 0);
    border-radius: 0.8rem;
    transition: all 0.1s ease-in-out;
+   user-select: none;
 }
 
 .navbar__link--1:hover,
@@ -661,6 +673,7 @@ html {
    font-size: clamp(0.2px, 1rem, 5vw);
    margin-right: 0.5rem;
    margin-left: 0.5rem;
+   user-select: none;
 }
 
 .game__span-container {
@@ -858,10 +871,13 @@ html {
    justify-content: center;
    align-items: center;
    flex-wrap: wrap;
+   row-gap: 0rem;
+   padding: 0;
    width: 100%;
-   height: 7rem;
+   height: 5.5rem;
    margin-top: 0rem;
    margin-bottom: 0em;
+   user-select: none;
 }
 
 .keyboard__container-button {
@@ -1016,6 +1032,7 @@ html {
    font-size: clamp(0.2px, 14px, 5vw);
    color: #0d336b;
    margin: 0;
+   user-select: none;
 }
 
 .footer__fill-space {
@@ -1215,8 +1232,6 @@ html {
    margin-bottom: 0rem;
    cursor: pointer;
 }
-
-
 
 .answer-results__button--start-again:hover,
 .answer-results__button--change-mode:hover {
@@ -1875,6 +1890,20 @@ html {
    overflow: auto;
 }
 
+.features__list::-webkit-scrollbar {
+   width: 4px;
+   border-radius: 10px;
+}
+
+.features__list::-webkit-scrollbar-thumb {
+   background-color: #888;
+   border-radius: 10px;
+}
+
+.features__list::-webkit-scrollbar-thumb:hover {
+   background-color: #555;
+}
+
 .features__item {
    width: 40%;
    margin-bottom: 1rem;
@@ -1900,7 +1929,7 @@ html {
    border-radius: 50%;
    width: 20px;
    height: 20px;
-   transition: all 0.1s ease;
+   transition: all 0.1s ease-in;
 }
 
 .flag-gallery__button-info:hover {
@@ -1946,6 +1975,7 @@ html {
    background-color: #fffffff7;
    flex-grow: 1;
    margin: 0;
+   user-select: none;
 }
 
 .overlappingBackground {

@@ -1,5 +1,5 @@
 // Imports
-import { getRandomCountries } from "./imports/countryDataManager.mjs";
+import { getRandomCountries } from "./imports/countryDataManajerJson.mjs";
 import { NewGame } from "./imports/classNewGame.mjs";
 
 // Bindings
@@ -207,6 +207,7 @@ function typeKey(key) {
       "z",
       "ç",
       "ñ",
+      "arrowright",
    ];
    const enterString = "enter";
    const backspaceString = "backspace";
@@ -397,6 +398,11 @@ function listenKeyboard(event) {
 
    if (!typeKey(pressedKey)) return;
 
+   if (pressedKey === "arrowright") {
+      activeNextBt();
+      return;
+   }
+
    if (pressedKey === "enter") {
       const [answerContainer] = document.getElementsByClassName("game__answer");
       const [correctAnswerSpan] = document.getElementsByClassName(
@@ -455,18 +461,19 @@ function listenKeyboard(event) {
                showResults(game);
             }, 1500);
          }
+
          setTimeout(() => {
-            innerLetterElements(game.countries[0].name, answerContainer);
-         }, 1500);
+            showNewFlag(game);
+         }, 0);
 
          setTimeout(() => {
             remainingCountries.textContent = `${
                remainingCountries.textContent - 1
             }`;
             textChangeAnimation(remainingCountries);
-            showNewFlag(game);
+            innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 1300);
+         }, 1500);
       }
 
       setTimeout(() => {
@@ -543,8 +550,6 @@ async function startupEvents() {
             </header>
 
             <div class="presentation__div">
-                <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
-
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
                     geográficas en el que tenés que acertar el nombre de países
@@ -909,15 +914,32 @@ document.addEventListener("DOMContentLoaded", function () {
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
 
-   document.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-         activeNextBt();
-      }
-   });
-
    addMenuEvents();
    changeBtDarkMode();
+
+   // Manejar user select
+   userSelect();
 });
+
+function userSelect() {
+   const [title] = document.getElementsByClassName("header__title");
+   const [footerParagraph] =
+      document.getElementsByClassName("footer__paragraph");
+   title.addEventListener("mouseenter", function (event) {
+      title.style.userSelect = "text";
+   });
+   title.addEventListener("mouseleave", function (event) {
+      title.style.userSelect = "none";
+   });
+   footerParagraph.addEventListener("mouseenter", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "text";
+   });
+   footerParagraph.addEventListener("mouseleave", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "none";
+   });
+}
 
 function mouseClickCardInformation() {
    const [cardInformation] =

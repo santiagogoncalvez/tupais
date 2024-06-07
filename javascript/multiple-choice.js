@@ -327,7 +327,7 @@ function sendAnswer() {
 
    setTimeout(() => {
       showNewFlag(game);
-   }, 1300);
+   }, 0);
 
    setTimeout(() => {
       remainingCountries.textContent = `${remainingCountries.textContent - 1}`;
@@ -355,7 +355,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
    addMenuEvents();
    changeBtDarkMode();
+
+   // Manejar user select
+   userSelect()
 });
+
+function userSelect() {
+   const [title] = document.getElementsByClassName("header__title");
+   const [footerParagraph] =
+      document.getElementsByClassName("footer__paragraph");
+   title.addEventListener("mouseenter", function (event) {
+      title.style.userSelect = "text";
+   });
+   title.addEventListener("mouseleave", function (event) {
+      title.style.userSelect = "none";
+   });
+   footerParagraph.addEventListener("mouseenter", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "text";
+   });
+   footerParagraph.addEventListener("mouseleave", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "none";
+   });
+}
 
 function mouseClickCardInformation() {
    const [cardInformation] =

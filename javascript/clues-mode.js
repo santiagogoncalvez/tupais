@@ -634,8 +634,6 @@ function listenKeyboard(event) {
    }
 }
 
-
-
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", function () {
@@ -664,7 +662,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
    addMenuEvents();
    changeBtDarkMode();
+
+   // Manejar user select
+   userSelect();
 });
+
+function userSelect() {
+   const [title] = document.getElementsByClassName("header__title");
+   const [footerParagraph] =
+      document.getElementsByClassName("footer__paragraph");
+   title.addEventListener("mouseenter", function (event) {
+      title.style.userSelect = "text";
+   });
+   title.addEventListener("mouseleave", function (event) {
+      title.style.userSelect = "none";
+   });
+   footerParagraph.addEventListener("mouseenter", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "text";
+   });
+   footerParagraph.addEventListener("mouseleave", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "none";
+   });
+}
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");

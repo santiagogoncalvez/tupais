@@ -444,13 +444,13 @@ function listenKeyboard(event) {
          addIconAnimation(game.lastResponseStatus, "../images/icons-images");
 
          setTimeout(() => {
-            innerLetterElements(game.countries[0].name, answerContainer);
-         }, 1500);
+            showNewFlag(game);
+         }, 0);
 
          setTimeout(() => {
-            showNewFlag(game);
+            innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 1300);
+         }, 1500);
       }
 
       setTimeout(() => {
@@ -519,16 +519,33 @@ document.addEventListener("DOMContentLoaded", function () {
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
-
-   document.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-         activeNextBt();
-      }
-   });
-
+   
    addMenuEvents();
    changeBtDarkMode();
+
+   // Manejar user select
+   userSelect()
 });
+
+function userSelect() {
+   const [title] = document.getElementsByClassName("header__title");
+   const [footerParagraph] =
+      document.getElementsByClassName("footer__paragraph");
+   title.addEventListener("mouseenter", function (event) {
+      title.style.userSelect = "text";
+   });
+   title.addEventListener("mouseleave", function (event) {
+      title.style.userSelect = "none";
+   });
+   footerParagraph.addEventListener("mouseenter", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "text";
+   });
+   footerParagraph.addEventListener("mouseleave", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "none";
+   });
+}
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");

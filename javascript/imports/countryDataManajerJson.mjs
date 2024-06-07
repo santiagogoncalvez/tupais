@@ -1,11 +1,5 @@
-//API countries:  "https://restcountries.com"
-// API flags of countries: "https://flagcdn.com"
-
-/*
-Recomendaciones:
-    -Englobar la funcion de pedir un pais en otra funcion y que devuelva el json, por ejemplo getCoutry() o getAPI()-
-    - Escribir los url concatenando strings asi no se generan errores 404
-*/
+// Manejador de datos de los países de rescountries.com pero sin hacerle solicitudes a la api, los datos están guardados en el proyecto.
+import countriesJson from "./countries.json" assert { type: "json" };
 
 function moreThan2Words(str) {
    let words = str.split(" ");
@@ -87,10 +81,26 @@ function getClues(country) {
 function getCountriesByContinent(continent) {
    return new Promise(async (resolve, reject) => {
       if (continent === "america") continent = "americas";
-      let url = "https://restcountries.com/v3.1/region/" + continent;
       try {
-         let response = await fetch(url);
-         let countries = await response.json();
+         let result = [];
+         for (let i = 0; i < countriesJson.length; i++) {
+            if (
+               countriesJson[i].region.toLowerCase() === continent.toLowerCase()
+            ) {
+               result.push(countriesJson[i]);
+            }
+         }
+         resolve(result);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
+}
+
+export async function getAllCountries() {
+   return new Promise(async (resolve, reject) => {
+      try {
+         let countries = countriesJson;
          resolve(countries);
       } catch (err) {
          reject(new Error(`Error request restCoutries API: ${err}`));
@@ -100,37 +110,16 @@ function getCountriesByContinent(continent) {
 
 export async function getCoutryByName(name) {
    return new Promise(async (resolve, reject) => {
-      let url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
       try {
-         let response = await fetch(url);
-         let countries = await response.json();
-         resolve(countries[0]);
-      } catch (err) {
-         reject(new Error(`Error request restCoutries API: ${err}`));
-      }
-   });
-}
+         let response = [];
 
-export async function getCoutryByTranslation(translation) {
-   return new Promise(async (resolve, reject) => {
-      let url = `https://restcountries.com/v3.1/translation/${translation}`;
-      try {
-         let response = await fetch(url);
-         let countries = await response.json();
-         resolve(countries[0]);
-      } catch (err) {
-         reject(new Error(`Error request restCoutries API: ${err}`));
-      }
-   });
-}
+         for (let i = 0; i < countriesJson.length; i++) {
+            if (countriesJson[i].name.official === name) {
+               response.push(countriesJson[i]);
+            }
+         }
 
-export async function getAllCountries() {
-   return new Promise(async (resolve, reject) => {
-      let url = "https://restcountries.com/v3.1/all";
-      try {
-         let response = await fetch(url);
-         let countries = await response.json();
-         resolve(countries);
+         resolve(response[0]);
       } catch (err) {
          reject(new Error(`Error request restCoutries API: ${err}`));
       }
@@ -156,47 +145,49 @@ export async function getRandomCountries(
             `Incorrect string of argument 'continent'. Value: ${continent}`
          );
 
-      // try {
-      let countries;
-      if (continent === "all continents") {
-         countries = await getAllCountries();
-      }
-
-      if (continent !== "all continents") {
-         countries = await getCountriesByContinent(continent);
-      }
-
-      countries = shuffleArray(countries);
-
-      if (quantityCountries === -1) {
-         quantityCountries = countries.length;
-      }
-
-      let result = [];
-      for (let i = 0; i < quantityCountries; i++) {
-         let randomCountry = countries[i];
-         if (!randomCountry) break;
-
-         let formattedName = formatWord(randomCountry.translations.spa.common);
-
-         // Ignorar elemntos con más de 2 palabras
-         if (moreThan2Words(formattedName)) {
-            quantityCountries++;
-            continue;
+      try {
+         let countries;
+         if (continent === "all continents") {
+            countries = await getAllCountries();
          }
 
-         result.push({
-            name: formattedName,
-            code: randomCountry.cca2.toLowerCase(),
-            region: randomCountry.region,
-            flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
-         });
-      }
+         if (continent !== "all continents") {
+            countries = await getCountriesByContinent(continent);
+         }
 
-      resolve(result);
-      // } catch (err) {
-      //    reject(new Error(`Error request getRandomCoutries: ${err}`));
-      // }
+         countries = shuffleArray(countries);
+
+         if (quantityCountries === -1) {
+            quantityCountries = countries.length;
+         }
+
+         let result = [];
+         for (let i = 0; i < quantityCountries; i++) {
+            let randomCountry = countries[i];
+            if (!randomCountry) break;
+
+            let formattedName = formatWord(
+               randomCountry.translations.spa.common
+            );
+
+            // Ignorar elemntos con más de 2 palabras
+            if (moreThan2Words(formattedName)) {
+               quantityCountries++;
+               continue;
+            }
+
+            result.push({
+               name: formattedName,
+               code: randomCountry.cca2.toLowerCase(),
+               region: randomCountry.region,
+               flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
+            });
+         }
+
+         resolve(result);
+      } catch (err) {
+         reject(new Error(`Error request getRandomCoutries: ${err}`));
+      }
    });
 }
 

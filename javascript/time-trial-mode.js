@@ -226,6 +226,7 @@ function typeKey(key) {
       "z",
       "ç",
       "ñ",
+      "arrowright"
    ];
    const enterString = "enter";
    const backspaceString = "backspace";
@@ -370,6 +371,7 @@ async function createNewGame() {
    if (timeStorage === -1) timeStorage = 30000;
    if (timeStorage !== -1) {
       timerElement[0].textContent = formatTime(timeStorage);
+      timeStorage -= 1000;
       countDown(timeStorage, timerElement[0]);
    }
 
@@ -506,6 +508,11 @@ function listenKeyboard(event) {
 
    if (!typeKey(pressedKey)) return;
 
+   if (pressedKey === "arrowright") {
+      activeNextBt();
+      return;
+   }
+
    if (pressedKey === "enter") {
       const buttonsKeyboard =
          document.getElementsByClassName("keyboard__button");
@@ -558,13 +565,13 @@ function listenKeyboard(event) {
          addIconAnimation(game.lastResponseStatus, "../images/icons-images");
 
          setTimeout(() => {
-            innerLetterElements(game.countries[0].name, answerContainer);
-         }, 1500);
+            showNewFlag(game);
+         }, 0);
 
          setTimeout(() => {
-            showNewFlag(game);
+            innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 1300);
+         }, 1500);
       }
 
       setTimeout(() => {
@@ -636,15 +643,32 @@ document.addEventListener("DOMContentLoaded", function () {
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
 
-   document.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-         activeNextBt();
-      }
-   });
-
    addMenuEvents();
    changeBtDarkMode();
+
+   // Manejar user select
+   userSelect()
 });
+
+function userSelect() {
+   const [title] = document.getElementsByClassName("header__title");
+   const [footerParagraph] =
+      document.getElementsByClassName("footer__paragraph");
+   title.addEventListener("mouseenter", function (event) {
+      title.style.userSelect = "text";
+   });
+   title.addEventListener("mouseleave", function (event) {
+      title.style.userSelect = "none";
+   });
+   footerParagraph.addEventListener("mouseenter", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "text";
+   });
+   footerParagraph.addEventListener("mouseleave", function (event) {
+      console.log("Executing");
+      footerParagraph.style.userSelect = "none";
+   });
+}
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");
@@ -666,8 +690,6 @@ async function startupEvents() {
             </header>
 
             <div class="presentation__div">
-                <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
-
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
                     geográficas en el que tenés que acertar el nombre de países
@@ -719,6 +741,23 @@ async function startupEvents() {
                     </option>
                 </select>
 
+                <p
+                       class="presentation__label-time"
+                       >Elige el tiempo</p
+                   >
+
+                   <div class="presentation__div-time">
+                     <button class="presentation__button-time" title="15 segundos" type="button"
+                       ><span>00:15</span></button
+                   >
+                   <button class="presentation__button-time" title="30 segundos" type="button"
+                       ><span>00:30</span></button
+                   >
+                   <button class="presentation__button-time" title="1 minuto" type="button"
+                       ><span>1:00</span></button
+                   >
+                   </div>
+
                 <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
                 >
@@ -738,6 +777,9 @@ async function startupEvents() {
          const [continentsDropdown] = document.getElementsByClassName(
             "continents-dropdown"
          );
+         const buttonsTime = document.getElementsByClassName(
+            "presentation__button-time"
+         );
          const [startButton] = document.getElementsByClassName(
             "presentation__button-start"
          );
@@ -746,15 +788,31 @@ async function startupEvents() {
          );
 
          presentation.classList.add("presentation");
+         presentation.classList.add("presentation-with-time");
 
          // Millisenconds
          let continent = "all continents";
+         let times = [15000, 30000, 60000];
 
          // Events
          continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
             event.target.classList.add("continents-dropdown--focus");
          });
+
+         for (let i = 0; i < buttonsTime.length; i++) {
+            buttonsTime[i].addEventListener("click", function (event) {
+               localStorage.setItem("time", times[i]);
+
+               for (let button of buttonsTime) {
+                  if (button === buttonsTime[i]) {
+                     button.classList.add("presentation__button-time--focus");
+                     continue;
+                  }
+                  button.classList.remove("presentation__button-time--focus");
+               }
+            });
+         }
 
          startButton.addEventListener("click", function () {
             localStorage.setItem("continent", continent);
@@ -827,7 +885,7 @@ async function startupEvents() {
          }, 15);
 
          setTimeout(() => {
-            element.style.height = "25rem";
+            element.style.height = "30rem";
             element.style.width = "28rem";
          }, 15);
       }
@@ -906,6 +964,24 @@ async function startupEvents() {
                            OCEANÍA
                        </option>
                    </select>
+
+                   <p
+                       class="presentation__label-time"
+                       >Elige el tiempo</p
+                   >
+
+                   <div class="presentation__div-time">
+                     <button class="presentation__button-time" title="15 segundos" type="button"
+                       ><span>00:15</span></button
+                   >
+                   <button class="presentation__button-time" title="30 segundos" type="button"
+                       ><span>00:30</span></button
+                   >
+                   <button class="presentation__button-time" title="1 minuto" type="button"
+                       ><span>1:00</span></button
+                   >
+                   </div>
+
                    <button class="presentation__button-start" title="Empezar" type="button"
                        ><span>EMPEZAR</span></button
                    >
@@ -931,6 +1007,9 @@ async function startupEvents() {
       const [continentsDropdown] = document.getElementsByClassName(
          "continents-dropdown"
       );
+      const buttonsTime = document.getElementsByClassName(
+         "presentation__button-time"
+      );
       const [startButton] = document.getElementsByClassName(
          "presentation__button-start"
       );
@@ -940,12 +1019,28 @@ async function startupEvents() {
       presentation.classList.add("settings");
       // Millisenconds
       let continent = "all continents";
+      let times = [15000, 30000, 60000];
 
       // Events
       continentsDropdown.addEventListener("change", function (event) {
          continent = event.target.value;
          event.target.classList.add("continents-dropdown--focus");
       });
+
+      for (let i = 0; i < buttonsTime.length; i++) {
+         buttonsTime[i].addEventListener("click", function (event) {
+            localStorage.setItem("time", times[i]);
+
+            for (let button of buttonsTime) {
+               if (button === buttonsTime[i]) {
+                  button.classList.add("presentation__button-time--focus");
+                  continue;
+               }
+               button.classList.remove("presentation__button-time--focus");
+            }
+         });
+      }
+
       startButton.addEventListener("click", function () {
          localStorage.setItem("continent", continent);
 

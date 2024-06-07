@@ -1,7 +1,7 @@
 import {
-   allCountries,
-   countryByName,
-} from "../javascript/imports/countryDataManager.mjs";
+   getAllCountries,
+   getCoutryByName,
+} from "../javascript/imports/countryDataManajerJson.mjs";
 
 // Bindings
 
@@ -20,7 +20,7 @@ function filter(array, callback) {
 // Pidiendo todos los paises juntos
 async function insertAllFlags(element) {
    return new Promise(async (resolve, reject) => {
-      let countries = await allCountries();
+      let countries = await getAllCountries();
       let textHtml = "";
 
       let orderedName = [];
@@ -183,7 +183,7 @@ function formatProperties(property, type) {
 
 async function insertFeatures(countrie) {
    let [body] = document.getElementsByClassName("flag-gallery");
-   let country = await countryByName(countrie);
+   let country = await getCoutryByName(countrie);
    let textHtml = `
       <div class="features">
          <button class="features__close-button" title="Cerrar" type="button"
@@ -240,13 +240,14 @@ async function insertFeatures(countrie) {
       </div>
    `;
 
-   body.insertAdjacentHTML("beforeend", textHtml);
-
-   let [closeFt] = document.getElementsByClassName("features__close-button");
-   closeFt.addEventListener("click", () => {
-      const [features] = document.getElementsByClassName("features");
-      features.remove();
-   });
+   setTimeout(() => {
+      body.insertAdjacentHTML("beforeend", textHtml);
+      let [closeFt] = document.getElementsByClassName("features__close-button");
+      closeFt.addEventListener("click", () => {
+         const [features] = document.getElementsByClassName("features");
+         features.remove();
+      });
+   }, 0);
 }
 
 // Events

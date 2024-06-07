@@ -526,7 +526,7 @@ function listenKeyboard(event) {
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");
-   const [body] = document.getElementsByClassName("multiple-choice");
+   const [body] = document.getElementsByClassName("homepage");
 
    // Events
    btSettings.addEventListener("click", () => {

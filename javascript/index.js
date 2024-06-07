@@ -454,7 +454,6 @@ function listenKeyboard(event) {
             setTimeout(() => {
                showResults(game);
             }, 1500);
-            return;
          }
          setTimeout(() => {
             innerLetterElements(game.countries[0].name, answerContainer);

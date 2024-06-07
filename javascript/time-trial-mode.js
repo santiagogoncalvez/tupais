@@ -548,7 +548,6 @@ function listenKeyboard(event) {
             setTimeout(() => {
                showResults(game);
             }, 1500);
-            return;
          }
       }
       // Correct answer

@@ -348,8 +348,8 @@ async function createNewGame() {
       "game__remaining-countries"
    );
 
-   let gameContinent = sessionStorage.getItem("continent")
-      ? sessionStorage.getItem("continent")
+   let gameContinent = localStorage.getItem("continent")
+      ? localStorage.getItem("continent")
       : "all continents";
    let randomCountries = await getRandomCountries(
       gameContinent,
@@ -638,7 +638,7 @@ async function startupEvents() {
          });
 
          startButton.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
+            localStorage.setItem("continent", continent);
 
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -652,7 +652,7 @@ async function startupEvents() {
                !presentation.contains(event.target) &&
                event.target !== btSettings
             ) {
-               sessionStorage.setItem("continent", continent);
+               localStorage.setItem("continent", continent);
 
                bgBlurry.style.opacity = "0";
                bgBlurry.remove();
@@ -663,7 +663,7 @@ async function startupEvents() {
          }
 
          closeIcon.addEventListener("click", function () {
-            sessionStorage.setItem("continent", continent);
+            localStorage.setItem("continent", continent);
 
             bgBlurry.style.opacity = "0";
             bgBlurry.remove();
@@ -683,7 +683,7 @@ async function startupEvents() {
          function escPresentation(event) {
             if (event.key === "Escape") {
                if (presentation) {
-                  sessionStorage.setItem("continent", continent);
+                  localStorage.setItem("continent", continent);
 
                   bgBlurry.style.opacity = "0";
                   bgBlurry.remove();
@@ -828,7 +828,7 @@ async function startupEvents() {
          event.target.classList.add("continents-dropdown--focus");
       });
       startButton.addEventListener("click", function () {
-         sessionStorage.setItem("continent", continent);
+         localStorage.setItem("continent", continent);
 
          bgBlurry.style.opacity = "0";
          bgBlurry.remove();
@@ -890,7 +890,7 @@ async function startupEvents() {
    }
 
    // Presentation
-   if (!sessionStorage.getItem("time") && !sessionStorage.getItem("continent")) {
+   if (!localStorage.getItem("time") && !localStorage.getItem("continent")) {
       await insertPresentation(body);
    } else {
       createNewGame();
@@ -1295,16 +1295,16 @@ function changeBtDarkMode() {
 
    let darkMode;
 
-   if (sessionStorage.getItem("darkMode") === "") {
+   if (localStorage.getItem("darkMode") === "") {
       if (
          window.matchMedia &&
          window.matchMedia("(prefers-color-scheme: dark)").matches
       ) {
-         sessionStorage.setItem("darkMode", "1");
-         darkMode = Number(sessionStorage.getItem("darkMode"));
+         localStorage.setItem("darkMode", "1");
+         darkMode = Number(localStorage.getItem("darkMode"));
       } else {
-         sessionStorage.setItem("darkMode", "0");
-         darkMode = Number(sessionStorage.getItem("darkMode"));
+         localStorage.setItem("darkMode", "0");
+         darkMode = Number(localStorage.getItem("darkMode"));
       }
       if (darkMode) {
          addClassDarkMode("activate");
@@ -1313,7 +1313,7 @@ function changeBtDarkMode() {
 
       return;
    } else {
-      darkMode = Number(sessionStorage.getItem("darkMode"));
+      darkMode = Number(localStorage.getItem("darkMode"));
    }
 
    if (darkMode) {
@@ -1338,12 +1338,12 @@ function changeBtDarkMode() {
          if (circle.style.left === "3px") {
             circle.style.left = "32px";
             btDarkMode.style.backgroundColor = "#0D336B";
-            sessionStorage.setItem("darkMode", "1");
+            localStorage.setItem("darkMode", "1");
             addClassDarkMode("activate");
          } else {
             circle.style.left = "3px";
             btDarkMode.style.backgroundColor = "#BFE1FF";
-            sessionStorage.setItem("darkMode", "0");
+            localStorage.setItem("darkMode", "0");
             addClassDarkMode("deactivate");
          }
       });

@@ -9,9 +9,9 @@ let freeTimeInterval = null;
 let timeInterval;
 
 // Functions
-function showResults(timeElapsed, game) {
+function showResults(game) {
    let body = document.getElementsByClassName("time-trial-mode")[0];
-   insertAnswerResults(body, game.correctAnswers, timeElapsed);
+   insertAnswerResults(body, game.correctAnswers);
    deleteAllLetters();
 }
 
@@ -39,7 +39,7 @@ function insertAnswerResults(element, correctAnswers, time) {
       ${correctAnswers}
     </span>
     <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">00:${time}</span>
+    <span class="answer-results__span">00:${game.time/1000}</span>
     </p>
     <a href="./game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
@@ -312,11 +312,11 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
-      }, 1500);
+      }, 1000);
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 1600);
+      }, 1100);
    }
 
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
@@ -373,6 +373,7 @@ async function createNewGame() {
       timerElement[0].textContent = formatTime(timeStorage);
       timeStorage -= 1000;
       countDown(timeStorage, timerElement[0]);
+      timeStorage += 1000;
    }
 
    const [flagImg] = document.getElementsByClassName("country__flag");
@@ -414,7 +415,6 @@ async function createNewGame() {
    };
 
    game = new NewGame(stateGame);
-   console.log(game);
 
    // Keyboards buttons event
    for (let element of buttonsKeyboard) {
@@ -478,7 +478,7 @@ function countDown(milliseconds, element) {
          if (milliseconds < 0) {
             clearInterval(timeInterval);
 
-            showResults(timeElapsed, game);
+            showResults(game);
          } else {
             let minutes = Math.floor(milliseconds / 60000);
             let seconds = Math.floor((milliseconds % 60000) / 1000);
@@ -571,7 +571,7 @@ function listenKeyboard(event) {
          setTimeout(() => {
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 1500);
+         }, 1000);
       }
 
       setTimeout(() => {
@@ -580,7 +580,7 @@ function listenKeyboard(event) {
             element.addEventListener("click", listenKeyboard);
          }
          document.addEventListener("keydown", listenKeyboard);
-      }, 1500);
+      }, 1000);
 
       return;
    }
@@ -623,7 +623,7 @@ function listenKeyboard(event) {
             element.style.border = "";
             element.style.backgroundColor = "";
          }
-      }, 1500);
+      }, 1000);
    }
 }
 
@@ -661,11 +661,9 @@ function userSelect() {
       title.style.userSelect = "none";
    });
    footerParagraph.addEventListener("mouseenter", function (event) {
-      console.log("Executing");
       footerParagraph.style.userSelect = "text";
    });
    footerParagraph.addEventListener("mouseleave", function (event) {
-      console.log("Executing");
       footerParagraph.style.userSelect = "none";
    });
 }
@@ -1140,6 +1138,11 @@ function mouseInCardInformation() {
       "game__bt-information"
    );
 
+   btInformation.removeEventListener("click", mouseClickCardInformation);
+   setTimeout(() => {
+      btInformation.addEventListener("click", mouseClickCardInformation);
+   }, 0);
+
    if (cardInformation) {
       btInformation.style.backgroundColor = "";
       cardInformation.remove();
@@ -1309,7 +1312,7 @@ function addIconAnimation(typeAnswer, url) {
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 1500);
+   }, 1000);
 }
 
 function insertInformation(event) {

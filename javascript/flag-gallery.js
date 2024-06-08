@@ -194,7 +194,7 @@ async function insertFeatures(countrie) {
          <ul class="features__list">
             <li class="features__item">
             Nombre oficial: <br />
-            ${country.name.official}
+            ${country.translations.spa.official}
             </li>
             <li class="features__item">
             Continenete: <br />
@@ -202,7 +202,7 @@ async function insertFeatures(countrie) {
             </li>
             <li class="features__item">
             Subregión: <br />
-            ${country.subregion}
+            ${country.subregion ? country.subregion : "--"}
             </li>
             <li class="features__item">
             Capital: <br />
@@ -871,32 +871,37 @@ function addMenuEvents() {
       "navbar__button--close"
    );
 
-   menuButtonOpen.addEventListener("click", function () {
-      menu.style.left = "0rem";
+   menuButtonOpen.addEventListener("click", function (event) {
+      if (menu.style.left === "-25rem" || menu.style.left === "") {
+         new Promise((resolve) => {
+            menu.style.left = "0rem";
+            resolve();
+         }).then((resolve) => {
+            setTimeout(() => {
+               document.addEventListener("click", closeNavbar);
+            }, 0);
+         });
+         return;
+      }
+      if (menu.style.left === "0rem") {
+         if (!menu.contains(event.target)) {
+            menu.style.left = "-25rem";
+            document.removeEventListener("click", closeNavbar);
+         }
+         return;
+      }
    });
+
+   function closeNavbar(event) {
+      if (!menu.contains(event.target)) {
+         menu.style.left = "-25rem";
+         document.removeEventListener("click", closeNavbar);
+      }
+   }
 
    menuButtonClose.addEventListener("click", function () {
       menu.style.left = "-25rem";
-   });
-
-   document.addEventListener("click", function (event) {
-      const menuButtonOpenSpan =
-         document.getElementsByClassName("navbar__icon");
-      if (
-         !Array.from(menuButtonOpenSpan).some((element) => {
-            return event.target === element;
-         }) &&
-         event.target !== menuButtonOpen
-      ) {
-         if (menu.style.left === "0rem") {
-            if (
-               !menu.contains(event.target) &&
-               !menuButtonClose.contains(event.target)
-            ) {
-               menu.style.left = "-25rem";
-            }
-         }
-      }
+      document.removeEventListener("click", closeNavbar);
    });
 
    document.addEventListener("keydown", (event) => {
@@ -1069,6 +1074,34 @@ function changeBtDarkMode() {
 }
 
 function activeBtSettings() {
+   function animationIn(element) {
+      element.style.height = "14rem";
+      element.style.width = "26rem";
+      element.style.opacity = "0";
+
+      setTimeout(() => {
+         element.style.opacity = "1";
+      }, 15);
+
+      setTimeout(() => {
+         element.style.height = "15rem";
+         element.style.width = "28rem";
+      }, 15);
+   }
+
+   async function animationOut(element) {
+      return new Promise((resolve) => {
+         element.style.height = "14rem";
+         element.style.width = "26rem";
+
+         setTimeout(() => {
+            element.style.opacity = "0";
+         }, 15);
+         setTimeout(() => {
+            resolve();
+         }, 100);
+      });
+   }
    const settingsHtml = `       
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
@@ -1094,15 +1127,13 @@ function activeBtSettings() {
 
    // Events
    btSettings.addEventListener("click", async () => {
-      await insertCardSettings("settings");
+      insertCardSettings();
    });
 
    async function insertCardSettings(type) {
       return new Promise((resolve) => {
          btSettings.blur();
-         if (type === "settings") {
-            body.insertAdjacentHTML("beforeend", settingsHtml);
-         }
+         body.insertAdjacentHTML("beforeend", settingsHtml);
 
          let [presentation] = document.getElementsByClassName(
             "presentation__section"
@@ -1112,9 +1143,9 @@ function activeBtSettings() {
             "presentation__header-link"
          );
 
-         if (type === "settings") {
-            presentation.classList.add("settings");
-         }
+         presentation.classList.add("settings");
+
+         animationIn(presentation);
 
          function listenOutsidePresent(event) {
             if (
@@ -1122,27 +1153,29 @@ function activeBtSettings() {
                event.target !== btSettings
             ) {
                if (presentation.classList.contains("settings")) {
-                  presentation.style.top = "-20rem";
-                  bgBlurry.style.opacity = "0";
-                  bgBlurry.remove();
-                  presentation.remove();
-                  document.removeEventListener("click", listenOutsidePresent);
+                  animationOut(presentation).then(() => {
+                     bgBlurry.remove();
+                     presentation.remove();
+                     document.removeEventListener(
+                        "click",
+                        listenOutsidePresent
+                     );
+                  });
                }
             }
          }
 
-         if (type === "settings") {
-            changeBtDarkMode();
-            closeIcon.addEventListener("click", function () {
-               presentation.style.top = "-20rem";
-               bgBlurry.style.opacity = "0";
+         changeBtDarkMode();
+
+         closeIcon.addEventListener("click", function () {
+            animationOut(presentation).then(() => {
                bgBlurry.remove();
                presentation.remove();
                document.removeEventListener("click", listenOutsidePresent);
             });
+         });
 
-            document.addEventListener("keydown", actPresentation);
-         }
+         document.addEventListener("keydown", actPresentation);
 
          document.addEventListener("click", listenOutsidePresent);
 
@@ -1151,20 +1184,17 @@ function activeBtSettings() {
          }
 
          function escPresentation(event, type) {
-            if (type === "settings") {
-               if (event.key === "Escape") {
-                  if (presentation) {
-                     presentation.style.top = "-20rem";
-                     bgBlurry.style.opacity = "0";
+            if (event.key === "Escape") {
+               if (presentation) {
+                  animationOut(presentation).then(() => {
                      bgBlurry.remove();
                      presentation.remove();
                      document.removeEventListener(
                         "click",
                         listenOutsidePresent
                      );
-
                      document.removeEventListener("keydown", actPresentation);
-                  }
+                  });
                }
             }
          }

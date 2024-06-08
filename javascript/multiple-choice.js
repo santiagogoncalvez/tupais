@@ -262,7 +262,6 @@ async function createNewGame() {
    };
 
    game = new MultipleChoice(stateGame);
-   console.log(game);
 
    showOptions(game);
 
@@ -371,11 +370,9 @@ function userSelect() {
       title.style.userSelect = "none";
    });
    footerParagraph.addEventListener("mouseenter", function (event) {
-      console.log("Executing");
       footerParagraph.style.userSelect = "text";
    });
    footerParagraph.addEventListener("mouseleave", function (event) {
-      console.log("Executing");
       footerParagraph.style.userSelect = "none";
    });
 }
@@ -408,6 +405,11 @@ function mouseInCardInformation() {
    const [btInformation] = document.getElementsByClassName(
       "game__bt-information"
    );
+
+   btInformation.removeEventListener("click", mouseClickCardInformation);
+   setTimeout(() => {
+      btInformation.addEventListener("click", mouseClickCardInformation);
+   }, 0);
 
    if (cardInformation) {
       btInformation.style.backgroundColor = "";

@@ -1,5 +1,5 @@
 // Manejador de datos de los países de rescountries.com pero sin hacerle solicitudes a la api, los datos están guardados en el proyecto.
-import countriesJson from "./countries.json" assert { type: "json" };
+import countriesJson from "./countries.json" with { type: "json" };
 
 function moreThan2Words(str) {
    let words = str.split(" ");

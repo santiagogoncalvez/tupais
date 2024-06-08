@@ -631,6 +631,8 @@ html {
    height: 12rem;
    transition: all 0.06s ease-in;
    z-index: 3;
+   padding-top: 7rem;
+   padding-bottom: 7rem;
 }
 
 .information-card__subtitle {

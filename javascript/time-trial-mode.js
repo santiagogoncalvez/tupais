@@ -908,7 +908,6 @@ async function startupEvents() {
                    </button>
                
                   <div class="presentation__div">
-                  <h2 class="presentation__subtitle">Configuración</h2>
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
@@ -1323,8 +1322,8 @@ function insertInformation(event) {
 
                 <p
                     class="information-card__paragraph"
-                    >En este formato hay que adivinar 10 países escribiendo sus
-                    nombres completos. Se pueden saltear los países.</p
+                    >En este formato hay que adivinar la mayor cantidad de países en
+               el menor tiempo posible antes de que se acabe el contador.</p
                 >
             </div>
         </div>

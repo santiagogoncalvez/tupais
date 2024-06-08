@@ -704,7 +704,6 @@ async function startupEvents() {
             </header>
 
             <div class="presentation__div">
-                <h3 class="presentation__subtitle">¿Cómo jugar?</h3>
 
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
@@ -1367,8 +1366,9 @@ function insertInformation(event) {
 
                 <p
                     class="information-card__paragraph"
-                    >En este formato hay que adivinar 10 países escribiendo sus
-                    nombres completos. Se pueden saltear los países.</p
+                    >En este formato hay que adivinar un pasís a partir de 10 pistas
+               que van a ir apareciendo. Cuantas menos pistas hayas utilizado
+               mejor va a ser tu puntaje de adivinanza.</p
                 >
             </div>
         </div>

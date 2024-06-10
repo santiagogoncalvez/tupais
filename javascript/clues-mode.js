@@ -1,4 +1,4 @@
-import { getRandomCountrie_Clues } from "../javascript/imports/countryDataManager.mjs";
+import { getRandomCountrie_Clues } from "../javascript/imports/countryDataManajerJson.mjs";
 import { Clues } from "./imports/classNewGame.mjs";
 
 // Bindings

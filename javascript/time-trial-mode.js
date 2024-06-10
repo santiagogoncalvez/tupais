@@ -1,5 +1,5 @@
 // Imports
-import { getRandomCountries } from "./imports/countryDataManager.mjs";
+import { getRandomCountries } from "./imports/countryDataManajerJson.mjs";
 import { NewGame } from "./imports/classNewGame.mjs";
 
 // Bindings

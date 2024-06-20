@@ -38,7 +38,9 @@ function insertAnswerResults(element, correctAnswers, time) {
       ${correctAnswers}
     </span>
     <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">${localStorage.getItem("time")/1000}s</span>
+    <span class="answer-results__span">${
+       localStorage.getItem("time") / 1000
+    }s</span>
     </p>
     <a href="./game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
@@ -225,7 +227,7 @@ function typeKey(key) {
       "z",
       "ç",
       "ñ",
-      "arrowright"
+      "arrowright",
    ];
    const enterString = "enter";
    const backspaceString = "backspace";
@@ -633,7 +635,7 @@ document.addEventListener("DOMContentLoaded", function () {
    changeBtDarkMode();
 
    // Manejar user select
-   userSelect()
+   userSelect();
 });
 
 function userSelect() {
@@ -1284,6 +1286,9 @@ function addIconAnimation(typeAnswer, url) {
    }
 
    blurryBackground.classList.add("overlappingBackground");
+   if (localStorage.getItem("darkMode") === "1") {
+      blurryBackground.classList.add("dark-mode__overlappingBackground");
+   }
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);

@@ -336,7 +336,6 @@ html {
    padding: 0;
    user-select: none;
    margin: 0;
-   margin-right: 0.3rem;
    transition: all 0.1s ease-in;
 }
 
@@ -396,8 +395,11 @@ html {
    border-radius: 10px;
    border-width: 0.18em;
    border-style: solid;
+   border-top-left-radius: 0rem;
+   border-bottom-left-radius: 0rem;
+
    z-index: 10;
-   transition: left 0.2s ease;
+   transition: left 0.25s ease;
    user-select: none;
 }
 
@@ -594,8 +596,9 @@ html {
    align-items: center;
    top: 0;
    right: 0;
-   margin-right: 0.3rem;
+   margin-right: 0.9rem;
    width: 1.2rem;
+   min-width: 1.2rem;
    height: 1.2rem;
    border-radius: 50%;
    background-color: #ffffff;
@@ -625,25 +628,25 @@ html {
    border-radius: 0.6rem;
    border-style: outset;
    border-color: rgba(245, 245, 245, 0.109);
-   margin-right: 0.8rem;
+   margin-right: 1.4rem;
    margin-top: 0.6rem;
-   width: 22rem;
+   width: 20rem;
    height: 12rem;
    transition: all 0.06s ease-in;
    z-index: 3;
-   padding-top: 7rem;
-   padding-bottom: 7rem;
+   padding-top: 6rem;
+   padding-bottom: 6rem;
 }
 
 .information-card__subtitle {
    margin-top: 1rem;
    margin-bottom: 0rem;
-   font-size: clamp(0.2px, 1.4rem, 6vw);
+   font-size: clamp(0.2px, 1.3rem, 6vw);
    color: #0d336bf1;
 }
 
 .information-card__paragraph {
-   font-size: clamp(0.2px, 1.1rem, 4vw);
+   font-size: clamp(0.2px, 1rem, 4vw);
    text-align: center;
    width: 100%;
    color: #0d336bf1;
@@ -1995,6 +1998,10 @@ html {
    background-color: white;
    border-radius: 0.4rem;
    z-index: 2;
+}
+
+.dark-mode__overlappingBackground {
+   background-color: #121f33;
 }
 
 .multiple-choice__iconAnswer--defoult {

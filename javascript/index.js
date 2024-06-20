@@ -475,7 +475,6 @@ function listenKeyboard(event) {
    }
 
    game = game.modifyAnswer(pressedKey, game.answerUser);
-   console.log(game);
 
    if (pressedKey === "backspace") {
       deleteLetter(game);
@@ -1012,16 +1011,16 @@ function outOfTarjetInformation(event) {
 
 function cardAnimationIn(element) {
    element.style.opacity = "0";
-   element.style.width = "21rem";
-   element.style.height = "11rem";
+   element.style.width = "20rem";
+   element.style.height = "9rem";
 
    setTimeout(() => {
       element.style.opacity = "1";
    }, 15);
 
    setTimeout(() => {
-      element.style.width = "22rem";
-      element.style.height = "12rem";
+      element.style.width = "21rem";
+      element.style.height = "10rem";
    }, 15);
 }
 
@@ -1116,6 +1115,9 @@ function addIconAnimation(typeAnswer, url) {
    }
 
    blurryBackground.classList.add("overlappingBackground");
+   if (localStorage.getItem("darkMode") === "1") {
+      blurryBackground.classList.add("dark-mode__overlappingBackground");
+   }
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);

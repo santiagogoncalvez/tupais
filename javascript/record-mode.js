@@ -1079,6 +1079,9 @@ function addIconAnimation(typeAnswer, url) {
    }
 
    blurryBackground.classList.add("overlappingBackground");
+   if (localStorage.getItem("darkMode") === "1") {
+      blurryBackground.classList.add("dark-mode__overlappingBackground");
+      }
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);

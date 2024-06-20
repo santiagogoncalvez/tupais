@@ -292,11 +292,11 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
-      }, 1500);
+      }, 1200);
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 1600);
+      }, 1400);
    }
 
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
@@ -445,7 +445,7 @@ function listenKeyboard(event) {
          if (game.correctAnswers === 10) {
             setTimeout(() => {
                showResults(game);
-            }, 1500);
+            }, 1200);
          }
 
          setTimeout(() => {
@@ -459,7 +459,7 @@ function listenKeyboard(event) {
             textChangeAnimation(remainingCountries);
             innerLetterElements(game.countries[0].name, answerContainer);
             game = game.resetAnswerUser();
-         }, 1500);
+         }, 1200);
       }
 
       setTimeout(() => {
@@ -469,7 +469,7 @@ function listenKeyboard(event) {
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
-      }, 1500);
+      }, 1200);
 
       return;
    }
@@ -512,7 +512,7 @@ function listenKeyboard(event) {
             element.style.border = "";
             element.style.backgroundColor = "";
          }
-      }, 1500);
+      }, 1200);
    }
 }
 
@@ -1131,7 +1131,7 @@ function addIconAnimation(typeAnswer, url) {
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 1500);
+   }, 1200);
 }
 
 function insertInformation(event) {

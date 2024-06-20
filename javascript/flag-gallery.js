@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", async function () {
    scrollUp.addEventListener("click", () => {
       window.scrollTo({
          top: 0,
-         behavior: "instant",
+         behavior: "smooth",
       });
    });
 
@@ -759,7 +759,7 @@ document.addEventListener("keydown", (event) => {
                top:
                   previewNamesItems[previewNamesItems.length - 1].offsetTop -
                   50,
-               behavior: "smooth",
+               behavior: "instant",
             });
 
             if (search.value !== "") {
@@ -773,7 +773,7 @@ document.addEventListener("keydown", (event) => {
          // Desplazar la vista de la lista al elemento
          previewNamesList.scrollTo({
             top: previewNamesItems[index].offsetTop - 50,
-            behavior: "smooth",
+            behavior: "instant",
          });
 
          previewNamesItems[index + 1].style.backgroundColor = "";
@@ -826,7 +826,7 @@ document.addEventListener("keydown", (event) => {
             // Desplazar la vista de la lista al elemento
             previewNamesList.scrollTo({
                top: previewNamesItems[0].offsetTop - 50,
-               behavior: "smooth",
+               behavior: "instant",
             });
 
             if (search.value !== "") {
@@ -840,7 +840,7 @@ document.addEventListener("keydown", (event) => {
          // Desplazar la vista de la lista al elemento
          previewNamesList.scrollTo({
             top: previewNamesItems[index].offsetTop - 50,
-            behavior: "smooth",
+            behavior: "instant",
          });
 
          previewNamesItems[index - 1].style.backgroundColor = "";

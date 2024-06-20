@@ -6,7 +6,7 @@ let game;
 
 // Functions
 function showResults(game) {
-   let body = document.getElementsByClassName("clues-mode")[0];
+   let [body] = document.getElementsByClassName("clues-mode");
    insertAnswerResults(body, game.shownClues);
    deleteAllLetters();
 }

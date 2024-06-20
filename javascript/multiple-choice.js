@@ -1,5 +1,4 @@
 // Imports
-import { getRandomCountries } from "./imports/countryDataManajerJson.mjs";
 import { MultipleChoice } from "./imports/classNewGame.mjs";
 
 // Bindigs
@@ -126,7 +125,7 @@ function typeResponse(game, element) {
       }
 
       if (type === "incomplete") {
-         responseDiv.textContent = "Palabra incompleta";
+         responseDiv.textContent = "Elige una opción";
          responseDiv.classList.add("incomplete");
       }
       element.appendChild(responseDiv);
@@ -148,7 +147,7 @@ function typeResponse(game, element) {
 
    // Incomplete options
    if (game.answerUser.length === 0) {
-      showTypeResponse("incomplete option", element);
+      showTypeResponse("incomplete", element);
       return;
    }
 
@@ -236,15 +235,6 @@ async function createNewGame() {
    let gameContinent = localStorage.getItem("continent")
       ? localStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountries(
-      gameContinent,
-      -1,
-      "../images/flags-svg"
-   );
-
-   flagImg.src = randomCountries[0].flagUrl;
-   let alt = `Bandera de ${randomCountries[0].name}`;
-   flagImg.alt = alt;
 
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
@@ -252,16 +242,11 @@ async function createNewGame() {
    correctAnswerSpan.textContent = "0";
    remainingCountries.textContent = "10";
 
-   let stateGame = {
-      continent: gameContinent,
-      countries: randomCountries,
-      answerUser: "",
-      correctAnswers: 0,
-      lastResponseStatus: false,
-      countriesShown: 0,
-   };
+   game = await MultipleChoice.create(gameContinent, -1, "../images/flags-svg");
 
-   game = new MultipleChoice(stateGame);
+   flagImg.src = game.countries[0].flagUrl;
+   let alt = `Bandera de ${game.countries[0].name}`;
+   flagImg.alt = alt;
 
    showOptions(game);
 
@@ -311,7 +296,7 @@ function sendAnswer() {
       textChangeAnimation(correctAnswerSpan);
    }
 
-   game = game.addCountryShown();
+   game = game.nextCountry();
 
    // Mostrar resultados
    if (game.countriesShown === 10) {
@@ -356,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
    changeBtDarkMode();
 
    // Manejar user select
-   userSelect()
+   userSelect();
 });
 
 function userSelect() {
@@ -607,7 +592,9 @@ function selectOption(event) {
    const optionBt = document.getElementsByClassName("multiple-choice__option");
    let optionSelect = event.target;
 
-   game = game.modifyAnswer(optionSelect.value, game.countries[0].name);
+
+   game = game.modifyAnswer(optionSelect.value);
+   console.log(game);
 
    optionSelect.style.backgroundColor = "#b3dbff";
    optionSelect.style.border = "0.25rem solid whitesmoke";
@@ -868,11 +855,11 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -1105,7 +1092,6 @@ function insertInformation(event) {
       }
    }
 }
-
 
 function changeBtDarkMode() {
    function addClassDarkMode(type) {

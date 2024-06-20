@@ -1,3 +1,6 @@
+import { getRandomCountries } from "./countryDataManajerJson.mjs";
+import { getRandomCountrieClues } from "./countryDataManajerJson.mjs";
+
 /* Structure game:
 let stateGame = {
     time: timeStorage,
@@ -10,46 +13,72 @@ let stateGame = {
 };
 */
 
+async function getData(continent, quantity, url) {
+   let result = await getRandomCountries(continent, quantity, url);
+   return result;
+}
+
 export class NewGame {
-   constructor(state) {
-      for (let property in state) {
-         this[property] = state[property];
-      }
+   constructor(
+      countriesData,
+      answerUser = "",
+      correctAnswers = 0,
+      lastResponseStatus = false
+   ) {
+      this.countries = countriesData;
+      this.answerUser = answerUser;
+      this.correctAnswers = correctAnswers;
+      this.lastResponseStatus = lastResponseStatus;
    }
 
-   modifyAnswer(pressedKey, lastAnswer) {
-      if (typeof pressedKey !== "string" || typeof lastAnswer !== "string") {
-         throw new Error(
-            `The arguments are not strings. pressedKey: ${pressedKey}, arrAnswer: ${lastAnswer}`
-         );
-      }
+   static async create(continent, quantity, url) {
+      let countries = await getData(continent, quantity, url);
+      return new NewGame(countries);
+   }
 
+   modifyAnswer(pressedKey) {
       let currentAnswer,
          countryName = this.countries[0].name.toLowerCase().replace(/\s/g, "");
 
       // Delete letter
       if (pressedKey === "backspace") {
          if (this.answerUser.length === 0) {
-            return new NewGame(this.modifyProperty());
+            return new NewGame(this.countries);
          }
-         currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
-         return new NewGame(this.modifyProperty({ answerUser: currentAnswer }));
+         currentAnswer = this.answerUser.slice(0, this.answerUser.length - 1);
+         return new NewGame(
+            this.countries,
+            currentAnswer,
+            this.correctAnswers,
+            this.lastResponseStatus
+         );
       }
 
       // completed word
       if (this.answerUser.length === countryName.length) {
-         return new NewGame(this.modifyProperty());
+         return new NewGame(
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            this.lastResponseStatus
+         );
       }
 
       if (this.answerUser.length === countryName.length) {
-         return new NewGame(this.modifyProperty());
+         return new NewGame(
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            this.lastResponseStatus
+         );
       }
 
-      currentAnswer = lastAnswer + pressedKey;
+      currentAnswer = this.answerUser + pressedKey;
       return new NewGame(
-         this.modifyProperty({
-            answerUser: currentAnswer,
-         })
+         this.countries,
+         currentAnswer,
+         this.correctAnswers,
+         this.lastResponseStatus
       );
    }
 
@@ -59,29 +88,29 @@ export class NewGame {
       // Incomplete answer
       if (answerUser.length !== countryName.length) {
          return new NewGame(
-            this.modifyProperty({
-               lastResponseStatus: false,
-            })
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            false
          );
       }
 
       // Incorrect answer
       if (answerUser !== countryName) {
          return new NewGame(
-            this.modifyProperty({
-               lastResponseStatus: false,
-            })
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            false
          );
       }
 
-      // Correct answer
-      let newState = this.modifyProperty({
-         correctAnswers: this.correctAnswers + 1,
-         lastResponseStatus: true,
-         countries: this.countries.slice(1, this.countries.length),
-      });
-
-      return new NewGame(newState);
+      return new NewGame(
+         this.countries.slice(1, this.countries.length),
+         this.answerUser,
+         this.correctAnswers + 1,
+         true
+      );
    }
 
    nextCountry() {
@@ -89,70 +118,81 @@ export class NewGame {
       let result = this.countries.slice(1, this.countries.length);
       result.push(first);
 
-      return new NewGame(this.modifyProperty({ countries: result }));
-   }
-
-   modifyProperty(state = {}) {
-      let result = {};
-
-      for (let property in this) {
-         result[property] = this[property];
-      }
-
-      for (let property in state) {
-         result[property] = state[property];
-      }
-
-      return result;
+      return new NewGame(
+         result,
+         this.answerUser,
+         this.correctAnswers,
+         this.lastResponseStatus
+      );
    }
 
    resetAnswerUser() {
-      return new NewGame(this.modifyProperty({ answerUser: "" }));
+      return new NewGame(
+         this.countries,
+         "",
+         this.correctAnswers,
+         this.lastResponseStatus
+      );
    }
 }
 
 export class MultipleChoice {
-   constructor(state) {
-      for (let property in state) {
-         this[property] = state[property];
-      }
+   constructor(
+      countriesData,
+      answerUser = "",
+      correctAnswers = 0,
+      lastResponseStatus = false
+   ) {
+      this.countries = countriesData;
+      this.answerUser = answerUser;
+      this.correctAnswers = correctAnswers;
+      this.lastResponseStatus = lastResponseStatus;
    }
 
-   modifyAnswer(enteredAnswer) {
-      if (typeof enteredAnswer !== "string") {
-         throw new Error(
-            `The arguments are not strings. enteredAnswer: ${enteredAnswer}`
-         );
-      }
+   static async create(continent, quantity, url) {
+      let countries = await getData(continent, quantity, url);
+      return new MultipleChoice(countries);
+   }
+
+   modifyAnswer(pressedKey) {
+      let currentAnswer = pressedKey;
       return new MultipleChoice(
-         this.modifyProperty({
-            answerUser: enteredAnswer,
-         })
+         this.countries,
+         currentAnswer,
+         this.correctAnswers,
+         this.lastResponseStatus
       );
    }
 
    verifyAnswer(answerUser, countryName) {
-      answerUser = answerUser.toLowerCase().replace(/\s/g, "");
       countryName = countryName.toLowerCase().replace(/\s/g, "");
+
+      // Incomplete answer
+      if (answerUser.length !== countryName.length) {
+         return new MultipleChoice(
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            false
+         );
+      }
 
       // Incorrect answer
       if (answerUser !== countryName) {
          return new MultipleChoice(
-            this.modifyProperty({
-               lastResponseStatus: false,
-               countries: this.countries.slice(1, this.countries.length),
-            })
+            this.countries,
+            this.answerUser,
+            this.correctAnswers,
+            false
          );
       }
 
-      // Correct answer
-      let newState = this.modifyProperty({
-         correctAnswers: this.correctAnswers + 1,
-         lastResponseStatus: true,
-         countries: this.countries.slice(1, this.countries.length),
-      });
-
-      return new MultipleChoice(newState);
+      return new MultipleChoice(
+         this.countries.slice(1, this.countries.length),
+         this.answerUser,
+         this.correctAnswers + 1,
+         true
+      );
    }
 
    nextCountry() {
@@ -160,31 +200,21 @@ export class MultipleChoice {
       let result = this.countries.slice(1, this.countries.length);
       result.push(first);
 
-      return new MultipleChoice(this.modifyProperty({ countries: result }));
-   }
-
-   modifyProperty(state = {}) {
-      let result = {};
-
-      for (let property in this) {
-         result[property] = this[property];
-      }
-
-      for (let property in state) {
-         result[property] = state[property];
-      }
-
-      return result;
-   }
-
-   addCountryShown() {
       return new MultipleChoice(
-         this.modifyProperty({ countriesShown: this.countriesShown + 1 })
+         result,
+         this.answerUser,
+         this.correctAnswers,
+         this.lastResponseStatus
       );
    }
 
    resetAnswerUser() {
-      return new MultipleChoice(this.modifyProperty({ answerUser: "" }));
+      return new MultipleChoice(
+         this.countries,
+         "",
+         this.correctAnswers,
+         this.lastResponseStatus
+      );
    }
 }
 

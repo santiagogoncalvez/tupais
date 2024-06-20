@@ -191,7 +191,7 @@ export async function getRandomCountries(
    });
 }
 
-export async function getRandomCountrie_Clues(continent, imageRute) {
+export async function getRandomCountrieClues(continent, imageRute) {
    return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
          "all continents",

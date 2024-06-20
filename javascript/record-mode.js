@@ -1,5 +1,4 @@
 // Imports
-import { getRandomCountries } from "./imports/countryDataManajerJson.mjs";
 import { NewGame } from "./imports/classNewGame.mjs";
 
 // Bindings
@@ -348,31 +347,19 @@ async function createNewGame() {
    let gameContinent = localStorage.getItem("continent")
       ? localStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountries(
-      gameContinent,
-      -1,
-      "../images/flags-svg"
-   );
-
-   innerLetterElements(randomCountries[0].name, answerContainer);
-   flagImg.src = randomCountries[0].flagUrl;
-   let alt = `Bandera de ${randomCountries[0].name}`;
-   flagImg.alt = alt;
 
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
    correctAnswerSpan.textContent = "0";
 
-   let stateGame = {
-      continent: gameContinent,
-      countries: randomCountries,
-      answerUser: "",
-      correctAnswers: 0,
-      lastResponseStatus: false,
-   };
+   game = await NewGame.create(gameContinent, -1, "../images/flags-svg");
+   console.log(game);
 
-   game = new NewGame(stateGame);
+   innerLetterElements(game.countries[0].name, answerContainer);
+   flagImg.src = game.countries[0].flagUrl;
+   let alt = `Bandera de ${game.countries[0].name}`;
+   flagImg.alt = alt;
 
    // Keyboards buttons event
    for (let element of buttonsKeyboard) {
@@ -448,7 +435,7 @@ function listenKeyboard(event) {
 
          setTimeout(() => {
             innerLetterElements(game.countries[0].name, answerContainer);
-            game = game.resetAnswerUser();
+            game = game.resetAnswerUser(game.countries);
          }, 1500);
       }
 
@@ -518,12 +505,12 @@ document.addEventListener("DOMContentLoaded", function () {
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
-   
+
    addMenuEvents();
    changeBtDarkMode();
 
    // Manejar user select
-   userSelect()
+   userSelect();
 });
 
 function userSelect() {
@@ -753,11 +740,11 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p

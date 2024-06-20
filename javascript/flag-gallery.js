@@ -1113,11 +1113,11 @@ function activeBtSettings() {
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+                  <img width="20" height="20" src="../images/icons-images/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
-                  <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  <img width="20" height="20" src="../images/icons-images/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>

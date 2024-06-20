@@ -1,4 +1,4 @@
-import { getRandomCountrie_Clues } from "../javascript/imports/countryDataManajerJson.mjs";
+import { getRandomCountrieClues } from "./imports/countryDataManajerJson.mjs";
 import { Clues } from "./imports/classNewGame.mjs";
 
 // Bindings
@@ -345,12 +345,10 @@ async function createNewGame() {
    let gameContinent = localStorage.getItem("continent")
       ? localStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountrie_Clues(
+   let randomCountries = await getRandomCountrieClues(
       gameContinent,
       "./images/flags-svg"
    );
-
-   innerLetterElements(randomCountries[0].name, answerContainer);
 
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
@@ -370,6 +368,7 @@ async function createNewGame() {
 
    game = new Clues(stateGame);
 
+   innerLetterElements(game.countries[0].name, answerContainer);
    insertClues(game);
 
    //Agregar eventos a boton next y previous
@@ -585,7 +584,7 @@ function listenKeyboard(event) {
          }
          document.addEventListener("keydown", listenKeyboard);
          nextBt.addEventListener("click", activeNextBt);
-         previousBt.addEventListener("click", activeNextBt);
+         previousBt.addEventListener("click", activePreviousBt);
       }, 1500);
 
       return;
@@ -893,11 +892,11 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/BFE1FF/sun--v1.png" alt="sun--v1" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/0D336B/moon-symbol.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="../images/icons-images/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p

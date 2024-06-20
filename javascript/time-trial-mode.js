@@ -1276,6 +1276,8 @@ function addIconAnimation(typeAnswer, url) {
       document.getElementsByClassName("country__container");
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
+   const [body] = document.getElementsByClassName("time-trial-mode");
+
 
    if (typeAnswer) {
       url += "/icons-correct.svg";
@@ -1286,7 +1288,7 @@ function addIconAnimation(typeAnswer, url) {
    }
 
    blurryBackground.classList.add("overlappingBackground");
-   if (localStorage.getItem("darkMode") === "1") {
+   if (body.classList.contains("dark-mode__page")) {
       blurryBackground.classList.add("dark-mode__overlappingBackground");
    }
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");

@@ -1327,10 +1327,11 @@ function addMenuEvents() {
 // Animación de icono de respuesta correcta o incorrecta
 function addIconAnimation(typeAnswer, url) {
    const [countryElement] = document.getElementsByClassName(
-      "clues-mode__sliderClues"
+      "clues-mode__container--1"
    );
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
+   const [body] = document.getElementsByClassName("clues-mode");
 
    if (typeAnswer) {
       url += "/icons-correct.svg";
@@ -1341,9 +1342,9 @@ function addIconAnimation(typeAnswer, url) {
    }
 
    blurryBackground.classList.add("overlappingBackground");
-   if (localStorage.getItem("darkMode") === "1") {
+   if (body.classList.contains("dark-mode__page")) {
       blurryBackground.classList.add("dark-mode__overlappingBackground");
-      }
+   }
    iconImg.classList.add("multiple-choice__iconAnswer--defoult");
 
    countryElement.appendChild(blurryBackground);

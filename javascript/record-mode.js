@@ -1185,6 +1185,7 @@ function changeBtDarkMode() {
       const [footerParagraph] =
          document.getElementsByClassName("footer__paragraph");
       const [btSettings] = document.getElementsByClassName("header__settings");
+      const [enter] = document.getElementsByClassName("keyboard__button--enter");
       const [startAgain] = document.getElementsByClassName("game__start-again");
       const [github] = document.getElementsByClassName("footer__icon-github");
       const navbarIcon = document.getElementsByClassName("navbar__icon");
@@ -1205,6 +1206,7 @@ function changeBtDarkMode() {
          main.classList.add("dark-mode__page");
          btSettings.classList.add("dark-mode__button-settings");
          navbarButton.classList.add("dark-mode__navbar-button-open");
+         enter.classList.add("dark-mode__enter");
          startAgain.classList.add("dark-mode__start-again");
          github.classList.add("dark-mode__github-bt");
 
@@ -1229,6 +1231,7 @@ function changeBtDarkMode() {
          main.classList.remove("dark-mode__page");
          btSettings.classList.remove("dark-mode__button-settings");
          navbarButton.classList.remove("dark-mode__navbar-button-open");
+         enter.classList.add("dark-mode__enter");
          startAgain.classList.remove("dark-mode__start-again");
          github.classList.remove("dark-mode__github-bt");
 

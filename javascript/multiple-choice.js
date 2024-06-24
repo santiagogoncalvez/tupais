@@ -1136,7 +1136,7 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          startAgain.classList.add("dark-mode__start-again");
          github.classList.add("dark-mode__github-bt");
-         send.classList.add("dark-mode__start-again");
+         send.classList.add("dark-mode__send");
 
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
@@ -1161,7 +1161,7 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          startAgain.classList.remove("dark-mode__start-again");
          github.classList.remove("dark-mode__github-bt");
-         send.classList.remove("dark-mode__start-again");
+         send.classList.remove("dark-mode__send");
 
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");

@@ -97,7 +97,7 @@ function changeBtDarkMode() {
             element.classList.add("dark-mode__navbar-icon");
          }
          for (let element of optionMode) {
-            element.classList.add("dark-mode__start-again");
+            element.classList.add("dark-mode__send");
          }
       }
 
@@ -117,7 +117,7 @@ function changeBtDarkMode() {
             element.classList.remove("dark-mode__navbar-icon");
          }
          for (let element of optionMode) {
-            element.classList.remove("dark-mode__start-again");
+            element.classList.remove("dark-mode__send");
          }
       }
    }

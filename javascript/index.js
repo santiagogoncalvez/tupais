@@ -409,6 +409,7 @@ function listenKeyboard(event) {
       nextBt.removeEventListener("click", activeNextBt);
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
+      console.log(game);
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
@@ -474,15 +475,16 @@ function listenKeyboard(event) {
       return;
    }
 
-   game = game.modifyAnswer(pressedKey, game.answerUser);
-
    if (pressedKey === "backspace") {
+      if (game.answerUser.length === 0) return;
+      game = game.modifyAnswer(pressedKey, game.answerUser);
       deleteLetter(game);
       return;
    }
 
    // other letter
    if (pressedKey !== "backspace") {
+      game = game.modifyAnswer(pressedKey, game.answerUser);
       insertLetter(game);
       return;
    }
@@ -1056,6 +1058,28 @@ function addMenuEvents() {
    const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
+   const [btGithub] = document.getElementsByClassName("footer__icon-github");
+   const [body] = document.getElementsByClassName("homepage");
+
+   btGithub.addEventListener("mouseover", () => {
+      if (body.classList.contains("dark-mode__page")) {
+         btGithub.style.backgroundImage =
+            "url('./images/icons-images/icons-github-dark-mode-hover.svg')";
+      } else {
+         btGithub.style.backgroundImage =
+            "url('./images/icons-images/icons-github.svg')";
+      }
+
+      btGithub.addEventListener("mouseout", () => {
+         if (body.classList.contains("dark-mode__page")) {
+            btGithub.style.backgroundImage =
+               "url('./images/icons-images/icons-github-dark-mode.svg')";
+         } else {
+            btGithub.style.backgroundImage =
+               "url('./images/icons-images/icons-github-hover.svg')";
+         }
+      });
+   });
 
    menuButtonOpen.addEventListener("click", function (event) {
       if (menu.style.left === "-25rem" || menu.style.left === "") {
@@ -1222,7 +1246,9 @@ function changeBtDarkMode() {
       const [footerParagraph] =
          document.getElementsByClassName("footer__paragraph");
       const [btSettings] = document.getElementsByClassName("header__settings");
-      const [enter] = document.getElementsByClassName("keyboard__button--enter");
+      const [enter] = document.getElementsByClassName(
+         "keyboard__button--enter"
+      );
       const [startAgain] = document.getElementsByClassName("game__start-again");
       const [github] = document.getElementsByClassName("footer__icon-github");
       const navbarIcon = document.getElementsByClassName("navbar__icon");
@@ -1245,7 +1271,8 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          enter.classList.add("dark-mode__enter");
          startAgain.classList.add("dark-mode__start-again");
-         github.classList.add("dark-mode__github-bt");
+         github.style.backgroundImage =
+            "url('../images/icons-images/icons-github-dark-mode.svg')";
 
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
@@ -1270,7 +1297,8 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          enter.classList.remove("dark-mode__enter");
          startAgain.classList.remove("dark-mode__start-again");
-         github.classList.remove("dark-mode__github-bt");
+         github.style.backgroundImage =
+            "url('../images/icons-images/icons-github-hover.svg')";
 
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");

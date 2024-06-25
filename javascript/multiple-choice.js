@@ -243,6 +243,7 @@ async function createNewGame() {
    remainingCountries.textContent = "10";
 
    game = await MultipleChoice.create(gameContinent, -1, "../images/flags-svg");
+   console.log(game);
 
    flagImg.src = game.countries[0].flagUrl;
    let alt = `Bandera de ${game.countries[0].name}`;
@@ -297,6 +298,7 @@ function sendAnswer() {
    }
 
    game = game.nextCountry();
+   console.log(game);
 
    // Mostrar resultados
    if (game.countriesShown === 10) {
@@ -491,6 +493,28 @@ function addMenuEvents() {
    const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
+   const [btGithub] = document.getElementsByClassName("footer__icon-github");
+   const [body] = document.getElementsByClassName("multiple-choice");
+
+   btGithub.addEventListener("mouseover", () => {
+      if (body.classList.contains("dark-mode__page")) {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github-dark-mode-hover.svg')";
+      } else {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github.svg')";
+      }
+
+      btGithub.addEventListener("mouseout", () => {
+         if (body.classList.contains("dark-mode__page")) {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-dark-mode.svg')";
+         } else {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-hover.svg')";
+         }
+      });
+   });
 
    menuButtonOpen.addEventListener("click", function (event) {
       if (menu.style.left === "-25rem" || menu.style.left === "") {
@@ -597,7 +621,6 @@ function selectOption(event) {
    let optionSelect = event.target;
 
    game = game.modifyAnswer(optionSelect.value);
-   console.log(game);
 
    optionSelect.style.backgroundColor = "#b3dbff";
    optionSelect.style.border = "0.25rem solid whitesmoke";

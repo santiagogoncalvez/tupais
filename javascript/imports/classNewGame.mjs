@@ -1,17 +1,10 @@
 import { getRandomCountries } from "./countryDataManajerJson.mjs";
 import { getRandomCountrieClues } from "./countryDataManajerJson.mjs";
 
-/* Structure game:
-let stateGame = {
-    time: timeStorage,
-    continent: gameContinent,
-    countries: randomCountries,
-    previousAnswerUser: "";
-    currentAnswerUser: "",
-    correctAnswers: 0,
-    lastResponseStatus: true;
-};
-*/
+async function getDataClues(continent, url) {
+   let result = await getRandomCountrieClues(continent, url);
+   return result;
+}
 
 async function getData(continent, quantity, url) {
    let result = await getRandomCountries(continent, quantity, url);
@@ -141,12 +134,14 @@ export class MultipleChoice {
       countriesData,
       answerUser = "",
       correctAnswers = 0,
-      lastResponseStatus = false
+      lastResponseStatus = false,
+      countriesShown = 0
    ) {
       this.countries = countriesData;
       this.answerUser = answerUser;
       this.correctAnswers = correctAnswers;
       this.lastResponseStatus = lastResponseStatus;
+      this.countriesShown = countriesShown;
    }
 
    static async create(continent, quantity, url) {
@@ -160,7 +155,8 @@ export class MultipleChoice {
          this.countries,
          currentAnswer,
          this.correctAnswers,
-         this.lastResponseStatus
+         this.lastResponseStatus,
+         this.countriesShown
       );
    }
 
@@ -173,7 +169,8 @@ export class MultipleChoice {
             this.countries,
             this.answerUser,
             this.correctAnswers,
-            false
+            false,
+            this.countriesShown
          );
       }
 
@@ -183,7 +180,8 @@ export class MultipleChoice {
             this.countries,
             this.answerUser,
             this.correctAnswers,
-            false
+            false,
+            this.countriesShown
          );
       }
 
@@ -191,7 +189,8 @@ export class MultipleChoice {
          this.countries.slice(1, this.countries.length),
          this.answerUser,
          this.correctAnswers + 1,
-         true
+         true,
+         this.countriesShown
       );
    }
 
@@ -204,7 +203,8 @@ export class MultipleChoice {
          result,
          this.answerUser,
          this.correctAnswers,
-         this.lastResponseStatus
+         this.lastResponseStatus,
+         this.countriesShown + 1
       );
    }
 
@@ -213,51 +213,70 @@ export class MultipleChoice {
          this.countries,
          "",
          this.correctAnswers,
-         this.lastResponseStatus
+         this.lastResponseStatus,
+         this.countriesShown
       );
    }
 }
 
 export class Clues {
-   constructor(state) {
-      for (let property in state) {
-         this[property] = state[property];
-      }
+   constructor(
+      countriesData,
+      answerUser = "",
+      lastResponseStatus = false,
+      shownClues = 1,
+      currentClue = 0
+   ) {
+      this.countries = countriesData;
+      this.answerUser = answerUser;
+      this.lastResponseStatus = lastResponseStatus;
+      this.shownClues = shownClues;
+      this.currentClue = currentClue;
    }
 
    modifyAnswer(pressedKey, lastAnswer) {
-      if (typeof pressedKey !== "string" || typeof lastAnswer !== "string") {
-         throw new Error(
-            `The arguments are not strings. pressedKey: ${pressedKey}, arrAnswer: ${lastAnswer}`
-         );
-      }
-
       let currentAnswer,
          countryName = this.countries[0].name.toLowerCase().replace(/\s/g, "");
 
       // Delete letter
       if (pressedKey === "backspace") {
          if (this.answerUser.length === 0) {
-            return new Clues(this.modifyProperty());
+            return new Clues(
+               this.countries,
+               this.answerUser,
+               this.lastResponseStatus,
+               this.shownClues,
+               this.currentClue
+            );
          }
          currentAnswer = lastAnswer.slice(0, lastAnswer.length - 1);
-         return new Clues(this.modifyProperty({ answerUser: currentAnswer }));
+         return new Clues(
+            this.countries,
+            currentAnswer,
+            this.lastResponseStatus,
+            this.shownClues,
+            this.currentClue
+         );
       }
 
       // completed word
       if (this.answerUser.length === countryName.length) {
-         return new Clues(this.modifyProperty());
-      }
-
-      if (this.answerUser.length === countryName.length) {
-         return new Clues(this.modifyProperty());
+         return new Clues(
+            this.countries,
+            this.answerUser,
+            this.lastResponseStatus,
+            this.shownClues,
+            this.currentClue
+         );
       }
 
       currentAnswer = lastAnswer + pressedKey;
       return new Clues(
-         this.modifyProperty({
-            answerUser: currentAnswer,
-         })
+         this.countries,
+         currentAnswer,
+         this.lastResponseStatus,
+         this.shownClues,
+         this.currentClue
       );
    }
 
@@ -267,63 +286,76 @@ export class Clues {
       // Incomplete answer
       if (answerUser.length !== countryName.length) {
          return new Clues(
-            this.modifyProperty({
-               lastResponseStatus: false,
-            })
+            this.countries,
+            this.answerUser,
+            false,
+            this.shownClues + 1,
+            this.currentClue
          );
       }
 
       // Incorrect answer
       if (answerUser !== countryName) {
          return new Clues(
-            this.modifyProperty({
-               lastResponseStatus: false,
-            })
+            this.countries,
+            this.answerUser,
+            false,
+            this.shownClues + 1,
+            this.currentClue
          );
       }
 
-      // Correct answer
-      let newState = this.modifyProperty({
-         correctAnswers: this.correctAnswers + 1,
-         lastResponseStatus: true,
-      });
-
-      return new Clues(newState);
-   }
-
-   modifyProperty(state = {}) {
-      let result = {};
-
-      for (let property in this) {
-         result[property] = this[property];
-      }
-
-      for (let property in state) {
-         result[property] = state[property];
-      }
-
-      return result;
+      return new Clues(
+         this.countries,
+         this.answerUser,
+         true,
+         this.shownClues,
+         this.currentClue
+      );
    }
 
    resetAnswerUser() {
-      return new Clues(this.modifyProperty({ answerUser: "" }));
+      return new Clues(
+         this.countries,
+         (this.answerUser = ""),
+         this.lastResponseStatus,
+         this.shownClues,
+         this.currentClue
+      );
    }
 
    addShownClue() {
       return new Clues(
-         this.modifyProperty({ shownClues: this.shownClues + 1 })
+         this.countries,
+         this.answerUser,
+         this.lastResponseStatus,
+         this.shownClues + 1,
+         this.currentClue
       );
    }
 
    addCurrentClue() {
       return new Clues(
-         this.modifyProperty({ currentClue: this.currentClue + 1 })
+         this.countries,
+         this.answerUser,
+         this.lastResponseStatus,
+         this.shownClues,
+         this.currentClue + 1
       );
    }
 
    substractCurrentClue() {
       return new Clues(
-         this.modifyProperty({ currentClue: this.currentClue - 1 })
+         this.countries,
+         this.answerUser,
+         this.lastResponseStatus,
+         this.shownClues,
+         this.currentClue - 1
       );
+   }
+
+   static async create(continent, url) {
+      let countries = await getDataClues(continent, url);
+      return new Clues(countries);
    }
 }

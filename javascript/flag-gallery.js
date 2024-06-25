@@ -636,12 +636,17 @@ async function activeSearchBt(event) {
    const [galleryContainer] = document.getElementsByClassName(
       "flag-gallery__container--1"
    );
+   const [loadingImg] = document.getElementsByClassName(
+      "loading-animation"
+   );
+   const [body] = document.getElementsByClassName(
+      "flag-gallery"
+   );
+
+   body.style.position = "fixed";
 
    const loadingBackground = document.createElement("div");
-   const loagingImg = document.createElement("img");
-
-   document.body.style.overflow = "hidden";
-
+   
    galleryContainer.appendChild(loadingBackground);
    loadingBackground.classList.add("overlappingBackground__flag-gallery");
    localStorage.getItem("darkMode") === "1"
@@ -649,23 +654,21 @@ async function activeSearchBt(event) {
       : null;
    loadingBackground.style.height = `${galleryContainer.clientHeight}px`;
 
-   loagingImg.src = "../images/icons-images/icons-loading.gif";
-   loagingImg.alt = "Cargando gif";
-   loagingImg.classList.add("flag-gallery__loading");
-   galleryContainer.appendChild(loagingImg);
+   loadingImg.style.display = "block";
+   loadingImg.style.opacity = "1";
 
    if (event.target !== btHome) await searchItem();
    if (event.target === btHome) await searchItemHome();
 
    setTimeout(() => {
       loadingBackground.style.opacity = "0";
-      loagingImg.style.opacity = "0";
+      loadingImg.style.opacity = "0";
    }, 1500);
 
    setTimeout(() => {
       loadingBackground.remove();
-      loagingImg.remove();
-      document.body.style.overflow = "";
+      loadingImg.style.display = "none";
+      body.style.position = "initial";
    }, 1800);
 }
 
@@ -870,6 +873,28 @@ function addMenuEvents() {
    const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
+   const [btGithub] = document.getElementsByClassName("footer__icon-github");
+   const [body] = document.getElementsByClassName("flag-gallery");
+
+   btGithub.addEventListener("mouseover", () => {
+      if (body.classList.contains("dark-mode__page")) {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github-dark-mode-hover.svg')";
+      } else {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github.svg')";
+      }
+
+      btGithub.addEventListener("mouseout", () => {
+         if (body.classList.contains("dark-mode__page")) {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-dark-mode.svg')";
+         } else {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-hover.svg')";
+         }
+      });
+   });
 
    menuButtonOpen.addEventListener("click", function (event) {
       if (menu.style.left === "-25rem" || menu.style.left === "") {
@@ -958,6 +983,7 @@ function changeBtDarkMode() {
          "flag-gallery__subtitle"
       );
       const [github] = document.getElementsByClassName("footer__icon-github");
+      const [loading] = document.getElementsByClassName("loading-animation__circle");
       const infoButton = document.getElementsByClassName(
          "flag-gallery__button-info"
       );
@@ -977,6 +1003,7 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          github.classList.add("dark-mode__github-bt");
          subtitle.classList.add("dark-mode__game-text");
+         loading.classList.add("dark-mode__loading-animation");
 
          for (let element of navbarIcon) {
             element.classList.add("dark-mode__navbar-icon");
@@ -1000,6 +1027,7 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          github.classList.remove("dark-mode__github-bt");
          subtitle.classList.remove("dark-mode__game-text");
+         loading.classList.remove("dark-mode__loading-animation");
 
          for (let element of navbarIcon) {
             element.classList.remove("dark-mode__navbar-icon");

@@ -1,4 +1,3 @@
-import { getRandomCountrieClues } from "./imports/countryDataManajerJson.mjs";
 import { Clues } from "./imports/classNewGame.mjs";
 
 // Bindings
@@ -345,10 +344,6 @@ async function createNewGame() {
    let gameContinent = localStorage.getItem("continent")
       ? localStorage.getItem("continent")
       : "all continents";
-   let randomCountries = await getRandomCountrieClues(
-      gameContinent,
-      "./images/flags-svg"
-   );
 
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
@@ -356,17 +351,8 @@ async function createNewGame() {
    numberClues.textContent = "1";
    scoreClues.textContent = "10";
 
-   let stateGame = {
-      continent: gameContinent,
-      countries: randomCountries,
-      answerUser: "",
-      correctAnswers: 0,
-      lastResponseStatus: false,
-      shownClues: 1,
-      currentClue: 0,
-   };
-
-   game = new Clues(stateGame);
+   game = await Clues.create(gameContinent, "../images/flags-svg");
+   console.log(game);
 
    innerLetterElements(game.countries[0].name, answerContainer);
    insertClues(game);
@@ -570,11 +556,9 @@ function listenKeyboard(event) {
          correcLetterAnimation();
          addIconAnimation(game.lastResponseStatus, "../images/icons-images");
          // Show results
-         if (game.correctAnswers === 1) {
-            setTimeout(() => {
-               showResults(game);
-            }, 1500);
-         }
+         setTimeout(() => {
+            showResults(game);
+         }, 1500);
       }
 
       setTimeout(() => {
@@ -590,15 +574,16 @@ function listenKeyboard(event) {
       return;
    }
 
-   game = game.modifyAnswer(pressedKey, game.answerUser);
-
    if (pressedKey === "backspace") {
+      if (game.answerUser.length === 0) return;
+      game = game.modifyAnswer(pressedKey, game.answerUser);
       deleteLetter(game);
       return;
    }
 
    // other letter
    if (pressedKey !== "backspace") {
+      game = game.modifyAnswer(pressedKey, game.answerUser);
       insertLetter(game);
       return;
    }
@@ -1281,6 +1266,28 @@ function addMenuEvents() {
    const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
+   const [btGithub] = document.getElementsByClassName("footer__icon-github");
+   const [body] = document.getElementsByClassName("clues-mode");
+
+   btGithub.addEventListener("mouseover", () => {
+      if (body.classList.contains("dark-mode__page")) {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github-dark-mode-hover.svg')";
+      } else {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github.svg')";
+      }
+
+      btGithub.addEventListener("mouseout", () => {
+         if (body.classList.contains("dark-mode__page")) {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-dark-mode.svg')";
+         } else {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-hover.svg')";
+         }
+      });
+   });
 
    menuButtonOpen.addEventListener("click", function (event) {
       if (menu.style.left === "-25rem" || menu.style.left === "") {
@@ -1447,7 +1454,9 @@ function changeBtDarkMode() {
       const [footerParagraph] =
          document.getElementsByClassName("footer__paragraph");
       const [btSettings] = document.getElementsByClassName("header__settings");
-      const [enter] = document.getElementsByClassName("keyboard__button--enter");
+      const [enter] = document.getElementsByClassName(
+         "keyboard__button--enter"
+      );
       const [startAgain] = document.getElementsByClassName("game__start-again");
       const [github] = document.getElementsByClassName("footer__icon-github");
       const navbarIcon = document.getElementsByClassName("navbar__icon");

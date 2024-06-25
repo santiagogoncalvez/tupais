@@ -7,6 +7,28 @@ function addMenuEvents() {
    const [menuButtonClose] = document.getElementsByClassName(
       "navbar__button--close"
    );
+   const [btGithub] = document.getElementsByClassName("footer__icon-github");
+   const [body] = document.getElementsByClassName("game-modes");
+
+   btGithub.addEventListener("mouseover", () => {
+      if (body.classList.contains("dark-mode__page")) {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github-dark-mode-hover.svg')";
+      } else {
+         btGithub.style.backgroundImage =
+            "url('../images/icons-images/icons-github.svg')";
+      }
+
+      btGithub.addEventListener("mouseout", () => {
+         if (body.classList.contains("dark-mode__page")) {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-dark-mode.svg')";
+         } else {
+            btGithub.style.backgroundImage =
+               "url('../images/icons-images/icons-github-hover.svg')";
+         }
+      });
+   });
 
    menuButtonOpen.addEventListener("click", function (event) {
       if (menu.style.left === "-25rem" || menu.style.left === "") {

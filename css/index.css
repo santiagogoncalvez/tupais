@@ -602,9 +602,9 @@ html {
    height: 1.2rem;
    border-radius: 50%;
    background-color: #ffffff;
-   border: 2px solid rgb(43, 42, 42);
+   border: 2px solid rgb(110, 110, 110);
    font-size: clamp(0.2px, 0.9rem, 5vw);
-   color: rgb(37, 37, 37);
+   color: rgb(110, 110, 110);
    font-weight: 700;
    user-select: none;
    transition: all 0.1s ease;
@@ -982,7 +982,8 @@ html {
 
 .keyboard__button--enter {
    background-color: #ea7217;
-   color: rgba(255, 248, 241, 0.91);
+   color: rgb(255, 247, 241);
+   font-weight: 700;
 }
 
 .keyboard__button:hover {
@@ -1094,7 +1095,7 @@ html {
 
 .footer__icon-github:hover {
    cursor: pointer;
-   background-image: url("../images/icons-images/icons-github.svg");
+   /* background-image: url("../images/icons-images/icons-github.svg"); */
 }
 
 /* Animacion respuestas */
@@ -1639,7 +1640,7 @@ html {
    max-height: 13.5rem;
    width: 15rem;
    max-width: 50vw;
-   border-radius: 0.5rem;
+   border-radius: 0.4rem;
    border: 0.2rem solid transparent;
    background-color: rgb(230, 230, 230);
    padding-top: 0.5rem;
@@ -1692,6 +1693,50 @@ html {
    display: none;
 }
 
+.loading-animation {
+   width: 3.25em;
+   transform-origin: center;
+   animation: rotate4 2s linear infinite;
+   position: absolute;
+   top: 18vh;
+   display: none;
+   z-index: 2;
+   user-select: none;
+  }
+  
+  .loading-animation__circle {
+   fill: none;
+   stroke: #0d336b;
+   stroke-width: 3;
+   stroke-dasharray: 1, 200;
+   stroke-dashoffset: 0;
+   stroke-linecap: round;
+   animation: dash4 1.5s ease-in-out infinite;
+   user-select: none;
+  }
+  
+  @keyframes rotate4 {
+   100% {
+    transform: rotate(360deg);
+   }
+  }
+  
+  @keyframes dash4 {
+   0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+   }
+  
+   50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+   }
+  
+   100% {
+    stroke-dashoffset: -125px;
+   }
+  }
+
 .preview-names__item--not-found {
    display: flex;
    justify-content: start;
@@ -1724,6 +1769,7 @@ html {
    margin-bottom: 4rem;
    margin-top: 2rem;
    z-index: 0;
+   position: relative;
 }
 
 .flag-gallery__list {
@@ -1965,13 +2011,13 @@ html {
    border-radius: 50%;
    width: 20px;
    height: 20px;
-   transition: all 0.1s ease-in;
+   transition: all 0.1s ease;
 }
 
 .flag-gallery__button-info:hover {
    background-color: #1f52a0;
    color: white;
-   border-color: white;
+   border-color: #1f52a0;
    cursor: pointer;
 }
 
@@ -2129,8 +2175,8 @@ html {
    background-color: #ea7217;
    cursor: pointer;
    user-select: none;
-   color: rgba(255, 248, 241, 0.91);
-   font-weight: 500;
+   color: rgb(255, 247, 241);
+   font-weight: 700;
    font-size: clamp(0.2px, 1.2rem, 4vw);
    text-align: center;
    margin: 0;
@@ -2149,7 +2195,7 @@ html {
 
 .overlappingBackground__flag-gallery {
    position: absolute;
-   width: 100%;
+   width: 100vw;
    min-height: 80vh;
    background-color: white;
    z-index: 1;
@@ -2854,10 +2900,6 @@ html {
    background-image: url("../images/icons-images/icons-github-dark-mode.svg");
 }
 
-.dark-mode__github-bt:hover {
-   background-image: url("../images/icons-images/icons-github-dark-mode-hover.svg");
-}
-
 /* Boton dark-mode */
 .dark-mode-bt {
    position: relative;
@@ -2891,4 +2933,8 @@ html {
    position: absolute;
    left: 3px;
    border: 1.5px solid #0d336b;
+}
+
+.dark-mode__loading-animation {
+   stroke: #bfe1ff;
 }

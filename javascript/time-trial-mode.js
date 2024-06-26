@@ -397,7 +397,6 @@ async function createNewGame() {
    correctAnswerSpan.textContent = "0";
 
    game = await NewGame.create(gameContinent, -1, "../images/flags-svg");
-   console.log(game);
 
    innerLetterElements(game.countries[0].name, answerContainer);
    flagImg.src = game.countries[0].flagUrl;
@@ -679,9 +678,8 @@ async function startupEvents() {
             <div class="presentation__div">
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si llegas a las 10 respuestas
-                    correctas ¡Ganás!
+                    geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
+                    . Si completas las respuestas correctamente ¡Ganás!
                 </p>
 
                 <p
@@ -727,23 +725,6 @@ async function startupEvents() {
                         OCEANÍA
                     </option>
                 </select>
-
-                <p
-                       class="presentation__label-time"
-                       >Elige el tiempo</p
-                   >
-
-                   <div class="presentation__div-time">
-                     <button class="presentation__button-time" title="15 segundos" type="button"
-                       ><span>00:15</span></button
-                   >
-                   <button class="presentation__button-time" title="30 segundos" type="button"
-                       ><span>00:30</span></button
-                   >
-                   <button class="presentation__button-time" title="1 minuto" type="button"
-                       ><span>1:00</span></button
-                   >
-                   </div>
 
                 <button class="presentation__button-start" title="Empezar" type="button"
                     ><span>EMPEZAR</span></button
@@ -1212,12 +1193,18 @@ async function cardAnimationOut(element) {
 
 function activeNextBt() {
    const [nextBt] = document.getElementsByClassName("country__btNext");
-   const [answerContainer] = document.getElementsByClassName("game__answer");
    nextBt.blur();
-   game = game.resetAnswerUser();
+   const [flagImg] = document.getElementsByClassName("country__flag");
+   const [answerContainer] = document.getElementsByClassName("game__answer");
+
+   flagImg.addEventListener("load", flagLoaded);
+   function flagLoaded() {
+      innerLetterElements(game.countries[0].name, answerContainer);
+      flagImg.removeEventListener("load", flagLoaded);
+   }
+   game = game.resetAnswerUser(game.countries);
    game = game.nextCountry();
    showNewFlag(game);
-   innerLetterElements(game.countries[0].name, answerContainer);
 }
 
 function addMenuEvents() {

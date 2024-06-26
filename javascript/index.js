@@ -358,7 +358,6 @@ async function createNewGame() {
    remainingCountries.textContent = "10";
 
    game = await NewGame.create(gameContinent, -1, "./images/flags-svg");
-   console.log(game);
 
    innerLetterElements(game.countries[0].name, answerContainer);
    flagImg.src = game.countries[0].flagUrl;
@@ -409,7 +408,6 @@ function listenKeyboard(event) {
       nextBt.removeEventListener("click", activeNextBt);
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
-      console.log(game);
 
       typeResponse(game, document.getElementsByClassName("homepage")[0]);
 
@@ -540,9 +538,8 @@ async function startupEvents() {
             <div class="presentation__div">
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si llegas a las 10 respuestas
-                    correctas ¡Ganás!
+                    geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
+                    . Si completas las respuestas correctamente ¡Ganás!
                 </p>
 
                 <p
@@ -1042,12 +1039,18 @@ async function cardAnimationOut(element) {
 
 function activeNextBt() {
    const [nextBt] = document.getElementsByClassName("country__btNext");
-   const [answerContainer] = document.getElementsByClassName("game__answer");
    nextBt.blur();
+   const [flagImg] = document.getElementsByClassName("country__flag");
+   const [answerContainer] = document.getElementsByClassName("game__answer");
+
+   flagImg.addEventListener("load", flagLoaded);
+   function flagLoaded() {
+      innerLetterElements(game.countries[0].name, answerContainer);
+      flagImg.removeEventListener("load", flagLoaded);
+   }
    game = game.resetAnswerUser(game.countries);
    game = game.nextCountry();
    showNewFlag(game);
-   innerLetterElements(game.countries[0].name, answerContainer);
 }
 
 function addMenuEvents() {
@@ -1272,7 +1275,7 @@ function changeBtDarkMode() {
          enter.classList.add("dark-mode__enter");
          startAgain.classList.add("dark-mode__start-again");
          github.style.backgroundImage =
-            "url('../images/icons-images/icons-github-dark-mode.svg')";
+            "url('./images/icons-images/icons-github-dark-mode.svg')";
 
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
@@ -1298,7 +1301,7 @@ function changeBtDarkMode() {
          enter.classList.remove("dark-mode__enter");
          startAgain.classList.remove("dark-mode__start-again");
          github.style.backgroundImage =
-            "url('../images/icons-images/icons-github-hover.svg')";
+            "url('./images/icons-images/icons-github-hover.svg')";
 
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");

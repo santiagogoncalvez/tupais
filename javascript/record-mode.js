@@ -354,7 +354,6 @@ async function createNewGame() {
    correctAnswerSpan.textContent = "0";
 
    game = await NewGame.create(gameContinent, -1, "../images/flags-svg");
-   console.log(game);
 
    innerLetterElements(game.countries[0].name, answerContainer);
    flagImg.src = game.countries[0].flagUrl;
@@ -552,12 +551,10 @@ async function startupEvents() {
             </header>
 
             <div class="presentation__div">
-
                 <p class="presentation__paragraph">
                     <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si llegas a las 10 respuestas
-                    correctas ¡Ganás!
+                    geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
+                    . Si completas las respuestas correctamente ¡Ganás!
                 </p>
 
                 <p

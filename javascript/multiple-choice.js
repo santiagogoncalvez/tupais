@@ -243,7 +243,6 @@ async function createNewGame() {
    remainingCountries.textContent = "10";
 
    game = await MultipleChoice.create(gameContinent, -1, "../images/flags-svg");
-   console.log(game);
 
    flagImg.src = game.countries[0].flagUrl;
    let alt = `Bandera de ${game.countries[0].name}`;
@@ -298,7 +297,6 @@ function sendAnswer() {
    }
 
    game = game.nextCountry();
-   console.log(game);
 
    // Mostrar resultados
    if (game.countriesShown === 10) {
@@ -683,73 +681,71 @@ async function startupEvents() {
 
    async function insertPresentation(body) {
       const presentationHtml = `        
-            <div class="presentation__section">
-            <button class="presentation__header-link" title="Cerrar" type="button"
-                    >
-                </button>
-            <header class="presentation__header">
-                <h2 class="presentation__header-title">TU PAÍS</h2>   
-            </header>
+      <div class="presentation__section">
+      <button class="presentation__header-link" title="Cerrar" type="button"
+              >
+          </button>
+      <header class="presentation__header">
+          <h2 class="presentation__header-title">TU PAÍS</h2>   
+      </header>
 
-            <div class="presentation__div">
+      <div class="presentation__div">
+          <p class="presentation__paragraph">
+              <strong>TU PAÍS</strong> es un juego de adivinanzas
+              geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
+              . Si completas las respuestas correctamente ¡Ganás!
+          </p>
 
-                <p class="presentation__paragraph">
-                    <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si llegas a las 10 respuestas
-                    correctas ¡Ganás!
-                </p>
+          <p
+              class="presentation__label-continents"
+              >Elige el continente de los paises</p
+          >
 
-                <p
-                    class="presentation__label-continents"
-                    >Elige el continente de los paises</p
-                >
+          <select name="countries" title="countries" class="continents-dropdown">
+              <option
+                  value="all continents"
+                  class="presentation__continents-dropdown-option"
+              >
+                  TODO EL MUNDO
+              </option>
+              <option
+                  value="africa"
+                  class="presentation__continents-dropdown-option"
+              >
+                  ÁFRICA
+              </option>
+              <option
+                  value="americas"
+                  class="presentation__continents-dropdown-option"
+              >
+                  AMÉRICA
+              </option>
+              <option
+                  value="asia"
+                  class="presentation__continents-dropdown-option"
+              >
+                  ASIA
+              </option>
+              <option
+                  value="europe"
+                  class="presentation__continents-dropdown-option"
+              >
+                  EUROPA
+              </option>
+              <option
+                  value="oceania"
+                  class="presentation__continents-dropdown-option"
+              >
+                  OCEANÍA
+              </option>
+          </select>
 
-                <select name="countries" title="countries" class="continents-dropdown">
-                    <option
-                        value="all continents"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        TODO EL MUNDO
-                    </option>
-                    <option
-                        value="africa"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ÁFRICA
-                    </option>
-                    <option
-                        value="americas"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        AMÉRICA
-                    </option>
-                    <option
-                        value="asia"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ASIA
-                    </option>
-                    <option
-                        value="europe"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        EUROPA
-                    </option>
-                    <option
-                        value="oceania"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        OCEANÍA
-                    </option>
-                </select>
-
-                <button class="presentation__button-start" title="Empezar" type="button"
-                    ><span>EMPEZAR</span></button
-                >
-            </div>
-        </div>
-        <div class="blurry-background"></div>
+          <button class="presentation__button-start" title="Empezar" type="button"
+              ><span>EMPEZAR</span></button
+          >
+      </div>
+  </div>
+  <div class="blurry-background"></div>
 `;
       return new Promise((resolve) => {
          btSettings.blur();

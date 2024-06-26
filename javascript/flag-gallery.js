@@ -567,11 +567,16 @@ async function searchItem() {
       }
 
       const [flagList] = document.getElementsByClassName("flag-gallery__list");
-      const item = document.createElement("li");
-      item.textContent = "No se encontraron resultados";
-      item.classList.add("flag-gallery__item--not-found");
-      item.style.display = "block";
-      flagList.appendChild(item);
+      const [body] = document.getElementsByClassName("flag-gallery");
+      if (!itemNotFound) {
+         const item = document.createElement("li");
+         item.textContent = "No se encontraron resultados";
+         item.classList.add("flag-gallery__item--not-found");
+         flagList.appendChild(item);
+         if (body.classList.contains("dark-mode__page")) {
+            item.classList.add("dark-mode__game-text");
+         }
+      }
    }, 500);
 
    inputSearch.blur();
@@ -631,22 +636,25 @@ async function searchItemHome() {
 
 // Search
 async function activeSearchBt(event) {
+   const [loadingImg] = document.getElementsByClassName("loading-animation");
+   if (loadingImg.style.display === "block") return;
+      
    const [btHome] = document.getElementsByClassName("flag-gallery__home");
 
    const [galleryContainer] = document.getElementsByClassName(
       "flag-gallery__container--1"
    );
-   const [loadingImg] = document.getElementsByClassName(
-      "loading-animation"
-   );
-   const [body] = document.getElementsByClassName(
-      "flag-gallery"
-   );
+   
+   const [body] = document.getElementsByClassName("flag-gallery");
+   const [btSearch] = document.getElementsByClassName("flag-gallery__btSearch");
+
+   btSearch.removeEventListener("click", activeSearchBt);
+   btHome.removeEventListener("click", activeSearchBt);
 
    body.style.position = "fixed";
 
    const loadingBackground = document.createElement("div");
-   
+
    galleryContainer.appendChild(loadingBackground);
    loadingBackground.classList.add("overlappingBackground__flag-gallery");
    localStorage.getItem("darkMode") === "1"
@@ -663,13 +671,15 @@ async function activeSearchBt(event) {
    setTimeout(() => {
       loadingBackground.style.opacity = "0";
       loadingImg.style.opacity = "0";
-   }, 1500);
+   }, 1000);
 
    setTimeout(() => {
       loadingBackground.remove();
       loadingImg.style.display = "none";
       body.style.position = "initial";
-   }, 1800);
+      btSearch.addEventListener("click", activeSearchBt);
+      btHome.addEventListener("click", activeSearchBt);
+   }, 1300);
 }
 
 document.addEventListener("click", (event) => {
@@ -983,7 +993,12 @@ function changeBtDarkMode() {
          "flag-gallery__subtitle"
       );
       const [github] = document.getElementsByClassName("footer__icon-github");
-      const [loading] = document.getElementsByClassName("loading-animation__circle");
+      const [loading] = document.getElementsByClassName(
+         "loading-animation__circle"
+      );
+      const [itemNotFound] = document.getElementsByClassName(
+         "flag-gallery__item--not-found"
+      );
       const infoButton = document.getElementsByClassName(
          "flag-gallery__button-info"
       );
@@ -1004,6 +1019,9 @@ function changeBtDarkMode() {
          github.classList.add("dark-mode__github-bt");
          subtitle.classList.add("dark-mode__game-text");
          loading.classList.add("dark-mode__loading-animation");
+         if (itemNotFound) {
+            itemNotFound.classList.add("dark-mode__game-text");
+         }
 
          for (let element of navbarIcon) {
             element.classList.add("dark-mode__navbar-icon");
@@ -1028,6 +1046,9 @@ function changeBtDarkMode() {
          github.classList.remove("dark-mode__github-bt");
          subtitle.classList.remove("dark-mode__game-text");
          loading.classList.remove("dark-mode__loading-animation");
+         if (itemNotFound) {
+            itemNotFound.classList.remove("dark-mode__game-text");
+         }
 
          for (let element of navbarIcon) {
             element.classList.remove("dark-mode__navbar-icon");

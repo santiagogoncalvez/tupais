@@ -1,12 +1,6 @@
 //API countries:  "https://restcountries.com"
 // API flags of countries: "https://flagcdn.com"
 
-/*
-Recomendaciones:
-    -Englobar la funcion de pedir un pais en otra funcion y que devuelva el json, por ejemplo getCoutry() o getAPI()-
-    - Escribir los url concatenando strings asi no se generan errores 404
-*/
-
 function moreThan2Words(str) {
    let words = str.split(" ");
    return words.length >= 3;

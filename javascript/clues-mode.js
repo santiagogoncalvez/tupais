@@ -377,6 +377,8 @@ async function createNewGame() {
 }
 
 function insertClues(game) {
+   console.log(game);
+   const coatOfArmsPath = "../images/coat-of-arms";
    const cluesItem = document.getElementsByClassName("clues-mode__clues-item");
    let cluesPropertys = Object.keys(game.countries[0].clues);
 
@@ -464,14 +466,55 @@ function insertClues(game) {
             "clues-mode__clues-span"
          );
 
-         if (!game.countries[0].clues.coatOfArms.svg) {
+         //? Este dato tiene que estar en countryDataManajer y solo se tiene que llamar por una función que haga la verificación o que exponga los códigos de países que tienen escudo de armas .svg
+         let notAllowedCodes = [
+            "eh",
+            "yt",
+            "tk",
+            "nu",
+            "mp",
+            "vi",
+            "hm",
+            "pn",
+            "gs",
+            "um",
+            "as",
+            "pr",
+            "cc",
+            "io",
+            "cg",
+            "mf",
+            "bl",
+            "bv",
+            "pm",
+            "tc",
+            "nf",
+            "wf",
+            "re",
+            "sz",
+            "sx",
+            "sh",
+            "sj",
+            "tl",
+         ];
+
+         //? Parche: se evalúa si existe la imagen con un array de codigos, pero se tiene que refactorizar
+         if (
+            notAllowedCodes.some((notAllowedCode) => {
+               return notAllowedCode == game.countries[0].code;
+            })
+         ) {
+            console.log("No tiene escudo");
+            //? !!Parche: la imagen cuando se cambia a un país que no tiene escudo sigue siendo el de el anterior país o sigue apareciendo. Siendo que tendría que eliminarse u ocultarse para que se muestre el texto "No tiene".
+            imgCoatOfArms.style.display = "none";
             clueSpan.textContent = "Escudo de armas:\nNo tiene";
-            continue;
          } else {
-            imgCoatOfArms.src = `${game.countries[0].clues.coatOfArms.svg}`;
+            console.log("Tiene escudo");
+            imgCoatOfArms.style.display = "block";
+            let path = coatOfArmsPath + `/${game.countries[0].code}.svg`;
+            imgCoatOfArms.src = path;
             clueSpan.textContent = "Escudo de armas:";
          }
-
          continue;
       }
 

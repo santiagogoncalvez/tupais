@@ -1,0 +1,23 @@
+{
+   "name": "tu-pais",
+   "version": "1.0.0",
+   "description": "Website where you have to guess using different clues what country it is. Developed with HTML, CSS and Javascript.",
+   "main": "index.js",
+   "directories": {
+      "test": "tests"
+   },
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/santiagogoncalvez/tupais.github.io.git"
+   },
+   "keywords": [
+      "html",
+      "css",
+      "javascript"
+   ],
+   "author": "Santiago Gonçalvez",
+   "license": "ISC"
+}

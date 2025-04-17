@@ -7,7 +7,10 @@
       "test": "tests"
    },
    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "vite",
+      "build": "vite build",
+      "serve": "vite preview"
    },
    "repository": {
       "type": "git",
@@ -19,5 +22,8 @@
       "javascript"
    ],
    "author": "Santiago Gonçalvez",
-   "license": "ISC"
+   "license": "ISC",
+   "devDependencies": {
+      "vite": "^6.3.1"
+   }
 }

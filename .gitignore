@@ -1,4 +1,4 @@
 .vscode/
 tests/
-src/scripts/imports/backup
-src/scripts/imports/countryDataManager.mjs
+dist/
+node_modules/.cache/

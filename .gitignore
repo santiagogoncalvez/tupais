@@ -1,4 +1,4 @@
 .vscode/
 tests/
-dist/
+./dist
 node_modules/.cache/

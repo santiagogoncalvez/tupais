@@ -35,7 +35,7 @@ function insertAnswerResults(element, correctAnswers) {
       ${correctAnswers}
     </span>
     </p>
-    <a href="game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
+    <a href="/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
@@ -353,7 +353,7 @@ async function createNewGame() {
    // Correc answers reset
    correctAnswerSpan.textContent = "0";
 
-   game = await NewGame.create(gameContinent, -1, "/public/images/flags");
+   game = await NewGame.create(gameContinent, -1, "/images/flags");
 
    innerLetterElements(game.countries[0].name, answerContainer);
    flagImg.src = game.countries[0].flagUrl;
@@ -415,7 +415,7 @@ function listenKeyboard(event) {
       // Incorrect answer
       if (!game.lastResponseStatus) {
          incorrecLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/public/images/icons");
+         addIconAnimation(game.lastResponseStatus, "/images/icons");
          // Show results
          setTimeout(() => {
             showResults(game);
@@ -426,7 +426,7 @@ function listenKeyboard(event) {
          correctAnswerSpan.textContent = `${game.correctAnswers}`;
          textChangeAnimation(correctAnswerSpan);
          correcLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/public/images/icons");
+         addIconAnimation(game.lastResponseStatus, "/images/icons");
 
          setTimeout(() => {
             showNewFlag(game);
@@ -738,11 +738,11 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="/public/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="/public/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -1024,19 +1024,19 @@ function addMenuEvents() {
    btGithub.addEventListener("mouseover", () => {
       if (body.classList.contains("dark-mode__page")) {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github-dark-mode-hover.svg')";
+            "url('/images/icons/icons-github-dark-mode-hover.svg')";
       } else {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github.svg')";
+            "url('/images/icons/icons-github.svg')";
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-dark-mode.svg')";
+               "url('/images/icons/icons-github-dark-mode.svg')";
          } else {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-hover.svg')";
+               "url('/images/icons/icons-github-hover.svg')";
          }
       });
    });

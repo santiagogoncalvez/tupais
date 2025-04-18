@@ -44,13 +44,13 @@ async function insertAllFlags(element) {
          if (country.name.official === "Sultanate of Oman") {
             textHtml += `<li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
-              <img src="/public/images/flags/om.png" alt="" class="flag-gallery__flag" />
+              <img src="/images/flags/om.png" alt="" class="flag-gallery__flag" />
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
            </figure></li>`;
             continue;
          }
 
-         let path = `/public/images/flags/${code}.svg`;
+         let path = `/images/flags/${code}.svg`;
          textHtml += `
       <li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
@@ -891,19 +891,19 @@ function addMenuEvents() {
    btGithub.addEventListener("mouseover", () => {
       if (body.classList.contains("dark-mode__page")) {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github-dark-mode-hover.svg')";
+            "url('/images/icons/icons-github-dark-mode-hover.svg')";
       } else {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github.svg')";
+            "url('/images/icons/icons-github.svg')";
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-dark-mode.svg')";
+               "url('/images/icons/icons-github-dark-mode.svg')";
          } else {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-hover.svg')";
+               "url('/images/icons/icons-github-hover.svg')";
          }
       });
    });
@@ -1164,11 +1164,11 @@ function activeBtSettings() {
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="/public/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                  <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
-                  <img width="20" height="20" src="/public/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>

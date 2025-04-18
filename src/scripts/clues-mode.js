@@ -1,3 +1,4 @@
+// url escudos de armas (coat-of-arms): https://mainfacts.com/coat-of-arms-countries-world
 import { Clues } from "@scripts/imports/classNewGame.mjs";
 
 // Bindings
@@ -34,7 +35,7 @@ function insertAnswerResults(element, shownClues) {
       ${11 - shownClues}
     </span>
     </p>
-    <a href="game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
+    <a href="/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
@@ -351,7 +352,7 @@ async function createNewGame() {
    numberClues.textContent = "1";
    scoreClues.textContent = "10";
 
-   game = await Clues.create(gameContinent, "/public/images/flags");
+   game = await Clues.create(gameContinent, "/images/flags");
 
    innerLetterElements(game.countries[0].name, answerContainer);
    insertClues(game);
@@ -377,7 +378,7 @@ async function createNewGame() {
 }
 
 function insertClues(game) {
-   const coatOfArmsPath = "/public/images/coat-of-arms";
+   const coatOfArmsPath = "/images/coat-of-arms";
    const cluesItem = document.getElementsByClassName("clues-mode__clues-item");
    let cluesPropertys = Object.keys(game.countries[0].clues);
 
@@ -590,12 +591,12 @@ function listenKeyboard(event) {
       // Incorrect answer
       if (!game.lastResponseStatus) {
          incorrecLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/public/images/icons");
+         addIconAnimation(game.lastResponseStatus, "/images/icons");
       }
       // Correct answer
       if (game.lastResponseStatus) {
          correcLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/public/images/icons");
+         addIconAnimation(game.lastResponseStatus, "/images/icons");
          // Show results
          setTimeout(() => {
             showResults(game);
@@ -916,11 +917,11 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="/public/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="/public/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -1311,19 +1312,19 @@ function addMenuEvents() {
    btGithub.addEventListener("mouseover", () => {
       if (body.classList.contains("dark-mode__page")) {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github-dark-mode-hover.svg')";
+            "url('/images/icons/icons-github-dark-mode-hover.svg')";
       } else {
          btGithub.style.backgroundImage =
-            "url('/public/images/icons/icons-github.svg')";
+            "url('/images/icons/icons-github.svg')";
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-dark-mode.svg')";
+               "url('/images/icons/icons-github-dark-mode.svg')";
          } else {
             btGithub.style.backgroundImage =
-               "url('/public/images/icons/icons-github-hover.svg')";
+               "url('/images/icons/icons-github-hover.svg')";
          }
       });
    });

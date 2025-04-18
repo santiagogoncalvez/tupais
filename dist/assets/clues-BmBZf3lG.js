@@ -1,4 +1,4 @@
-import"./index-DkIkTDby.js";import{C as O}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let c;function R(e){let[t]=document.getElementsByClassName("clues-mode");$(t,e.shownClues),U()}function U(){const e=document.getElementsByClassName("game__answer-letter");for(let t of e)t.textContent=""}function $(e,t){const n=`
+import"./index-DQllQ-ab.js";import{C as O}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let c;function R(e){let[t]=document.getElementsByClassName("clues-mode");$(t,e.shownClues),U()}function U(){const e=document.getElementsByClassName("game__answer-letter");for(let t of e)t.textContent=""}function $(e,t){const n=`
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
     </button>

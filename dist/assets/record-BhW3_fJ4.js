@@ -1,4 +1,4 @@
-import"./index-DkIkTDby.js";import{N as U}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let i;function M(e){let t=document.getElementsByClassName("record-mode")[0];O(t,e.correctAnswers),R()}function R(){const e=document.getElementsByClassName("game__answer-letter");for(let t of e)t.textContent=""}function O(e,t){const n=`
+import"./index-DQllQ-ab.js";import{N as U}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let i;function M(e){let t=document.getElementsByClassName("record-mode")[0];O(t,e.correctAnswers),R()}function R(){const e=document.getElementsByClassName("game__answer-letter");for(let t of e)t.textContent=""}function O(e,t){const n=`
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
     </button>

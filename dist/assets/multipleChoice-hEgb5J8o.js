@@ -1,4 +1,4 @@
-import"./index-DkIkTDby.js";import{M as P}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let c;function D(t,e){U(e,t.correctAnswers)}function U(t,e){const s=`
+import"./index-DQllQ-ab.js";import{M as P}from"./classNewGame-Dn1j-uFa.js";import"./countryDataManajerJson-BXTmO6C4.js";let c;function D(t,e){U(e,t.correctAnswers)}function U(t,e){const s=`
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
     </button>

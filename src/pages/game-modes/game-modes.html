@@ -3,12 +3,10 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Créditos</title>
+      <title>Modos de juego</title>
       <meta
          name="description"
-         content="TU PAÍS es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países
-                    de los diferentes continentes. Si completás las respuestas ¡Ganás!"
+         content="Galería de banderas de todos los países del mundo con informacion de los países a los que pertenecen"
       />
       <meta name="author" content="Santiago Gonçalvez" />
       <meta http-equiv="Content-Language" content="es" />
@@ -16,7 +14,7 @@
       <meta property="og:title" content="Tu país" />
       <meta
          property="og:description"
-         content="Juega a Tu país y descubre nuevas banderas y países de todo el mundo"
+         content="Galería de banderas de todos los países del mundo"
       />
       <meta name="keywords" content="Banderas, Juego, Adivinanzas, Países" />
       <meta name="robots" content="index, follow" />
@@ -26,12 +24,12 @@
          type="image/png"
          sizes="64x64"
          href="/tupais/images/icons/icon-page(64px).png"
-      />
-     <script type="module" crossorigin src="/tupais/assets/credits-CqHCqRkd.js"></script>
+      />
+     <script type="module" crossorigin src="/tupais/assets/game-DhHsGEP7.js"></script>
      <link rel="modulepreload" crossorigin href="/tupais/assets/index-DQllQ-ab.js">
      <link rel="stylesheet" crossorigin href="/tupais/assets/index-DhcmoVzf.css">
    </head>
-   <body class="credits">
+   <body class="game-modes">
       <header class="header">
          <div class="header__container">
             <button
@@ -56,74 +54,100 @@
             </button>
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <a href="/index.html" class="navbar__link--1"> Inicio </a>
+                  <!-- Las rutas de links <a> no son ajustadas por Vite, deben ser precedidas por el "base" del proyecto, si es que este lo tiene -->
+                  <!--* BASE: "/tupais/" -->
+                  <a href="/tupais/index.html" class="navbar__link--1">
+                     Inicio
+                  </a>
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="game-modes.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/game-modes/game-modes.html"
+                     class="navbar__link--2"
                      >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="flag-gallery.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/flag-gallery/flag-gallery.html"
+                     class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--3">
-                  <a href="about-the-game.html" class="navbar__link--3"
+                  <a
+                     href="/tupais/src/pages/about-the-game/about-the-game.html"
+                     class="navbar__link--3"
                      >Acerca del juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--4">
-                  <a href="credits.html" class="navbar__link--4">Créditos</a>
+                  <a
+                     href="/tupais/src/pages/credits/credits.html"
+                     class="navbar__link--4"
+                     >Créditos</a
+                  >
                   <span class="navbar__division"></span>
                </li>
             </ul>
          </nav>
       </header>
 
-      <main class="credits__main">
-         <h3 class="credits__subtitle">Créditos</h3>
+      <main class="game-modes__main">
+         <h3 class="game-modes__subtitle">Modos de juego</h3>
 
-         <h4 class="credits__h4">Acerca del creador</h4>
-         <p class="credits__paragraph">
-            ¡Bienvenido a <strong>Tu País</strong>! Soy Santiago Goncalvez, el
-            creador y desarrollador de este proyecto desde sus inicios. Esta
-            página es el resultado de mi pasión por desarrollo web y el área de
-            la programación, y representa mi primer paso en este mundo.
-         </p>
+         <ul class="game-modes__modes-list">
+            <li class="game-modes__modes-item">
+               <a
+                  href="/tupais/index.html"
+                  target="_self"
+                  class="game-modes__modes-link"
+                  >Clásico</a
+               >
+            </li>
 
-         <h4 class="credits__h4">Contacto</h4>
-         <p class="credits__paragraph">
-            Si tenés alguna pregunta, sugerencia, encontraste un error o
-            simplemente querés saludar, no dudés en ponerte en contacto conmigo
-            a través de
-            <a
-               class="credits__text-link"
-               href="mailto:santiago.goncalvez.l@gmail.com"
-               >santiago.goncalvez.l@gmail.com</a
-            >.
-         </p>
+            <li class="game-modes__modes-item">
+               <a
+                  href="/tupais/src/pages/multipleChoise-mode/multipleChoise-mode.html"
+                  target="_self"
+                  class="game-modes__modes-link"
+                  >Multiple choice</a
+               >
+            </li>
 
-         <h4 class="credits__h4">Contribuciones</h4>
-         <p class="credits__paragraph">
-            ¡Tu ayuda es bienvenida! Si estás interesado en contribuir al
-            desarrollo de este proyecto, te invito a visitar mi repositorio en
-            GitHub,
-            <a
-               class="credits__text-link"
-               href="https://github.com/santiagogoncalvez/tupais.github.io"
-               target="_self"
-               >repositorio Tu País</a
-            >. Allí encontrarás el código fuente, así como las instrucciones
-            para colaborar y enviar sugerencias o mejoras al proyecto.
-         </p>
+            <li class="game-modes__modes-item">
+               <a
+                  href="/tupais/src/pages/clues-mode/clues-mode.html"
+                  target="_self"
+                  class="game-modes__modes-link"
+                  >Pistas</a
+               >
+            </li>
+
+            <li class="game-modes__modes-item">
+               <a
+                  href="/tupais/src/pages/record-mode/record-mode.html"
+                  target="_self"
+                  class="game-modes__modes-link"
+                  >Récord</a
+               >
+            </li>
+            <li class="game-modes__modes-item">
+               <a
+                  href="/tupais/src/pages/time-trial-mode/time-trial-mode.html"
+                  target="_self"
+                  class="game-modes__modes-link"
+                  >Contrarrloj</a
+               >
+            </li>
+         </ul>
       </main>
 
       <footer class="footer">

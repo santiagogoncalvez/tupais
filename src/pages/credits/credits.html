@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Modo multiple choice</title>
+      <title>Créditos</title>
       <meta
          name="description"
          content="TU PAÍS es un juego de adivinanzas
@@ -12,10 +12,11 @@
       />
       <meta name="author" content="Santiago Gonçalvez" />
       <meta http-equiv="Content-Language" content="es" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="Tu país" />
       <meta
          property="og:description"
-         content="Juega a Tu País y descubre nuevas banderas y países de todo el mundo"
+         content="Juega a Tu país y descubre nuevas banderas y países de todo el mundo"
       />
       <meta name="keywords" content="Banderas, Juego, Adivinanzas, Países" />
       <meta name="robots" content="index, follow" />
@@ -25,14 +26,12 @@
          type="image/png"
          sizes="64x64"
          href="/tupais/images/icons/icon-page(64px).png"
-      />
-     <script type="module" crossorigin src="/tupais/assets/multipleChoice-hEgb5J8o.js"></script>
+      />
+     <script type="module" crossorigin src="/tupais/assets/credits-BW29gQZ_.js"></script>
      <link rel="modulepreload" crossorigin href="/tupais/assets/index-DQllQ-ab.js">
-     <link rel="modulepreload" crossorigin href="/tupais/assets/countryDataManajerJson-BXTmO6C4.js">
-     <link rel="modulepreload" crossorigin href="/tupais/assets/classNewGame-Dn1j-uFa.js">
      <link rel="stylesheet" crossorigin href="/tupais/assets/index-DhcmoVzf.css">
    </head>
-   <body class="multiple-choice">
+   <body class="credits">
       <header class="header">
          <div class="header__container">
             <button
@@ -57,106 +56,90 @@
             </button>
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <a href="/index.html" class="navbar__link--1"> Inicio </a>
+                  <!-- Las rutas de links <a> no son ajustadas por Vite, deben ser precedidas por el "base" del proyecto, si es que este lo tiene -->
+                  <!--* BASE: "/tupais/" -->
+                  <a href="/tupais/index.html" class="navbar__link--1">
+                     Inicio
+                  </a>
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="game-modes.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/game-modes/game-modes.html"
+                     class="navbar__link--2"
                      >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="flag-gallery.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/flag-gallery/flag-gallery.html"
+                     class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--3">
-                  <a href="about-the-game.html" class="navbar__link--3"
+                  <a
+                     href="/tupais/src/pages/about-the-game/about-the-game.html"
+                     class="navbar__link--3"
                      >Acerca del juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--4">
-                  <a href="credits.html" class="navbar__link--4">Créditos</a>
+                  <a
+                     href="/tupais/src/pages/credits/credits.html"
+                     class="navbar__link--4"
+                     >Créditos</a
+                  >
                   <span class="navbar__division"></span>
                </li>
             </ul>
          </nav>
       </header>
 
-      <main class="multiple-choice__main">
-         <div class="game__container">
-            <ul class="game__statistics">
-               <li class="game__statistics-item">
-                  País<br />
-                  <span class="game__span-container"
-                     ><span class="game__remaining-countries">10</span></span
-                  >
-               </li>
-               <li class="game__statistics-item">
-                  Aciertos<br />
-                  <span class="game__span-container"
-                     ><span class="game__correct-answers">0</span></span
-                  >
-               </li>
-            </ul>
-            <bt class="game__bt-information" title="¿Cómo jugar?" type="button"
-               >?</bt
-            >
-         </div>
+      <main class="credits__main">
+         <h3 class="credits__subtitle">Créditos</h3>
 
-         <figure class="country">
-            <figcaption class="country__description">Texto</figcaption>
+         <h4 class="credits__h4">Acerca del creador</h4>
+         <p class="credits__paragraph">
+            ¡Bienvenido a <strong>Tu País</strong>! Soy Santiago Goncalvez, el
+            creador y desarrollador de este proyecto desde sus inicios. Esta
+            página es el resultado de mi pasión por desarrollo web y el área de
+            la programación, y representa mi primer paso en este mundo.
+         </p>
 
-            <div class="country__container">
-               <img src="#" class="country__flag" loading="eager" alt="" />
-            </div>
-         </figure>
+         <h4 class="credits__h4">Contacto</h4>
+         <p class="credits__paragraph">
+            Si tenés alguna pregunta, sugerencia, encontraste un error o
+            simplemente querés saludar, no dudés en ponerte en contacto conmigo
+            a través de
+            <a
+               class="credits__text-link"
+               href="mailto:santiago.goncalvez.l@gmail.com"
+               >santiago.goncalvez.l@gmail.com</a
+            >.
+         </p>
 
-         <div class="multiple-choice__options">
-            <div class="multiple-choice__option--column1">
-               <button
-                  class="multiple-choice__option"
-                  title="Opcion A"
-                  type="button"
-               ></button>
-               <button
-                  class="multiple-choice__option"
-                  title="Opcion B"
-                  type="button"
-               ></button>
-            </div>
-
-            <div class="multiple-choice__option--column2">
-               <button
-                  class="multiple-choice__option"
-                  title="Opcion C"
-                  type="button"
-               ></button
-               ><button
-                  class="multiple-choice__option"
-                  title="Opcion D"
-                  type="button"
-               ></button>
-            </div>
-            <button class="multiple-choice__send" title="Enviar" type="button">
-               ENVIAR
-            </button>
-         </div>
-
-         <button
-            class="game__start-again"
-            title="Empezar de nuevo"
-            type="button"
-         >
-            EMPEZAR DE NUEVO
-         </button>
+         <h4 class="credits__h4">Contribuciones</h4>
+         <p class="credits__paragraph">
+            ¡Tu ayuda es bienvenida! Si estás interesado en contribuir al
+            desarrollo de este proyecto, te invito a visitar mi repositorio en
+            GitHub,
+            <a
+               class="credits__text-link"
+               href="https://github.com/santiagogoncalvez/tupais.github.io"
+               target="_self"
+               >repositorio Tu País</a
+            >. Allí encontrarás el código fuente, así como las instrucciones
+            para colaborar y enviar sugerencias o mejoras al proyecto.
+         </p>
       </main>
+
       <footer class="footer">
          <div class="footer__fill-space"></div>
          <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
@@ -167,7 +150,6 @@
             title="Perfil de Github"
          ></a>
       </footer>
-
-      <!-- Script -->
+
    </body>
 </html>

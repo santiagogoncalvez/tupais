@@ -25,8 +25,8 @@
          type="image/png"
          sizes="64x64"
          href="/tupais/images/icons/icon-page(64px).png"
-      />
-     <script type="module" crossorigin src="/tupais/assets/main-BiExaUwx.js"></script>
+      />
+     <script type="module" crossorigin src="/tupais/assets/main-CZsEblvg.js"></script>
      <link rel="modulepreload" crossorigin href="/tupais/assets/index-DQllQ-ab.js">
      <link rel="modulepreload" crossorigin href="/tupais/assets/countryDataManajerJson-BXTmO6C4.js">
      <link rel="modulepreload" crossorigin href="/tupais/assets/classNewGame-Dn1j-uFa.js">
@@ -58,20 +58,27 @@
             </button>
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <!-- TODO: Correjir a "/src/pages/index.html" este y todos los links a .html -->
-                  <a href="/index.html" class="navbar__link--1"> Inicio </a>
+                  <!-- Las rutas de links <a> no son ajustadas por Vite, deben ser precedidas por el "base" del proyecto, si es que este lo tiene -->
+                  <!--* BASE: "/tupais/" -->
+                  <a href="/tupais/index.html" class="navbar__link--1">
+                     Inicio
+                  </a>
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="./src/game-modes.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/game-modes/game-modes.html"
+                     class="navbar__link--2"
                      >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="./src/flag-gallery.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/flag-gallery/flag-gallery.html"
+                     class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
@@ -79,14 +86,16 @@
 
                <li class="navbar__item--3">
                   <a
-                     href="./src/about-the-game.html"
+                     href="/tupais/src/pages/about-the-game/about-the-game.html"
                      class="navbar__link--3"
                      >Acerca del juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--4">
-                  <a href="./src/credits.html" class="navbar__link--4"
+                  <a
+                     href="/tupais/src/pages/credits/credits.html"
+                     class="navbar__link--4"
                      >Créditos</a
                   >
                   <span class="navbar__division"></span>

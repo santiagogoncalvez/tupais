@@ -1,3 +1,7 @@
+import "@src/index.css";
+
+let base = import.meta.env.BASE_URL;
+
 // Menu events
 function addMenuEvents() {
    const [menuButtonOpen] = document.getElementsByClassName(
@@ -8,24 +12,30 @@ function addMenuEvents() {
       "navbar__button--close"
    );
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
-   const [body] = document.getElementsByClassName("about-the-game");
+   const [body] = document.getElementsByClassName("game-modes");
 
    btGithub.addEventListener("mouseover", () => {
+      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github-dark-mode-hover.svg')";
+         // TODO: Correjir la ruta para que sea un path
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github-dark-mode-hover.svg"
+         })`;
       } else {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github.svg')";
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github.svg"
+         })`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-dark-mode.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-dark-mode.svg"
+            })`;
          } else {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-hover.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-hover.svg"
+            })`;
          }
       });
    });
@@ -73,16 +83,16 @@ function addMenuEvents() {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-   addMenuEvents();
    activeBtSettings();
    changeBtDarkMode();
+   addMenuEvents();
 });
 
 function changeBtDarkMode() {
    function addClassDarkMode(type) {
       // Pagina actual
-      const [body] = document.getElementsByClassName("about-the-game");
-      const [main] = document.getElementsByClassName("about-the-game__main");
+      const [body] = document.getElementsByClassName("game-modes");
+      const [main] = document.getElementsByClassName("game-modes__main");
 
       const [header] = document.getElementsByClassName("header");
       const [footer] = document.getElementsByClassName("footer");
@@ -94,19 +104,14 @@ function changeBtDarkMode() {
          document.getElementsByClassName("footer__paragraph");
       const [btSettings] = document.getElementsByClassName("header__settings");
       const [subtitle] = document.getElementsByClassName(
-         "about-the-game__subtitle"
+         "game-modes__subtitle"
+      );
+
+      const optionMode = document.getElementsByClassName(
+         "game-modes__modes-link"
       );
       const [github] = document.getElementsByClassName("footer__icon-github");
-      const [descriptionList] =
-         document.getElementsByClassName("description-list");
-      const links = document.getElementsByClassName(
-         "about-the-game__text-link"
-      );
       const navbarIcon = document.getElementsByClassName("navbar__icon");
-      const h3 = document.getElementsByClassName("about-the-game__h4");
-      const paragraph = document.getElementsByClassName(
-         "about-the-game__paragraph"
-      );
 
       if (type === "activate") {
          header.classList.add("dark-mode__header");
@@ -119,19 +124,12 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          github.classList.add("dark-mode__github-bt");
          subtitle.classList.add("dark-mode__game-text");
-         descriptionList.classList.add("dark-mode__game-text");
 
          for (let element of navbarIcon) {
             element.classList.add("dark-mode__navbar-icon");
          }
-         for (let element of h3) {
-            element.classList.add("dark-mode__game-text");
-         }
-         for (let element of paragraph) {
-            element.classList.add("dark-mode__game-text");
-         }
-         for (let element of links) {
-            element.classList.add("dark-mode__links-text");
+         for (let element of optionMode) {
+            element.classList.add("dark-mode__send");
          }
       }
 
@@ -146,19 +144,12 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          github.classList.remove("dark-mode__github-bt");
          subtitle.classList.remove("dark-mode__game-text");
-         descriptionList.classList.remove("dark-mode__game-text");
 
          for (let element of navbarIcon) {
             element.classList.remove("dark-mode__navbar-icon");
          }
-         for (let element of h3) {
-            element.classList.remove("dark-mode__game-text");
-         }
-         for (let element of paragraph) {
-            element.classList.remove("dark-mode__game-text");
-         }
-         for (let element of links) {
-            element.classList.remove("dark-mode__links-text");
+         for (let element of optionMode) {
+            element.classList.remove("dark-mode__send");
          }
       }
    }
@@ -252,6 +243,8 @@ function activeBtSettings() {
          }, 100);
       });
    }
+
+   let iconPath = base + "images/icons";
    const settingsHtml = `       
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
@@ -263,17 +256,19 @@ function activeBtSettings() {
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                  <img width="20" height="20"
+                  src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
-                  <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  <img width="20" height="20" 
+                  src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>
 `;
    const [btSettings] = document.getElementsByClassName("header__settings");
-   let [body] = document.getElementsByClassName("about-the-game");
+   let [body] = document.getElementsByClassName("game-modes");
 
    // Events
    btSettings.addEventListener("click", async () => {

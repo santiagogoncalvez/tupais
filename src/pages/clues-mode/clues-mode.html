@@ -2,8 +2,11 @@
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Tu País</title>
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1.0, user-scalable=yes"
+      />
+      <title>Modo pistas</title>
       <meta
          name="description"
          content="TU PAÍS es un juego de adivinanzas
@@ -15,7 +18,7 @@
       <meta property="og:title" content="Tu país" />
       <meta
          property="og:description"
-         content="Jugá a Tu país y descubrí nuevas banderas y países de todo el mundo"
+         content="Juega a Tu país y descubre nuevas banderas y países de todo el mundo"
       />
       <meta name="keywords" content="Banderas, Juego, Adivinanzas, Países" />
       <meta name="robots" content="index, follow" />
@@ -26,9 +29,8 @@
          sizes="64x64"
          href="/images/icons/icon-page(64px).png"
       />
-      <link rel="stylesheet" href="/src/style/index.css" type="text/css" />
    </head>
-   <body class="record-mode">
+   <body class="clues-mode">
       <header class="header">
          <div class="header__container">
             <button
@@ -51,48 +53,67 @@
                <span class="navbar__icon--close1"></span>
                <span class="navbar__icon--close2"></span>
             </button>
-
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <a href="/index.html" class="navbar__link--1"> Inicio </a>
+                  <!-- Las rutas de links <a> no son ajustadas por Vite, deben ser precedidas por el "base" del proyecto, si es que este lo tiene -->
+                  <!--* BASE: "/tupais/" -->
+                  <a href="/tupais/index.html" class="navbar__link--1">
+                     Inicio
+                  </a>
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="game-modes.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/game-modes/game-modes.html"
+                     class="navbar__link--2"
                      >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="flag-gallery.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/flag-gallery/flag-gallery.html"
+                     class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--3">
-                  <a href="about-the-game.html" class="navbar__link--3"
+                  <a
+                     href="/tupais/src/pages/about-the-game/about-the-game.html"
+                     class="navbar__link--3"
                      >Acerca del juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--4">
-                  <a href="credits.html" class="navbar__link--4">Créditos</a>
+                  <a
+                     href="/tupais/src/pages/credits/credits.html"
+                     class="navbar__link--4"
+                     >Créditos</a
+                  >
                   <span class="navbar__division"></span>
                </li>
             </ul>
          </nav>
       </header>
 
-      <main class="record-mode__main">
+      <main class="clues-mode__main">
          <div class="game__container">
             <ul class="game__statistics">
                <li class="game__statistics-item">
-                  Aciertos<br />
+                  Pistas<br />
                   <span class="game__span-container"
-                     ><span class="game__correct-answers">0</span></span
+                     ><span class="game__clues">1</span></span
+                  >
+               </li>
+               <li class="game__statistics-item">
+                  Puntaje<br />
+                  <span class="game__span-container"
+                     ><span class="game__score">10</span></span
                   >
                </li>
             </ul>
@@ -101,13 +122,54 @@
             >
          </div>
 
-         <figure class="country">
-            <figcaption class="country__description"></figcaption>
+         <div class="country__description">Continente:</div>
 
-            <div class="country__container">
-               <img src="#" class="country__flag" loading="eager" alt="" />
+         <div class="clues-mode__container--1">
+            <button
+               class="clues-mode__btPrevious"
+               title="Anterior pista"
+               type="button"
+            >
+               <span class="clues-mode__btPrevious--span1"></span>
+               <span class="clues-mode__btPrevious--span2"></span>
+            </button>
+
+            <div class="clues-mode__sliderClues">
+               <ul class="clues-mode__clues-list">
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item clues-mode__coatOfArms">
+                     <span class="clues-mode__clues-span"></span>
+                     <img
+                        src="https://mainfacts.com/media/img/coats_of_arms/hn.svg"
+                        alt="Escudo de armas del pais"
+                        class="coat-of-arms-img"
+                     />
+                  </li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item clues-mode__poblation">
+                     <div class="clues-mode__container-text">
+                        <span class="clues-mode__clues-span--poblation"></span
+                        ><sup class="superindice">2</sup>
+                     </div>
+                  </li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item"></li>
+                  <li class="clues-mode__clues-item"></li>
+               </ul>
             </div>
-         </figure>
+
+            <button
+               class="clues-mode__btNext"
+               title="Siguiente pista"
+               type="button"
+            >
+               <span class="clues-mode__btNext--span1"></span>
+               <span class="clues-mode__btNext--span2"></span>
+            </button>
+         </div>
 
          <div class="game__answer"></div>
 
@@ -361,7 +423,9 @@
          ></a>
       </footer>
 
-      <!-- Script -->
-      <script src="/src/scripts/record-mode.js" type="module"></script>
+      <script
+         src="/src/pages/clues-mode/clues-mode.js"
+         type="module"
+      ></script>
    </body>
 </html>

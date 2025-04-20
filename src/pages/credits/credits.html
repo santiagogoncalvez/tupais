@@ -27,7 +27,6 @@
          sizes="64x64"
          href="/images/icons/icon-page(64px).png"
       />
-      <link rel="stylesheet" href="/src/style/index.css" type="text/css" />
    </head>
    <body class="credits">
       <header class="header">
@@ -54,32 +53,46 @@
             </button>
             <ul class="navbar__list">
                <li class="navbar__item--1">
-                  <a href="/index.html" class="navbar__link--1"> Inicio </a>
+                  <!-- Las rutas de links <a> no son ajustadas por Vite, deben ser precedidas por el "base" del proyecto, si es que este lo tiene -->
+                  <!--* BASE: "/tupais/" -->
+                  <a href="/tupais/index.html" class="navbar__link--1">
+                     Inicio
+                  </a>
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="game-modes.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/game-modes/game-modes.html"
+                     class="navbar__link--2"
                      >Modos de juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--2">
-                  <a href="flag-gallery.html" class="navbar__link--2"
+                  <a
+                     href="/tupais/src/pages/flag-gallery/flag-gallery.html"
+                     class="navbar__link--2"
                      >Banderas</a
                   >
                   <span class="navbar__division"></span>
                </li>
 
                <li class="navbar__item--3">
-                  <a href="about-the-game.html" class="navbar__link--3"
+                  <a
+                     href="/tupais/src/pages/about-the-game/about-the-game.html"
+                     class="navbar__link--3"
                      >Acerca del juego</a
                   >
                   <span class="navbar__division"></span>
                </li>
                <li class="navbar__item--4">
-                  <a href="credits.html" class="navbar__link--4">Créditos</a>
+                  <a
+                     href="/tupais/src/pages/credits/credits.html"
+                     class="navbar__link--4"
+                     >Créditos</a
+                  >
                   <span class="navbar__division"></span>
                </li>
             </ul>
@@ -135,6 +148,6 @@
          ></a>
       </footer>
 
-      <script src="/src/scripts/credits.js" type="module"></script>
+      <script src="/src/pages/credits/credits.js" type="module"></script>
    </body>
 </html>

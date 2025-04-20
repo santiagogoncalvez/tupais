@@ -1,3 +1,7 @@
+import "@src/index.css";
+
+let base = import.meta.env.BASE_URL;
+
 // Menu events
 function addMenuEvents() {
    const [menuButtonOpen] = document.getElementsByClassName(
@@ -11,21 +15,27 @@ function addMenuEvents() {
    const [body] = document.getElementsByClassName("credits");
 
    btGithub.addEventListener("mouseover", () => {
+      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github-dark-mode-hover.svg')";
+         // TODO: Correjir la ruta para que sea un path
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github-dark-mode-hover.svg"
+         })`;
       } else {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github.svg')";
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github.svg"
+         })`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-dark-mode.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-dark-mode.svg"
+            })`;
          } else {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-hover.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-hover.svg"
+            })`;
          }
       });
    });
@@ -242,6 +252,8 @@ function activeBtSettings() {
          }, 100);
       });
    }
+
+   let iconPath = base + "images/icons";
    const settingsHtml = `       
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
@@ -253,11 +265,13 @@ function activeBtSettings() {
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                  <img width="20" height="20"
+                  src="${iconPath}/icons-sun.svg"alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
-                  <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  <img width="20" height="20" 
+                  src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>

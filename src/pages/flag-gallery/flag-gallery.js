@@ -1,4 +1,7 @@
-// TODO: Pasar esta ruta a Path aliases @ de vite
+import "@src/index.css";
+
+let base = import.meta.env.BASE_URL;
+
 import {
    getAllCountries,
    getCoutryByName,
@@ -44,13 +47,13 @@ async function insertAllFlags(element) {
          if (country.name.official === "Sultanate of Oman") {
             textHtml += `<li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
-              <img src="/images/flags/om.png" alt="" class="flag-gallery__flag" />
+              <img src="/tupais/images/flags/om.png" alt="" class="flag-gallery__flag" />
               <figcaption class="flag-gallery__flag-description">${countryName}</figcaption>
            </figure></li>`;
             continue;
          }
 
-         let path = `/images/flags/${code}.svg`;
+         let path = `/tupais/images/flags/${code}.svg`;
          textHtml += `
       <li class="flag-gallery__item">
          <figure class="flag-gallery__flag-container">
@@ -889,21 +892,27 @@ function addMenuEvents() {
    const [body] = document.getElementsByClassName("flag-gallery");
 
    btGithub.addEventListener("mouseover", () => {
+      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github-dark-mode-hover.svg')";
+         // TODO: Correjir la ruta para que sea un path
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github-dark-mode-hover.svg"
+         })`;
       } else {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github.svg')";
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github.svg"
+         })`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-dark-mode.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-dark-mode.svg"
+            })`;
          } else {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-hover.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-hover.svg"
+            })`;
          }
       });
    });
@@ -1153,6 +1162,8 @@ function activeBtSettings() {
          }, 100);
       });
    }
+
+   let iconPath = base + "images/icons";
    const settingsHtml = `       
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
@@ -1164,11 +1175,13 @@ function activeBtSettings() {
 
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                  <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                  <img width="20" height="20" 
+                  src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
-                  <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  <img width="20" height="20" 
+                  src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>

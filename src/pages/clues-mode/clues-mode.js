@@ -1,13 +1,17 @@
-// Imports
-import { NewGame } from "@scripts/imports/classNewGame.mjs";
+import "@src/index.css";
+
+let base = import.meta.env.BASE_URL;
+
+// url escudos de armas (coat-of-arms): https://mainfacts.com/coat-of-arms-countries-world
+import { Clues } from "@scripts/imports/classNewGame.mjs";
 
 // Bindings
 let game;
 
 // Functions
 function showResults(game) {
-   let body = document.getElementsByClassName("record-mode")[0];
-   insertAnswerResults(body, game.correctAnswers);
+   let [body] = document.getElementsByClassName("clues-mode");
+   insertAnswerResults(body, game.shownClues);
    deleteAllLetters();
 }
 
@@ -20,7 +24,7 @@ function deleteAllLetters() {
    }
 }
 
-function insertAnswerResults(element, correctAnswers) {
+function insertAnswerResults(element, shownClues) {
    const textHtml = `
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
@@ -29,10 +33,10 @@ function insertAnswerResults(element, correctAnswers) {
     <span class="answer-results__span">RESULTADOS</span>
     <span class="answer-results__span"></span>
     <span class="answer-results__span">
-      Respuestas correctas
+      Puntaje
     </span>
     <span class="answer-results__span">
-      ${correctAnswers}
+      ${11 - shownClues}
     </span>
     </p>
     <a href="/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
@@ -231,13 +235,6 @@ function innerLetterElements(string, element) {
    element.innerHTML = textHtml;
 }
 
-function showNewFlag(game) {
-   const [flagImg] = document.getElementsByClassName("country__flag");
-   flagImg.src = game.countries[0].flagUrl;
-   let alt = `Bandera de ${game.countries[0].name}`;
-   flagImg.alt = alt;
-}
-
 function typeResponse(game, element) {
    function showTypeResponse(type, element) {
       const [responseElement] = document.getElementsByClassName("response");
@@ -293,11 +290,11 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
-      }, 1200);
+      }, 1500);
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 1400);
+      }, 1600);
    }
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
 
@@ -334,15 +331,20 @@ function insertTextContinent(continent) {
 }
 
 async function createNewGame() {
-   const [flagImg] = document.getElementsByClassName("country__flag");
+   const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
+   const [previousBt] = document.getElementsByClassName(
+      "clues-mode__btPrevious"
+   );
    const [answerContainer] = document.getElementsByClassName("game__answer");
    const [continentElement] = document.getElementsByClassName(
       "country__description"
    );
-   const [correctAnswerSpan] = document.getElementsByClassName(
-      "game__correct-answers"
-   );
    const buttonsKeyboard = document.getElementsByClassName("keyboard__button");
+   const [numberClues] = document.getElementsByClassName("game__clues");
+   const [scoreClues] = document.getElementsByClassName("game__score");
+   const [cluesList] = document.getElementsByClassName(
+      "clues-mode__clues-list"
+   );
 
    let gameContinent = localStorage.getItem("continent")
       ? localStorage.getItem("continent")
@@ -351,14 +353,24 @@ async function createNewGame() {
    // Continent text
    continentElement.textContent = insertTextContinent(gameContinent);
    // Correc answers reset
-   correctAnswerSpan.textContent = "0";
+   numberClues.textContent = "1";
+   scoreClues.textContent = "10";
 
-   game = await NewGame.create(gameContinent, -1, "/images/flags");
+   let imagePath = base + "images/flags";
+   game = await Clues.create(gameContinent, imagePath);
 
    innerLetterElements(game.countries[0].name, answerContainer);
-   flagImg.src = game.countries[0].flagUrl;
-   let alt = `Bandera de ${game.countries[0].name}`;
-   flagImg.alt = alt;
+   insertClues(game);
+
+   //Agregar eventos a boton next y previous
+   previousBt.style.cursor = "initial";
+   previousBt.style.opacity = "0";
+   previousBt.disabled = true;
+   nextBt.style.cursor = "pointer";
+   nextBt.style.opacity = "1";
+   nextBt.disabled = false;
+   nextBt.addEventListener("click", activeNextBt);
+   previousBt.addEventListener("click", activePreviousBt);
 
    // Keyboards buttons event
    for (let element of buttonsKeyboard) {
@@ -366,6 +378,171 @@ async function createNewGame() {
    }
 
    document.addEventListener("keydown", listenKeyboard);
+
+   cluesList.style.transform = "translateX(0%)";
+}
+
+function insertClues(game) {
+   const coatOfArmsPath = base + "images/coat-of-arms";
+   const cluesItem = document.getElementsByClassName("clues-mode__clues-item");
+   let cluesPropertys = Object.keys(game.countries[0].clues);
+
+   function formatClueText(property, value) {
+      function formatArray(array) {
+         if (!Array.isArray(array)) return;
+         let result = "";
+         for (let i = 0; i < array.length; i++) {
+            if (i === array.length - 1) {
+               result += `${array[i]}`;
+               continue;
+            }
+            result += `${array[i]}, `;
+         }
+
+         return result;
+      }
+
+      function formatObject(object) {
+         if (
+            value !== null &&
+            typeof value === "object" &&
+            !Array.isArray(object)
+         ) {
+            let result = "";
+            let propertys = Object.keys(object);
+
+            if (object.side) {
+               result = `${object.side === "right" ? "Derecha" : "Izquierda"}`;
+               return result;
+            }
+
+            if (object[propertys[0]]) {
+               if (object[propertys[0]].symbol) {
+                  for (let i = 0; i < propertys.length; i++) {
+                     if (i === propertys.length - 1) {
+                        result += `${propertys[i]} (${
+                           object[propertys[i]].symbol
+                        })`;
+                        continue;
+                     }
+                     result += `${propertys[i]} (${
+                        object[propertys[i]].symbol
+                     }), `;
+                  }
+               } else {
+                  for (let i = 0; i < propertys.length; i++) {
+                     if (i === propertys.length - 1) {
+                        result += `${object[propertys[i]]}`;
+                        continue;
+                     }
+                     result += `${object[propertys[i]]}, `;
+                  }
+               }
+            }
+
+            return result;
+         } else {
+            return;
+         }
+      }
+
+      let results = {
+         area: `Area:\n${value} km`,
+         borders: `${
+            value ? "Paises limitrofes:\n" + formatArray(value) : `Es una isla`
+         }`,
+         capital: `Capital:\n${value ? formatArray(value) : "No tiene"}`,
+         currencies: `Monedas:\n${formatObject(value)}`,
+         landlocked: `Acceso al mar:\n${value ? "Si" : "No"}`,
+         languages: `Lenguajes:\n${formatObject(value)}`,
+         population: `Población:\n${value}`,
+         subregion: `Subregión:\n${value}`,
+         car: `Sentido de conducción:\n${formatObject(value)}`,
+      };
+
+      return results[property];
+   }
+
+   for (let i = 0; i < cluesItem.length; i++) {
+      if (cluesItem[i].classList.contains("clues-mode__coatOfArms")) {
+         const [imgCoatOfArms] =
+            document.getElementsByClassName("coat-of-arms-img");
+         const [clueSpan] = document.getElementsByClassName(
+            "clues-mode__clues-span"
+         );
+
+         //? Este dato tiene que estar en countryDataManajer y solo se tiene que llamar por una función que haga la verificación o que exponga los códigos de países que tienen escudo de armas .svg
+         let notAllowedCodes = [
+            "eh",
+            "yt",
+            "tk",
+            "nu",
+            "mp",
+            "vi",
+            "hm",
+            "pn",
+            "gs",
+            "um",
+            "as",
+            "pr",
+            "cc",
+            "io",
+            "cg",
+            "mf",
+            "bl",
+            "bv",
+            "pm",
+            "tc",
+            "nf",
+            "wf",
+            "re",
+            "sz",
+            "sx",
+            "sh",
+            "sj",
+            "tl",
+         ];
+
+         //? Parche: se evalúa si existe la imagen con un array de codigos, pero se tiene que refactorizar
+         if (
+            notAllowedCodes.some((notAllowedCode) => {
+               return notAllowedCode == game.countries[0].code;
+            })
+         ) {
+            //? !!Parche: la imagen cuando se cambia a un país que no tiene escudo sigue siendo el de el anterior país o sigue apareciendo. Siendo que tendría que eliminarse u ocultarse para que se muestre el texto "No tiene".
+            imgCoatOfArms.style.display = "none";
+            clueSpan.textContent = "Escudo de armas:\nNo tiene";
+         } else {
+            imgCoatOfArms.style.display = "block";
+            let path = coatOfArmsPath + `/${game.countries[0].code}.svg`;
+            imgCoatOfArms.src = path;
+            clueSpan.textContent = "Escudo de armas:";
+         }
+         continue;
+      }
+
+      //*
+
+      if (cluesItem[i].classList.contains("clues-mode__poblation")) {
+         const [clueSpanPoblation] = document.getElementsByClassName(
+            "clues-mode__clues-span--poblation"
+         );
+
+         clueSpanPoblation.textContent = formatClueText(
+            cluesPropertys[i],
+            game.countries[0].clues[cluesPropertys[i]]
+         );
+
+         continue;
+      }
+
+      cluesItem[i].textContent = formatClueText(
+         cluesPropertys[i],
+         game.countries[0].clues[cluesPropertys[i]]
+      );
+   }
+
+   return;
 }
 
 function listenKeyboard(event) {
@@ -380,22 +557,24 @@ function listenKeyboard(event) {
    if (!typeKey(pressedKey)) return;
 
    if (pressedKey === "enter") {
+      const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
+      const [previousBt] = document.getElementsByClassName(
+         "clues-mode__btPrevious"
+      );
       const buttonsKeyboard =
          document.getElementsByClassName("keyboard__button");
-      const [correctAnswerSpan] = document.getElementsByClassName(
-         "game__correct-answers"
-      );
-      const [answerContainer] = document.getElementsByClassName("game__answer");
 
       // Pausar eventos de entrada
       for (let element of buttonsKeyboard) {
          element.removeEventListener("click", listenKeyboard);
       }
       document.removeEventListener("keydown", listenKeyboard);
+      nextBt.removeEventListener("click", activeNextBt);
+      previousBt.removeEventListener("click", activeNextBt);
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      typeResponse(game, document.getElementsByClassName("record-mode")[0]);
+      typeResponse(game, document.getElementsByClassName("clues-mode")[0]);
 
       // Incomplete answer
       if (!game.lastResponseStatus) {
@@ -408,34 +587,26 @@ function listenKeyboard(event) {
                element.addEventListener("click", listenKeyboard);
             }
             document.addEventListener("keydown", listenKeyboard);
+            nextBt.addEventListener("click", activeNextBt);
+            previousBt.addEventListener("click", activeNextBt);
             return;
          }
       }
 
+      let iconsPath = base + "images/icons";
       // Incorrect answer
       if (!game.lastResponseStatus) {
          incorrecLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/images/icons");
-         // Show results
-         setTimeout(() => {
-            showResults(game);
-         }, 1200);
+         addIconAnimation(game.lastResponseStatus, iconsPath);
       }
       // Correct answer
       if (game.lastResponseStatus) {
-         correctAnswerSpan.textContent = `${game.correctAnswers}`;
-         textChangeAnimation(correctAnswerSpan);
          correcLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/images/icons");
-
+         addIconAnimation(game.lastResponseStatus, iconsPath);
+         // Show results
          setTimeout(() => {
-            showNewFlag(game);
-         }, 0);
-
-         setTimeout(() => {
-            innerLetterElements(game.countries[0].name, answerContainer);
-            game = game.resetAnswerUser(game.countries);
-         }, 1200);
+            showResults(game);
+         }, 1500);
       }
 
       setTimeout(() => {
@@ -444,7 +615,9 @@ function listenKeyboard(event) {
             element.addEventListener("click", listenKeyboard);
          }
          document.addEventListener("keydown", listenKeyboard);
-      }, 1200);
+         nextBt.addEventListener("click", activeNextBt);
+         previousBt.addEventListener("click", activePreviousBt);
+      }, 1500);
 
       return;
    }
@@ -488,13 +661,14 @@ function listenKeyboard(event) {
             element.style.border = "";
             element.style.backgroundColor = "";
          }
-      }, 1200);
+      }, 1500);
    }
 }
 
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", function () {
+   const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
    const [startAgain] = document.getElementsByClassName("game__start-again");
    const [btInformation] = document.getElementsByClassName(
       "game__bt-information"
@@ -502,9 +676,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
    startupEvents();
 
+   nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
+
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+         activeNextBt();
+      }
+
+      if (event.key === "ArrowLeft") {
+         activePreviousBt();
+      }
+   });
 
    addMenuEvents();
    changeBtDarkMode();
@@ -533,7 +718,7 @@ function userSelect() {
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");
-   const [body] = document.getElementsByClassName("record-mode");
+   const [body] = document.getElementsByClassName("clues-mode");
 
    // Events
    btSettings.addEventListener("click", () => {
@@ -542,71 +727,71 @@ async function startupEvents() {
 
    async function insertPresentation(body) {
       const presentationHtml = `        
-            <div class="presentation__section">
-            <button class="presentation__header-link" title="Cerrar" type="button"
-                    >
-                </button>
-            <header class="presentation__header">
-                <h2 class="presentation__header-title">TU PAÍS</h2>   
-            </header>
+      <div class="presentation__section">
+      <button class="presentation__header-link" title="Cerrar" type="button"
+              >
+          </button>
+      <header class="presentation__header">
+          <h2 class="presentation__header-title">TU PAÍS</h2>   
+      </header>
 
-            <div class="presentation__div">
-                <p class="presentation__paragraph">
-                    <strong>TU PAÍS</strong> es un juego de adivinanzas
-                    geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
-                    . Si completas las respuestas correctamente ¡Ganás!
-                </p>
+      <div class="presentation__div">
+          <p class="presentation__paragraph">
+              <strong>TU PAÍS</strong> es un juego de adivinanzas
+              geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas
+              . Si completas las respuestas correctamente ¡Ganás!
+          </p>
 
-                <p
-                    class="presentation__label-continents"
-                    >Elige el continente de los paises</p
-                >
+          <p
+              class="presentation__label-continents"
+              >Elige el continente de los paises</p
+          >
 
-                <select name="countries" title="countries" class="continents-dropdown">
-                    <option
-                        value="all continents"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        TODO EL MUNDO
-                    </option>
-                    <option
-                        value="africa"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ÁFRICA
-                    </option>
-                    <option
-                        value="americas"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        AMÉRICA
-                    </option>
-                    <option
-                        value="asia"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        ASIA
-                    </option>
-                    <option
-                        value="europe"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        EUROPA
-                    </option>
-                    <option
-                        value="oceania"
-                        class="presentation__continents-dropdown-option"
-                    >
-                        OCEANÍA
-                    </option>
-                </select>
+          <select name="countries" title="countries" class="continents-dropdown">
+              <option
+                  value="all continents"
+                  class="presentation__continents-dropdown-option"
+              >
+                  TODO EL MUNDO
+              </option>
+              <option
+                  value="africa"
+                  class="presentation__continents-dropdown-option"
+              >
+                  ÁFRICA
+              </option>
+              <option
+                  value="americas"
+                  class="presentation__continents-dropdown-option"
+              >
+                  AMÉRICA
+              </option>
+              <option
+                  value="asia"
+                  class="presentation__continents-dropdown-option"
+              >
+                  ASIA
+              </option>
+              <option
+                  value="europe"
+                  class="presentation__continents-dropdown-option"
+              >
+                  EUROPA
+              </option>
+              <option
+                  value="oceania"
+                  class="presentation__continents-dropdown-option"
+              >
+                  OCEANÍA
+              </option>
+          </select>
 
-                <button class="presentation__button-start" title="Empezar" type="button"
-                    ><span>EMPEZAR</span></button
-                >
-            </div>
-        </div>
-        <div class="blurry-background"></div>
+          <button class="presentation__button-start" title="Empezar" type="button"
+              ><span>EMPEZAR</span></button
+          >
+      </div>
+  </div>
+  <div class="blurry-background"></div>
 `;
       return new Promise((resolve) => {
          btSettings.blur();
@@ -727,6 +912,7 @@ async function startupEvents() {
             }, 100);
          });
       }
+      let iconPath = base + "images/icons";
       const settingsHtml = `       
                <div class="presentation__section">
                <button class="presentation__header-link" title="Cerrar" type="button"
@@ -738,11 +924,12 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                     <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20"
+                     src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/ >
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -897,6 +1084,7 @@ async function startupEvents() {
       createNewGame();
    }
 }
+
 function mouseClickCardInformation() {
    const [cardInformation] =
       document.getElementsByClassName("information-card");
@@ -1010,6 +1198,114 @@ async function cardAnimationOut(element) {
    });
 }
 
+function activeNextBt() {
+   if (game.currentClue === 9) return;
+   const [cluesList] = document.getElementsByClassName(
+      "clues-mode__clues-list"
+   );
+   const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
+   const [previousBt] = document.getElementsByClassName(
+      "clues-mode__btPrevious"
+   );
+   const cluesItems = document.getElementsByClassName("clues-mode__clues-item");
+   const regex = /[0-9]+/;
+   let numberTranslate;
+
+   // Next button
+   const [score] = document.getElementsByClassName("game__score");
+   const [currentClue] = document.getElementsByClassName("game__clues");
+
+   game = game.addCurrentClue();
+
+   if (game.shownClues <= 10) {
+      if (game.shownClues + 1 - game.currentClue === 1) {
+         game = game.addShownClue();
+         score.textContent = `${11 - game.shownClues}`;
+         currentClue.textContent = `${game.currentClue + 1}`;
+         textChangeAnimation(score);
+         textChangeAnimation(currentClue);
+      }
+   }
+
+   if (cluesList.style.transform === "") {
+      cluesList.style.transform = "translateX(-100%)";
+
+      if (game.currentClue === 1) {
+         previousBt.style.opacity = "1";
+         previousBt.style.cursor = "pointer";
+         previousBt.disabled = false;
+      }
+      return;
+   }
+
+   if (cluesList.style.transform !== "") {
+      numberTranslate = Number(regex.exec(cluesList.style.transform));
+
+      if (game.currentClue === 1) {
+         previousBt.style.opacity = "1";
+         previousBt.style.cursor = "pointer";
+         previousBt.disabled = false;
+      }
+
+      if (game.currentClue === cluesItems.length - 1) {
+         nextBt.style.opacity = "0";
+         nextBt.style.cursor = "initial";
+         nextBt.disabled = true;
+      } else {
+         nextBt.style.opacity = "1";
+         nextBt.style.cursor = "pointer";
+         nextBt.disabled = false;
+      }
+
+      if (numberTranslate === 900) return;
+
+      cluesList.style.transform = `translateX(-${numberTranslate + 100}%)`;
+      return;
+   }
+}
+
+function activePreviousBt() {
+   if (game.currentClue === 0) return;
+
+   const [cluesList] = document.getElementsByClassName(
+      "clues-mode__clues-list"
+   );
+   const [nextBt] = document.getElementsByClassName("clues-mode__btNext");
+   const [previousBt] = document.getElementsByClassName(
+      "clues-mode__btPrevious"
+   );
+   const cluesItems = document.getElementsByClassName("clues-mode__clues-item");
+   const regex = /[0-9]+/;
+   let numberTranslate;
+   // Previous button
+   game = game.substractCurrentClue();
+
+   numberTranslate = Number(regex.exec(cluesList.style.transform));
+   if (cluesList.style.transform === "" || numberTranslate === 1) {
+      return;
+   }
+
+   if (cluesList.style.transform !== "") {
+      if (game.currentClue === cluesItems.length - 2) {
+         nextBt.style.opacity = "1";
+         nextBt.style.cursor = "pointer";
+         nextBt.disabled = false;
+      }
+
+      if (game.currentClue === 0) {
+         previousBt.style.opacity = "0";
+         previousBt.style.cursor = "initial";
+         previousBt.disabled = true;
+      }
+
+      numberTranslate = Number(regex.exec(cluesList.style.transform));
+
+      if (numberTranslate === 0) return;
+      cluesList.style.transform = `translateX(-${numberTranslate - 100}%)`;
+      return;
+   }
+}
+
 function addMenuEvents() {
    const [menuButtonOpen] = document.getElementsByClassName(
       "navbar__button--open"
@@ -1019,24 +1315,30 @@ function addMenuEvents() {
       "navbar__button--close"
    );
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
-   const [body] = document.getElementsByClassName("record-mode");
+   const [body] = document.getElementsByClassName("clues-mode");
 
    btGithub.addEventListener("mouseover", () => {
+      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github-dark-mode-hover.svg')";
+         // TODO: Correjir la ruta para que sea un path
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github-dark-mode-hover.svg"
+         })`;
       } else {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github.svg')";
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github.svg"
+         })`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-dark-mode.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-dark-mode.svg"
+            })`;
          } else {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-hover.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-hover.svg"
+            })`;
          }
       });
    });
@@ -1085,11 +1387,12 @@ function addMenuEvents() {
 
 // Animación de icono de respuesta correcta o incorrecta
 function addIconAnimation(typeAnswer, url) {
-   const [countryElement] =
-      document.getElementsByClassName("country__container");
+   const [countryElement] = document.getElementsByClassName(
+      "clues-mode__container--1"
+   );
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
-   const [body] = document.getElementsByClassName("record-mode");
+   const [body] = document.getElementsByClassName("clues-mode");
 
    if (typeAnswer) {
       url += "/icons-correct.svg";
@@ -1116,7 +1419,7 @@ function addIconAnimation(typeAnswer, url) {
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 1200);
+   }, 1500);
 }
 
 function insertInformation(event) {
@@ -1127,8 +1430,9 @@ function insertInformation(event) {
 
                 <p
                     class="information-card__paragraph"
-                    >En este formato hay que adivinar la mayor cantidad de países
-               posibles sin equivocarse.</p
+                    >En este formato hay que adivinar un pasís a partir de 10 pistas
+               que van a ir apareciendo. Cuantas menos pistas hayas utilizado
+               mejor va a ser tu puntaje de adivinanza.</p
                 >
             </div>
         </div>
@@ -1190,15 +1494,14 @@ function insertInformation(event) {
 
 function changeBtDarkMode() {
    function addClassDarkMode(type) {
-      // Página actual
-      const [body] = document.getElementsByClassName("record-mode");
-      const [main] = document.getElementsByClassName("record-mode__main");
       const [header] = document.getElementsByClassName("header");
       const [footer] = document.getElementsByClassName("footer");
       const [title] = document.getElementsByClassName("header__title");
       const [descriptionCountry] = document.getElementsByClassName(
          "country__description"
       );
+      const [body] = document.getElementsByClassName("clues-mode");
+      const [main] = document.getElementsByClassName("clues-mode__main");
       const [navbarButton] = document.getElementsByClassName(
          "navbar__button--open"
       );

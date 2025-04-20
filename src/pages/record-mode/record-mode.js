@@ -1,15 +1,16 @@
+import "@src/index.css";
+
+let base = import.meta.env.BASE_URL;
+
 // Imports
 import { NewGame } from "@scripts/imports/classNewGame.mjs";
 
 // Bindings
 let game;
-let timeElapsed = 0;
-let freeTimeInterval = null;
-let timeInterval;
 
 // Functions
 function showResults(game) {
-   let body = document.getElementsByClassName("time-trial-mode")[0];
+   let body = document.getElementsByClassName("record-mode")[0];
    insertAnswerResults(body, game.correctAnswers);
    deleteAllLetters();
 }
@@ -23,42 +24,26 @@ function deleteAllLetters() {
    }
 }
 
-function insertAnswerResults(element, correctAnswers, time) {
-   time = formatTimeResults(time);
+function insertAnswerResults(element, correctAnswers) {
    const textHtml = `
     <div class="answer-results">
     <button class="answer-results__close" title="Cerrar" type="button">
     </button>
     <p class="answer-results__paragraph">
     <span class="answer-results__span">RESULTADOS</span>
+    <span class="answer-results__span"></span>
     <span class="answer-results__span">
       Respuestas correctas
     </span>
     <span class="answer-results__span">
       ${correctAnswers}
     </span>
-    <span class="answer-results__span">Tiempo</span>
-    <span class="answer-results__span">${
-       localStorage.getItem("time") / 1000
-    }s</span>
     </p>
     <a href="/game-modes.html" class="answer-results__button--change-mode" title="Cambiar de modo" target="_self"><span>CAMBIAR DE MODO</span></a>
     <button class="answer-results__button--start-again" title="Jugar de nuevo" type="button"><span>JUGAR DE NUEVO</span></button>
 
     </div>
     <div class="blurry-background"></div>`;
-   const [presentation] = document.getElementsByClassName(
-      "presentation__section"
-   );
-   const [bgBlurryPresentation] =
-      document.getElementsByClassName("blurry-background");
-   const [btSettings] = document.getElementsByClassName("header__settings");
-   btSettings.blur();
-
-   if (presentation) {
-      presentation.remove();
-      bgBlurryPresentation.remove();
-   }
 
    element.insertAdjacentHTML("beforeend", textHtml);
 
@@ -227,7 +212,6 @@ function typeKey(key) {
       "z",
       "ç",
       "ñ",
-      "arrowright",
    ];
    const enterString = "enter";
    const backspaceString = "backspace";
@@ -313,13 +297,12 @@ function typeResponse(game, element) {
 
       setTimeout(function () {
          responseDiv.style.opacity = 0;
-      }, 1000);
+      }, 1200);
 
       setTimeout(function () {
          responseDiv.remove();
-      }, 1100);
+      }, 1400);
    }
-
    let nameCountry = game.countries[0].name.replace(/\s/g, "");
 
    // Correct answer
@@ -355,28 +338,6 @@ function insertTextContinent(continent) {
 }
 
 async function createNewGame() {
-   // Clean timer
-   if (freeTimeInterval) {
-      clearInterval(freeTimeInterval);
-   }
-
-   if (timeInterval) {
-      clearInterval(timeInterval);
-   }
-
-   // Create timer
-   const timerElement = document.getElementsByClassName("game__time");
-   let timeStorage = localStorage.getItem("time")
-      ? Number(localStorage.getItem("time"))
-      : -1;
-   if (timeStorage === -1) timeStorage = 30000;
-   if (timeStorage !== -1) {
-      timerElement[0].textContent = formatTime(timeStorage);
-      timeStorage -= 1000;
-      countDown(timeStorage, timerElement[0]);
-      timeStorage += 1000;
-   }
-
    const [flagImg] = document.getElementsByClassName("country__flag");
    const [answerContainer] = document.getElementsByClassName("game__answer");
    const [continentElement] = document.getElementsByClassName(
@@ -396,7 +357,7 @@ async function createNewGame() {
    // Correc answers reset
    correctAnswerSpan.textContent = "0";
 
-   game = await NewGame.create(gameContinent, -1, "/images/flags");
+   game = await NewGame.create(gameContinent, -1, "/tupais/images/flags");
 
    innerLetterElements(game.countries[0].name, answerContainer);
    flagImg.src = game.countries[0].flagUrl;
@@ -411,79 +372,6 @@ async function createNewGame() {
    document.addEventListener("keydown", listenKeyboard);
 }
 
-// Timer
-
-// Función para añadir ceros delante de un número si es necesario
-function pad(number, length) {
-   return ("0" + number).slice(-length);
-}
-
-function formatTime(milliseconds) {
-   // Calcular minutos y segundos
-   let totalSeconds = Math.floor(milliseconds / 1000);
-   let minutes = Math.floor(totalSeconds / 60);
-   let seconds = totalSeconds % 60;
-
-   // Formatear los minutos y segundos
-   let formattedMinutes = pad(minutes, 2);
-   let formattedSeconds = pad(seconds, 2);
-
-   // Concatenar minutos y segundos formateados
-   return formattedMinutes + ":" + formattedSeconds;
-}
-
-function formatTimeResults(seconds) {
-   // Calculate minutes and remaining seconds
-   var minutes = Math.floor(seconds / 60);
-   var remainingSeconds = seconds % 60;
-
-   // Format minutes and seconds with leading zeros if necessary
-   var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-   var formattedSeconds =
-      remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
-
-   // Return formatted time
-   return formattedMinutes + ":" + formattedSeconds;
-}
-
-// Timer
-function countDown(milliseconds, element) {
-   if (milliseconds === -1) {
-      freeTimeInterval = setInterval(function () {
-         if (game) {
-            if (game.correctAnswers === 10) {
-               clearInterval(freeTimeInterval);
-            } else {
-               timeElapsed++;
-            }
-         }
-      }, 1000);
-   }
-
-   if (milliseconds !== -1) {
-      timeInterval = setInterval(function () {
-         if (milliseconds < 0) {
-            clearInterval(timeInterval);
-
-            showResults(game);
-         } else {
-            let minutes = Math.floor(milliseconds / 60000);
-            let seconds = Math.floor((milliseconds % 60000) / 1000);
-
-            // Formatear los minutos y segundos en un string en formato MM:SS
-            let formattedTime = pad(minutes, 2) + ":" + pad(seconds, 2);
-
-            // Mostrar el tiempo restante en el elemento
-            element.textContent = formattedTime;
-
-            // Restar un segundo al tiempo restante
-            milliseconds -= 1000;
-            timeElapsed++;
-         }
-      }, 1000);
-   }
-}
-
 function listenKeyboard(event) {
    let pressedKey;
    if (event.key) {
@@ -494,11 +382,6 @@ function listenKeyboard(event) {
    }
 
    if (!typeKey(pressedKey)) return;
-
-   if (pressedKey === "arrowright") {
-      activeNextBt();
-      return;
-   }
 
    if (pressedKey === "enter") {
       const buttonsKeyboard =
@@ -516,7 +399,7 @@ function listenKeyboard(event) {
 
       game = game.verifyAnswer(game.answerUser, game.countries[0].name);
 
-      typeResponse(game, document.getElementsByClassName("time-trial-mode")[0]);
+      typeResponse(game, document.getElementsByClassName("record-mode")[0]);
 
       // Incomplete answer
       if (!game.lastResponseStatus) {
@@ -533,23 +416,23 @@ function listenKeyboard(event) {
          }
       }
 
+      let iconsPath = base + "images/icons";
+
       // Incorrect answer
       if (!game.lastResponseStatus) {
          incorrecLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/images/icons");
+         addIconAnimation(game.lastResponseStatus, iconsPath);
          // Show results
-         if (game.correctAnswers === 10) {
-            setTimeout(() => {
-               showResults(game);
-            }, 1500);
-         }
+         setTimeout(() => {
+            showResults(game);
+         }, 1200);
       }
       // Correct answer
       if (game.lastResponseStatus) {
          correctAnswerSpan.textContent = `${game.correctAnswers}`;
          textChangeAnimation(correctAnswerSpan);
          correcLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, "/images/icons");
+         addIconAnimation(game.lastResponseStatus, iconsPath);
 
          setTimeout(() => {
             showNewFlag(game);
@@ -557,8 +440,8 @@ function listenKeyboard(event) {
 
          setTimeout(() => {
             innerLetterElements(game.countries[0].name, answerContainer);
-            game = game.resetAnswerUser();
-         }, 1000);
+            game = game.resetAnswerUser(game.countries);
+         }, 1200);
       }
 
       setTimeout(() => {
@@ -567,7 +450,7 @@ function listenKeyboard(event) {
             element.addEventListener("click", listenKeyboard);
          }
          document.addEventListener("keydown", listenKeyboard);
-      }, 1000);
+      }, 1200);
 
       return;
    }
@@ -611,14 +494,13 @@ function listenKeyboard(event) {
             element.style.border = "";
             element.style.backgroundColor = "";
          }
-      }, 1000);
+      }, 1200);
    }
 }
 
 // Eventos
 // Event after loading content
 document.addEventListener("DOMContentLoaded", function () {
-   const [nextBt] = document.getElementsByClassName("country__btNext");
    const [startAgain] = document.getElementsByClassName("game__start-again");
    const [btInformation] = document.getElementsByClassName(
       "game__bt-information"
@@ -626,7 +508,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
    startupEvents();
 
-   nextBt.addEventListener("click", activeNextBt);
    startAgain.addEventListener("click", createNewGame);
    btInformation.addEventListener("click", mouseClickCardInformation);
    btInformation.addEventListener("mouseenter", mouseInCardInformation);
@@ -658,7 +539,7 @@ function userSelect() {
 
 async function startupEvents() {
    const [btSettings] = document.getElementsByClassName("header__settings");
-   const [body] = document.getElementsByClassName("time-trial-mode");
+   const [body] = document.getElementsByClassName("record-mode");
 
    // Events
    btSettings.addEventListener("click", () => {
@@ -745,9 +626,6 @@ async function startupEvents() {
          const [continentsDropdown] = document.getElementsByClassName(
             "continents-dropdown"
          );
-         const buttonsTime = document.getElementsByClassName(
-            "presentation__button-time"
-         );
          const [startButton] = document.getElementsByClassName(
             "presentation__button-start"
          );
@@ -756,31 +634,15 @@ async function startupEvents() {
          );
 
          presentation.classList.add("presentation");
-         presentation.classList.add("presentation-with-time");
 
          // Millisenconds
          let continent = "all continents";
-         let times = [15000, 30000, 60000];
 
          // Events
          continentsDropdown.addEventListener("change", function (event) {
             continent = event.target.value;
             event.target.classList.add("continents-dropdown--focus");
          });
-
-         for (let i = 0; i < buttonsTime.length; i++) {
-            buttonsTime[i].addEventListener("click", function (event) {
-               localStorage.setItem("time", times[i]);
-
-               for (let button of buttonsTime) {
-                  if (button === buttonsTime[i]) {
-                     button.classList.add("presentation__button-time--focus");
-                     continue;
-                  }
-                  button.classList.remove("presentation__button-time--focus");
-               }
-            });
-         }
 
          startButton.addEventListener("click", function () {
             localStorage.setItem("continent", continent);
@@ -853,7 +715,7 @@ async function startupEvents() {
          }, 15);
 
          setTimeout(() => {
-            element.style.height = "30rem";
+            element.style.height = "25rem";
             element.style.width = "28rem";
          }, 15);
       }
@@ -871,6 +733,7 @@ async function startupEvents() {
             }, 100);
          });
       }
+      let iconPath = base + "images/icons";
       const settingsHtml = `       
                <div class="presentation__section">
                <button class="presentation__header-link" title="Cerrar" type="button"
@@ -878,14 +741,16 @@ async function startupEvents() {
                    </button>
                
                   <div class="presentation__div">
+                  <h2 class="presentation__subtitle">Configuración</h2>
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                    <img width="20" height="20" src="/images/icons/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                     <img width="20" height="20"
+                     src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/ >
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="/images/icons/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -931,24 +796,6 @@ async function startupEvents() {
                            OCEANÍA
                        </option>
                    </select>
-
-                   <p
-                       class="presentation__label-time"
-                       >Elige el tiempo</p
-                   >
-
-                   <div class="presentation__div-time">
-                     <button class="presentation__button-time" title="15 segundos" type="button"
-                       ><span>00:15</span></button
-                   >
-                   <button class="presentation__button-time" title="30 segundos" type="button"
-                       ><span>00:30</span></button
-                   >
-                   <button class="presentation__button-time" title="1 minuto" type="button"
-                       ><span>1:00</span></button
-                   >
-                   </div>
-
                    <button class="presentation__button-start" title="Empezar" type="button"
                        ><span>EMPEZAR</span></button
                    >
@@ -974,9 +821,6 @@ async function startupEvents() {
       const [continentsDropdown] = document.getElementsByClassName(
          "continents-dropdown"
       );
-      const buttonsTime = document.getElementsByClassName(
-         "presentation__button-time"
-      );
       const [startButton] = document.getElementsByClassName(
          "presentation__button-start"
       );
@@ -986,28 +830,12 @@ async function startupEvents() {
       presentation.classList.add("settings");
       // Millisenconds
       let continent = "all continents";
-      let times = [15000, 30000, 60000];
 
       // Events
       continentsDropdown.addEventListener("change", function (event) {
          continent = event.target.value;
          event.target.classList.add("continents-dropdown--focus");
       });
-
-      for (let i = 0; i < buttonsTime.length; i++) {
-         buttonsTime[i].addEventListener("click", function (event) {
-            localStorage.setItem("time", times[i]);
-
-            for (let button of buttonsTime) {
-               if (button === buttonsTime[i]) {
-                  button.classList.add("presentation__button-time--focus");
-                  continue;
-               }
-               button.classList.remove("presentation__button-time--focus");
-            }
-         });
-      }
-
       startButton.addEventListener("click", function () {
          localStorage.setItem("continent", continent);
 
@@ -1077,7 +905,6 @@ async function startupEvents() {
       createNewGame();
    }
 }
-
 function mouseClickCardInformation() {
    const [cardInformation] =
       document.getElementsByClassName("information-card");
@@ -1191,22 +1018,6 @@ async function cardAnimationOut(element) {
    });
 }
 
-function activeNextBt() {
-   const [nextBt] = document.getElementsByClassName("country__btNext");
-   nextBt.blur();
-   const [flagImg] = document.getElementsByClassName("country__flag");
-   const [answerContainer] = document.getElementsByClassName("game__answer");
-
-   flagImg.addEventListener("load", flagLoaded);
-   function flagLoaded() {
-      innerLetterElements(game.countries[0].name, answerContainer);
-      flagImg.removeEventListener("load", flagLoaded);
-   }
-   game = game.resetAnswerUser(game.countries);
-   game = game.nextCountry();
-   showNewFlag(game);
-}
-
 function addMenuEvents() {
    const [menuButtonOpen] = document.getElementsByClassName(
       "navbar__button--open"
@@ -1216,24 +1027,30 @@ function addMenuEvents() {
       "navbar__button--close"
    );
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
-   const [body] = document.getElementsByClassName("time-trial-mode");
+   const [body] = document.getElementsByClassName("record-mode");
 
    btGithub.addEventListener("mouseover", () => {
+      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github-dark-mode-hover.svg')";
+         // TODO: Correjir la ruta para que sea un path
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github-dark-mode-hover.svg"
+         })`;
       } else {
-         btGithub.style.backgroundImage =
-            "url('/images/icons/icons-github.svg')";
+         btGithub.style.backgroundImage = `url(${
+            iconsPath + "/icons-github.svg"
+         })`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-dark-mode.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-dark-mode.svg"
+            })`;
          } else {
-            btGithub.style.backgroundImage =
-               "url('/images/icons/icons-github-hover.svg')";
+            btGithub.style.backgroundImage = `url(${
+               iconsPath + "/icons-github-hover.svg"
+            })`;
          }
       });
    });
@@ -1286,7 +1103,7 @@ function addIconAnimation(typeAnswer, url) {
       document.getElementsByClassName("country__container");
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
-   const [body] = document.getElementsByClassName("time-trial-mode");
+   const [body] = document.getElementsByClassName("record-mode");
 
    if (typeAnswer) {
       url += "/icons-correct.svg";
@@ -1313,7 +1130,7 @@ function addIconAnimation(typeAnswer, url) {
    setTimeout(() => {
       blurryBackground.remove();
       iconImg.remove();
-   }, 1000);
+   }, 1200);
 }
 
 function insertInformation(event) {
@@ -1324,8 +1141,8 @@ function insertInformation(event) {
 
                 <p
                     class="information-card__paragraph"
-                    >En este formato hay que adivinar la mayor cantidad de países en
-               el menor tiempo posible antes de que se acabe el contador.</p
+                    >En este formato hay que adivinar la mayor cantidad de países
+               posibles sin equivocarse.</p
                 >
             </div>
         </div>
@@ -1385,17 +1202,17 @@ function insertInformation(event) {
    }
 }
 
-// DarkMode
 function changeBtDarkMode() {
    function addClassDarkMode(type) {
+      // Página actual
+      const [body] = document.getElementsByClassName("record-mode");
+      const [main] = document.getElementsByClassName("record-mode__main");
       const [header] = document.getElementsByClassName("header");
       const [footer] = document.getElementsByClassName("footer");
       const [title] = document.getElementsByClassName("header__title");
       const [descriptionCountry] = document.getElementsByClassName(
          "country__description"
       );
-      const [body] = document.getElementsByClassName("time-trial-mode");
-      const [main] = document.getElementsByClassName("time-trial-mode__main");
       const [navbarButton] = document.getElementsByClassName(
          "navbar__button--open"
       );
@@ -1408,9 +1225,8 @@ function changeBtDarkMode() {
       const [startAgain] = document.getElementsByClassName("game__start-again");
       const [github] = document.getElementsByClassName("footer__icon-github");
       const navbarIcon = document.getElementsByClassName("navbar__icon");
-      const buttonsKeyboard = document.getElementsByClassName(
-         "multiple-choice__option"
-      );
+      const buttonsKeyboard =
+         document.getElementsByClassName("button-keyboard");
 
       const statistics = document.getElementsByClassName(
          "game__statistics-item"

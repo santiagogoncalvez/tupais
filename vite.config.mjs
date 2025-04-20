@@ -1,37 +1,54 @@
 import { defineConfig } from "vite";
-import path from "path";
+import { resolve } from "path";
+
+const base = "/tupais/";
+const root = resolve(__dirname);
+const outDir = resolve(__dirname, "dist");
 
 // TODO: activar el uso de @ o averiguar por que no se ejecuta en "npm run dev"
 export default defineConfig({
+   root,
    resolve: {
       alias: {
-         "@": path.resolve(__dirname),
-         "@flags": path.resolve(__dirname, "./public/images/flags"),
-         "@coat-of-arms": path.resolve(
-            __dirname,
-            "./public/images/coat-of-arms"
-         ),
-         "@src": path.resolve(__dirname, "./src"),
-         "@scripts": path.resolve(__dirname, "./src/scripts"),
+         "@": resolve(__dirname),
+         "@flags": resolve(__dirname, "./public/images/flags"),
+         "@coat-of-arms": resolve(__dirname, "./public/images/coat-of-arms"),
+         "@src": resolve(__dirname, "./src"),
+         "@scripts": resolve(__dirname, "./src/scripts"),
       },
    },
    build: {
+      outDir,
+      emptyOutDir: true,
       rollupOptions: {
+         // TODO: modificar rutas a los puntos de entrada para que sean correctos
          input: {
-            main: path.resolve(__dirname, "index.html"), // index en el root
-            about: path.resolve(__dirname, "src/about-the-game.html"),
-            clues: path.resolve(__dirname, "src/clues-mode.html"),
-            credits: path.resolve(__dirname, "src/credits.html"),
-            flag: path.resolve(__dirname, "src/flag-gallery.html"),
-            game: path.resolve(__dirname, "src/game-modes.html"),
-            multipleChoice: path.resolve(
+            main: resolve(__dirname, "index.html"), // index en el root
+            about: resolve(
                __dirname,
-               "src/multipleChoise-mode.html"
+               "src/pages/about-the-game/about-the-game.html"
             ),
-            record: path.resolve(__dirname, "src/record-mode.html"),
-            time: path.resolve(__dirname, "src/time-trial-mode.html"),
+            clues: resolve(__dirname, "src/pages/clues-mode/clues-mode.html"),
+            credits: resolve(__dirname, "src/pages/credits/credits.html"),
+            flag: resolve(
+               __dirname,
+               "src/pages/flag-gallery/flag-gallery.html"
+            ),
+            game: resolve(__dirname, "src/pages/game-modes/game-modes.html"),
+            multipleChoice: resolve(
+               __dirname,
+               "src/pages/multipleChoise-mode/multipleChoise-mode.html"
+            ),
+            record: resolve(
+               __dirname,
+               "src/pages/record-mode/record-mode.html"
+            ),
+            time: resolve(
+               __dirname,
+               "src/pages/time-trial-mode/time-trial-mode.html"
+            ),
          },
       },
    },
-   base: "/tupais/",
+   base: base,
 });

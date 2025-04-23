@@ -14,7 +14,7 @@ export default defineConfig({
          "@flags": resolve(__dirname, "./public/images/flags"),
          "@coat-of-arms": resolve(__dirname, "./public/images/coat-of-arms"),
          "@src": resolve(__dirname, "./src"),
-         "@scripts": resolve(__dirname, "./src/scripts"),
+         "@utils": resolve(__dirname, "./src/utils"),
       },
    },
    build: {
@@ -24,10 +24,7 @@ export default defineConfig({
          // TODO: modificar rutas a los puntos de entrada para que sean correctos
          input: {
             main: resolve(__dirname, "index.html"), // index en el root
-            about: resolve(
-               __dirname,
-               "src/pages/about-the-game/about-the-game.html"
-            ),
+            about: resolve(__dirname, "src/pages/about/about.html"),
             clues: resolve(__dirname, "src/pages/clues-mode/clues-mode.html"),
             credits: resolve(__dirname, "src/pages/credits/credits.html"),
             flag: resolve(

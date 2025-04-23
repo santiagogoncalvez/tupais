@@ -3,7 +3,7 @@ import "@src/index.css";
 let base = import.meta.env.BASE_URL;
 
 // Imports
-import { NewGame } from "@scripts/imports/classNewGame.mjs";
+import { NewGame } from "@utils/classNewGame.mjs";
 
 // Bindings
 let game;
@@ -537,12 +537,10 @@ function listenKeyboard(event) {
          }
       }
 
-      let iconsPath = base + "images/icons";
-
       // Incorrect answer
       if (!game.lastResponseStatus) {
          incorrecLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, iconsPath);
+         addIconAnimation(game.lastResponseStatus);
          // Show results
          if (game.correctAnswers === 10) {
             setTimeout(() => {
@@ -555,7 +553,7 @@ function listenKeyboard(event) {
          correctAnswerSpan.textContent = `${game.correctAnswers}`;
          textChangeAnimation(correctAnswerSpan);
          correcLetterAnimation();
-         addIconAnimation(game.lastResponseStatus, iconsPath);
+         addIconAnimation(game.lastResponseStatus);
 
          setTimeout(() => {
             showNewFlag(game);
@@ -878,7 +876,6 @@ async function startupEvents() {
          });
       }
 
-      let iconPath = base + "images/icons";
       const settingsHtml = `       
                <div class="presentation__section">
                <button class="presentation__header-link" title="Cerrar" type="button"
@@ -889,11 +886,21 @@ async function startupEvents() {
    
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
-                    <img width="20" height="20" src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/>
+                    <img width="20" height="20" src="${
+                       new URL(
+                          "/src/assets/icons/icons-sun.svg",
+                          import.meta.url
+                       ).href
+                    }" alt="sun-symbol" class="dark-mode-bt__sun"/>
        
                      <div class="dark-mode-bt__circle"></div>
               
-                     <img width="20" height="20" src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     <img width="20" height="20" src="${
+                        new URL(
+                           "/src/assets/icons/icons-moon.png",
+                           import.meta.url
+                        ).href
+                     }" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -1226,28 +1233,34 @@ function addMenuEvents() {
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
    const [body] = document.getElementsByClassName("time-trial-mode");
 
+   let iconPathHoverDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPathDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode.svg",
+      import.meta.url
+   ).href;
+   let iconPathHover = new URL(
+      "/src/assets/icons/icons-github-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPath = new URL("/src/assets/icons/icons-github.svg", import.meta.url)
+      .href;
+
    btGithub.addEventListener("mouseover", () => {
-      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
          // TODO: Correjir la ruta para que sea un path
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github-dark-mode-hover.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPathHoverDark}")`;
       } else {
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPath}")`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-dark-mode.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathDark}")`;
          } else {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-hover.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathHover}")`;
          }
       });
    });
@@ -1295,18 +1308,21 @@ function addMenuEvents() {
 }
 
 // Animación de icono de respuesta correcta o incorrecta
-function addIconAnimation(typeAnswer, url) {
+function addIconAnimation(typeAnswer) {
    const [countryElement] =
       document.getElementsByClassName("country__container");
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
    const [body] = document.getElementsByClassName("time-trial-mode");
 
+   let url;
    if (typeAnswer) {
-      url += "/icons-correct.svg";
+      url = new URL("/src/assets/icons/icons-correct.svg", import.meta.url)
+         .href;
       iconImg.src = url;
    } else {
-      url += "/icons-incorrect.svg";
+      url = new URL("/src/assets/icons/icons-incorrect.svg", import.meta.url)
+         .href;
       iconImg.src = url;
    }
 
@@ -1430,6 +1446,14 @@ function changeBtDarkMode() {
          "game__statistics-item"
       );
 
+      let iconPath = new URL(
+         "/src/assets/icons/icons-github-hover.svg",
+         import.meta.url
+      ).href;
+      let iconPathDark = new URL(
+         "/src/assets/icons/icons-github-dark-mode.svg",
+         import.meta.url
+      ).href;
       if (type === "activate") {
          header.classList.add("dark-mode__header");
          footer.classList.add("dark-mode__footer");
@@ -1442,7 +1466,7 @@ function changeBtDarkMode() {
          navbarButton.classList.add("dark-mode__navbar-button-open");
          enter.classList.add("dark-mode__enter");
          startAgain.classList.add("dark-mode__start-again");
-         github.classList.add("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPathDark}")`;
 
          for (let element of statistics) {
             element.classList.add("dark-mode__game-text");
@@ -1467,7 +1491,7 @@ function changeBtDarkMode() {
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          enter.classList.remove("dark-mode__enter");
          startAgain.classList.remove("dark-mode__start-again");
-         github.classList.remove("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPath}")`;
 
          for (let element of statistics) {
             element.classList.remove("dark-mode__game-text");

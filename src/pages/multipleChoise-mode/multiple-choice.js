@@ -3,7 +3,7 @@ import "@src/index.css";
 const base = import.meta.env.BASE_URL;
 
 // Imports
-import { MultipleChoice } from "@scripts/imports/classNewGame.mjs";
+import { MultipleChoice } from "@utils/classNewGame.mjs";
 
 // Bindigs
 let game;
@@ -246,7 +246,7 @@ async function createNewGame() {
    correctAnswerSpan.textContent = "0";
    remainingCountries.textContent = "10";
 
-   let imagePath = base + "/images/flags";
+   let imagePath = base + "images/flags";
    game = await MultipleChoice.create(gameContinent, -1, imagePath);
 
    flagImg.src = game.countries[0].flagUrl;
@@ -284,8 +284,8 @@ function sendAnswer() {
    game = game.verifyAnswer(answerUser, countryName);
 
    // TODO: arreglar parche y refactorizar el lugar donde está la url de íconos para que esté adentro de la función
-   let iconsPath = base + "images/icons";
-   addIconAnimation(game.lastResponseStatus, iconsPath);
+
+   addIconAnimation(game.lastResponseStatus);
    typeResponse(game, document.getElementsByClassName("multiple-choice")[0]);
 
    activeBtOptions("deactivate");
@@ -501,28 +501,34 @@ function addMenuEvents() {
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
    const [body] = document.getElementsByClassName("multiple-choice");
 
+   let iconPathHoverDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPathDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode.svg",
+      import.meta.url
+   ).href;
+   let iconPathHover = new URL(
+      "/src/assets/icons/icons-github-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPath = new URL("/src/assets/icons/icons-github.svg", import.meta.url)
+      .href;
+
    btGithub.addEventListener("mouseover", () => {
-      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
          // TODO: Correjir la ruta para que sea un path
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github-dark-mode-hover.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPathHoverDark}")`;
       } else {
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPath}")`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-dark-mode.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathDark}")`;
          } else {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-hover.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathHover}")`;
          }
       });
    });
@@ -570,18 +576,21 @@ function addMenuEvents() {
 }
 
 // Animación de icono de respuesta correcta o incorrecta
-function addIconAnimation(typeAnswer, url) {
+function addIconAnimation(typeAnswer) {
    const [countryElement] =
       document.getElementsByClassName("country__container");
    let blurryBackground = document.createElement("div");
    let iconImg = document.createElement("img");
    const [body] = document.getElementsByClassName("multiple-choice");
 
+   let url;
    if (typeAnswer) {
-      url += "/icons-correct.svg";
+      url = new URL("/src/assets/icons/icons-correct.svg", import.meta.url)
+         .href;
       iconImg.src = url;
    } else {
-      url += "/icons-incorrect.svg";
+      url = new URL("/src/assets/icons/icons-incorrect.svg", import.meta.url)
+         .href;
       iconImg.src = url;
    }
 
@@ -881,7 +890,6 @@ async function startupEvents() {
          });
       }
 
-      let iconPath = base + "images/icons";
       const settingsHtml = `       
                <div class="presentation__section">
                <button class="presentation__header-link" title="Cerrar" type="button"
@@ -894,12 +902,22 @@ async function startupEvents() {
                   <div class="presentation__subtitle">Modo oscuro</div>
                   <button class="dark-mode-bt" type="button" title="Modo oscuro">
                      <img width="20" height="20"
-                     src="${iconPath}/icons-sun.svg" alt="sun-symbol" class="dark-mode-bt__sun"/ >
+                     src="${
+                        new URL(
+                           "/src/assets/icons/icons-sun.svg",
+                           import.meta.url
+                        ).href
+                     }" alt="sun-symbol" class="dark-mode-bt__sun"/ >
        
                      <div class="dark-mode-bt__circle"></div>
               
                      <img width="20" height="20"
-                     src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                     src="${
+                        new URL(
+                           "/src/assets/icons/icons-moon.png",
+                           import.meta.url
+                        ).href
+                     }" alt="moon-symbol" class="dark-mode-bt__moon"/>
                   </button>
                   <div class="presentation__subtitle">Juego</div>
                    <p
@@ -1161,6 +1179,14 @@ function changeBtDarkMode() {
          "game__statistics-item"
       );
 
+      let iconPath = new URL(
+         "/src/assets/icons/icons-github-hover.svg",
+         import.meta.url
+      ).href;
+      let iconPathDark = new URL(
+         "/src/assets/icons/icons-github-dark-mode.svg",
+         import.meta.url
+      ).href;
       if (type === "activate") {
          header.classList.add("dark-mode__header");
          footer.classList.add("dark-mode__footer");
@@ -1172,7 +1198,7 @@ function changeBtDarkMode() {
          btSettings.classList.add("dark-mode__button-settings");
          navbarButton.classList.add("dark-mode__navbar-button-open");
          startAgain.classList.add("dark-mode__start-again");
-         github.classList.add("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPathDark}")`;
          send.classList.add("dark-mode__send");
 
          for (let element of statistics) {
@@ -1197,7 +1223,7 @@ function changeBtDarkMode() {
          btSettings.classList.remove("dark-mode__button-settings");
          navbarButton.classList.remove("dark-mode__navbar-button-open");
          startAgain.classList.remove("dark-mode__start-again");
-         github.classList.remove("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPath}")`;
          send.classList.remove("dark-mode__send");
 
          for (let element of statistics) {

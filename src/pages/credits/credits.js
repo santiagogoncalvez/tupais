@@ -14,28 +14,34 @@ function addMenuEvents() {
    const [btGithub] = document.getElementsByClassName("footer__icon-github");
    const [body] = document.getElementsByClassName("credits");
 
+   let iconPathHoverDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPathDark = new URL(
+      "/src/assets/icons/icons-github-dark-mode.svg",
+      import.meta.url
+   ).href;
+   let iconPathHover = new URL(
+      "/src/assets/icons/icons-github-hover.svg",
+      import.meta.url
+   ).href;
+   let iconPath = new URL("/src/assets/icons/icons-github.svg", import.meta.url)
+      .href;
+
    btGithub.addEventListener("mouseover", () => {
-      let iconsPath = base + "/images/icons";
       if (body.classList.contains("dark-mode__page")) {
          // TODO: Correjir la ruta para que sea un path
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github-dark-mode-hover.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPathHoverDark}")`;
       } else {
-         btGithub.style.backgroundImage = `url(${
-            iconsPath + "/icons-github.svg"
-         })`;
+         btGithub.style.backgroundImage = `url("${iconPath}")`;
       }
 
       btGithub.addEventListener("mouseout", () => {
          if (body.classList.contains("dark-mode__page")) {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-dark-mode.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathDark}")`;
          } else {
-            btGithub.style.backgroundImage = `url(${
-               iconsPath + "/icons-github-hover.svg"
-            })`;
+            btGithub.style.backgroundImage = `url("${iconPathHover}")`;
          }
       });
    });
@@ -110,6 +116,14 @@ function changeBtDarkMode() {
       const paragraph = document.getElementsByClassName("credits__paragraph");
       const links = document.getElementsByClassName("credits__text-link");
 
+      let iconPath = new URL(
+         "/src/assets/icons/icons-github-hover.svg",
+         import.meta.url
+      ).href;
+      let iconPathDark = new URL(
+         "/src/assets/icons/icons-github-dark-mode.svg",
+         import.meta.url
+      ).href;
       if (type === "activate") {
          header.classList.add("dark-mode__header");
          footer.classList.add("dark-mode__footer");
@@ -119,7 +133,7 @@ function changeBtDarkMode() {
          main.classList.add("dark-mode__page");
          btSettings.classList.add("dark-mode__button-settings");
          navbarButton.classList.add("dark-mode__navbar-button-open");
-         github.classList.add("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPathDark}")`;
          subtitle.classList.add("dark-mode__game-text");
 
          for (let element of navbarIcon) {
@@ -145,7 +159,7 @@ function changeBtDarkMode() {
          main.classList.remove("dark-mode__page");
          btSettings.classList.remove("dark-mode__button-settings");
          navbarButton.classList.remove("dark-mode__navbar-button-open");
-         github.classList.remove("dark-mode__github-bt");
+         github.style.backgroundImage = `url("${iconPath}")`;
          subtitle.classList.remove("dark-mode__game-text");
 
          for (let element of navbarIcon) {
@@ -253,7 +267,6 @@ function activeBtSettings() {
       });
    }
 
-   let iconPath = base + "images/icons";
    const settingsHtml = `       
             <section class="presentation__section">
             <button class="presentation__header-link" title="Cerrar" type="button"
@@ -266,12 +279,20 @@ function activeBtSettings() {
                <div class="presentation__subtitle">Modo oscuro</div>
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
                   <img width="20" height="20"
-                  src="${iconPath}/icons-sun.svg"alt="sun-symbol" class="dark-mode-bt__sun"/>
+                  src="${
+                     new URL("/src/assets/icons/icons-sun.svg", import.meta.url)
+                        .href
+                  }"alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
                   <img width="20" height="20" 
-                  src="${iconPath}/icons-moon.png" alt="moon-symbol" class="dark-mode-bt__moon"/>
+                  src="${
+                     new URL(
+                        "/src/assets/icons/icons-moon.png",
+                        import.meta.url
+                     ).href
+                  }" alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>
         <div class="blurry-background"></div>

@@ -1,5 +1,5 @@
-import { getRandomCountries } from "@scripts/imports/countryDataManajerJson.mjs";
-import { getRandomCountrieClues } from "@scripts/imports/countryDataManajerJson.mjs";
+import { getRandomCountries } from "@utils/countryDataManajerJson.mjs";
+import { getRandomCountrieClues } from "@utils/countryDataManajerJson.mjs";
 
 async function getDataClues(continent, url) {
    let result = await getRandomCountrieClues(continent, url);

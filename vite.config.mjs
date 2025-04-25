@@ -34,7 +34,7 @@ export default defineConfig({
             game: resolve(__dirname, "src/pages/game-modes/game-modes.html"),
             multipleChoice: resolve(
                __dirname,
-               "src/pages/multipleChoise-mode/multipleChoise-mode.html"
+               "src/pages/multiple-choice-mode/multiple-choice-mode.html"
             ),
             record: resolve(
                __dirname,

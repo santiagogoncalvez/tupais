@@ -15,19 +15,18 @@ function addMenuEvents() {
    const [body] = document.getElementsByClassName("about");
 
    let iconPathHoverDark = new URL(
-      "/src/assets/icons/icons-github-dark-mode-hover.svg",
+      "/src/assets/icons/github-dark-mode-hover.svg",
       import.meta.url
    ).href;
    let iconPathDark = new URL(
-      "/src/assets/icons/icons-github-dark-mode.svg",
+      "/src/assets/icons/github-dark-mode.svg",
       import.meta.url
    ).href;
    let iconPathHover = new URL(
-      "/src/assets/icons/icons-github-hover.svg",
+      "/src/assets/icons/github-hover.svg",
       import.meta.url
    ).href;
-   let iconPath = new URL("/src/assets/icons/icons-github.svg", import.meta.url)
-      .href;
+   let iconPath = new URL("/src/assets/icons/github.svg", import.meta.url).href;
 
    btGithub.addEventListener("mouseover", () => {
       if (body.classList.contains("dark-mode__page")) {
@@ -119,11 +118,11 @@ function changeBtDarkMode() {
       const paragraph = document.getElementsByClassName("about__paragraph");
 
       let iconPath = new URL(
-         "/src/assets/icons/icons-github-hover.svg",
+         "/src/assets/icons/github-hover.svg",
          import.meta.url
       ).href;
       let iconPathDark = new URL(
-         "/src/assets/icons/icons-github-dark-mode.svg",
+         "/src/assets/icons/github-dark-mode.svg",
          import.meta.url
       ).href;
       if (type === "activate") {
@@ -284,18 +283,14 @@ function activeBtSettings() {
                <button class="dark-mode-bt" type="button" title="Modo oscuro">
                   <img width="20" height="20"
                   src="${
-                     new URL("/src/assets/icons/icons-sun.svg", import.meta.url)
-                        .href
+                     new URL("/src/assets/icons/sun.svg", import.meta.url).href
                   }"alt="sun-symbol" class="dark-mode-bt__sun"/>
     
                   <div class="dark-mode-bt__circle"></div>
            
                   <img width="20" height="20" 
                   src="${
-                     new URL(
-                        "/src/assets/icons/icons-moon.png",
-                        import.meta.url
-                     ).href
+                     new URL("/src/assets/icons/moon.png", import.meta.url).href
                   }"alt="moon-symbol" class="dark-mode-bt__moon"/>
                </button>
         </section>

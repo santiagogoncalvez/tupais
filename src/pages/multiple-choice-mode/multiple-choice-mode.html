@@ -3,25 +3,26 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Modos de juego</title>
+      <title>Modo multiple choice</title>
       <meta
          name="description"
-         content="Galería de banderas de todos los países del mundo con informacion de los países a los que pertenecen"
+         content="TU PAÍS es un juego de adivinanzas
+                    geográficas en el que tenés que acertar el nombre de países
+                    de los diferentes continentes. Si completás las respuestas ¡Ganás!"
       />
       <meta name="author" content="Santiago Gonçalvez" />
       <meta http-equiv="Content-Language" content="es" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="Tu país" />
       <meta
          property="og:description"
-         content="Galería de banderas de todos los países del mundo"
+         content="Juega a Tu País y descubre nuevas banderas y países de todo el mundo"
       />
       <meta name="keywords" content="Banderas, Juego, Adivinanzas, Países" />
       <meta name="robots" content="index, follow" />
       <link rel="author" href="https://github.com/santiagogoncalvez" />
       <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
    </head>
-   <body class="game-modes">
+   <body class="multiple-choice">
       <header class="header">
          <div class="header__container">
             <button
@@ -92,56 +93,74 @@
          </nav>
       </header>
 
-      <main class="game-modes__main">
-         <h3 class="game-modes__subtitle">Modos de juego</h3>
+      <main class="multiple-choice__main">
+         <div class="game__container">
+            <ul class="game__statistics">
+               <li class="game__statistics-item">
+                  País<br />
+                  <span class="game__span-container"
+                     ><span class="game__remaining-countries">10</span></span
+                  >
+               </li>
+               <li class="game__statistics-item">
+                  Aciertos<br />
+                  <span class="game__span-container"
+                     ><span class="game__correct-answers">0</span></span
+                  >
+               </li>
+            </ul>
+            <bt class="game__bt-information" title="¿Cómo jugar?" type="button"
+               >?</bt
+            >
+         </div>
 
-         <ul class="game-modes__modes-list">
-            <li class="game-modes__modes-item">
-               <a
-                  href="/tupais/index.html"
-                  target="_self"
-                  class="game-modes__modes-link"
-                  >Clásico</a
-               >
-            </li>
+         <figure class="country">
+            <figcaption class="country__description">Texto</figcaption>
 
-            <li class="game-modes__modes-item">
-               <a
-                  href="/tupais/src/pages/multiple-choice-mode/multiple-choice-mode.html"
-                  target="_self"
-                  class="game-modes__modes-link"
-                  >Multiple choice</a
-               >
-            </li>
+            <div class="country__container">
+               <img src="#" class="country__flag" loading="eager" alt="" />
+            </div>
+         </figure>
 
-            <li class="game-modes__modes-item">
-               <a
-                  href="/tupais/src/pages/clues-mode/clues-mode.html"
-                  target="_self"
-                  class="game-modes__modes-link"
-                  >Pistas</a
-               >
-            </li>
+         <div class="multiple-choice__options">
+            <div class="multiple-choice__option--column1">
+               <button
+                  class="multiple-choice__option"
+                  title="Opcion A"
+                  type="button"
+               ></button>
+               <button
+                  class="multiple-choice__option"
+                  title="Opcion B"
+                  type="button"
+               ></button>
+            </div>
 
-            <li class="game-modes__modes-item">
-               <a
-                  href="/tupais/src/pages/record-mode/record-mode.html"
-                  target="_self"
-                  class="game-modes__modes-link"
-                  >Récord</a
-               >
-            </li>
-            <li class="game-modes__modes-item">
-               <a
-                  href="/tupais/src/pages/time-trial-mode/time-trial-mode.html"
-                  target="_self"
-                  class="game-modes__modes-link"
-                  >Contrarrloj</a
-               >
-            </li>
-         </ul>
+            <div class="multiple-choice__option--column2">
+               <button
+                  class="multiple-choice__option"
+                  title="Opcion C"
+                  type="button"
+               ></button
+               ><button
+                  class="multiple-choice__option"
+                  title="Opcion D"
+                  type="button"
+               ></button>
+            </div>
+            <button class="multiple-choice__send" title="Enviar" type="button">
+               ENVIAR
+            </button>
+         </div>
+
+         <button
+            class="game__start-again"
+            title="Empezar de nuevo"
+            type="button"
+         >
+            EMPEZAR DE NUEVO
+         </button>
       </main>
-
       <footer class="footer">
          <div class="footer__fill-space"></div>
          <p class="footer__paragraph">Developed by Santiagogoncalvez</p>
@@ -153,6 +172,10 @@
          ></a>
       </footer>
 
-      <script src="/src/pages/game-modes/game-modes.js" type="module"></script>
+      <!-- Script -->
+      <script
+         src="/src/pages/multiple-choice-mode/multiple-choice-mode.js"
+         type="module"
+      ></script>
    </body>
 </html>

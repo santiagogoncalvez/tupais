@@ -92,7 +92,7 @@ html {
    top: -0.15rem;
    right: -1.1rem;
    transform: translate(-50%, -50%);
-   background-image: url("/src/assets/icons/icons8-cruz-30.png");
+   background-image: url("/src/assets/icons/cross.png");
    background-size: 1rem 1rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -329,7 +329,7 @@ html {
    border-radius: 0.3rem;
    border: 0.1px solid transparent;
    background-color: transparent;
-   background-image: url("/src/assets/icons/icons8-ajustes-3.svg");
+   background-image: url("/src/assets/icons/settings.svg");
    background-size: 1.6rem 1.6rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -367,7 +367,7 @@ html {
    max-width: 20vw;
    background-color: transparent;
    border-radius: 0.3rem;
-   background-image: url("/src/assets/icons/icons-menu.svg");
+   background-image: url("/src/assets/icons/menu.svg");
    background-size: 1.8rem 1.8rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1081,7 +1081,7 @@ html {
    min-width: 2.2rem;
    border-radius: 50%;
    background-color: transparent;
-   background-image: url("/src/assets/icons/icons-github-hover.svg");
+   background-image: url("/src/assets/icons/github-hover.svg");
    background-size: 1.8rem 1.8rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1095,7 +1095,7 @@ html {
 
 .footer__icon-github:hover {
    cursor: pointer;
-   /* background-image: url("/src/assets/icons/icons-github.svg"); */
+   /* background-image: url("/src/assets/icons/github.svg"); */
 }
 
 /* Animacion respuestas */
@@ -1297,7 +1297,7 @@ html {
    top: -0.15rem;
    right: -1.1rem;
    transform: translate(-50%, -50%);
-   background-image: url("/src/assets/icons/icons8-cruz-30.png");
+   background-image: url("/src/assets/icons/cross.png");
    background-size: 1rem 1rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1539,7 +1539,7 @@ html {
    height: 2.4rem;
    border-radius: 0.6rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("/src/assets/icons/icons-home.svg");
+   background-image: url("/src/assets/icons/home.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1591,7 +1591,7 @@ html {
    min-width: 2.3rem;
    height: 2.4rem;
    border: 0.15rem solid rgb(223, 223, 223);
-   background-image: url("/src/assets/icons/icons-search.svg");
+   background-image: url("/src/assets/icons/search.svg");
    background-size: 1.3rem 1.3rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1616,7 +1616,7 @@ html {
    border-radius: 5px;
    border: 2px solid transparent;
    background-color: transparent;
-   background-image: url("/src/assets/icons/icons8-cruz-30.png");
+   background-image: url("/src/assets/icons/cross.png");
    background-size: 1.2rem 1.2rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1844,7 +1844,7 @@ html {
    height: 3rem;
    border-radius: 0.6rem;
    border: 0.2rem solid rgb(212, 212, 212);
-   background-image: url("/src/assets/icons/icons-up-arrow.png");
+   background-image: url("/src/assets/icons/arrow-up.png");
    background-size: cover;
    user-select: none;
    z-index: 10;
@@ -1902,7 +1902,7 @@ html {
    right: -1.1rem;
    transform: translate(-50%, -50%);
    margin: 0 auto;
-   background-image: url("/src/assets/icons/icons8-cruz-30.png");
+   background-image: url("/src/assets/icons/cross.png");
    background-size: 1rem 1rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -2798,11 +2798,11 @@ html {
 }
 
 .dark-mode__navbar-button-open {
-   background-image: url("/src/assets/icons/icons-menu-dark-mode.svg");
+   background-image: url("/src/assets/icons/menu-dark-mode.svg");
 }
 
 .dark-mode__navbar-button-open:hover {
-   background-image: url("/src/assets/icons/icons-menu.svg");
+   background-image: url("/src/assets/icons/menu.svg");
 }
 
 .dark-mode__page {
@@ -2853,11 +2853,11 @@ html {
 }
 
 .dark-mode__button-settings {
-   background-image: url("/src/assets/icons/icons-settings-dark-modesvg.svg");
+   background-image: url("/src/assets/icons/settings-dark-mode.svg");
 }
 
 .dark-mode__button-settings:hover {
-   background-image: url("/src/assets/icons/icons8-ajustes-3.svg");
+   background-image: url("/src/assets/icons/settings.svg");
 }
 
 .dark-mode__game-text {
@@ -2897,7 +2897,7 @@ html {
 }
 
 .dark-mode__github-bt {
-   background-image: url("/src/assets/icons/icons-github-dark-mode.svg");
+   background-image: url("/src/assets/icons/github-dark-mode.svg");
 }
 
 /* Boton dark-mode */

@@ -510,10 +510,11 @@ function addMenuEvents() {
       import.meta.url
    ).href;
    let iconPathHover = new URL(
-      "/src/assets/icons/github-hover.svg",
+      "/src/assets/icons/github-common.svg",
       import.meta.url
    ).href;
-   let iconPath = new URL("/src/assets/icons/github.svg", import.meta.url).href;
+   let iconPath = new URL("/src/assets/icons/github-hover.svg", import.meta.url)
+      .href;
 
    btGithub.addEventListener("mouseover", () => {
       if (body.classList.contains("dark-mode__page")) {
@@ -1173,7 +1174,7 @@ function changeBtDarkMode() {
       );
 
       let iconPath = new URL(
-         "/src/assets/icons/github-hover.svg",
+         "/src/assets/icons/github-common.svg",
          import.meta.url
       ).href;
       let iconPathDark = new URL(

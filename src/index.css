@@ -1081,7 +1081,7 @@ html {
    min-width: 2.2rem;
    border-radius: 50%;
    background-color: transparent;
-   background-image: url("/src/assets/icons/github-hover.svg");
+   background-image: url("/src/assets/icons/github-common.svg");
    background-size: 1.8rem 1.8rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -1095,7 +1095,6 @@ html {
 
 .footer__icon-github:hover {
    cursor: pointer;
-   /* background-image: url("/src/assets/icons/github.svg"); */
 }
 
 /* Animacion respuestas */

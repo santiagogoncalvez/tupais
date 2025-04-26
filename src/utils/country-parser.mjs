@@ -1,46 +1,6 @@
 // Manejador de datos de los países de rescountries.com pero sin hacerle solicitudes a la api, los datos están guardados en el proyecto.
+import { moreThan2Words, formatWord } from "@utils/string-parser.mjs";
 import countriesJson from "@src/data/countries.json" with { type: "json" };
-
-function moreThan2Words(str) {
-   let words = str.split(" ");
-   return words.length >= 3;
-}
-
-function formatWord(word) {
-   let formatedWord = replaceHyphensWithSpaces(word);
-   formatedWord = removeAccents(formatedWord);
-   formatedWord = removeParentheses(formatedWord);
-
-   return formatedWord;
-}
-function replaceHyphensWithSpaces(str) {
-   return str.replace(/-/g, " ");
-}
-
-function removeAccents(word) {
-   const accentMap = {
-      á: "a",
-      é: "e",
-      í: "i",
-      ó: "o",
-      ú: "u",
-      ü: "u",
-      Á: "A",
-      É: "E",
-      Í: "I",
-      Ó: "O",
-      Ú: "U",
-      Ü: "U",
-   };
-
-   return word.replace(/[áéíóúüÁÉÍÓÚÜ]/g, function (match) {
-      return accentMap[match];
-   });
-}
-
-function removeParentheses(text) {
-   return text.replace(/\s*\([^)]*\)/g, "").trim();
-}
 
 function urlFlag(code, imageRute) {
    let url = imageRute + "/" + code + ".svg";
@@ -97,17 +57,6 @@ function getCountriesByContinent(continent) {
    });
 }
 
-export async function getAllCountries() {
-   return new Promise(async (resolve, reject) => {
-      try {
-         let countries = countriesJson;
-         resolve(countries);
-      } catch (err) {
-         reject(new Error(`Error request restCoutries API: ${err}`));
-      }
-   });
-}
-
 export async function getCoutryByName(name) {
    return new Promise(async (resolve, reject) => {
       try {
@@ -120,6 +69,17 @@ export async function getCoutryByName(name) {
          }
 
          resolve(response[0]);
+      } catch (err) {
+         reject(new Error(`Error request restCoutries API: ${err}`));
+      }
+   });
+}
+
+export async function getAllCountries() {
+   return new Promise(async (resolve, reject) => {
+      try {
+         let countries = countriesJson;
+         resolve(countries);
       } catch (err) {
          reject(new Error(`Error request restCoutries API: ${err}`));
       }

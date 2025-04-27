@@ -358,6 +358,7 @@ html {
    border: 0px solid transparent;
 }
 
+/* Navbar */
 .navbar__button--open {
    display: flex;
    flex-direction: column;
@@ -397,7 +398,6 @@ html {
    border-style: solid;
    border-top-left-radius: 0rem;
    border-bottom-left-radius: 0rem;
-
    z-index: 10;
    transition: left 0.25s ease;
    user-select: none;

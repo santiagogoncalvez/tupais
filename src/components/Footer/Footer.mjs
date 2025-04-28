@@ -1,48 +1,49 @@
 import template from "@components/Footer/template.html?raw";
 import "@components/Footer/style.css";
 
-import GithubLink from "@components/Footer/Github-link/Github-link.mjs";
-
 export default class Footer {
    constructor(state) {
-      this.githubLink = new GithubLink(state);
-      this.dom = this._createDom(this.githubLink.dom);
+      this.dom = this._createDom();
       this._syncState(state);
    }
 
-   _createDom = (...elements) => {
+   _createDom = () => {
       const tempContainer = document.createElement("div");
       tempContainer.innerHTML = template;
 
       const component = tempContainer.querySelector("template").content;
       const componentClone = component.querySelector(".footer").cloneNode(true);
 
-      for (let element of elements) {
-         componentClone.appendChild(element);
-      }
-
       return componentClone;
    };
 
-   _syncState(state) {
-      if (this.isDarkMode == state.darkMode) return;
+   _setDarkMode(state) {
+      const containerClass = "footer--dark-mode";
+      const classList = {
+         footer__paragraph: "footer__paragraph--dark-mode",
+         "footer__icon-github": "footer__icon-github--dark-mode",
+      };
 
       if (state.darkMode) {
-         this.dom.classList.add("footer--dark-mode");
-         this.dom
-            .querySelector(".footer__paragraph")
-            .classList.add("footer__paragraph--dark-mode");
+         this.dom.classList.add(containerClass);
+
+         for (let elt of Object.keys(classList)) {
+            this.dom.querySelector(`.${elt}`).classList.add(classList[elt]);
+         }
       }
 
       if (!state.darkMode) {
-         this.dom.classList.remove("footer--dark-mode");
-         this.dom
-            .querySelector(".footer__paragraph")
-            .classList.remove("footer__paragraph--dark-mode");
+         this.dom.classList.remove(containerClass);
+
+         for (let elt of Object.keys(classList)) {
+            this.dom.querySelector(`.${elt}`).classList.remove(classList[elt]);
+         }
       }
+   }
 
-      this.githubLink._syncState(state);
-
+   _syncState(state) {
+      if (this.isDarkMode == state.darkMode) return;
+      this._setDarkMode(state);
       this.isDarkMode = state.darkMode;
    }
 }

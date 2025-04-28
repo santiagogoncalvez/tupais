@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import string from "vite-plugin-string";
 import { resolve } from "path";
 
 const base = "/tupais/";
@@ -16,6 +17,7 @@ export default defineConfig({
          "@src": resolve(__dirname, "./src"),
          "@utils": resolve(__dirname, "./src/utils"),
          "@components": resolve(__dirname, "./src/components"),
+         "@constants": resolve(__dirname, "./src/constants"),
       },
    },
    build: {
@@ -49,4 +51,9 @@ export default defineConfig({
       },
    },
    base: base,
+   plugins: [
+      string({
+         include: ["**/*.html"],
+      }),
+   ],
 });

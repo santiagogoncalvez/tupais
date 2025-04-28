@@ -1,5 +1,7 @@
-import template from "@components/Footer/template.html?raw";
+import htmlString from "@components/Footer/template.html?raw";
 import "@components/Footer/style.css";
+import { footerBase, footerModifiers } from "@constants/classes/footer.mjs";
+import { applyClasses, deleteClasses } from "@utils/dom-class-handler.mjs";
 
 export default class Footer {
    constructor(state) {
@@ -8,36 +10,21 @@ export default class Footer {
    }
 
    _createDom = () => {
-      const tempContainer = document.createElement("div");
-      tempContainer.innerHTML = template;
+      const template = document.createElement("template");
+      template.innerHTML = htmlString;
 
-      const component = tempContainer.querySelector("template").content;
-      const componentClone = component.querySelector(".footer").cloneNode(true);
+      const component = template.content.cloneNode(true);
 
-      return componentClone;
+      return component.querySelector(".footer");
    };
 
    _setDarkMode(state) {
-      const containerClass = "footer--dark-mode";
-      const classList = {
-         footer__paragraph: "footer__paragraph--dark-mode",
-         "footer__icon-github": "footer__icon-github--dark-mode",
-      };
-
       if (state.darkMode) {
-         this.dom.classList.add(containerClass);
-
-         for (let elt of Object.keys(classList)) {
-            this.dom.querySelector(`.${elt}`).classList.add(classList[elt]);
-         }
+         applyClasses(this.dom, footerBase, footerModifiers, "darkMode");
       }
 
       if (!state.darkMode) {
-         this.dom.classList.remove(containerClass);
-
-         for (let elt of Object.keys(classList)) {
-            this.dom.querySelector(`.${elt}`).classList.remove(classList[elt]);
-         }
+         deleteClasses(this.dom, footerBase, footerModifiers, "darkMode");
       }
    }
 

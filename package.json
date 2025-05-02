@@ -31,7 +31,6 @@
       "vite": "^6.3.1"
    },
    "dependencies": {
-      "gh-pages": "^6.3.0",
-      "vite-plugin-string": "^1.2.3"
+      "gh-pages": "^6.3.0"
    }
 }

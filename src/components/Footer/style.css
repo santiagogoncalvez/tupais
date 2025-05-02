@@ -8,12 +8,9 @@
    width: 100%;
    max-width: 100vw;
    border-color: whitesmoke;
-   border-radius: 8px;
-   border-width: 0.18em;
-   border-style: solid;
+   border-radius: 6px 6px 0px 0px;
    margin: 0;
    padding: 0;
-   box-sizing: border-box;
 }
 
 .footer__fill-space {
@@ -31,7 +28,6 @@
    font-size: clamp(0.2px, 14px, 5vw);
    color: #0d336b;
    margin: 0;
-   user-select: none;
 }
 
 .footer__icon-github {
@@ -60,7 +56,7 @@
 /* Dark mode */
 .footer--dark-mode {
    background-color: #0d336b;
-   border-color: #3b5a7e;
+   border-color: #afcfea;
 }
 
 .footer__paragraph--dark-mode {

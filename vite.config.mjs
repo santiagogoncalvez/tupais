@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import string from "vite-plugin-string";
 import { resolve } from "path";
 
 const base = "/tupais/";
@@ -24,9 +23,8 @@ export default defineConfig({
       outDir,
       emptyOutDir: true,
       rollupOptions: {
-         // TODO: modificar rutas a los puntos de entrada para que sean correctos
          input: {
-            main: resolve(__dirname, "index.html"), // index en el root
+            main: resolve(__dirname, "index.html"),
             about: resolve(__dirname, "src/pages/about/about.html"),
             clues: resolve(__dirname, "src/pages/clues-mode/clues-mode.html"),
             credits: resolve(__dirname, "src/pages/credits/credits.html"),
@@ -51,9 +49,4 @@ export default defineConfig({
       },
    },
    base: base,
-   plugins: [
-      string({
-         include: ["**/*.html"],
-      }),
-   ],
 });

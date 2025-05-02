@@ -1,0 +1,18 @@
+import Navbar from "@components/Header/Navbar/Navbar.mjs";
+
+function updateState(state, action) {
+   return { ...state, ...action };
+}
+
+let state = {
+   ui: {
+      navbar: { show: true },
+   },
+};
+
+let navbar = new Navbar(state, function dispatch(action) {
+   state = updateState(state, action);
+   navbar._syncState(state);
+});
+
+document.body.appendChild(navbar.dom);

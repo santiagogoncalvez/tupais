@@ -1,0 +1,28 @@
+.header__open-setting-button {
+   height: 2rem;
+   width: 2rem;
+   border-radius: 0.3rem;
+   border: 0px;
+   background-color: transparent;
+   background-image: url("/src/assets/icons/settings.svg");
+   background-size: 1.4rem 1.4rem;
+   background-repeat: no-repeat;
+   background-position: center;
+   padding: 0;
+   user-select: none;
+   margin: 0;
+   transition: all 0.1s ease-in-out;
+}
+
+.header__open-setting-button:hover {
+   background-color: rgb(245, 245, 245);
+   cursor: pointer;
+}
+
+.header__open-setting-button--dark-mode {
+   background-image: url("/src/assets/icons/settings-dark-mode.svg");
+}
+
+.header__open-setting-button--dark-mode:hover {
+   background-image: url("/src/assets/icons/settings.svg");
+}

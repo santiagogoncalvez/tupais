@@ -1,26 +1,40 @@
-import template from "@components/Header/Navbar/template.html?raw";
+import htmlString from "@components/Header/Navbar/template.html?raw";
+//Styles
 import "@components/Header/Navbar/style.css";
+import "@src/styles/general.css";
 
-export default class Footer {
-   constructor(state) {
-      this.dom = this._createDom();
+import { navbarBase } from "@constants/classes/Navbar.mjs";
+import CloseButton from "@components/Header/Navbar/CloseButton/CloseButton.mjs";
+
+export default class Navbar {
+   constructor(state, dispatch) {
+      this.button = new CloseButton(dispatch);
+      this.dom = this._createDom(this.button.dom);
       this._syncState(state);
    }
 
-   _createDom = () => {
-      const tempContainer = document.createElement("div");
-      tempContainer.innerHTML = template;
+   _createDom = (element) => {
+      const template = document.createElement("template");
+      template.innerHTML = htmlString;
+      const clone = template.content.cloneNode(true);
+      const component = clone.querySelector(`.${navbarBase.container}`);
 
-      const component = tempContainer.querySelector("template").content;
-      const componentClone = component.querySelector(".navbar").cloneNode(true);
+      component.prepend(element);
 
-      return componentClone;
+      return component;
    };
+
+   _showDom(show) {
+      if (show) this.dom.classList.add("navbar--show");
+      if (!show) this.dom.classList.remove("navbar--show");
+   }
+
    _syncState(state) {
-      if (this.show == state.navbar.show) return;
-      //Mostrar el navbar
-      if (state.navbar.show) this.dom.classList.add("navbar--show");
-      if (!state.navbar.show) this.dom.classList.remove("navbar--show");
-      this.show = state.navbar.show;
+      //Show navbar
+      if (this.state?.ui.navbar.show != state.ui?.navbar.show) {
+         this._showDom(state.ui.navbar.show);
+      }
+
+      this.state = state;
    }
 }

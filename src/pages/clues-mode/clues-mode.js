@@ -3,7 +3,7 @@ import "@src/index.css";
 let base = import.meta.env.BASE_URL;
 
 // url escudos de armas (coat-of-arms): https://mainfacts.com/coat-of-arms-countries-world
-import { Clues } from "@utils/class-new-game.mjs";
+import { Clues } from "@utils/class-new-game.js";
 
 // Bindings
 let game;

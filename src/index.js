@@ -1,6 +1,6 @@
 // Imports
 import "@src/index.css";
-import { NewGame } from "@utils/class-new-game.mjs";
+import { NewGame } from "@utils/class-new-game.js";
 
 // Bindings
 let game;

@@ -981,8 +981,8 @@ html {
 }
 
 .keyboard__button--enter {
-   background-color: #ea7217;
-   color: rgb(255, 247, 241);
+   background-color: #ff740a;
+   color: rgb(255, 255, 255);
    font-weight: 700;
 }
 
@@ -991,7 +991,7 @@ html {
 }
 
 .keyboard__button--enter:hover {
-   background: #e06608;
+   background: #ec6b08;
 }
 
 .keyboard__column--1 > :nth-child(10),
@@ -1008,6 +1008,10 @@ html {
 .keyboard__column--3 > :nth-child(9) {
    width: 5.6rem;
    margin-right: 0rem;
+}
+
+.keyboard__column--3 > :nth-child(1) {
+   transform: rotate(180deg);
 }
 
 .game__start-again {

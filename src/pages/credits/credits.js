@@ -1,6 +1,5 @@
 import "@src/index.css";
 
-let base = import.meta.env.BASE_URL;
 
 // Menu events
 function addMenuEvents() {

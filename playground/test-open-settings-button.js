@@ -1,4 +1,4 @@
-import OpenSettingsButton from "@components/Header/OpenSettingsButton/OpenSettingsButton.js";
+import OpenSettingsButton from "@layouts/Header/OpenSettingsButton/OpenSettingsButton.js";
 
 let openSettingsButton = new OpenSettingsButton(function dispatch(action) {
    console.log("Action: ", action);

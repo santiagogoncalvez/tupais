@@ -1,8 +1,7 @@
 import "@src/index.css";
 
-let base = import.meta.env.BASE_URL;
 
-import { getAllCountries, getCoutryByName } from "@utils/country-parser.mjs";
+import { getAllCountries, getCoutryByName } from "@utils/country-parser.js";
 
 // Bindings
 

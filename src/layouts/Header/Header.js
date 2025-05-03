@@ -1,18 +1,18 @@
-import htmlString from "@components/Header/template.html?raw";
+import htmlString from "@layouts/Header/template.html?raw";
 
 // Styles
 import "@src/styles/general.css";
-import "@components/Header/style.css";
+import "@layouts/Header/style.css";
 
 //Components
-import OpenNavbarButton from "@components/Header/Open-navbar-button/Open-navbar-button.js";
-import OpenSettingsButton from "@components/Header/Open-settings-button/Open-settings-button.js";
-import Navbar from "@components/Header/Navbar/Navbar.js";
+import OpenNavbarButton from "@layouts/Header/Open-navbar-button/Open-navbar-button.js";
+import OpenSettingsButton from "@layouts/Header/Open-settings-button/Open-settings-button.js";
+import Navbar from "@layouts/Header/Navbar/Navbar.js";
 
 import {
    headerBase,
    headerModifiers,
-} from "@components/Header/Header-class-names.js";
+} from "@layouts/Header/Header-class-names.js";
 import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Header {

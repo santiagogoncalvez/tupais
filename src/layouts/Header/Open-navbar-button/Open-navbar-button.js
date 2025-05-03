@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/Open-navbar-button/template.html?raw";
-import "@components/Header/Open-navbar-button/style.css";
-import { openNavbarButtonBase } from "@components/Header/Open-navbar-button/Open-navbar-button-class-names.js";
+import htmlString from "@layouts/Header/Open-navbar-button/template.html?raw";
+import "@layouts/Header/Open-navbar-button/style.css";
+import { openNavbarButtonBase } from "@layouts/Header/Open-navbar-button/Open-navbar-button-class-names.js";
 
 export default class OpenNavbarButton {
    constructor(dispatch) {

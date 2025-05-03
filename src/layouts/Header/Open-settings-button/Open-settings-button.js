@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/Open-settings-button/template.html?raw";
-import "@components/Header/Open-settings-button/style.css";
-import { openSettingsButtonBase } from "@components/Header/Open-settings-button/Open-settings-button-class-names.js";
+import htmlString from "@layouts/Header/Open-settings-button/template.html?raw";
+import "@layouts/Header/Open-settings-button/style.css";
+import { openSettingsButtonBase } from "@layouts/Header/Open-settings-button/Open-settings-button-class-names.js";
 
 export default class OpenSettingsButton {
    constructor(dispatch) {

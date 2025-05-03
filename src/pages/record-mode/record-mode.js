@@ -1,9 +1,8 @@
 import "@src/index.css";
 
-let base = import.meta.env.BASE_URL;
 
 // Imports
-import { NewGame } from "@utils/class-new-game.mjs";
+import { NewGame } from "@utils/class-new-game.js";
 
 // Bindings
 let game;

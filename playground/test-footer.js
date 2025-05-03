@@ -1,4 +1,4 @@
-import Footer from "@components/Footer/Footer.js";
+import Footer from "@layouts/Footer/Footer.js";
 
 function updateState(state, action) {
    return { ...state, ...action };
@@ -6,7 +6,7 @@ function updateState(state, action) {
 
 let state = {
    ui: {
-      darkMode: true,
+      darkMode: false,
    },
 };
 

@@ -3,7 +3,7 @@ import "@src/index.css";
 const base = import.meta.env.BASE_URL;
 
 // Imports
-import { MultipleChoice } from "@utils/class-new-game.mjs";
+import { MultipleChoice } from "@utils/class-new-game.js";
 
 // Bindigs
 let game;

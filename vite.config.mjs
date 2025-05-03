@@ -15,7 +15,7 @@ export default defineConfig({
          "@coat-of-arms": resolve(__dirname, "./public/images/coat-of-arms"),
          "@src": resolve(__dirname, "./src"),
          "@utils": resolve(__dirname, "./src/utils"),
-         "@components": resolve(__dirname, "./src/components"),
+         "@layouts": resolve(__dirname, "./src/layouts"),
       },
    },
    build: {

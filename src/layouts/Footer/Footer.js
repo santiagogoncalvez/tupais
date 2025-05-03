@@ -1,13 +1,13 @@
-import htmlString from "@components/Footer/template.html?raw";
+import htmlString from "@layouts/Footer/template.html?raw";
 
 // Styles
 import "@src/styles/general.css";
-import "@components/Footer/style.css";
+import "@layouts/Footer/style.css";
 
 import {
    footerBase,
    footerModifiers,
-} from "@components/Footer/Footer-class-names.js";
+} from "@layouts/Footer/Footer-class-names.js";
 import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Footer {

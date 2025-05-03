@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/Navbar/Close-button/template.html?raw";
-import "@components/Header/Navbar/Close-button/style.css";
-import { closeButtonBase } from "@components/Header/Navbar/Close-button/Close-button-class-names.js";
+import htmlString from "@layouts/Header/Navbar/Close-button/template.html?raw";
+import "@layouts/Header/Navbar/Close-button/style.css";
+import { closeButtonBase } from "@layouts/Header/Navbar/Close-button/Close-button-class-names.js";
 
 export default class CloseButton {
    constructor(dispatch) {

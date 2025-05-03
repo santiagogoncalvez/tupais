@@ -1,10 +1,10 @@
-import htmlString from "@components/Header/Navbar/template.html?raw";
+import htmlString from "@layouts/Header/Navbar/template.html?raw";
 //Styles
-import "@components/Header/Navbar/style.css";
+import "@layouts/Header/Navbar/style.css";
 import "@src/styles/general.css";
 
-import { navbarBase } from "@components/Header/Navbar/Navbar-class-names.js";
-import CloseButton from "@components/Header/Navbar/Close-button/Close-button.js";
+import { navbarBase } from "@layouts/Header/Navbar/Navbar-class-names.js";
+import CloseButton from "@layouts/Header/Navbar/Close-button/Close-button.js";
 
 export default class Navbar {
    constructor(state, dispatch) {

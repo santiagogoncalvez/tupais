@@ -3,6 +3,7 @@
    "version": "1.0.0",
    "description": "Website where you have to guess using different clues what country it is. Developed with HTML, CSS and Javascript.",
    "main": "index.js",
+   "type": "module",
    "directories": {
       "test": "tests"
    },

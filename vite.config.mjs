@@ -16,7 +16,6 @@ export default defineConfig({
          "@src": resolve(__dirname, "./src"),
          "@utils": resolve(__dirname, "./src/utils"),
          "@components": resolve(__dirname, "./src/components"),
-         "@constants": resolve(__dirname, "./src/constants"),
       },
    },
    build: {

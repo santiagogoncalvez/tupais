@@ -1,7 +1,7 @@
 import {
    getRandomCountries,
    getRandomCountrieClues,
-} from "@utils/country-parser.mjs";
+} from "@utils/country-parser.js";
 
 async function getDataClues(continent, url) {
    let result = await getRandomCountrieClues(continent, url);

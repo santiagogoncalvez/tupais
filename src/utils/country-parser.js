@@ -1,5 +1,5 @@
 // Manejador de datos de los países de rescountries.com pero sin hacerle solicitudes a la api, los datos están guardados en el proyecto.
-import { moreThan2Words, formatWord } from "@utils/string-parser.mjs";
+import { moreThan2Words, formatWord } from "@utils/string-parser.js";
 import countriesJson from "@src/data/countries.json" with { type: "json" };
 
 function urlFlag(code, imageRute) {

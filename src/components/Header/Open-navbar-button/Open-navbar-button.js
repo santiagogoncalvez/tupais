@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/OpenNavbarButton/template.html?raw";
-import "@components/Header/OpenNavbarButton/style.css";
-import { headerBase } from "@constants/classes/Header.mjs";
+import htmlString from "@components/Header/Open-navbar-button/template.html?raw";
+import "@components/Header/Open-navbar-button/style.css";
+import { openNavbarButtonBase } from "@components/Header/Open-navbar-button/Open-navbar-button-class-names.js";
 
 export default class OpenNavbarButton {
    constructor(dispatch) {
@@ -11,7 +11,7 @@ export default class OpenNavbarButton {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${headerBase.openNavbarButton}`);
+      const component = clone.querySelector(`.${openNavbarButtonBase.block}`);
       component.addEventListener("click", () => {
          dispatch({ ui: { navbar: { show: true } } });
       });

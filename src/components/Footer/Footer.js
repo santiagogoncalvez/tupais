@@ -4,8 +4,11 @@ import htmlString from "@components/Footer/template.html?raw";
 import "@src/styles/general.css";
 import "@components/Footer/style.css";
 
-import { footerBase, footerModifiers } from "@constants/classes/footer.mjs";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.mjs";
+import {
+   footerBase,
+   footerModifiers,
+} from "@components/Footer/Footer-class-names.js";
+import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Footer {
    constructor(state) {
@@ -18,7 +21,7 @@ export default class Footer {
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
 
-      return clone.querySelector(`.${footerBase.container}`);
+      return clone.querySelector(`.${footerBase.block}`);
    };
 
    _setDarkMode(isDarkMode) {

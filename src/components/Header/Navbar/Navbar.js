@@ -3,8 +3,8 @@ import htmlString from "@components/Header/Navbar/template.html?raw";
 import "@components/Header/Navbar/style.css";
 import "@src/styles/general.css";
 
-import { navbarBase } from "@constants/classes/Navbar.mjs";
-import CloseButton from "@components/Header/Navbar/CloseButton/CloseButton.mjs";
+import { navbarBase } from "@components/Header/Navbar/Navbar-class-names.js";
+import CloseButton from "@components/Header/Navbar/Close-button/Close-button.js";
 
 export default class Navbar {
    constructor(state, dispatch) {
@@ -17,7 +17,7 @@ export default class Navbar {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${navbarBase.container}`);
+      const component = clone.querySelector(`.${navbarBase.block}`);
 
       component.prepend(element);
 

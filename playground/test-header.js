@@ -1,9 +1,9 @@
-import Header from "@components/Header/Header.mjs";
+import Header from "@components/Header/Header.js";
 
 let state = {
    ui: {
       darkMode: false,
-      navbar: {show: false}
+      navbar: { show: false },
    },
 };
 

@@ -1,4 +1,4 @@
-//Módulo string-parser.mjs:
+//Módulo string-parser.js:
 /*
    moreThan2Words
    formatWord

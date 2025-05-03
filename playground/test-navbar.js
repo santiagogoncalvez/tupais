@@ -1,4 +1,4 @@
-import Navbar from "@components/Header/Navbar/Navbar.mjs";
+import Navbar from "@components/Header/Navbar/Navbar.js";
 
 function updateState(state, action) {
    return { ...state, ...action };

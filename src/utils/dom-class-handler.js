@@ -4,7 +4,7 @@ export function applyClasses(root, baseClasses, modifiersMap, mode) {
    const modeModifiers = modifiersMap[mode];
 
    // Aplicar al root
-   root.classList.add(modeModifiers.container);
+   root.classList.add(modeModifiers.block);
 
    const apply = (root, baseNode, modNode) => {
       for (const prop in baseNode) {
@@ -34,7 +34,7 @@ export function deleteClasses(root, baseClasses, modifiersMap, mode) {
    const modeModifiers = modifiersMap[mode];
 
    // Aplicar al root
-   root.classList.remove(modeModifiers.container);
+   root.classList.remove(modeModifiers.block);
 
    const remove = (root, baseNode, modNode) => {
       for (const prop in baseNode) {

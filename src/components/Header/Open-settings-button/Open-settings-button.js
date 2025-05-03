@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/OpenSettingsButton/template.html?raw";
-import "@components/Header/OpenSettingsButton/style.css";
-import { headerBase } from "@constants/classes/Header.mjs";
+import htmlString from "@components/Header/Open-settings-button/template.html?raw";
+import "@components/Header/Open-settings-button/style.css";
+import { openSettingsButtonBase } from "@components/Header/Open-settings-button/Open-settings-button-class-names.js";
 
 export default class OpenSettingsButton {
    constructor(dispatch) {
@@ -11,9 +11,7 @@ export default class OpenSettingsButton {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(
-         `.${headerBase.openSettingsButton}`
-      );
+      const component = clone.querySelector(`.${openSettingsButtonBase.block}`);
       component.addEventListener("click", () => {
          dispatch({ ui: { settings: { show: true } } });
       });

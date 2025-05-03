@@ -1,6 +1,6 @@
-import htmlString from "@components/Header/Navbar/CloseButton/template.html?raw";
-import "@components/Header/Navbar/CloseButton/style.css";
-import { navbarBase } from "@constants/classes/Navbar.mjs";
+import htmlString from "@components/Header/Navbar/Close-button/template.html?raw";
+import "@components/Header/Navbar/Close-button/style.css";
+import { closeButtonBase } from "@components/Header/Navbar/Close-button/Close-button-class-names.js";
 
 export default class CloseButton {
    constructor(dispatch) {
@@ -11,7 +11,7 @@ export default class CloseButton {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${navbarBase.button.container}`);
+      const component = clone.querySelector(`.${closeButtonBase.block}`);
       component.addEventListener("click", () => {
          dispatch({ ui: { navbar: { show: false } } });
       });

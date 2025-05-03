@@ -1,4 +1,4 @@
-import Footer from "@components/Footer/Footer.mjs";
+import Footer from "@components/Footer/Footer.js";
 
 function updateState(state, action) {
    return { ...state, ...action };

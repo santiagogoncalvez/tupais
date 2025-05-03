@@ -5,12 +5,15 @@ import "@src/styles/general.css";
 import "@components/Header/style.css";
 
 //Components
-import OpenNavbarButton from "@components/Header/OpenNavbarButton/OpenNavbarButton.mjs";
-import OpenSettingsButton from "@components/Header/OpenSettingsButton/OpenSettingsButton.mjs";
-import Navbar from "@components/Header/Navbar/Navbar.mjs";
+import OpenNavbarButton from "@components/Header/Open-navbar-button/Open-navbar-button.js";
+import OpenSettingsButton from "@components/Header/Open-settings-button/Open-settings-button.js";
+import Navbar from "@components/Header/Navbar/Navbar.js";
 
-import { headerBase, headerModifiers } from "@constants/classes/header.mjs";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.mjs";
+import {
+   headerBase,
+   headerModifiers,
+} from "@components/Header/Header-class-names.js";
+import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Header {
    constructor(state, dispatch) {
@@ -29,7 +32,7 @@ export default class Header {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${headerBase.container}`);
+      const component = clone.querySelector(`.${headerBase.block}`);
 
       // Agregar elementos
       component.querySelector(".header__container").prepend(openNavbarButton);

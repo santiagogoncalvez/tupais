@@ -16,6 +16,7 @@ export default defineConfig({
          "@src": resolve(__dirname, "./src"),
          "@utils": resolve(__dirname, "./src/utils"),
          "@layouts": resolve(__dirname, "./src/layouts"),
+         "@Modal": resolve(__dirname, "./src/components/Modal"),
       },
    },
    build: {

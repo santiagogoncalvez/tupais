@@ -12,14 +12,14 @@
    background-color: rgba(128, 128, 128, 0);
    padding: 0rem;
    user-select: none;
-   margin-bottom: 0.5rem;
-   margin-left: auto;
-   margin-right: 0.5rem;
-   margin-top: 0.5rem;
+   margin: 0;
    background-image: url("/src/assets/icons/close.png");
    background-size: 11px 11px;
    background-repeat: no-repeat;
    background-position: center;
+   position: absolute;
+   right: 10;
+   top: 10;
 }
 
 .navbar__button:hover {

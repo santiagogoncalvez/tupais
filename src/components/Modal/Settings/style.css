@@ -1,0 +1,94 @@
+.settings {
+   color: #001f31;
+   background: rgb(250, 250, 250);
+   display: flex;
+   position: absolute;
+   align-items: center;
+   justify-content: center;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 0;
+   opacity: 0;
+   transition: all 0.25s ease-in-out;
+   border: 0;
+   z-index: 11;
+}
+
+.settings__title {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.settings__container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.settings__subtitle {
+   margin-top: 30px;
+   margin-bottom: 20px;
+   font-size: 1.3rem;
+   color: #00405d;
+}
+
+.settings__label-continents {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.settings__select {
+   width: 100%;
+   height: 30px;
+   background-color: white;
+   color: #00405d;
+   text-align: center;
+   border-radius: 20px;
+   border-color: #cacdcf;
+   display: block;
+   font-size: 0.8rem;
+}
+
+.settings__select-option {
+   background-color: white;
+   color: #00405d;
+}
+
+.setting__label-text {
+   display: block;
+   margin-bottom: 10px;
+   font-size: 1rem;
+   color: #697276;
+}
+
+.settings__start-button {
+   background-color: #00405d;
+   color: white;
+   height: 50px;
+   width: 130px;
+   border-radius: 6px;
+   border: 0px;
+   margin-top: 25px;
+   font-size: 1rem;
+}
+
+.settings__start-button:hover {
+    cursor: pointer;
+}
+
+
+.settings--show {
+   opacity: 1;
+   height: 100%;
+}
+
+.settings--show .settings__close-button {
+   opacity: 1;
+   transform: rotate(0deg);
+   color: #001f31;
+}

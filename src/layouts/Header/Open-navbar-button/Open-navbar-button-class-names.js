@@ -4,6 +4,6 @@ export const openNavbarButtonBase = {
 
 export const openNavbarButtonModifiers = {
    darkMode: {
-      block: "header__open-navbar-button",
+      block: "header__open-navbar-button--dark-mode",
    },
 };

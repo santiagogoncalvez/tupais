@@ -2,7 +2,7 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   background-color: #bfe1ff;
+   background-color: #9ed2ff;
    min-height: 2.8rem;
    height: 2.8rem;
    width: 100%;
@@ -15,7 +15,7 @@
 
 .header__title {
    font-size: clamp(0.2px, 1.6rem, 8vw);
-   color: #0d336b;
+   color: #001F31;
    text-align: center;
    margin: 0;
    padding: 0;
@@ -35,10 +35,9 @@
 
 /* Dark Mode */
 .header--dark-mode {
-   background-color: #0d336b;
-   border-color: #afcfea;
+   background-color: #001F31;
 }
 
 .header__title--dark-mode {
-   color: #bfe1ff;
+   color: #9ed2ff;
 }

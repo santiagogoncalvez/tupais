@@ -47,14 +47,19 @@ export default class Header {
    _setDarkMode(isDarkMode) {
       if (isDarkMode) {
          applyClasses(this.dom, headerBase, headerModifiers, "darkMode");
+         this.openNavbarButton._setDarkMode(isDarkMode);
+         this.openSettingsButton._setDarkMode(isDarkMode);
       }
 
       if (!isDarkMode) {
          deleteClasses(this.dom, headerBase, headerModifiers, "darkMode");
+         this.openNavbarButton._setDarkMode(isDarkMode);
+         this.openSettingsButton._setDarkMode(isDarkMode);
       }
    }
 
    _syncState(state) {
+      this.navbar._syncState(state);
       let stIsDarkMode = state.ui.darkMode;
       if (this.isDarkMode == stIsDarkMode) return;
       this._setDarkMode(stIsDarkMode);

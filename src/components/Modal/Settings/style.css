@@ -1,24 +1,25 @@
 .settings {
    color: #001f31;
    background: rgb(250, 250, 250);
-   display: flex;
    position: absolute;
-   align-items: center;
+   display: none;
    justify-content: center;
+   align-items: center;
    top: 0;
    left: 0;
    width: 100%;
    height: 0;
    opacity: 0;
-   transition: all 0.25s ease-in-out;
    border: 0;
+   padding: 0;
    z-index: 11;
+   transition: all 0.25s ease-in-out;
 }
 
 .settings__title {
-    margin: 0;
-    margin-bottom: 10px;
-    font-size: 1.8rem;
+   margin: 0;
+   font-size: 1.8rem;
+   font-weight: 600;
 }
 
 .settings__container {
@@ -26,13 +27,16 @@
    align-items: center;
    justify-content: center;
    flex-direction: column;
+   position: relative;
+   top: -110;
 }
 
 .settings__subtitle {
-   margin-top: 30px;
+   margin-top: 40px;
    margin-bottom: 20px;
    font-size: 1.3rem;
    color: #00405d;
+   font-weight: 600;
 }
 
 .settings__label-continents {
@@ -78,13 +82,16 @@
 }
 
 .settings__start-button:hover {
-    cursor: pointer;
+   cursor: pointer;
 }
-
 
 .settings--show {
    opacity: 1;
    height: 100%;
+}
+
+.settings--display {
+   display: flex;
 }
 
 .settings--show .settings__close-button {

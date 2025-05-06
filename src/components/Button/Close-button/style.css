@@ -23,7 +23,5 @@
 }
 
 .navbar__button:hover {
-   transition: all 0.1s ease-in-out;
-   background-color: rgba(255, 255, 255, 0.91);
    cursor: pointer;
 }

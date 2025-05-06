@@ -21,7 +21,7 @@ export default class Footer {
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
 
-      return clone.querySelector(`.${footerBase.block}`);
+      return clone.querySelector("." + footerBase.block);
    };
 
    _setDarkMode(isDarkMode) {

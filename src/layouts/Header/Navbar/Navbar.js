@@ -4,11 +4,15 @@ import "@layouts/Header/Navbar/style.css";
 import "@src/styles/general.css";
 
 import { navbarBase } from "@layouts/Header/Navbar/Navbar-class-names.js";
-import CloseButton from "@layouts/Header/Navbar/Close-button/Close-button.js";
+import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 export default class Navbar {
    constructor(state, dispatch) {
-      this.button = new CloseButton(dispatch);
+      this.button = new CloseButton(dispatch, {
+         ui: {
+            navbar: { show: false },
+         },
+      });
       this.dom = this._createDom(this.button.dom);
       this._syncState(state);
    }
@@ -17,7 +21,7 @@ export default class Navbar {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${navbarBase.block}`);
+      const component = clone.querySelector("." + navbarBase.block);
 
       component.prepend(element);
 

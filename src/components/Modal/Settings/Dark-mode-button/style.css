@@ -9,12 +9,14 @@
    position: absolute;
    top: 8px;
    left: 8px;
+   user-select: none;
 }
 
 .dark-mode-button__moon {
    position: absolute;
    top: 7px;
    left: 35px;
+   user-select: none;
 }
 
 .dark-mode-button__checkbox:hover + .dark-mode-button__circle:before {

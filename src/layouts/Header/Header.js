@@ -32,7 +32,7 @@ export default class Header {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${headerBase.block}`);
+      const component = clone.querySelector("." + headerBase.block);
 
       // Agregar elementos
       component.querySelector(".header__container").prepend(openNavbarButton);

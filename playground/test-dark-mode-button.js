@@ -1,9 +1,5 @@
 import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js";
 
-function updateState(state, action) {
-   return { ...state, ...action };
-}
-
 let state = {
    ui: {
       darkMode: false,

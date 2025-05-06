@@ -15,7 +15,7 @@ export default class OpenNavbarButton {
       const template = document.createElement("template");
       template.innerHTML = htmlString;
       const clone = template.content.cloneNode(true);
-      const component = clone.querySelector(`.${openNavbarButtonBase.block}`);
+      const component = clone.querySelector("." + openNavbarButtonBase.block);
       component.addEventListener("click", () => {
          dispatch({ ui: { navbar: { show: true } } });
       });

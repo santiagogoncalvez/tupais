@@ -2,6 +2,10 @@ import Header from "@layouts/Header/Header.js";
 import Footer from "@layouts/Footer/Footer.js";
 import Settings from "@Modal/Settings/Settings.js";
 
+function updateState(state, action) {
+   return { ui: { ...state.ui, ...action.ui } };
+}
+
 let state = {
    ui: {
       darkMode: false,
@@ -10,34 +14,21 @@ let state = {
    },
 };
 
-let dispatch = function dispatch(action) {
-   console.log("Action: ", action);
-};
-
 let header = new Header(state, dispatch);
 let footer = new Footer(state, dispatch);
 let settings = new Settings(state, dispatch);
+
+function dispatch(action) {
+   state = updateState(state, action);
+   header._syncState(state);
+   footer._syncState(state);
+   settings._syncState(state);
+}
 
 document.body.prepend(header.dom);
 document.body.appendChild(footer.dom);
 document.body.appendChild(settings.dom);
 
-setTimeout(() => {
-   header._syncState({
-      ui: {
-         darkMode: false,
-         navbar: { show: true },
-         settings: { show: false },
-      },
-   });
-}, 1000);
-
-setTimeout(() => {
-   settings._syncState({
-      ui: {
-         darkMode: false,
-         navbar: { show: true },
-         settings: { show: true },
-      },
-   });
-}, 3000);
+// setTimeout(() => {
+//    settings.dom.classList.add("settings--hidden");
+// }, 3000);

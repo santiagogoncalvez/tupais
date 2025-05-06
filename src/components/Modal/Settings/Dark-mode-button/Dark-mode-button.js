@@ -18,7 +18,7 @@ export default class DarkModeButton {
       const component = clone.querySelector(`.${darkModeButtonBase.block}`);
 
       const checkbox = component.querySelector(
-         `.${darkModeButtonBase.checkbox}`
+         "." + darkModeButtonBase.checkbox
       );
       checkbox.checked = state.ui.darkMode;
 

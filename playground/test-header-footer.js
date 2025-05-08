@@ -19,6 +19,7 @@ let footer = new Footer(state, dispatch);
 let settings = new Settings(state, dispatch);
 
 function dispatch(action) {
+   console.log(action);
    state = updateState(state, action);
    header._syncState(state);
    footer._syncState(state);

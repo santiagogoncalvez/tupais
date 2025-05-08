@@ -18,6 +18,7 @@ export default defineConfig({
          "@layouts": resolve(__dirname, "./src/layouts"),
          "@Modal": resolve(__dirname, "./src/components/Modal"),
          "@components": resolve(__dirname, "./src/components"),
+         "@constants": resolve(__dirname, "./src/constants"),
       },
    },
    build: {

@@ -3,8 +3,12 @@ import htmlString from "@layouts/Header/Navbar/template.html?raw";
 import "@layouts/Header/Navbar/style.css";
 import "@src/styles/general.css";
 
-import { navbarBase } from "@layouts/Header/Navbar/Navbar-class-names.js";
+import {
+   navbarBase,
+   navbarModifiers,
+} from "@layouts/Header/Navbar/Navbar-class-names.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
+import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Navbar {
    constructor(state, dispatch) {
@@ -27,18 +31,30 @@ export default class Navbar {
 
       return component;
    };
+   _syncState(state) {
+      if (this.state?.ui.navbar.show != state?.ui.navbar.show) {
+         this._showDom(state?.ui.navbar.show);
+      }
+
+      if (this.state?.ui.darkMode != state?.ui.darkMode) {
+         this._setDarkMode(state?.ui.darkMode);
+      }
+
+      this.state = state;
+   }
 
    _showDom(show) {
       if (show) this.dom.classList.add("navbar--show");
       if (!show) this.dom.classList.remove("navbar--show");
    }
 
-   _syncState(state) {
-      //Show navbar
-      if (this.state?.ui.navbar.show != state.ui?.navbar.show) {
-         this._showDom(state.ui.navbar.show);
+   _setDarkMode(isDarkMode) {
+      if (isDarkMode) {
+         applyClasses(this.dom, navbarBase, navbarModifiers, "darkMode");
       }
 
-      this.state = state;
+      if (!isDarkMode) {
+         deleteClasses(this.dom, navbarBase, navbarModifiers, "darkMode");
+      }
    }
 }

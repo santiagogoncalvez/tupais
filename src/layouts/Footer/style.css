@@ -25,7 +25,7 @@
 .footer__paragraph {
    text-align: center;
    font-size: clamp(0.2px, 14px, 5vw);
-   color: #001F31;
+   color: #001f31;
    margin: 0;
 }
 
@@ -35,7 +35,7 @@
    width: 35px;
    border-radius: 50%;
    background-color: transparent;
-   background-image: url("/src/assets/icons/github-common.svg");
+   background-image: url("/src/assets/icons/github.svg");
    background-size: 1.8rem 1.8rem;
    background-repeat: no-repeat;
    background-position: center;
@@ -54,11 +54,11 @@
 
 /* Dark mode */
 .footer--dark-mode {
-   background-color: #001F31;
+   background-color: #001f31;
 }
 
 .footer__paragraph--dark-mode {
-   color: #9ed2ff;
+   color: #e6f2ff;
 }
 
 .footer__icon-github--dark-mode {

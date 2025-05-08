@@ -23,6 +23,13 @@ export default class Footer {
 
       return clone.querySelector("." + footerBase.block);
    };
+   
+   _syncState(state) {
+      let stIsDarkMode = state.ui.darkMode;
+      if (this.isDarkMode == stIsDarkMode) return;
+      this._setDarkMode(stIsDarkMode);
+      this.isDarkMode = stIsDarkMode;
+   }
 
    _setDarkMode(isDarkMode) {
       if (isDarkMode) {
@@ -34,10 +41,4 @@ export default class Footer {
       }
    }
 
-   _syncState(state) {
-      let stIsDarkMode = state.ui.darkMode;
-      if (this.isDarkMode == stIsDarkMode) return;
-      this._setDarkMode(stIsDarkMode);
-      this.isDarkMode = stIsDarkMode;
-   }
 }

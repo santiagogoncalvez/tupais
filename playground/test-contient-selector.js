@@ -11,5 +11,3 @@ let continentSelector = new ContinentSelector(state, function dispatch(action) {
 });
 
 document.body.prepend(continentSelector.dom);
-
-// darkModeButton._syncState({ui: {darkMode: true}});

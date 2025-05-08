@@ -14,14 +14,19 @@
    user-select: none;
    margin: 0;
    background-image: url("/src/assets/icons/close.png");
-   background-size: 11px 11px;
+   background-size: 18px 18px;
    background-repeat: no-repeat;
    background-position: center;
    position: absolute;
-   right: 10;
-   top: 10;
+   right: 8px;
+   top: 8px;
 }
 
 .navbar__button:hover {
    cursor: pointer;
+}
+
+/* Dark mode */
+.navbar__button--dark-mode {
+      background-image: url("/src/assets/icons/close-dark-mode.png");
 }

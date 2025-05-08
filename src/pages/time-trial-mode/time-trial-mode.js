@@ -1,6 +1,5 @@
 import "@src/index.css";
 
-
 // Imports
 import { NewGame } from "@utils/class-new-game.js";
 
@@ -1236,10 +1235,8 @@ function addMenuEvents() {
       "/src/assets/icons/github-dark-mode.svg",
       import.meta.url
    ).href;
-   let iconPathHover = new URL(
-      "/src/assets/icons/github-common.svg",
-      import.meta.url
-   ).href;
+   let iconPathHover = new URL("/src/assets/icons/github.svg", import.meta.url)
+      .href;
    let iconPath = new URL("/src/assets/icons/github-hover.svg", import.meta.url)
       .href;
 
@@ -1439,10 +1436,8 @@ function changeBtDarkMode() {
          "game__statistics-item"
       );
 
-      let iconPath = new URL(
-         "/src/assets/icons/github-common.svg",
-         import.meta.url
-      ).href;
+      let iconPath = new URL("/src/assets/icons/github.svg", import.meta.url)
+         .href;
       let iconPathDark = new URL(
          "/src/assets/icons/github-dark-mode.svg",
          import.meta.url

@@ -1,6 +1,10 @@
 import htmlString from "@components/Button/Close-button/template.html?raw";
 import "@components/Button/Close-button/style.css";
-import { closeButtonBase } from "@components/Button/Close-button/Close-button-class-names.js";
+import {
+   closeButtonBase,
+   closeButtonModifiers,
+} from "@components/Button/Close-button/Close-button-class-names.js";
+import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class CloseButton {
    constructor(dispatch, action) {
@@ -18,4 +22,32 @@ export default class CloseButton {
 
       return component;
    };
+
+   _syncState(state) {
+      if (this.state?.ui.darkMode != state?.ui.darkMode) {
+         this._setDarkMode(state?.ui.darkMode);
+      }
+
+      this.state = state;
+   }
+
+   _setDarkMode(isDarkMode) {
+      if (isDarkMode) {
+         applyClasses(
+            this.dom,
+            closeButtonBase,
+            closeButtonModifiers,
+            "darkMode"
+         );
+      }
+
+      if (!isDarkMode) {
+         deleteClasses(
+            this.dom,
+            closeButtonBase,
+            closeButtonModifiers,
+            "darkMode"
+         );
+      }
+   }
 }

@@ -1,6 +1,5 @@
 import "@src/index.css";
 
-
 import { getAllCountries, getCoutryByName } from "@utils/country-parser.js";
 
 // Bindings
@@ -895,10 +894,8 @@ function addMenuEvents() {
       "/src/assets/icons/github-dark-mode.svg",
       import.meta.url
    ).href;
-   let iconPathHover = new URL(
-      "/src/assets/icons/github-common.svg",
-      import.meta.url
-   ).href;
+   let iconPathHover = new URL("/src/assets/icons/github.svg", import.meta.url)
+      .href;
    let iconPath = new URL("/src/assets/icons/github-hover.svg", import.meta.url)
       .href;
 
@@ -1020,10 +1017,8 @@ function changeBtDarkMode() {
          "flag-gallery__flag-description"
       );
 
-      let iconPath = new URL(
-         "/src/assets/icons/github-common.svg",
-         import.meta.url
-      ).href;
+      let iconPath = new URL("/src/assets/icons/github.svg", import.meta.url)
+         .href;
       let iconPathDark = new URL(
          "/src/assets/icons/github-dark-mode.svg",
          import.meta.url

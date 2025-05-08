@@ -6,6 +6,7 @@ export const navbarBase = {
          block: "navbar__item",
          link: "navbar__link",
       },
+      division: "navbar__division",
       span: "navbar__division",
    },
    button: {
@@ -24,6 +25,7 @@ export const navbarModifiers = {
             link: "navbar__link--dark-mode",
             span: "navbar__division--dark-mode",
          },
+         division: "navbar__division--dark-mode",
       },
       button: {
          block: "navbar__button--dark-mode",

@@ -3,7 +3,7 @@ import Settings from "@Modal/Settings/Settings.js";
 let state = {
    ui: {
       settings: {
-         show: true,
+         show: false,
       },
    },
 };
@@ -14,22 +14,12 @@ let settings = new Settings(state, function dispatch(action) {
 
 document.body.prepend(settings.dom);
 
-// setTimeout(() => {
-//    settings._syncState({
-//       ui: {
-//          settings: {
-//             show: true,
-//          },
-//       },
-//    });
-
-//    setTimeout(() => {
-//       settings._syncState({
-//          ui: {
-//             settings: {
-//                show: false,
-//             },
-//          },
-//       });
-//    }, 2000);
-// }, 1000);
+setTimeout(() => {
+   settings._syncState({
+      ui: {
+         settings: {
+            show: true,
+         },
+      },
+   });
+}, 1000);

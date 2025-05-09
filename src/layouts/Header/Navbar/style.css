@@ -17,7 +17,7 @@
    border-bottom-width: 0px;
    border-radius: 0rem 0.3rem 0.3rem 0rem;
    z-index: 10;
-   transition: left 0.25s ease-in-out;
+   transition: left 0.3s ease-in-out;
    user-select: none;
    padding-top: 50px;
    padding-left: 20px;
@@ -53,16 +53,15 @@
 
 .navbar__item {
    width: 100%;
-   height: 2.4rem;
-   font-size: clamp(0.2px, 1.2rem, 8vw);
+   height: 40px;
    list-style-type: none;
    padding: 0;
    display: flex;
-   flex-direction: column;
    justify-content: space-between;
    margin-left: 0rem;
    margin-right: auto;
    margin-top: 0rem;
+   margin-bottom: 1rem;
 }
 
 .navbar__link {
@@ -70,15 +69,16 @@
    text-decoration: none;
    color: #00405d;
    height: 100%;
+   width: 100%;
    margin-right: auto;
    margin-left: 0rem;
    border-radius: 0.4rem;
    transition: all 0.1s ease-in-out;
    user-select: none;
    display: flex;
-   justify-content: center;
+   justify-content: start;
    align-items: center;
-   flex-direction: column;
+   flex-direction: row;
    padding-top: 10px;
    padding-bottom: 10px;
    padding-left: 10px;
@@ -87,19 +87,32 @@
 
 .navbar__link:hover {
    background-color: rgb(255, 255, 255);
-   color: #202021;
 }
 
-.navbar__division {
-   display: block;
-   width: auto;
-   height: 2px;
-   background-color: #dedede;
-   margin-top: 30px;
-   margin-bottom: 30px;
-   margin-left: 11px;
-   margin-right: 11px;
-   border-radius: 10px;
+.navbar__icon {
+   width: 20px;
+   height: 20px;
+   margin: 0;
+   margin-right: 10px;
+   background-size: 20px 20px;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+.navbar__icon--home {
+   background-image: url("/tupais/src/assets/icons/navbar-home.svg");
+}
+.navbar__icon--game-modes {
+   background-image: url("/tupais/src/assets/icons/navbar-game-modes.png");
+}
+.navbar__icon--flag {
+   background-image: url("/tupais/src/assets/icons/navbar-flag.png");
+}
+.navbar__icon--about {
+   background-image: url("/tupais/src/assets/icons/navbar-about.svg");
+}
+.navbar__icon--credits {
+   background-image: url("/tupais/src/assets/icons/navbar-credits.png");
 }
 
 /* Dark Mode */
@@ -112,6 +125,22 @@
    color: #e6f2ff;
 }
 
-.navbar__division--dark-mode {
-   background-color: #e8e8e8;
+.navbar__link--dark-mode:hover {
+   background-color: #00405d;
+}
+
+.navbar__icon--home.navbar__icon--dark-mode {
+   background-image: url("/tupais/src/assets/icons/navbar-home-dark-mode.svg");
+}
+.navbar__icon--game-modes.navbar__icon--dark-mode {
+   background-image: url("/tupais/src/assets/icons/navbar-game-modes-dark-mode.png");
+}
+.navbar__icon--flag.navbar__icon--dark-mode {
+   background-image: url("/tupais/src/assets/icons/navbar-flag-dark-mode.png");
+}
+.navbar__icon--about.navbar__icon--dark-mode {
+   background-image: url("/tupais/src/assets/icons/navbar-about-dark-mode.png");
+}
+.navbar__icon--credits.navbar__icon--dark-mode {
+   background-image: url("/tupais/src/assets/icons/navbar-credits-dark-mode.png");
 }

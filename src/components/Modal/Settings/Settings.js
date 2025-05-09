@@ -19,6 +19,7 @@ import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
 
 export default class Settings {
    constructor(state, dispatch) {
+      this.state = state;
       this.continent = CONTINENTS_NAMES.ALL;
       this.closeButton = new CloseButton(dispatch, {
          ui: {
@@ -58,14 +59,15 @@ export default class Settings {
    };
 
    _syncState(state) {
-      if (this.state?.ui.settings.show != state?.ui.settings.show) {
-         this._show(state?.ui.settings.show);
+      if (this.state.ui.settings.show != state.ui.settings.show) {
+         this._show(state.ui.settings.show);
+         this.isShow = state.ui.settings.show;
       }
 
-      if (this.state?.ui.darkMode != state?.ui.darkMode) {
-         this._setDarkMode(state?.ui.darkMode);
-         this.startButton._setDarkMode(state?.ui.darkMode);
-         this.continentSelector._setDarkMode(state?.ui.darkMode);
+      if (this.state.ui.darkMode != state.ui.darkMode) {
+         this._setDarkMode(state.ui.darkMode);
+         this.startButton._setDarkMode(state.ui.darkMode);
+         this.continentSelector._setDarkMode(state.ui.darkMode);
       }
 
       this.closeButton._syncState(state);
@@ -83,6 +85,7 @@ export default class Settings {
       }
 
       if (!isShow) {
+         //Solo se debe ejecutar está en este momento mostrado.
          this.dom.classList.remove(settingsModifiers.show.block);
 
          this.dom.addEventListener(

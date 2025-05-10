@@ -2,35 +2,33 @@ import htmlString from "@layouts/Header/Navbar/template.html?raw";
 //Styles
 import "@layouts/Header/Navbar/style.css";
 import "@src/styles/general.css";
-
 import {
    navbarBase,
    navbarModifiers,
 } from "@layouts/Header/Navbar/Navbar-class-names.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class Navbar {
+export default class Navbar extends BaseComponent {
    constructor(state, dispatch) {
+      super();
+      this.htmlString = htmlString;
+      this.base = navbarBase;
+      this.modifiers = navbarModifiers;
       this.button = new CloseButton(dispatch, {
          ui: {
             navbar: { show: false },
          },
       });
-      this.dom = this._createDom(this.button.dom);
+      this.dom = this._createDom();
+      this._init();
       this._syncState(state);
    }
 
-   _createDom = (element) => {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-      const component = clone.querySelector("." + navbarBase.block);
+   _init() {
+      this.dom.prepend(this.button.dom);
+   }
 
-      component.prepend(element);
-
-      return component;
-   };
    _syncState(state) {
       if (this.state?.ui.navbar.show != state?.ui.navbar.show) {
          this._showDom(state?.ui.navbar.show);
@@ -46,15 +44,5 @@ export default class Navbar {
    _showDom(show) {
       if (show) this.dom.classList.add("navbar--show");
       if (!show) this.dom.classList.remove("navbar--show");
-   }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(this.dom, navbarBase, navbarModifiers, "darkMode");
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(this.dom, navbarBase, navbarModifiers, "darkMode");
-      }
    }
 }

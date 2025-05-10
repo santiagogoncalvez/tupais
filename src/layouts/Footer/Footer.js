@@ -8,37 +8,22 @@ import {
    footerBase,
    footerModifiers,
 } from "@layouts/Footer/Footer-class-names.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class Footer {
+export default class Footer extends BaseComponent {
    constructor(state) {
+      super();
+      this.htmlString = htmlString;
+      this.base = footerBase;
+      this.modifiers = footerModifiers;
       this.dom = this._createDom();
       this._syncState(state);
    }
 
-   _createDom = () => {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-
-      return clone.querySelector("." + footerBase.block);
-   };
-   
    _syncState(state) {
       let stIsDarkMode = state.ui.darkMode;
       if (this.isDarkMode == stIsDarkMode) return;
       this._setDarkMode(stIsDarkMode);
       this.isDarkMode = stIsDarkMode;
    }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(this.dom, footerBase, footerModifiers, "darkMode");
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(this.dom, footerBase, footerModifiers, "darkMode");
-      }
-   }
-
 }

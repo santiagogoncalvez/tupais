@@ -19,6 +19,7 @@ export default defineConfig({
          "@Modal": resolve(__dirname, "./src/components/Modal"),
          "@components": resolve(__dirname, "./src/components"),
          "@constants": resolve(__dirname, "./src/constants"),
+         "@shared": resolve(__dirname, "./src/shared"),
       },
    },
    build: {

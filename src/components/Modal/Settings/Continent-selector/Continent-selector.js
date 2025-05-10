@@ -8,59 +8,18 @@ import {
    continentSelectorBase,
    continentSelectorModifiers,
 } from "@Modal/Settings/Continent-selector/Continent-selector-class-names.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 import { CONTINENTS_NAMES } from "@constants/continentsNames.js";
 
-export default class continentSelector {
+export default class continentSelector extends BaseComponent {
    constructor(setContinentValue) {
+      super();
+      this.htmlString = htmlString;
+      this.base = continentSelectorBase;
+      this.modifiers = continentSelectorModifiers;
       this.continent = CONTINENTS_NAMES.ALL;
-      this.dom = this._createDom(setContinentValue);
-   }
-
-   _createDom(setContinentValue) {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-      const component = clone.querySelector("." + continentSelectorBase.block);
-      const containerOptions = component.querySelector(
-         "." + continentSelectorBase.container.block
-      );
-      const options = containerOptions.querySelectorAll(
-         "." + continentSelectorBase.container.option
-      );
-      const button = component.querySelector(
-         "." + continentSelectorBase.button.block
-      );
-      const buttonText = component.querySelector(
-         "." + continentSelectorBase.button.text
-      );
-
-      for (let option of options) {
-         option.addEventListener("click", () => {
-            buttonText.textContent = option.textContent;
-            this._showOptions(containerOptions, false);
-            this.continent = CONTINENTS_NAMES[option.dataset.value];
-            setContinentValue(this.continent);
-         });
-      }
-
-      window.addEventListener("click", (event) => {
-         if (
-            containerOptions.classList.contains(
-               continentSelectorModifiers.display.container.block
-            )
-         ) {
-            if (event.target != containerOptions) {
-               this._showOptions(containerOptions, false);
-            }
-         } else {
-            if (event.target == button || button.contains(event.target)) {
-               this._showOptions(containerOptions, true);
-            }
-         }
-      });
-
-      return component;
+      this.dom = this._createDom();
+      this._init(setContinentValue);
    }
 
    _syncState(state) {
@@ -70,6 +29,55 @@ export default class continentSelector {
       }
 
       this.state = state;
+   }
+
+   _init(setContinentValue) {
+      const containerOptions = this.dom.querySelector(
+         "." + continentSelectorBase.container.block
+      );
+      const options = containerOptions.querySelectorAll(
+         "." + continentSelectorBase.container.option
+      );
+      const button = this.dom.querySelector(
+         "." + continentSelectorBase.button.block
+      );
+      const buttonText = this.dom.querySelector(
+         "." + continentSelectorBase.button.text
+      );
+      let firstClick = true;
+
+      let buttonEvent = (_showOptions) => {
+         this._showOptions(containerOptions, true);
+
+         window.addEventListener("click", outsideButton);
+      };
+      let outsideButton = (event) => {
+         if (!firstClick) {
+            if (!containerOptions.contains(event.target)) {
+               this._showOptions(containerOptions, false);
+               firstClick = true;
+               window.removeEventListener("click", outsideButton);
+            } else {
+               if (event.target == button || button.contains(event.target)) {
+                  this._showOptions(containerOptions, true);
+               }
+            }
+         } else {
+            firstClick = false;
+         }
+      };
+      button.addEventListener("click", buttonEvent);
+
+      for (let option of options) {
+         option.addEventListener("click", () => {
+            buttonText.textContent = option.textContent;
+            this.continent = CONTINENTS_NAMES[option.dataset.value];
+            setContinentValue(this.continent);
+            this._showOptions(containerOptions, false);
+            firstClick = true;
+            window.removeEventListener("click", outsideButton);
+         });
+      }
    }
 
    _showOptions(container, isShow) {
@@ -101,25 +109,5 @@ export default class continentSelector {
 
    getSelectedContinent() {
       return this.continent;
-   }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(
-            this.dom,
-            continentSelectorBase,
-            continentSelectorModifiers,
-            "darkMode"
-         );
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(
-            this.dom,
-            continentSelectorBase,
-            continentSelectorModifiers,
-            "darkMode"
-         );
-      }
    }
 }

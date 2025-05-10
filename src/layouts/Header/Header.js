@@ -13,56 +13,38 @@ import {
    headerBase,
    headerModifiers,
 } from "@layouts/Header/Header-class-names.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class Header {
+export default class Header extends BaseComponent {
    constructor(state, dispatch) {
+      super();
+      this.htmlString = htmlString;
+      this.base = headerBase;
+      this.modifiers = headerModifiers;
       this.openNavbarButton = new OpenNavbarButton(dispatch);
       this.openSettingsButton = new OpenSettingsButton(dispatch);
       this.navbar = new Navbar(state, dispatch);
-      this.dom = this._createDom(
-         this.openNavbarButton.dom,
-         this.openSettingsButton.dom,
-         this.navbar.dom
-      );
+      this.dom = this._createDom();
+      this._init();
       this._syncState(state);
    }
-
-   _createDom = (openNavbarButton, openSettingsButton, navbar) => {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-      const component = clone.querySelector("." + headerBase.block);
-
-      // Agregar elementos
-      component.querySelector(".header__container").prepend(openNavbarButton);
-      component
-         .querySelector(".header__container")
-         .appendChild(openSettingsButton);
-      component.querySelector(".header__container").appendChild(navbar);
-
-      return component;
-   };
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(this.dom, headerBase, headerModifiers, "darkMode");
-         this.openNavbarButton._setDarkMode(isDarkMode);
-         this.openSettingsButton._setDarkMode(isDarkMode);
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(this.dom, headerBase, headerModifiers, "darkMode");
-         this.openNavbarButton._setDarkMode(isDarkMode);
-         this.openSettingsButton._setDarkMode(isDarkMode);
-      }
-   }
-
    _syncState(state) {
       this.navbar._syncState(state);
+      this.openNavbarButton._syncState(state);
+      this.openSettingsButton._syncState(state);
       let stIsDarkMode = state.ui.darkMode;
       if (this.isDarkMode == stIsDarkMode) return;
       this._setDarkMode(stIsDarkMode);
       this.isDarkMode = stIsDarkMode;
+   }
+   _init() {
+      // Agregar elementos
+      this.dom
+         .querySelector(".header__container")
+         .prepend(this.openNavbarButton.dom);
+      this.dom
+         .querySelector(".header__container")
+         .appendChild(this.openSettingsButton.dom);
+      this.dom.querySelector(".header__container").appendChild(this.navbar.dom);
    }
 }

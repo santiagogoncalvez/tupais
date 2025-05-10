@@ -4,42 +4,25 @@ import {
    openNavbarButtonBase,
    openNavbarButtonModifiers,
 } from "@layouts/Header/Open-navbar-button/Open-navbar-button-class-names.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class OpenNavbarButton {
+export default class OpenNavbarButton extends BaseComponent {
    constructor(dispatch) {
-      this.dom = this._createDom(dispatch);
+      super();
+      this.htmlString = htmlString;
+      this.base = openNavbarButtonBase;
+      this.modifiers = openNavbarButtonModifiers;
+      this.dom = this._createDom();
+      this._init(dispatch);
    }
 
-   _createDom(dispatch) {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-      const component = clone.querySelector("." + openNavbarButtonBase.block);
-      component.addEventListener("click", () => {
+   _syncState(state) {
+      this._setDarkMode(state.ui.darkMode);
+   }
+
+   _init(dispatch) {
+      this.dom.addEventListener("click", () => {
          dispatch({ ui: { navbar: { show: true } } });
       });
-
-      return component;
-   }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(
-            this.dom,
-            openNavbarButtonBase,
-            openNavbarButtonModifiers,
-            "darkMode"
-         );
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(
-            this.dom,
-            openNavbarButtonBase,
-            openNavbarButtonModifiers,
-            "darkMode"
-         );
-      }
    }
 }

@@ -15,10 +15,14 @@ import {
    settingsModifiers,
 } from "@Modal/Settings/Settings-class-names.js";
 import { CONTINENTS_NAMES } from "@constants/continentsNames.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class Settings {
+export default class Settings extends BaseComponent {
    constructor(state, dispatch) {
+      super();
+      this.htmlString = htmlString;
+      this.base = settingsBase;
+      this.modifiers = settingsModifiers;
       this.state = state;
       this.continent = CONTINENTS_NAMES.ALL;
       this.closeButton = new CloseButton(dispatch, {
@@ -35,28 +39,22 @@ export default class Settings {
          this._getContinentValue.bind(this)
       );
       this.dom = this._createDom();
+      this._init();
    }
 
-   _createDom = () => {
-      const template = document.createElement("template");
-      template.innerHTML = htmlString;
-      const clone = template.content.cloneNode(true);
-      const component = clone.querySelector("." + settingsBase.block);
-
-      component
+   _init() {
+      this.dom
          .querySelector("." + settingsBase.container)
          .appendChild(this.startButton.dom);
 
-      component.prepend(this.closeButton.dom);
-      component
+      this.dom.prepend(this.closeButton.dom);
+      this.dom
          .querySelector("." + settingsBase.subtitle)
          .insertAdjacentElement("afterend", this.darkModeButton.dom);
-      component
+      this.dom
          .querySelector("." + settingsBase.continentsText)
          .insertAdjacentElement("afterend", this.continentSelector.dom);
-
-      return component;
-   };
+   }
 
    _syncState(state) {
       if (this.state.ui.settings.show != state.ui.settings.show) {
@@ -95,16 +93,6 @@ export default class Settings {
             },
             { once: true }
          );
-      }
-   }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(this.dom, settingsBase, settingsModifiers, "darkMode");
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(this.dom, settingsBase, settingsModifiers, "darkMode");
       }
    }
 

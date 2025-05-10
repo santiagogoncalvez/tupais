@@ -6,10 +6,13 @@ import {
    startButtonBase,
    startButtonModifiers,
 } from "@Modal/Settings/Start-button/Start-button-class-names.js";
-import { applyClasses, deleteClasses } from "@utils/dom-class-handler.js";
+import BaseComponent from "@shared/Base-component.js";
 
-export default class StartButton {
+export default class StartButton extends BaseComponent {
    constructor(dispatch, getContinentValue) {
+      super();
+      this.base = startButtonBase;
+      this.modifiers = startButtonModifiers;
       this.dom = elt(
          "button",
          {
@@ -22,25 +25,5 @@ export default class StartButton {
          },
          elt("span", { className: startButtonBase.span }, "EMPEZAR")
       );
-   }
-
-   _setDarkMode(isDarkMode) {
-      if (isDarkMode) {
-         applyClasses(
-            this.dom,
-            startButtonBase,
-            startButtonModifiers,
-            "darkMode"
-         );
-      }
-
-      if (!isDarkMode) {
-         deleteClasses(
-            this.dom,
-            startButtonBase,
-            startButtonModifiers,
-            "darkMode"
-         );
-      }
    }
 }

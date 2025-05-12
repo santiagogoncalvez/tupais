@@ -29,7 +29,3 @@ function dispatch(action) {
 document.body.prepend(header.dom);
 document.body.appendChild(footer.dom);
 document.body.appendChild(settings.dom);
-
-// setTimeout(() => {
-//    settings.dom.classList.add("settings--hidden");
-// }, 3000);

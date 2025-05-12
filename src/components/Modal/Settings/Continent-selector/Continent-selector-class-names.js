@@ -8,6 +8,7 @@ export const continentSelectorBase = {
       block: "continent-selector__options",
       option: "continent-selector__option",
    },
+   modalBackdrop: "modal-backdrop",
 };
 
 export const continentSelectorModifiers = {
@@ -15,6 +16,7 @@ export const continentSelectorModifiers = {
       container: {
          block: "continent-selector__options--show",
       },
+      modalBackdrop: "modal-backdrop--show",
    },
    display: {
       container: {

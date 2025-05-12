@@ -1,2 +1,3 @@
 # Tu País
-Website where you have to guess using different clues what country it is. Developed with HTML, CSS and Javascript.
+
+“Tu país” es una aplicación web de adivinanzas geográficas en el que tenés que acertar el nombre de países de los diferentes continentes por sus banderas. Está hecho con HTML, CSS y Vanilla JavaScript.

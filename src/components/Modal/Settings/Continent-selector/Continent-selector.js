@@ -44,37 +44,42 @@ export default class continentSelector extends BaseComponent {
       const buttonText = this.dom.querySelector(
          "." + continentSelectorBase.button.text
       );
-      let firstClick = true;
 
-      let buttonEvent = (_showOptions) => {
+      let buttonEvent = (event) => {
+         event.stopImmediatePropagation();   
          this._showOptions(containerOptions, true);
+         containerOptions.focus();
 
-         window.addEventListener("click", outsideButton);
-      };
-      let outsideButton = (event) => {
-         if (!firstClick) {
-            if (!containerOptions.contains(event.target)) {
+         let escEvent = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            if (event.key == "Escape") {
                this._showOptions(containerOptions, false);
-               firstClick = true;
                window.removeEventListener("click", outsideButton);
-            } else {
-               if (event.target == button || button.contains(event.target)) {
-                  this._showOptions(containerOptions, true);
-               }
             }
-         } else {
-            firstClick = false;
+         };
+         window.addEventListener("click", outsideButton, { once: true });
+         containerOptions.addEventListener("keydown", escEvent);
+      };
+
+      let outsideButton = (event) => {
+         if (!containerOptions.contains(event.target)) {
+            window.removeEventListener("click", outsideButton);
+            this._showOptions(containerOptions, false);
          }
       };
+
       button.addEventListener("click", buttonEvent);
 
       for (let option of options) {
-         option.addEventListener("click", () => {
+         option.addEventListener("click", (event) => {
+            event.stopPropagation();
             buttonText.textContent = option.textContent;
             this.continent = CONTINENTS_NAMES[option.dataset.value];
             setContinentValue(this.continent);
+
             this._showOptions(containerOptions, false);
-            firstClick = true;
             window.removeEventListener("click", outsideButton);
          });
       }
@@ -89,6 +94,8 @@ export default class continentSelector extends BaseComponent {
             container.classList.add(
                continentSelectorModifiers.show.container.block
             );
+
+            this._showBackdrop(true);
          });
       }
       if (!isShow) {
@@ -101,8 +108,25 @@ export default class continentSelector extends BaseComponent {
                container.classList.remove(
                   continentSelectorModifiers.display.container.block
                );
+               this._showBackdrop(false);
             },
             { once: true }
+         );
+      }
+   }
+
+   _showBackdrop(isShow) {
+      const modalBackdrop = this.dom.querySelector(
+         "." + continentSelectorBase.modalBackdrop
+      );
+      if (isShow) {
+         modalBackdrop.classList.add(
+            continentSelectorModifiers.show.modalBackdrop
+         );
+      }
+      if (!isShow) {
+         modalBackdrop.classList.remove(
+            continentSelectorModifiers.show.modalBackdrop
          );
       }
    }

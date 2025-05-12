@@ -23,6 +23,7 @@ export default class Settings extends BaseComponent {
       this.htmlString = htmlString;
       this.base = settingsBase;
       this.modifiers = settingsModifiers;
+      this.dispatch = dispatch;
       this.state = state;
       this.continent = CONTINENTS_NAMES.ALL;
       this.closeButton = new CloseButton(dispatch, {
@@ -39,14 +40,13 @@ export default class Settings extends BaseComponent {
          this._getContinentValue.bind(this)
       );
       this.dom = this._createDom();
-      this._init();
+      this._init(dispatch);
    }
 
    _init() {
       this.dom
          .querySelector("." + settingsBase.container)
          .appendChild(this.startButton.dom);
-
       this.dom.prepend(this.closeButton.dom);
       this.dom
          .querySelector("." + settingsBase.subtitle)
@@ -54,6 +54,17 @@ export default class Settings extends BaseComponent {
       this.dom
          .querySelector("." + settingsBase.continentsText)
          .insertAdjacentElement("afterend", this.continentSelector.dom);
+      
+      // Prevenir el evento "cancel" de <dialog>
+      this.dom.addEventListener("keydown", (event) => {
+         event.preventDefault();
+         if (event.key == "Escape") {
+            console.log("Settings Escape");
+         }
+      });
+      this.dom.addEventListener("cancel", (event) => {
+         event.preventDefault();
+      });
    }
 
    _syncState(state) {
@@ -61,35 +72,50 @@ export default class Settings extends BaseComponent {
          this._show(state.ui.settings.show);
          this.isShow = state.ui.settings.show;
       }
-
       if (this.state.ui.darkMode != state.ui.darkMode) {
          this._setDarkMode(state.ui.darkMode);
          this.startButton._setDarkMode(state.ui.darkMode);
          this.continentSelector._setDarkMode(state.ui.darkMode);
       }
-
       this.closeButton._syncState(state);
-
       this.state = state;
    }
 
    _show(isShow) {
       if (isShow) {
+         this.dom.showModal();
          this.dom.classList.add(settingsModifiers.display.block);
-         // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad ()
+         // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
          requestAnimationFrame(() => {
             this.dom.classList.add(settingsModifiers.show.block);
          });
+
+         
+
+         // let escEvent = (event) => {
+         //    if (event.key == "Escape") {
+         //       this.dispatch({
+         //          ui: {
+         //             settings: {
+         //                show: false,
+         //             },
+         //          },
+         //       });
+         //       this.dom.remove("keydown", escEvent);
+         //    }
+         // };
+         // this.dom.addEventListener("keydown", escEvent);
       }
 
       if (!isShow) {
-         //Solo se debe ejecutar está en este momento mostrado.
+         //Solo se debe ejecutar si está mostrado
          this.dom.classList.remove(settingsModifiers.show.block);
-
          this.dom.addEventListener(
             "transitionend",
             () => {
+               console.log("executing");
                this.dom.classList.remove(settingsModifiers.display.block);
+               this.dom.close();
             },
             { once: true }
          );

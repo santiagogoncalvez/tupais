@@ -3,6 +3,7 @@
       class="continent-selector__button"
       title="Elegir continente"
       data-value="all"
+      tabindex="0"
    >
       <span class="continent-selector__button-text">TODOS</span>
       <img
@@ -12,7 +13,8 @@
       />
    </button>
 
-   <div class="continent-selector__options">
+   <div class="continent-selector__options" tabindex="-1"
+   >
       <div data-value="ALL" class="continent-selector__option">
          <span>TODOS</span>
       </div>
@@ -32,4 +34,6 @@
          <span>OCEANÍA</span>
       </div>
    </div>
+
+   <div class="modal-backdrop"></div>
 </div>

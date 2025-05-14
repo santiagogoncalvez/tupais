@@ -7,22 +7,25 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class OpenNavbarButton extends BaseComponent {
-   constructor(dispatch) {
+   constructor(state, dispatch) {
       super();
       this.htmlString = htmlString;
       this.base = openNavbarButtonBase;
       this.modifiers = openNavbarButtonModifiers;
+      this.show = state.ui.navbar.show;
       this.dom = this._createDom();
       this._init(dispatch);
    }
 
    _syncState(state) {
       this._setDarkMode(state.ui.darkMode);
+      this.show = state.ui.navbar.show;
    }
 
    _init(dispatch) {
-      this.dom.addEventListener("click", () => {
-         dispatch({ ui: { navbar: { show: true } } });
+      this.dom.addEventListener("click", (event) => {
+         event.stopPropagation();
+         dispatch({ ui: { navbar: { show: !this.show } } });
       });
    }
 }

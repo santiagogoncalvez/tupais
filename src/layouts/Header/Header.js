@@ -21,7 +21,7 @@ export default class Header extends BaseComponent {
       this.htmlString = htmlString;
       this.base = headerBase;
       this.modifiers = headerModifiers;
-      this.openNavbarButton = new OpenNavbarButton(dispatch);
+      this.openNavbarButton = new OpenNavbarButton(state, dispatch);
       this.openSettingsButton = new OpenSettingsButton(dispatch);
       this.navbar = new Navbar(state, dispatch);
       this.dom = this._createDom();

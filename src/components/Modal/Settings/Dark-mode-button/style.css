@@ -5,6 +5,13 @@
    height: 34px;
    min-height: 34px;
    padding: 0;
+   border-radius: 20px;
+}
+
+.dark-mode-button:focus {
+   transition: all 0s;
+   outline: 2px solid #001f31;
+   outline-offset: 2px;
 }
 
 .dark-mode-button__sun {
@@ -38,7 +45,7 @@
    left: 0;
    right: 0;
    bottom: 0;
-   background-color: #9ED2FF;
+   background-color: #9ed2ff;
    transition: 0.3s;
    border-radius: 30px;
 }

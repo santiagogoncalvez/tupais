@@ -7,7 +7,7 @@ import "@Modal/Settings/Dark-mode-button/style.css";
 import { darkModeButtonBase } from "@Modal/Settings/Dark-mode-button/Dark-mode-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class DarkModeButton extends BaseComponent{
+export default class DarkModeButton extends BaseComponent {
    constructor(state, dispatch) {
       super();
       this.base = darkModeButtonBase;
@@ -24,6 +24,12 @@ export default class DarkModeButton extends BaseComponent{
 
       this.dom.addEventListener("change", () => {
          dispatch({ ui: { darkMode: checkbox.checked } });
+      });
+
+      this.dom.addEventListener("keydown", (event) => {
+         if (event.key == "Enter") {
+            checkbox.click();
+         }
       });
    }
 }

@@ -24,6 +24,11 @@
    padding-right: 20px;
 }
 
+.navbar:focus {
+   outline: 0px solid;
+   outline-offset: 0px;
+}
+
 .navbar--show {
    left: 0rem;
 }

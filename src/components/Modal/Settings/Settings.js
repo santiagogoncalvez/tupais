@@ -47,29 +47,33 @@ export default class Settings extends BaseComponent {
       this.dom
          .querySelector("." + settingsBase.container)
          .appendChild(this.startButton.dom);
-      this.dom.prepend(this.closeButton.dom);
+      this.dom.appendChild(this.closeButton.dom);
       this.dom
          .querySelector("." + settingsBase.subtitle)
          .insertAdjacentElement("afterend", this.darkModeButton.dom);
       this.dom
          .querySelector("." + settingsBase.continentsText)
          .insertAdjacentElement("afterend", this.continentSelector.dom);
-      
-      // Prevenir el evento "cancel" de <dialog>
-      this.dom.addEventListener("keydown", (event) => {
-         event.preventDefault();
-         if (event.key == "Escape") {
-            console.log("Settings Escape");
-         }
-      });
       this.dom.addEventListener("cancel", (event) => {
          event.preventDefault();
       });
    }
 
+   _activeEvents() {
+      let escEvent = (event) => {
+         if (event.key == "Escape") {
+            event.preventDefault();
+            this.dispatch({ ui: { settings: { show: false } } });
+            window.removeEventListener("keydown", escEvent);
+         }
+      };
+      window.addEventListener("keydown", escEvent);
+   }
+
    _syncState(state) {
       if (this.state.ui.settings.show != state.ui.settings.show) {
          this._show(state.ui.settings.show);
+         this._activeEvents();
          this.isShow = state.ui.settings.show;
       }
       if (this.state.ui.darkMode != state.ui.darkMode) {
@@ -89,22 +93,6 @@ export default class Settings extends BaseComponent {
          requestAnimationFrame(() => {
             this.dom.classList.add(settingsModifiers.show.block);
          });
-
-         
-
-         // let escEvent = (event) => {
-         //    if (event.key == "Escape") {
-         //       this.dispatch({
-         //          ui: {
-         //             settings: {
-         //                show: false,
-         //             },
-         //          },
-         //       });
-         //       this.dom.remove("keydown", escEvent);
-         //    }
-         // };
-         // this.dom.addEventListener("keydown", escEvent);
       }
 
       if (!isShow) {
@@ -113,7 +101,6 @@ export default class Settings extends BaseComponent {
          this.dom.addEventListener(
             "transitionend",
             () => {
-               console.log("executing");
                this.dom.classList.remove(settingsModifiers.display.block);
                this.dom.close();
             },

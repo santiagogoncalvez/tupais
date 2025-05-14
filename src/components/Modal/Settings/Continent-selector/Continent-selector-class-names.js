@@ -23,6 +23,11 @@ export const continentSelectorModifiers = {
          block: "continent-selector__options--display",
       },
    },
+   focus: {
+      button: {
+         block: "continent-selector__button--focus",
+      },
+   },
    darkMode: {
       block: "continent-selector--dark-mode",
       button: {
@@ -30,6 +35,11 @@ export const continentSelectorModifiers = {
       },
       container: {
          block: "continent-selector__options--dark-mode",
+      },
+   },
+   selectedOption: {
+      container: {
+         option: "continent-selector__option--selected",
       },
    },
 };

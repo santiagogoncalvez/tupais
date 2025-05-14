@@ -44,43 +44,139 @@ export default class continentSelector extends BaseComponent {
       const buttonText = this.dom.querySelector(
          "." + continentSelectorBase.button.text
       );
+      let hasMouseMove = true;
 
+      let escEvent = (event) => {
+         event.preventDefault();
+         event.stopPropagation();
+         event.stopImmediatePropagation();
+         if (event.key == "Escape") {
+            this._showOptions(containerOptions, false);
+            window.removeEventListener("click", outsideButton);
+            containerOptions.removeEventListener("keydown", escEvent);
+            button.focus();
+         }
+
+         let currentOption = containerOptions.querySelector(
+            "." + continentSelectorModifiers.selectedOption.container.option
+         );
+         if (event.key == "ArrowUp") {
+            hasMouseMove = true;
+            let previous = currentOption.previousElementSibling;
+            if (previous) {
+               currentOption.classList.remove(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+               previous.classList.add(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+            }
+         }
+
+         if (event.key == "ArrowDown") {
+            hasMouseMove = true;
+            let next = currentOption.nextElementSibling;
+            if (next) {
+               currentOption.classList.remove(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+               next.classList.add(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+            }
+         }
+
+         if (event.key == "Enter") {
+            let currentOption = containerOptions.querySelector(
+               "." + continentSelectorModifiers.selectedOption.container.option
+            );
+            currentOption.click();
+         }
+      };
+
+      // Eventos del boton
       let buttonEvent = (event) => {
-         event.stopImmediatePropagation();   
+         event.stopImmediatePropagation();
          this._showOptions(containerOptions, true);
          containerOptions.focus();
-
-         let escEvent = (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            if (event.key == "Escape") {
-               this._showOptions(containerOptions, false);
-               window.removeEventListener("click", outsideButton);
-            }
-         };
          window.addEventListener("click", outsideButton, { once: true });
          containerOptions.addEventListener("keydown", escEvent);
+         let currentOption = containerOptions.querySelector(
+            `[data-value=${this.continent}]`
+         );
+         currentOption.classList.add(
+            continentSelectorModifiers.selectedOption.container.option
+         );
       };
 
       let outsideButton = (event) => {
          if (!containerOptions.contains(event.target)) {
             window.removeEventListener("click", outsideButton);
             this._showOptions(containerOptions, false);
+            containerOptions.removeEventListener("keydown", escEvent);
+            button.focus();
          }
       };
 
       button.addEventListener("click", buttonEvent);
+      button.addEventListener("keydown", (event) => {
+         if (event.key == "ArrowDown") {
+            button.click();
+         }
+      });
 
+      // Eventos de las opciones
       for (let option of options) {
          option.addEventListener("click", (event) => {
             event.stopPropagation();
             buttonText.textContent = option.textContent;
-            this.continent = CONTINENTS_NAMES[option.dataset.value];
+            this.continent = option.dataset.value;
             setContinentValue(this.continent);
-
-            this._showOptions(containerOptions, false);
             window.removeEventListener("click", outsideButton);
+            containerOptions.removeEventListener("keydown", escEvent);
+            this._showOptions(containerOptions, false);
+            button.focus();
+         });
+
+         let mouseMoveEvent = () => {
+            if (hasMouseMove) {
+               let currentOption = containerOptions.querySelector(
+                  "." +
+                     continentSelectorModifiers.selectedOption.container.option
+               );
+               currentOption.classList.remove(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+               option.classList.add(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+               hasMouseMove = false;
+            }
+         };
+
+         option.addEventListener("mouseenter", () => {
+            let currentOption = containerOptions.querySelector(
+               "." + continentSelectorModifiers.selectedOption.container.option
+            );
+            if (currentOption) {
+               currentOption.classList.remove(
+                  continentSelectorModifiers.selectedOption.container.option
+               );
+            }
+            option.classList.add(
+               continentSelectorModifiers.selectedOption.container.option
+            );
+            option.addEventListener("mousemove", mouseMoveEvent);
+         });
+         option.addEventListener("mouseleave", () => {
+            let currentOption = containerOptions.querySelector(
+               "." + continentSelectorModifiers.selectedOption.container.option
+            );
+
+            currentOption.classList.remove(
+               continentSelectorModifiers.selectedOption.container.option
+            );
+            option.removeEventListener("mousemove", mouseMoveEvent);
          });
       }
    }
@@ -94,7 +190,6 @@ export default class continentSelector extends BaseComponent {
             container.classList.add(
                continentSelectorModifiers.show.container.block
             );
-
             this._showBackdrop(true);
          });
       }

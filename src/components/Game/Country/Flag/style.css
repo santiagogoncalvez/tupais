@@ -1,0 +1,51 @@
+@import "animate.css";
+
+.country__flags {
+  width: 170px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.country__flags-conainter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.country__flag {
+  position: absolute;
+  height: 100px;
+  max-width: 170px;
+  margin: 0px;
+  border-radius: 4px;
+  border: 1px solid rgb(232, 232, 232);
+  display: none;
+}
+
+.country__flag--in-left {
+  animation: bounceInLeft forwards;
+  animation-duration: 0.7s;
+}
+
+.country__flag--out-right {
+  animation: bounceOutRight forwards;
+  animation-duration: 0.7s;
+}
+
+.country__flag--in-right {
+  animation: bounceInRight forwards;
+  animation-duration: 0.7s;
+}
+
+.country__flag--out-left {
+  animation: bounceOutLeft forwards;
+  animation-duration: 0.7s;
+}
+
+.country__flag--active {
+  display: block;
+}

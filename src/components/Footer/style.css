@@ -1,0 +1,100 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9ed2ff;
+  min-height: 2.8rem;
+  height: 2.8rem;
+  width: 100%;
+  max-width: 100vw;
+  border-radius: 6px 6px 0px 0px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__fill-space {
+  height: 2.2rem;
+  width: 2.2rem;
+  padding: 0;
+  user-select: none;
+  margin: 0;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.footer__paragraph {
+  text-align: center;
+  font-size: clamp(0.2px, 14px, 5vw);
+  color: #001f31;
+  margin: 0;
+}
+
+.footer__github {
+  position: relative;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  padding: 0;
+  user-select: none;
+  margin: 0;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.footer__github:hover {
+  cursor: pointer;
+}
+
+.footer__github:hover .footer__icon-github {
+  opacity: 0;
+}
+.footer__github:hover .footer__icon-github--hover {
+  opacity: 1;
+}
+
+.footer__icon-github {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  background-image: url("/src/assets/icons/github.svg");
+  background-size: 1.8rem 1.8rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer__icon-github--hover {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  background-color: transparent;
+  background-image: url("/src/assets/icons/github-hover.svg");
+  background-size: 1.8rem 1.8rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.2s ease;
+}
+
+/* Dark mode */
+.footer--dark-mode {
+  background-color: #001f31;
+}
+
+.footer__paragraph--dark-mode {
+  color: #e6f2ff;
+}
+
+.footer__github--dark-mode .footer__icon-github{
+   background-image: url("/src/assets/icons/github-dark-mode.svg");
+}
+
+.footer__github--dark-mode .footer__icon-github--hover{
+  background-image: url("/src/assets/icons/github-dark-mode-hover.svg");
+}

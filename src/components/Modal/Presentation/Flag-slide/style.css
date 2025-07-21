@@ -1,0 +1,99 @@
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.flag-slide {
+  width: 100%;
+}
+
+.flag-slide__container {
+  overflow: hidden;
+  padding: 35px 0;
+  padding-top: 0px;
+  background: transparent;
+  white-space: nowrap;
+  position: relative;
+}
+
+.flag-slide__container:before,
+.flag-slide__container:after {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  content: "";
+  z-index: 2;
+}
+
+.flag-slide__container:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(250, 250, 250));
+}
+
+.flag-slide__container:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(250, 250, 250));
+}
+
+.flag-slide__container:hover .flag-slide__flags {
+  animation-play-state: paused;
+}
+
+.flag-slide__flags {
+  display: inline-block;
+  animation: 35s slide infinite linear;
+}
+
+.flag-slide__flags .flag-slide__flag {
+  height: 50px;
+  margin: 0 20px;
+  border-radius: 3px;
+  border: 1px solid rgb(232, 232, 232);
+}
+
+/* Tooltip */
+.flag-slide__container-flag {
+  position: relative;
+  height: 100%;
+  display: inline-block;
+}
+
+.flag-slide__flag:hover + .flag-slide__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.flag-slide__tooltip {
+  background-color: #fefefe;
+  color: #00405d;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid rgb(225, 225, 225);
+  padding: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+  position: absolute;
+  bottom: -1;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.1s;
+  user-select: none;
+}
+
+.flag-slide__tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 51%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgb(225, 225, 225) transparent;
+}

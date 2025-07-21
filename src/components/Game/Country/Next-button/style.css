@@ -1,0 +1,30 @@
+.country__next-button {
+  width: 40px;
+  height: 60px;
+  border: 0px solid transparent;
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.country__button-icon--right {
+  width: 20px;
+  height: 35px;
+  background-image: url("/src/assets/icons/next-button.png");
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.1s ease-in;
+}
+
+.country__next-button:hover {
+  cursor: pointer;
+}
+
+.country__next-button:hover 
+.country__button-icon--right {
+  transform: scale(1.06);
+}

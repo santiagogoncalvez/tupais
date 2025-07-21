@@ -1,0 +1,13 @@
+.country{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: fit-content;
+  gap: 10px;
+}
+
+.country__fill{
+  width: 40px;
+  height: 60px;
+}

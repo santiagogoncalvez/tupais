@@ -1,0 +1,30 @@
+.continent-selector {
+  width: 170px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.continent-selector__text {
+  margin: 0;
+  margin-bottom: 10px;
+  color: #697276;
+}
+
+.continent-selector__select{
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  position: relative;
+}
+
+/* Dark mode */
+.continent-selector__text--dark-mode {
+  color: #d4d4d4;
+}

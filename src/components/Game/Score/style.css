@@ -1,0 +1,50 @@
+.score {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+
+.score__statistics{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.score__title{
+  color: #898c8f;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.score__points{
+  font-size: 1.1rem;
+  font-weight: 400;
+  border: 1px solid #e2e3e3;
+  /* background-color: #fcfcfc;   */
+  border-radius: 8px;
+  color: #5b5d5f;
+  width: 60px;
+  text-align: center;
+}
+
+@keyframes pulse-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Aquí defines cuánto se agranda */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.score__points--change {
+  animation: pulse-scale 0.25s ease-in-out;
+}

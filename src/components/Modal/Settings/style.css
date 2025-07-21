@@ -2,7 +2,7 @@
    color: #001f31;
    background: rgb(250, 250, 250);
    position: absolute;
-   display: flex;
+   display: none;
    justify-content: center;
    top: -650px;
    left: 0;
@@ -37,6 +37,7 @@
    align-items: center;
    justify-content: start;
    flex-direction: column;
+   padding: 0px;
 }
 
 .settings__subtitle {
@@ -46,36 +47,6 @@
    font-weight: 500;
 }
 
-.settings__continents-text {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-}
-
-.settings__select {
-   width: 100%;
-   height: 30px;
-   background-color: white;
-   color: #00405d;
-   text-align: center;
-   border-radius: 20px;
-   border-color: #cacdcf;
-   display: block;
-   font-size: 0.8rem;
-}
-
-.settings__select-option {
-   background-color: white;
-   color: #00405d;
-}
-
-.settings__continents-text {
-   margin: 0;
-   margin-bottom: 10px;
-   color: #697276;
-}
-
 .settings--show {
    opacity: 1;
    top: 0;
@@ -83,12 +54,6 @@
 
 .settings--display {
    display: flex;
-}
-
-.settings--show .settings__close-button {
-   opacity: 1;
-   transform: rotate(0deg);
-   color: #001f31;
 }
 
 /* Dark mode */
@@ -102,8 +67,4 @@
 
 .settings__subtitle--dark-mode {
    color: #e6f2ff;
-}
-
-.settings__continents-text--dark-mode {
-   color: #d4d4d4;
 }

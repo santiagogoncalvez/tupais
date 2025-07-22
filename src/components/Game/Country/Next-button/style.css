@@ -13,7 +13,7 @@
 .country__button-icon--right {
   width: 20px;
   height: 35px;
-  background-image: url("/src/assets/icons/next-button.png");
+  background-image: url("/tupais/icons/next-button.png");
   background-size: 35px 35px;
   background-repeat: no-repeat;
   background-position: center;
@@ -24,7 +24,6 @@
   cursor: pointer;
 }
 
-.country__next-button:hover 
-.country__button-icon--right {
+.country__next-button:hover .country__button-icon--right {
   transform: scale(1.06);
 }

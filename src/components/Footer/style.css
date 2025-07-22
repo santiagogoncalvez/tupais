@@ -63,7 +63,7 @@
   height: 28px;
   transition: all 0.2s ease;
   background-color: transparent;
-  background-image: url("/src/assets/icons/github.svg");
+  background-image: url("/tupais/icons/github.svg");
   background-size: 1.8rem 1.8rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -75,7 +75,7 @@
   height: 28px;
   opacity: 0;
   background-color: transparent;
-  background-image: url("/src/assets/icons/github-hover.svg");
+  background-image: url("/tupais/icons/github-hover.svg");
   background-size: 1.8rem 1.8rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -91,10 +91,10 @@
   color: #e6f2ff;
 }
 
-.footer__github--dark-mode .footer__icon-github{
-   background-image: url("/src/assets/icons/github-dark-mode.svg");
+.footer__github--dark-mode .footer__icon-github {
+  background-image: url("/tupais/icons/github-dark-mode.svg");
 }
 
-.footer__github--dark-mode .footer__icon-github--hover{
-  background-image: url("/src/assets/icons/github-dark-mode-hover.svg");
+.footer__github--dark-mode .footer__icon-github--hover {
+  background-image: url("/tupais/icons/github-dark-mode-hover.svg");
 }

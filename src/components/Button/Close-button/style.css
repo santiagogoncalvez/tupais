@@ -1,32 +1,32 @@
 .navbar__button {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   height: 1.8rem;
-   width: 1.8rem;
-   background-color: #bfe1ff;
-   border-radius: 0.4rem;
-   border-color: rgba(255, 255, 255, 0);
-   border-style: none;
-   border-width: 0rem;
-   background-color: rgba(128, 128, 128, 0);
-   padding: 0rem;
-   user-select: none;
-   margin: 0;
-   background-image: url("/src/assets/icons/close.png");
-   background-size: 18px 18px;
-   background-repeat: no-repeat;
-   background-position: center;
-   position: absolute;
-   right: 8px;
-   top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 1.8rem;
+  width: 1.8rem;
+  background-color: #bfe1ff;
+  border-radius: 0.4rem;
+  border-color: rgba(255, 255, 255, 0);
+  border-style: none;
+  border-width: 0rem;
+  background-color: rgba(128, 128, 128, 0);
+  padding: 0rem;
+  user-select: none;
+  margin: 0;
+  background-image: url("/tupais/icons/close.png");
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
 
 .navbar__button:hover {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 /* Dark mode */
 .navbar__button--dark-mode {
-      background-image: url("/src/assets/icons/close-dark-mode.png");
+  background-image: url("/tupais/icons/close-dark-mode.png");
 }

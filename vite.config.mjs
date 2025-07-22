@@ -30,21 +30,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        about: resolve(__dirname, "src/pages/about/about.html"),
-        clues: resolve(__dirname, "src/pages/clues-mode/clues-mode.html"),
-        credits: resolve(__dirname, "src/pages/credits/credits.html"),
-        flag: resolve(__dirname, "src/pages/flag-gallery/flag-gallery.html"),
-        game: resolve(__dirname, "src/pages/game-modes/game-modes.html"),
-        multipleChoice: resolve(
-          __dirname,
-          "src/pages/multiple-choice-mode/multiple-choice-mode.html"
-        ),
-        record: resolve(__dirname, "src/pages/record-mode/record-mode.html"),
-        time: resolve(
-          __dirname,
-          "src/pages/time-trial-mode/time-trial-mode.html"
-        ),
-        playground: resolve(__dirname, "playground/index.html"),
       },
     },
   },

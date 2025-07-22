@@ -4,7 +4,7 @@ import htmlString from "@Modal/Settings/template.html?raw";
 import "@Modal/Settings/style.css";
 
 // Components
-import DarkModeButton from "@Modal/Settings/Dark-mode-button/dark-mode-button.js";
+import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 

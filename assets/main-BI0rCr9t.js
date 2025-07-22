@@ -139,31 +139,31 @@ var P=Object.defineProperty;var F=(e,t,n)=>t in e?P(e,t,{enumerable:!0,configura
   <p class="navbar__paragraph navbar__paragraph--first">Modos de juego</p>\r
   <ul class="navbar__list">\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--classic"></div>\r
         <span>Clásico</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--multiple-choice"></div>\r
         <span>Opción múltiple</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--clues"></div>\r
         <span>Pistas</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--record"></div>\r
         <span>Récord</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--time-trial"></div>\r
         <span>Contrareloj</span></a\r
       >\r
@@ -172,19 +172,19 @@ var P=Object.defineProperty;var F=(e,t,n)=>t in e?P(e,t,{enumerable:!0,configura
   <p class="navbar__paragraph">Información</p>\r
   <ul class="navbar__list">\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--flag"></div>\r
         <span>Banderas</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--about"></div>\r
         <span>Acerca del juego</span></a\r
       >\r
     </li>\r
     <li class="navbar__item">\r
-      <a href="/index.html" class="navbar__link"\r
+      <a href="/tupais/index.html" class="navbar__link"\r
         ><div class="navbar__icon navbar__icon--credits"></div>\r
         <span>Créditos</span></a\r
       >\r

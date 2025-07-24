@@ -48,7 +48,7 @@ export default class Keyboard extends BaseComponent {
       dispatch({ game: { answer: this.answer } });
     });
     sendButton.addEventListener("click", () => {
-      dispatch({ game: { sendAnser: true } });
+      dispatch({ game: { sendAnswer: true } });
     });
 
     window.addEventListener("keydown", (event) => {
@@ -101,7 +101,7 @@ export default class Keyboard extends BaseComponent {
         dispatch({ game: { answer: this.answer } });
       }
       if (event.key == "Enter") {
-        dispatch({ game: { sendAnser: true } });
+        dispatch({ game: { sendAnswer: true } });
       }
     });
   }

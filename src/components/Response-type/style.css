@@ -1,0 +1,41 @@
+@import "animate.css";
+
+.response-type {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  user-select: none;
+}
+
+.response-type_container {
+  width: 320px;
+  border: solid 1px rgb(245, 245, 245);
+  border-radius: 0.4rem;
+  background-color: rgb(254, 254, 254, 1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+              rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  padding: 0.4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.response-type_message {
+  color: rgb(93, 99, 111);
+  font-size: 1.1rem;
+}
+
+.response-type--show {
+  display: flex;
+}
+
+.response-type_container--show {
+  animation: fadeInDown forwards;
+  animation-duration: 0.3s;
+}
+
+.response-type_container--hidden {
+  animation: backOutUp forwards;
+  animation-duration: 0.6s;
+}

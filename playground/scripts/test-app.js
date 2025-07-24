@@ -5,6 +5,11 @@ import Presentation from "@Modal/Presentation/Presentation.js";
 import Header from "@components/Header/Header.js";
 import Settings from "@Modal/Settings/Settings.js";
 import Game from "@components/Game/Game";
+import ResponseType from "@components/Response-type/Response-type.js";
+
+function normalizar(str) {
+  return str.toLowerCase().replace(" ", "");
+}
 
 function getCorrectAnswersUpdate(state) {
   const currentCount = state.game.correctAnswers;
@@ -19,44 +24,73 @@ function getCorrectAnswersUpdate(state) {
     },
   };
 
-  if (
-    state.game?.answer?.toLowerCase().replace(" ", "") ==
-    state.game.countries[state.game.countryIndex].toLowerCase().replace(" ", "")
-  ) {
-    def.game = {
-      ...def.game,
-      ...{
-        countryIndex: nextIndex(
-          state.game.countryIndex,
-          state.game.countries.length
-        ),
-        answer: "",
-        sendAnser: false,
-        correctAnswers: currentCount + 1,
-        remainingAnswers: state.game.remainingAnswers - 1,
-      },
-    };
+  let currAnswer = normalizar(state.game?.answer);
+  let correctAnswer = normalizar(state.game.countries[state.game.countryIndex]);
+
+  // Verificar el tipo de respuesta
+  // *Respuesta completa
+  if (currAnswer.length == correctAnswer.length) {
+    // *Respuesta correcta
+    if (currAnswer == correctAnswer) {
+      console.log("Respuesta correcta");
+      def.game = {
+        ...def.game,
+        ...{
+          countryIndex: nextIndex(
+            state.game.countryIndex,
+            state.game.countries.length
+          ),
+          answer: "",
+          sendAnswer: false,
+          correctAnswers: currentCount + 1,
+          remainingAnswers: state.game.remainingAnswers - 1,
+          responseType: {
+            isActive: true,
+            message: "Correcto",
+          },
+        },
+      };
+    } else {
+      // *Respuesta incorrecta pero completa
+      console.log("Respuesta incorrecta");
+      def.game = {
+        ...def.game,
+        ...{
+          countryIndex: nextIndex(
+            state.game.countryIndex,
+            state.game.countries.length
+          ),
+          answer: "",
+          sendAnswer: false,
+          correctAnswers: currentCount,
+          remainingAnswers: state.game.remainingAnswers - 1,
+          responseType: {
+            isActive: true,
+            message: "Incorrecto",
+          },
+        },
+      };
+    }
   } else {
+    // Respuesta incompleta
+    console.log("Repuesta incompleta");
     def.game = {
       ...def.game,
       ...{
-        countryIndex: nextIndex(
-          state.game.countryIndex,
-          state.game.countries.length
-        ),
-        answer: "",
-        sendAnser: false,
-        remainingAnswers: state.game.remainingAnswers - 1,
+        sendAnswer: false,
+        responseType: {
+          isActive: true,
+          message: "Respuesta incompleta",
+        },
       },
     };
   }
-  console.log("def:", def);
 
   return def;
 }
 
 function reducer(state, action) {
-  if (action?.game?.sendAnser) {
+  if (action?.game?.sendAnswer) {
     return getCorrectAnswersUpdate(state, action);
   }
   return {
@@ -108,9 +142,13 @@ let state = {
     ],
     countryIndex: 0,
     answer: "",
-    sendAnser: false,
+    sendAnswer: false,
     correctAnswers: 0,
     remainingAnswers: 10,
+    responseType: {
+      isActive: false,
+      message: "Respuesta incompleta",
+    },
   },
 };
 
@@ -118,6 +156,7 @@ let presentation = new Presentation(state, dispatch);
 let header = new Header(state, dispatch);
 let settings = new Settings(state, dispatch);
 let game = new Game(state, dispatch);
+let responseType = new ResponseType(dispatch);
 
 function dispatch(action) {
   console.log("Action:", action);
@@ -128,11 +167,13 @@ function dispatch(action) {
   header.syncState(state);
   settings.syncState(state);
   game.syncState(state);
+  responseType.syncState(state);
 }
 
 document.body.prepend(header.dom);
 document.body.appendChild(presentation.dom);
 document.body.querySelector("main").appendChild(game.dom);
 document.body.appendChild(settings.dom);
+document.body.appendChild(responseType.dom);
 
 dispatch({ ui: { presentation: { show: true } } });

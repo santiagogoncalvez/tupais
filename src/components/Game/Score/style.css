@@ -31,6 +31,7 @@
   color: #5b5d5f;
   width: 60px;
   text-align: center;
+  user-select: none;
 }
 
 @keyframes pulse-scale {

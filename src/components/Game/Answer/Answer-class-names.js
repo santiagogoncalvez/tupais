@@ -1,4 +1,4 @@
-export const answerBase = {
+export const base = {
   block: "answer",
   row1: "answer__row--1",
   row2: "answer__row--2",
@@ -6,7 +6,7 @@ export const answerBase = {
   letterText: "answer__letter-text",
 };
 
-export const answerModifiers = {
+export const modifiers = {
   darkMode: {
     block: "",
   },

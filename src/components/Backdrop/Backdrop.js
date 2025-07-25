@@ -2,8 +2,8 @@ import htmlString from "@components/Backdrop/template.html?raw";
 //
 import "@components/Backdrop/style.css";
 import {
-  backdropBase,
-  backdropModifiers,
+  base,
+  modifiers,
 } from "@components/Backdrop/Backdrop-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
@@ -11,8 +11,8 @@ export default class Options extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = backdropBase;
-    this.modifiers = backdropModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
     this._init(dispatch);

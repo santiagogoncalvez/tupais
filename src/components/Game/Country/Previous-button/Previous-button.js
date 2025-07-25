@@ -1,5 +1,5 @@
 import "@components/Game/Country/Previous-button/style.css";
-import { previousButtonBase } from "@components/Game/Country/Previous-button/Previous-button-class-names.js";
+import { base } from "@components/Game/Country/Previous-button/Previous-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import elt from "@utils/elt.js";
 import { prevIndex } from "@utils/circular-counter.js";
@@ -8,10 +8,11 @@ export default class previousButton extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.state = state;
+    this.base = base;
     this.dom = elt(
       "button",
       {
-        className: previousButtonBase.block,
+        className: this.base.block,
         title: "Anterior",
         onclick: () => {
           dispatch({
@@ -30,7 +31,7 @@ export default class previousButton extends BaseComponent {
           });
         },
       },
-      elt("div", { className: "country__button-icon--left" })
+      elt("div", { className: this.base.icon })
     );
   }
   syncState(state) {

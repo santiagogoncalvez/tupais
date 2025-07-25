@@ -1,10 +1,10 @@
-export const optionsBase = {
+export const base = {
   block: "continent-selector__options",
   option: "continent-selector__option",
   modalBackdrop: "modal-backdrop",
 };
 
-export const optionsModifiers = {
+export const modifiers = {
   show: {
     block: "continent-selector__options--show",
     modalBackdrop: "modal-backdrop--show",

@@ -4,8 +4,8 @@ import htmlString from "@components/Continent-selector/template.html?raw";
 import "@components/Continent-selector/style.css";
 
 import {
-  continentSelectorBase,
-  continentSelectorModifiers,
+  base,
+  modifiers,
 } from "@components/Continent-selector/Continent-selector-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import Button from "@components/Continent-selector/Button/Button.js";
@@ -17,8 +17,8 @@ export default class continentSelector extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = continentSelectorBase;
-    this.modifiers = continentSelectorModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.continent = state.game.continent;
     this.button = new Button(state, dispatch, this.getContinent.bind(this));

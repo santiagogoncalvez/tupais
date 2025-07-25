@@ -1,13 +1,13 @@
 import htmlString from "@components/Game/Keyboard/template.html?raw";
 import "@components/Game/Keyboard/style.css";
-import { keyboardBase } from "@components/Game/Keyboard/Keyboard-class-names.js";
+import { base } from "@components/Game/Keyboard/Keyboard-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Keyboard extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = keyboardBase;
+    this.base = base;
     this.state = state;
     this.answer = state.game.answer;
     this.dom = this._createDom();
@@ -18,7 +18,7 @@ export default class Keyboard extends BaseComponent {
     this.answer = state.game.answer;
     this.state = state;
   }
-  
+
   _init(dispatch) {
     const letterButtons = this.dom.querySelectorAll(
       "." + this.base.letterButton
@@ -83,7 +83,8 @@ export default class Keyboard extends BaseComponent {
         "ñ",
       ];
 
-      if (letter.includes(event.key)) {
+      if (letter.includes(event.key.toLowerCase())) {
+        // Las letras en mayusculas también deben ser aceptadas (event.key.toLowerCase())
         if (
           this.answer.length ==
           this.state.game.countries[this.state.game.countryIndex].replace(

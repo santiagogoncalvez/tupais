@@ -9,8 +9,8 @@ import FlagSlide from "@Modal/Presentation/Flag-slide/Flag-slide.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
 import {
-  presentationBase,
-  presentationModifiers,
+  base,
+  modifiers,
 } from "@Modal/Presentation/Presentation-class-names.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 import BaseComponent from "@shared/Base-component.js";
@@ -19,8 +19,8 @@ export default class presentation extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = presentationBase;
-    this.modifiers = presentationModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.dispatch = dispatch;
     this.state = state;
     this.continent = CONTINENTS_NAMES.ALL;
@@ -37,7 +37,7 @@ export default class presentation extends BaseComponent {
 
   _init() {
     this.dom
-      .querySelector("." + presentationBase.title)
+      .querySelector("." + this.base.title)
       .insertAdjacentElement("afterend", this.flagSlide.dom);
     this.dom.appendChild(this.closeButton.dom);
     this.dom
@@ -85,10 +85,10 @@ export default class presentation extends BaseComponent {
     if (isShow) {
       if (document.readyState === "interactive") {
         this.dom.showModal();
-        this.dom.classList.add(presentationModifiers.display.block);
+        this.dom.classList.add(this.modifiers.display.block);
 
         requestAnimationFrame(() => {
-          this.dom.classList.add(presentationModifiers.show.block);
+          this.dom.classList.add(this.modifiers.show.block);
         });
       } else {
         document.addEventListener("DOMContentLoaded", () => {
@@ -99,11 +99,11 @@ export default class presentation extends BaseComponent {
 
     if (!isShow) {
       //Solo se debe ejecutar si está mostrado
-      this.dom.classList.remove(presentationModifiers.show.block);
+      this.dom.classList.remove(this.modifiers.show.block);
       this.dom.addEventListener(
         "transitionend",
         () => {
-          this.dom.classList.remove(presentationModifiers.display.block);
+          this.dom.classList.remove(this.modifiers.display.block);
           this.dom.close();
         },
         { once: true }

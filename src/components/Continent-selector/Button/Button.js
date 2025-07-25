@@ -4,8 +4,8 @@ import htmlString from "@components/Continent-selector/Button/template.html?raw"
 import "@components/Continent-selector/Button/style.css";
 
 import {
-  buttonBase,
-  buttonModifiers,
+  base,
+  modifiers,
 } from "@components/Continent-selector/Button/Button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
@@ -14,15 +14,15 @@ export default class Button extends BaseComponent {
   constructor(state, dispatch, getContinent) {
     super();
     this.htmlString = htmlString;
-    this.base = buttonBase;
-    this.modifiers = buttonModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
     this.getContinent = getContinent;
     this._init(dispatch, getContinent);
   }
   syncState(state) {
-    this.dom.querySelector("." + buttonBase.text).textContent =
+    this.dom.querySelector("." + this.base.text).textContent =
       CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
     let isShow;
     if (
@@ -36,7 +36,7 @@ export default class Button extends BaseComponent {
     this.state = state;
   }
   _init(dispatch) {
-    this.dom.querySelector("." + buttonBase.text).textContent =
+    this.dom.querySelector("." + this.base.text).textContent =
       CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
     this.dom.addEventListener("click", (event) => {
       event.stopImmediatePropagation();

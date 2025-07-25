@@ -1,3 +1,3 @@
-export const flagSlideBase = {
+export const base = {
   block: "flag-slide",
 };

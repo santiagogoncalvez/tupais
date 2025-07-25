@@ -1,4 +1,4 @@
-export const presentationBase = {
+export const base = {
    block: "presentation",
    title: "presentation__title",
    subtitle: "presentation__subtitle",
@@ -6,7 +6,7 @@ export const presentationBase = {
    container: "presentation__container",
 };
 
-export const presentationModifiers = {
+export const modifiers = {
    show: {
       block: "presentation--show",
    },

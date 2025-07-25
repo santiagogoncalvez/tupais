@@ -3,20 +3,20 @@ import htmlString from "@Modal/Settings/Dark-mode-button/template.html?raw";
 // Styles
 import "@Modal/Settings/Dark-mode-button/style.css";
 
-import { darkModeButtonBase } from "@Modal/Settings/Dark-mode-button/Dark-mode-button-class-names.js";
+import { base } from "@Modal/Settings/Dark-mode-button/Dark-mode-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class DarkModeButton extends BaseComponent {
   constructor(state, dispatch) {
     super();
-    this.base = darkModeButtonBase;
+    this.base = base;
     this.htmlString = htmlString;
     this.dom = this._createDom();
     this._init(state, dispatch);
   }
 
   _init(state, dispatch) {
-    const checkbox = this.dom.querySelector("." + darkModeButtonBase.checkbox);
+    const checkbox = this.dom.querySelector("." + this.base.checkbox);
     checkbox.checked = state.ui.darkMode;
 
     this.dom.addEventListener("change", () => {

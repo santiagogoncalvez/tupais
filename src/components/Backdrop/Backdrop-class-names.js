@@ -1,8 +1,8 @@
-export const backdropBase = {
+export const base = {
   block: "modal-backdrop",
 };
 
-export const backdropModifiers = {
+export const modifiers = {
   show: {
     block: "modal-backdrop--show",
   },

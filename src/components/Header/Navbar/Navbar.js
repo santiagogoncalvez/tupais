@@ -3,8 +3,8 @@ import htmlString from "@components/Header/Navbar/template.html?raw";
 import "@components/Header/Navbar/style.css";
 
 import {
-  navbarBase,
-  navbarModifiers,
+  base,
+  modifiers,
 } from "@components/Header/Navbar/Navbar-class-names.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 import BaseComponent from "@shared/Base-component.js";
@@ -13,8 +13,8 @@ export default class Navbar extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = navbarBase;
-    this.modifiers = navbarModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dispatch = dispatch;
     this.button = new CloseButton(this.dispatch, {
@@ -43,10 +43,10 @@ export default class Navbar extends BaseComponent {
 
   _showDom(show) {
     if (show) {
-      this.dom.classList.add("navbar--show");
+      this.dom.classList.add(this.modifiers.show);
       this.dom.focus();
     }
-    if (!show) this.dom.classList.remove("navbar--show");
+    if (!show) this.dom.classList.remove(this.modifiers.show);
   }
   _activeEvents(isActive) {
     if (!this._clickEvent) {

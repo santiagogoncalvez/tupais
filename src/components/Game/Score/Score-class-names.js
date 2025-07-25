@@ -1,4 +1,4 @@
-export const scoreBase = {
+export const base = {
   block: "score",
   remaining: "score__statistics--remaining",
   successes: "score__statistics--successes",
@@ -6,7 +6,7 @@ export const scoreBase = {
   points: "score__points",
 };
 
-export const scoreModifiers = {
+export const modifiers = {
   change: {
     points: "score__points--change",
   },

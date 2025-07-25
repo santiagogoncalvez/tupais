@@ -1,8 +1,8 @@
-export const openSettingsButtonBase = {
+export const base = {
    block: "header__open-setting-button",
 };
 
-export const openSettingsButtonModifiers = {
+export const modifiers = {
    darkMode: {
       block: "header__open-setting-button--dark-mode",
    },

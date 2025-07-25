@@ -86,6 +86,18 @@ function getCorrectAnswersUpdate(state) {
     };
   }
 
+  // Verificar si el juego ha terminado
+  if (def.game.remainingAnswers <= 0) {
+    console.log("No quedan respuestas");
+    def.game.completed = true;
+  }
+
+  // Verificar si el juego ha sido ganado
+  if (def.game.correctAnswers >= state.game.totalAnswers) {
+    console.log("Juego ganado");
+    def.game.won = true;
+  }
+
   return def;
 }
 
@@ -144,12 +156,15 @@ let state = {
     answer: "",
     sendAnswer: false,
     correctAnswers: 0,
-    remainingAnswers: 10,
+    remainingAnswers: 2,
+    totalAnswers: 2,
     responseType: {
       isActive: false,
       close: false,
-      message: "Respuesta incompleta",
+      message: "",
     },
+    completed: false,
+    won: false,
   },
 };
 
@@ -160,10 +175,12 @@ let game = new Game(state, dispatch);
 let responseType = new ResponseType(dispatch);
 
 function dispatch(action) {
-  console.log("Action:", action);
   state = reducer(state, action);
-  console.log("New state: ", state);
-  console.log("");
+
+  // console.log("Action:", action);
+  // console.log("New state: ", state);
+  // console.log("");
+  
   presentation.syncState(state);
   header.syncState(state);
   settings.syncState(state);

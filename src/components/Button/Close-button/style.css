@@ -30,3 +30,13 @@
 .navbar__button--dark-mode {
   background-image: url("/tupais/icons/close-dark-mode.png");
 }
+
+/* Show */
+.navbar__button--show{
+  opacity: 1;
+  transition: opacity 0.15s ease-in-out;
+}
+.navbar__button--hidden {
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}

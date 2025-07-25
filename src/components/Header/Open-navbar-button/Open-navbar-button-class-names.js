@@ -1,8 +1,8 @@
-export const openNavbarButtonBase = {
+export const base = {
    block: "header__open-navbar-button",
 };
 
-export const openNavbarButtonModifiers = {
+export const modifiers = {
    darkMode: {
       block: "header__open-navbar-button--dark-mode",
    },

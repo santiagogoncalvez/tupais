@@ -1,4 +1,4 @@
-export const continentSelectorBase = {
+export const base = {
    block: "continent-selector",
    select: "continent-selector__select",
    button: {
@@ -12,7 +12,7 @@ export const continentSelectorBase = {
    modalBackdrop: "modal-backdrop",
 };
 
-export const continentSelectorModifiers = {
+export const modifiers = {
    show: {
       container: {
          block: "continent-selector__options--show",

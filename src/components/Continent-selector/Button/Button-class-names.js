@@ -1,9 +1,9 @@
-export const buttonBase = {
+export const base = {
   block: "continent-selector__button",
   text: "continent-selector__button-text",
 };
 
-export const buttonModifiers = {
+export const modifiers = {
   focus: {
     block: "continent-selector__button--focus",
   },

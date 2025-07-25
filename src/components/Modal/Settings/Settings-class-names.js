@@ -1,4 +1,4 @@
-export const settingsBase = {
+export const base = {
    block: "settings",
    title: "settings__title",
    subtitle: "settings__subtitle",
@@ -6,7 +6,7 @@ export const settingsBase = {
    container: "settings__container",
 };
 
-export const settingsModifiers = {
+export const modifiers = {
    show: {
       block: "settings--show",
    },

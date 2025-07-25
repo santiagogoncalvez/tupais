@@ -6,6 +6,7 @@
    min-height: 34px;
    padding: 0;
    border-radius: 20px;
+   user-select: none;
 }
 
 .dark-mode-button:focus {

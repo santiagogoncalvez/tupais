@@ -1,8 +1,10 @@
-export const countryBase = {
-  block: "country"
+export const base = {
+  block: "country",
+  fill: "country__fill",
+  buttonIconLeft: "country__button-icon--left",
 };
 
-export const countryModifiers = {
+export const modifiers = {
   darkMode: {
     block: "",
   },

@@ -1,4 +1,4 @@
-export const navbarBase = {
+export const base = {
    block: "navbar",
    list: {
       block: "navbar__list",
@@ -15,7 +15,7 @@ export const navbarBase = {
    },
 };
 
-export const navbarModifiers = {
+export const modifiers = {
    darkMode: {
       block: "navbar--dark-mode",
       list: {
@@ -32,4 +32,5 @@ export const navbarModifiers = {
          span: "navbar__icon--dark-mode",
       },
    },
+   show: "navbar--show",
 };

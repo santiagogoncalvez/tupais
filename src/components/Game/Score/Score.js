@@ -1,17 +1,14 @@
 import htmlString from "@components/Game/Score/template.html?raw";
 import "@components/Game/Score/style.css";
-import {
-  scoreBase,
-  scoreModifiers,
-} from "@components/Game/Score/Score-class-names.js";
+import { base, modifiers } from "@components/Game/Score/Score-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Score extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;
-    this.base = scoreBase;
-    this.modifiers = scoreModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
     this._init(state);

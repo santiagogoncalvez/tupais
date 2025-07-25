@@ -1,3 +1,3 @@
-export const gameBase = {
+export const base = {
   block: "game"
 };

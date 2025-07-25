@@ -8,10 +8,8 @@ import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-import {
-  settingsBase,
-  settingsModifiers,
-} from "@Modal/Settings/Settings-class-names.js";
+// Otros 
+import { base, modifiers } from "@Modal/Settings/Settings-class-names.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
@@ -19,8 +17,8 @@ export default class Settings extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = settingsBase;
-    this.modifiers = settingsModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.dispatch = dispatch;
     this.state = state;
     this.continent = CONTINENTS_NAMES.ALL;
@@ -36,10 +34,10 @@ export default class Settings extends BaseComponent {
   }
 
   _init() {
-    this.dom.querySelector("." + settingsBase.container);
+    this.dom.querySelector("." + this.base.container);
     this.dom.appendChild(this.closeButton.dom);
     this.dom
-      .querySelector("." + settingsBase.subtitle)
+      .querySelector("." + this.base.subtitle)
       .insertAdjacentElement("afterend", this.darkModeButton.dom);
     this.dom
       .querySelector("." + this.base.container)
@@ -85,20 +83,20 @@ export default class Settings extends BaseComponent {
   _show(isShow) {
     if (isShow) {
       this.dom.showModal();
-      this.dom.classList.add(settingsModifiers.display.block);
+      this.dom.classList.add(this.modifiers.display.block);
       // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
       requestAnimationFrame(() => {
-        this.dom.classList.add(settingsModifiers.show.block);
+        this.dom.classList.add(this.modifiers.show.block);
       });
     }
 
     if (!isShow) {
       //Solo se debe ejecutar si está mostrado
-      this.dom.classList.remove(settingsModifiers.show.block);
+      this.dom.classList.remove(this.modifiers.show.block);
       this.dom.addEventListener(
         "transitionend",
         () => {
-          this.dom.classList.remove(settingsModifiers.display.block);
+          this.dom.classList.remove(this.modifiers.display.block);
           this.dom.close();
         },
         { once: true }

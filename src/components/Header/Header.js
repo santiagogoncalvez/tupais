@@ -8,18 +8,16 @@ import OpenNavbarButton from "@components/Header/Open-navbar-button/Open-navbar-
 import OpenSettingsButton from "@components/Header/Open-settings-button/Open-settings-button.js";
 import Navbar from "@components/Header/Navbar/Navbar.js";
 
-import {
-  headerBase,
-  headerModifiers,
-} from "@components/Header/Header-class-names.js";
+// Otros
+import { base, modifiers } from "@components/Header/Header-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Header extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = headerBase;
-    this.modifiers = headerModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.openNavbarButton = new OpenNavbarButton(state, dispatch);
     this.openSettingsButton = new OpenSettingsButton(dispatch);
     this.navbar = new Navbar(state, dispatch);
@@ -37,12 +35,9 @@ export default class Header extends BaseComponent {
     this.isDarkMode = stIsDarkMode;
   }
   _init() {
-    this.dom
-      .querySelector(".header__container")
-      .prepend(this.openNavbarButton.dom);
-    this.dom
-      .querySelector(".header__container")
-      .appendChild(this.openSettingsButton.dom);
-    this.dom.querySelector(".header__container").appendChild(this.navbar.dom);
+    const container = this.dom.querySelector("." + this.base.container);
+    container.prepend(this.openNavbarButton.dom);
+    container.appendChild(this.openSettingsButton.dom);
+    container.appendChild(this.navbar.dom);
   }
 }

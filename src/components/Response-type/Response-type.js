@@ -31,7 +31,7 @@ export default class ResponseType extends BaseComponent {
           },
         },
       },
-      { top: "3px", right: "3px" }
+      { top: "5px", right: "5px" }
     );
     this.dispatch = dispatch;
   }
@@ -41,10 +41,10 @@ export default class ResponseType extends BaseComponent {
       // Si no hay notificaciones, se agrega una nueva
       // Si ya hay una notificación, se actualiza el mensaje
       if (this.dom.querySelectorAll("." + this.base.notification).length == 0) {
-        this.addNotification(state.game.responseType.message);
+        this.addNotification(state.game.responseType.message, state);
       } else {
         this.removeNotification();
-        this.addNotification(state.game.responseType.message);
+        this.addNotification(state.game.responseType.message, state);
       }
     } else {
       let notification = this.dom.querySelector("." + this.base.notification);
@@ -70,6 +70,8 @@ export default class ResponseType extends BaseComponent {
         );
       }
     }
+
+    this.state = state;
   }
 
   addNotification(message) {
@@ -95,6 +97,22 @@ export default class ResponseType extends BaseComponent {
       elt("p", { className: this.base.message }, message),
       this.closeButton.dom
     );
+    this.closeButton.hide(); // Ocultar el botón de cerrar inicialmente
+
+    newNotification.addEventListener("mouseenter", () => {
+      // Cambiarlo por propiedad del componente
+      this.mouseenter = true;
+      this.closeButton.show(); // Mostrar el botón de cerrar al pasar el mouse
+    });
+
+    newNotification.addEventListener("mouseleave", () => {
+      // Cambiarlo por propiedad del componente
+      this.mouseenter = false;
+      this.closeButton.hide(); // Ocultar el botón de cerrar al salir el mouse
+
+      // Programar animación de salida
+      this.notificationTimeout = notificationTimeout(this, newNotification);
+    });
 
     this.dom.appendChild(newNotification);
 
@@ -102,18 +120,7 @@ export default class ResponseType extends BaseComponent {
     newNotification.classList.add(this.modifiers.show.notification);
 
     // Programar animación de salida
-    this.notificationTimeout = setTimeout(() => {
-      newNotification.classList.add(this.modifiers.hidden.notification);
-
-      newNotification.addEventListener(
-        "animationend", // Usá "transitionend" si estás usando transition en CSS
-        () => {
-          this.removeNotification();
-          this.notificationTimeout = null; // Limpiar referencia
-        },
-        { once: true }
-      );
-    }, 2000); // Tiempo antes de empezar a ocultarla
+    this.notificationTimeout = notificationTimeout(this, newNotification); // Tiempoantes de empezar a ocultarla
   }
 
   removeNotification() {
@@ -122,4 +129,25 @@ export default class ResponseType extends BaseComponent {
       notification.remove();
     }
   }
+}
+
+function notificationTimeout(componentInstance, notificationElement) {
+  return setTimeout(() => {
+    if (componentInstance.mouseenter) {
+      return; // No ocultar si el mouse está encima
+    }
+
+    notificationElement.classList.add(
+      componentInstance.modifiers.hidden.notification
+    );
+
+    notificationElement.addEventListener(
+      "animationend",
+      () => {
+        componentInstance.removeNotification();
+        componentInstance.notificationTimeout = null;
+      },
+      { once: true }
+    );
+  }, 2000);
 }

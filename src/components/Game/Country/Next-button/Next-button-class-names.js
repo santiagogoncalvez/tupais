@@ -1,8 +1,9 @@
-export const nextButtonBase = {
-  block: "country__next-button"
+export const base = {
+  block: "country__next-button",
+  icon: "country__button-icon--right",
 };
 
-export const nextButtonModifiers = {
+export const modifiers = {
   darkMode: {
     block: "",
   },

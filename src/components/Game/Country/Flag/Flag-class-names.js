@@ -1,4 +1,4 @@
-export const flagBase = {
+export const base = {
   block: "country__flags",
   container: "country__flags-conainter",
   flag: "country__flag",
@@ -7,7 +7,7 @@ export const flagBase = {
   nextFlag: "country__flag--next",
 };
 
-export const flagModifiers = {
+export const modifiers = {
   darkMode: {
     block: "",
   },
@@ -15,4 +15,5 @@ export const flagModifiers = {
   animationOutRight: { flag: "country__flag--out-right" },
   animationInRight: { flag: "country__flag--in-right" },
   animationOutLeft: { flag: "country__flag--out-left" },
+  active: { flag: "country__flag--active" },
 };

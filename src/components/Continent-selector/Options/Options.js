@@ -4,8 +4,8 @@ import htmlString from "@components/Continent-selector/Options/template.html?raw
 import "@components/Continent-selector/Options/style.css";
 
 import {
-  optionsBase,
-  optionsModifiers,
+  base,
+  modifiers,
 } from "@components/Continent-selector/Options/Options-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
@@ -13,8 +13,8 @@ export default class Options extends BaseComponent {
   constructor(state, dispatch, setContinent) {
     super();
     this.htmlString = htmlString;
-    this.base = optionsBase;
-    this.modifiers = optionsModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.continent = state.game.continent;
     this.dom = this._createDom();

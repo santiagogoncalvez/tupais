@@ -1,9 +1,6 @@
 import htmlString from "@components/Game/Answer/template.html?raw";
 import "@components/Game/Answer/style.css";
-import {
-  answerBase,
-  answerModifiers,
-} from "@components/Game/Answer/Answer-class-names.js";
+import { base, modifiers } from "@components/Game/Answer/Answer-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import elt from "@utils/elt.js";
 
@@ -11,8 +8,8 @@ export default class Answer extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;
-    this.base = answerBase;
-    this.modifiers = answerModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
     this._init(state);

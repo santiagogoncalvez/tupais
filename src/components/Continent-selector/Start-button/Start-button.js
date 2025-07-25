@@ -3,20 +3,20 @@ import "@components/Continent-selector/Start-button/Start-button.css";
 
 import elt from "@utils/elt.js";
 import {
-  startButtonBase,
-  startButtonModifiers,
+  base,
+  modifiers,
 } from "@components/Continent-selector/Start-button/Start-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class StartButton extends BaseComponent {
   constructor(dispatch, getContinentValue) {
     super();
-    this.base = startButtonBase;
-    this.modifiers = startButtonModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.dom = elt(
       "button",
       {
-        className: `${startButtonBase.block}`,
+        className: `${this.base.block}`,
         onclick: () => {
           dispatch({
             ui: {
@@ -29,7 +29,7 @@ export default class StartButton extends BaseComponent {
         title: "Empezar",
         type: "button",
       },
-      elt("span", { className: startButtonBase.span }, "EMPEZAR")
+      elt("span", { className: this.base.span }, "EMPEZAR")
     );
   }
 }

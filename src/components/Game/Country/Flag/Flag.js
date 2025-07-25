@@ -1,8 +1,8 @@
 import htmlString from "@components/Game/Country/Flag/template.html?raw";
 import "@components/Game/Country/Flag/style.css";
 import {
-  flagBase,
-  flagModifiers,
+  base,
+  modifiers,
 } from "@components/Game/Country/Flag/Flag-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import { getDirection, nextIndex, prevIndex } from "@utils/circular-counter.js";
@@ -14,8 +14,8 @@ export default class Flag extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
-    this.base = flagBase;
-    this.modifiers = flagModifiers;
+    this.base = base;
+    this.modifiers = modifiers;
     this.state = state;
     this.dispatch = dispatch;
     this.flagIndex = 1;
@@ -41,7 +41,7 @@ export default class Flag extends BaseComponent {
     this.dom
       .querySelectorAll("." + this.base.flag)[1]
       .classList.add(
-        "country__flag--active",
+        this.modifiers.active.flag,
         this.modifiers.animationInLeft.flag
       );
   }
@@ -73,12 +73,12 @@ export default class Flag extends BaseComponent {
         }.svg`;
 
       flags[newFlagIndex].classList.remove(
-        "country__flag--active",
+        this.modifiers.active.flag,
         this.modifiers.animationInLeft.flag
       );
       flags[oldFlagIndex].classList.add(this.modifiers.animationOutLeft.flag);
       flags[newFlagIndex].classList.add(
-        "country__flag--active",
+        this.modifiers.active.flag,
         this.modifiers.animationInRight.flag
       );
 
@@ -86,7 +86,7 @@ export default class Flag extends BaseComponent {
         "animationend",
         () => {
           flags[oldFlagIndex].classList.remove(
-            "country__flag--active",
+            this.modifiers.active.flag,
             this.modifiers.animationInRight.flag,
             this.modifiers.animationOutLeft.flag
           );
@@ -125,7 +125,7 @@ export default class Flag extends BaseComponent {
       );
       flags[oldFlagIndex].classList.add(this.modifiers.animationOutRight.flag);
       flags[newFlagIndex].classList.add(
-        "country__flag--active",
+        this.modifiers.active.flag,
         this.modifiers.animationInLeft.flag
       );
 
@@ -133,7 +133,7 @@ export default class Flag extends BaseComponent {
         "animationend",
         () => {
           flags[oldFlagIndex].classList.remove(
-            "country__flag--active",
+            this.modifiers.active.flag,
             this.modifiers.animationInLeft.flag,
             this.modifiers.animationOutRight.flag
           );

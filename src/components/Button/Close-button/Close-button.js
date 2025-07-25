@@ -7,12 +7,15 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class CloseButton extends BaseComponent {
-  constructor(dispatch, action) {
+  constructor(dispatch, action, options = {}) {
     super();
     this.htmlString = htmlString;
     this.base = closeButtonBase;
     this.modifiers = closeButtonModifiers;
     this.dom = this._createDom();
+
+    this._applyPosition(options.top, options.right); // ← NUEVO
+
     this._init(dispatch, action);
   }
 
@@ -20,7 +23,6 @@ export default class CloseButton extends BaseComponent {
     if (this.state?.ui.darkMode != state?.ui.darkMode) {
       this._setDarkMode(state?.ui.darkMode);
     }
-
     this.state = state;
   }
 
@@ -28,5 +30,11 @@ export default class CloseButton extends BaseComponent {
     this.dom.addEventListener("click", () => {
       dispatch(action);
     });
+  }
+
+  _applyPosition(top, right) {
+    if (top) this.dom.style.top = top;
+    if (right) this.dom.style.right = right;
+    this.dom.style.position = "absolute";
   }
 }

@@ -5,11 +5,11 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  display: none;
+  height: 200px;
   user-select: none;
 }
 
-.response-type_container {
+.response-type__notification {
   width: 320px;
   border: solid 1px rgb(245, 245, 245);
   border-radius: 0.4rem;
@@ -21,21 +21,21 @@
   justify-content: center;
 }
 
-.response-type_message {
+.response-type__message {
   color: rgb(93, 99, 111);
   font-size: 1.1rem;
 }
 
 .response-type--show {
-  display: flex;
+    height: auto;
 }
 
-.response-type_container--show {
+.response-type__notification--show {
   animation: fadeInDown forwards;
   animation-duration: 0.3s;
 }
 
-.response-type_container--hidden {
+.response-type__notification--hidden {
   animation: backOutUp forwards;
   animation-duration: 0.6s;
 }

@@ -147,6 +147,7 @@ let state = {
     remainingAnswers: 10,
     responseType: {
       isActive: false,
+      close: false,
       message: "Respuesta incompleta",
     },
   },

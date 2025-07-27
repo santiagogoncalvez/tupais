@@ -1,21 +1,18 @@
-import htmlString from "@Modal/Presentation/template.html?raw";
+import htmlString from "@Modal/Game-over/template.html?raw";
 
 // Styles
-import "@Modal/Presentation/style.css";
+import "@Modal/Game-over/style.css";
 
 // Components
 import CloseButton from "@components/Button/Close-button/Close-button.js";
-import FlagSlide from "@Modal/Presentation/Flag-slide/Flag-slide.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-import {
-  base,
-  modifiers,
-} from "@Modal/Presentation/Presentation-class-names.js";
+// Otros
+import { base, modifiers } from "@Modal/Game-over/Game-over-class-names.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class Presentation extends BaseComponent {
+export default class GameOver extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
@@ -26,20 +23,16 @@ export default class Presentation extends BaseComponent {
     this.continent = CONTINENTS_NAMES.ALL;
     this.closeButton = new CloseButton(dispatch, {
       ui: {
-        presentation: { show: false },
+        gameOver: { show: false },
       },
     });
-    this.flagSlide = new FlagSlide();
     this.continentSelector = new ContinentSelector(state, dispatch);
     this.dom = this._createDom();
     this._init(dispatch);
   }
 
   _init() {
-    this.dom
-      .querySelector("." + this.base.title)
-      .insertAdjacentElement("afterend", this.flagSlide.dom);
-    this.dom.appendChild(this.closeButton.dom);
+    this.dom.querySelector("." + this.base.container);
     this.dom
       .querySelector("." + this.base.container)
       .appendChild(this.continentSelector.dom);
@@ -54,7 +47,7 @@ export default class Presentation extends BaseComponent {
         if (event.key == "Escape") {
           event.preventDefault();
           event.stopImmediatePropagation();
-          this.dispatch({ ui: { presentation: { show: false } } });
+          this.dispatch({ ui: { gameOver: { show: false } } });
           this.dom.blur();
         }
       };
@@ -67,10 +60,10 @@ export default class Presentation extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state.ui.presentation.show != state.ui.presentation.show) {
-      this._show(state.ui.presentation.show);
-      this._activeEvents(state.ui.presentation.show);
-      this.isShow = state.ui.presentation.show;
+    if (this.state.ui.gameOver.show != state.ui.gameOver.show) {
+      this._show(state.ui.gameOver.show);
+      this._activeEvents(state.ui.gameOver.show);
+      this.isShow = state.ui.gameOver.show;
     }
     if (this.state.ui.darkMode != state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
@@ -83,18 +76,12 @@ export default class Presentation extends BaseComponent {
 
   _show(isShow) {
     if (isShow) {
-      if (document.readyState === "interactive") {
-        this.dom.showModal();
-        this.dom.classList.add(this.modifiers.display.block);
-
-        requestAnimationFrame(() => {
-          this.dom.classList.add(this.modifiers.show.block);
-        });
-      } else {
-        document.addEventListener("DOMContentLoaded", () => {
-          this._show(true);
-        });
-      }
+      this.dom.showModal();
+      this.dom.classList.add(this.modifiers.display.block);
+      // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
+      requestAnimationFrame(() => {
+        this.dom.classList.add(this.modifiers.show.block);
+      });
     }
 
     if (!isShow) {

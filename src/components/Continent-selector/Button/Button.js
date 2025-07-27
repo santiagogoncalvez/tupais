@@ -23,8 +23,11 @@ export default class Button extends BaseComponent {
   }
   syncState(state) {
     this.dom.querySelector("." + this.base.text).textContent =
-      CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
+    CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
     let isShow;
+
+    // TODO: refactorizar para que las propiedades que contolan el ContinentSElector sean generales ya que estan dentro de Settings y Presentation en el state global
+    console.log(state);
     if (
       this.state.ui.settings.continentSelector.options.show !=
       (isShow = state.ui.settings.continentSelector.options.show)

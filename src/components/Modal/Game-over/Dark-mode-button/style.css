@@ -1,0 +1,82 @@
+.dark-mode-button {
+   position: relative;
+   display: inline-block;
+   width: 64px;
+   height: 34px;
+   min-height: 34px;
+   padding: 0;
+   border-radius: 20px;
+   user-select: none;
+}
+
+.dark-mode-button:focus {
+   transition: all 0s;
+   outline: 2px solid #001f31;
+   outline-offset: 2px;
+}
+
+.dark-mode-button__sun {
+   position: absolute;
+   top: 7px;
+   left: 8px;
+   user-select: none;
+}
+
+.dark-mode-button__moon {
+   position: absolute;
+   top: 6px;
+   right: 7px;
+   user-select: none;
+}
+
+.dark-mode-button__checkbox:hover + .dark-mode-button__circle:before {
+   transform: translateX(2px);
+}
+
+.dark-mode-button .dark-mode-button__checkbox {
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+
+.dark-mode-button__circle {
+   position: absolute;
+   cursor: pointer;
+   top: 1px;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #9ed2ff;
+   transition: 0.3s;
+   border-radius: 30px;
+}
+
+.dark-mode-button__circle:before {
+   position: absolute;
+   content: "";
+   height: 25px;
+   width: 25px;
+   border-radius: 20px;
+   top: 4px;
+   left: 4px;
+   z-index: 2;
+   background-color: #183153;
+   transition: 0.3s;
+}
+
+.dark-mode-button__checkbox:checked + .dark-mode-button__circle {
+   background-color: rgb(242, 242, 242);
+}
+
+.dark-mode-button__checkbox:checked:hover + .dark-mode-button__circle:before {
+   transform: translateX(29px);
+}
+
+.dark-mode-button__checkbox:focus + .dark-mode-button__circle:before {
+   box-shadow: 0 0 1px #183153;
+}
+
+.dark-mode-button__checkbox:checked + .dark-mode-button__circle:before {
+   transform: translateX(31px);
+   background-color: #183153;
+}

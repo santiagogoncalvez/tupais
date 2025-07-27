@@ -7,6 +7,9 @@ let state = {
       show: false,
     },
   },
+  game: {
+    continent: "americas",
+  },
 };
 
 let settings = new Settings(state, function dispatch(action) {

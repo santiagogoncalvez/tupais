@@ -1,22 +1,26 @@
 export const base = {
-   block: "settings",
-   title: "settings__title",
-   subtitle: "settings__subtitle",
-   continentsText: "settings__continents-text",
-   container: "settings__container",
+  block: "game-over",
+  title: "game-over__title",
+  subtitle: "game-over__subtitle",
+  continentsText: "game-over__continents-text",
+  container: "game-over__container",
 };
 
 export const modifiers = {
-   show: {
-      block: "settings--show",
-   },
-   display: {
-      block: "settings--display",
-   },
-   darkMode: {
-      block: "settings--dark-mode",
-      title: "settings__title--dark-mode",
-      subtitle: "settings__subtitle--dark-mode",
-      continentsText: "settings__continents-text--dark-mode",
-   },
+  show: {
+    block: "game-over--show",
+  },
+  display: {
+    block: "game-over--display",
+  },
+  darkMode: {
+    block: "game-over--dark-mode",
+    title: "game-over__title--dark-mode",
+    subtitle: "game-over__subtitle--dark-mode",
+    continentsText: "game-over__continents-text--dark-mode",
+  },
+  fade: {
+    in: "fade-in",
+    out: "fade-out",
+  },
 };

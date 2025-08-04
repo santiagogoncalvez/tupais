@@ -1,0 +1,46 @@
+.game-modes {
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 5px;
+  margin-top: 30px;
+}
+
+.game-modes__mode {
+  width: 180px;
+  height: 75px;
+  
+  background-color: #00638E;
+  color: #ffffff;
+
+  /* background-color: #9ED2FF;
+  color: #001f31; */
+
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.1s background-color ease-in-out;
+}
+
+.game-modes__mode:hover{
+  background-color: #0073a4;
+}
+
+.game-modes__mode:focus{
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.game-modes__text {
+  width: 80%;
+  height: fit-content;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+}

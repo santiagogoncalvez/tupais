@@ -1,15 +1,15 @@
-import htmlString from "{PATH}/template.html?raw";
+import htmlString from "@Modal/Game-over/Game-modes/template.html?raw";
 
 // Styles
-import "{PATH}/style.css";
+import "@Modal/Game-over/Game-modes/style.css";
 
 import {
   base,
   modifiers,
-} from "{PATH}/(Component-name)-class-names.js";
+} from "@Modal/Game-over/Game-modes/Game-modes-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class componentName extends BaseComponent {
+export default class GameModes extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;
@@ -19,6 +19,5 @@ export default class componentName extends BaseComponent {
     this.syncState(state);
   }
 
-  syncState(state) {
-  }
+  syncState(state) {}
 }

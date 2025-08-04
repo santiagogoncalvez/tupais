@@ -8,13 +8,21 @@
       /* body {
         background-color: #f4f4f4;
       } */
+
+      body {
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     </style>
   </head>
   <body>
+    <!-- Algunos tests no van a usar el main (Header, Settings, Presentation) y este main vacío genera conflictos. Cuando no se use debe estar comentado en los test.-->
     <main></main>
-    <script
-      src="/playground/scripts/test-game-over.js"
-      type="module"
-    ></script>
+    
+    <script src="/playground/scripts/test-app.js" type="module">
+    </script>
   </body>
 </html>

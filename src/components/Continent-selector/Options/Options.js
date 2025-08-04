@@ -10,43 +10,53 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
-  constructor(state, dispatch, setContinent) {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
-    this.continent = state.game.continent;
+    // Se asigna "all" como continente por defecto si no hay uno seleccionado.
+    this.continent = state.ui.continentSelector.selectedOption || "all";
     this.dom = this._createDom();
-    this._init(dispatch, setContinent);
+    this._init(dispatch);
+
+    // Animations
+    this.isShow = false;
   }
   syncState(state) {
     if (
-      this.state.ui.settings.continentSelector.options.show !=
-      state.ui.settings.continentSelector.options.show
+      this.state.ui.continentSelector.options.show !=
+      state.ui.continentSelector.options.show
     ) {
-      this._show(state.ui.settings.continentSelector.options.show);
-      this._assignSelected(state.ui.settings.continentSelector.options.show);
+      this._show(state.ui.continentSelector.options.show);
+      this._assignSelected(state.ui.continentSelector.options.show);
     }
     this.state = state;
   }
-  _init(dispatch, setContinent) {
+  _init(dispatch) {
     const options = this.dom.querySelectorAll("." + this.base.option);
     let hasMouseMove = true;
 
     this._assignSelected(true);
+    this._showInit();
+
     for (let option of options) {
       //Eventos de mouse
       option.addEventListener("click", () => {
+        event.preventDefault();
         this.continent = option.dataset.value;
-        setContinent(this.continent);
         dispatch({
           ui: {
-            settings: { continentSelector: { options: { show: false } } },
+            continentSelector: {
+              options: { show: false },
+              selectedOption: this.continent,
+            },
             backdrop: { show: false },
           },
         });
       });
+
       option.addEventListener("mouseenter", () => {
         let curOpt = this.dom.querySelector(
           "." + this.modifiers.selectedOption.option
@@ -56,6 +66,7 @@ export default class Options extends BaseComponent {
 
         option.classList.add(this.modifiers.selectedOption.option);
       });
+
       option.addEventListener("mouseleave", () => {
         let curOpt = this.dom.querySelector(
           "." + this.modifiers.selectedOption.option
@@ -65,6 +76,7 @@ export default class Options extends BaseComponent {
 
         option.classList.remove(this.modifiers.selectedOption.option);
       });
+
       option.addEventListener("mousemove", () => {
         if (hasMouseMove) {
           let currOpt = this.dom.querySelector(
@@ -76,23 +88,30 @@ export default class Options extends BaseComponent {
         }
       });
     }
+
     //Eventos de teclado
+
     this.dom.addEventListener("keydown", (event) => {
       event.stopPropagation();
       event.stopImmediatePropagation();
+
       if (event.key == "Escape") {
         event.preventDefault();
         dispatch({
           ui: {
-            settings: { continentSelector: { options: { show: false } } },
+            continentSelector: { options: { show: false } },
             backdrop: { show: false },
           },
         });
       }
+
       let curOpt = this.dom.querySelector(
         "." + this.modifiers.selectedOption.option
       );
+
       if (event.key == "ArrowDown") {
+        event.preventDefault();
+
         hasMouseMove = true;
         if (curOpt) {
           let next = curOpt.nextElementSibling;
@@ -104,7 +123,10 @@ export default class Options extends BaseComponent {
           options[0].classList.add(this.modifiers.selectedOption.option);
         }
       }
+
       if (event.key == "ArrowUp") {
+        event.preventDefault();
+
         hasMouseMove = true;
         if (curOpt) {
           let previous = curOpt.previousElementSibling;
@@ -119,15 +141,18 @@ export default class Options extends BaseComponent {
         }
       }
       if (event.key == "Enter") {
+        event.preventDefault();
         let currOpt = this.dom.querySelector(
           "." + this.modifiers.selectedOption.option
         );
         if (!curOpt) return;
         this.continent = currOpt.dataset.value;
-        setContinent(this.continent);
         dispatch({
           ui: {
-            settings: { continentSelector: { options: { show: false } } },
+            continentSelector: {
+              options: { show: false },
+              selectedOption: this.continent,
+            },
             backdrop: { show: false },
           },
         });
@@ -144,19 +169,28 @@ export default class Options extends BaseComponent {
     }
     if (!isShow) {
       this.dom.classList.remove(this.modifiers.show.block);
-      this.dom.addEventListener(
-        "transitionend",
-        () => {
-          this.dom.classList.remove(this.modifiers.display.block);
-        },
-        { once: true }
-      );
     }
+  }
+  _showInit() {
+    this.dom.addEventListener(
+      "transitionend",
+      (event) => {
+        if (event.propertyName === "opacity") {
+          if (!this.isShow) {
+            this.isShow = true;
+          } else {
+            this.dom.classList.remove(this.modifiers.display.block);
+            this.isShow = false;
+          }
+        }
+      }
+    );
   }
   _getContinent() {
     return this.continent;
   }
   _assignSelected(isSelect) {
+    // La primera vez que se llama a esta función, isSelect es true pero selectedOption es null, esto pasaría en Presentation. En este caso se asigna "all" como continente por defecto.
     let curOpt;
     if (isSelect) {
       curOpt = this.dom.querySelector(`[data-value="${this.continent}"]`);

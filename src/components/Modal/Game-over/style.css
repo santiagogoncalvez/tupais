@@ -1,4 +1,4 @@
-.settings {
+.game-over {
   color: #001f31;
   background: rgb(250, 250, 250);
   position: absolute;
@@ -14,57 +14,76 @@
   border: 0;
   padding: 0;
   padding-top: 30px;
+  padding-bottom: 130px;
   z-index: 11;
   transition: all 0.3s ease-in-out;
+  overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
+  user-select: none;
+
+  /* Animation */
+  opacity: 1;
+  top: 0;
 }
 
-.settings::backdrop {
+.game-over::backdrop {
   background: transparent;
   height: 0px;
   width: 0px;
 }
 
-.settings__title {
+.game-over__title {
   margin: 0;
   max-width: 100%;
   font-weight: 600;
 }
 
-.settings__container {
+.game-over__container {
   display: flex;
   align-items: center;
   justify-content: start;
   flex-direction: column;
   padding: 0px;
+  height: fit-content ;
 }
 
-.settings__subtitle {
-  margin-top: 40px;
+.game-over__subtitle {
+  margin-top: 30px;
   margin-bottom: 20px;
   color: #00405d;
   font-weight: 500;
 }
 
-.settings--show {
+.game-over--show {
   opacity: 1;
   top: 0;
 }
 
-.settings--display {
+.game-over--display {
   display: flex;
 }
 
 /* Dark mode */
-.settings--dark-mode {
+.game-over--dark-mode {
   background-color: #001f31;
 }
 
-.settings__title--dark-mode {
+.game-over__title--dark-mode {
   color: #e6f2ff;
 }
 
-.settings__subtitle--dark-mode {
+.game-over__subtitle--dark-mode {
   color: #e6f2ff;
+}
+
+/* Animation */
+.fade-in {
+  animation: fadeInDownBig forwards;
+  animation-duration: 0.5s;
+}
+
+.fade-out {
+  animation: fadeOutUpBig forwards;
+  animation-duration: 1s;
 }

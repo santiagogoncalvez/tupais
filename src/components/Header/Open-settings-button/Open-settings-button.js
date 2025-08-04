@@ -18,6 +18,7 @@ export default class OpenSettingsButton extends BaseComponent {
 
   _init(dispatch) {
     this.dom.addEventListener("click", () => {
+      this.dom.blur();
       dispatch({ ui: { settings: { show: true } } });
     });
   }

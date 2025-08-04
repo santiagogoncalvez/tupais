@@ -1,10 +1,7 @@
 import htmlString from "@components/Backdrop/template.html?raw";
 //
 import "@components/Backdrop/style.css";
-import {
-  base,
-  modifiers,
-} from "@components/Backdrop/Backdrop-class-names.js";
+import { base, modifiers } from "@components/Backdrop/Backdrop-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
@@ -29,10 +26,8 @@ export default class Options extends BaseComponent {
     this.dom.addEventListener("click", () => {
       dispatch({
         ui: {
-          settings: {
-            continentSelector: {
-              options: { show: false },
-            },
+          continentSelector: {
+            options: { show: false },
           },
           backdrop: { show: false },
         },

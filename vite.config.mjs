@@ -5,7 +5,6 @@ const base = "/tupais/";
 const root = resolve(__dirname);
 const outDir = resolve(__dirname, "dist");
 
-// TODO: activar el uso de @ o averiguar por que no se ejecuta en "npm run dev"
 export default defineConfig({
   root,
   resolve: {

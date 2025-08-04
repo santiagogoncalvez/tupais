@@ -13,10 +13,11 @@
   padding-top: 7px;
   padding-bottom: 7px;
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   opacity: 0;
   transition: all 0.15s ease-in-out;
   z-index: 51;
+  user-select: none;
 }
 
 .continent-selector__options:focus {
@@ -26,11 +27,13 @@
 
 .continent-selector__options--display {
   display: flex;
+  background-color: white;
 }
 
 .continent-selector__options--show {
   /* margin-top: 2px; */
   opacity: 1;
+  background-color: white;
 }
 
 .continent-selector__option {
@@ -56,21 +59,6 @@
 
 .continent-selector__option--selected {
   background-color: rgb(240, 240, 240);
-}
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  width: auto;
-  min-width: 100vw;
-  height: auto;
-  min-height: 100vh;
-  display: none;
-  z-index: 50;
-}
-
-.modal-backdrop--show {
-  display: block;
 }
 
 /* Dark mode */

@@ -6,29 +6,26 @@ import "@Modal/Settings/style.css";
 // Components
 import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
-import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-// Otros 
+// Otros
 import { base, modifiers } from "@Modal/Settings/Settings-class-names.js";
-import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Settings extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, continentSelector) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.dispatch = dispatch;
     this.state = state;
-    this.continent = CONTINENTS_NAMES.ALL;
     this.closeButton = new CloseButton(dispatch, {
       ui: {
         settings: { show: false },
       },
     });
     this.darkModeButton = new DarkModeButton(state, dispatch);
-    this.continentSelector = new ContinentSelector(state, dispatch);
+    this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
   }
@@ -39,9 +36,6 @@ export default class Settings extends BaseComponent {
     this.dom
       .querySelector("." + this.base.subtitle)
       .insertAdjacentElement("afterend", this.darkModeButton.dom);
-    this.dom
-      .querySelector("." + this.base.container)
-      .appendChild(this.continentSelector.dom);
     this.dom.addEventListener("cancel", (event) => {
       event.preventDefault();
     });
@@ -54,7 +48,7 @@ export default class Settings extends BaseComponent {
           event.preventDefault();
           event.stopImmediatePropagation();
           this.dispatch({ ui: { settings: { show: false } } });
-          this.dom.blur();
+          document.activeElement.blur();
         }
       };
     }
@@ -82,33 +76,36 @@ export default class Settings extends BaseComponent {
 
   _show(isShow) {
     if (isShow) {
-      this.dom.showModal();
       this.dom.classList.add(this.modifiers.display.block);
       // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
+      // this.dom.showModal();
       requestAnimationFrame(() => {
-        this.dom.classList.add(this.modifiers.show.block);
+        // this.dom.classList.add(this.modifiers.show.block);
+        this.dom.classList.add(this.modifiers.fade.in);
       });
+
+      // Insertar elementos cuando se muestra el modal
+      const container = this.dom.querySelector("." + this.base.container);
+      this.continentSelector.mountTo(container); 
     }
 
     if (!isShow) {
       //Solo se debe ejecutar si está mostrado
       this.dom.classList.remove(this.modifiers.show.block);
+      this.dom.classList.remove(this.modifiers.fade.in);
+      this.dom.classList.add(this.modifiers.fade.out);
+
       this.dom.addEventListener(
-        "transitionend",
+        "animationend",
         () => {
+          // TODO: esto tarda un poco de más en ejecutarse, resolverlo después convitiendo Settings a un div o buscando otra forma de hacer que se puede abrir Settings de forma más rápida una vez cerrado.
           this.dom.classList.remove(this.modifiers.display.block);
-          this.dom.close();
+          this.dom.classList.remove(this.modifiers.fade.out);
+
+          // this.dom.close();
         },
         { once: true }
       );
     }
-  }
-
-  _setContinentValue(value) {
-    this.continent = value;
-  }
-
-  _getContinentValue() {
-    return this.continent;
   }
 }

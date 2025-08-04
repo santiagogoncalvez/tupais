@@ -1,4 +1,6 @@
 /* General styles */
+@import "animate.css";
+
 @font-face {
   font-family: "Nunito";
   src: url("/public/fonts/Nunito-VariableFont_wght.ttf") format("truetype");

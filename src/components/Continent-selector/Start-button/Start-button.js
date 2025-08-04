@@ -9,21 +9,27 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class StartButton extends BaseComponent {
-  constructor(dispatch, getContinentValue) {
+  constructor(state, dispatch) {
     super();
     this.base = base;
     this.modifiers = modifiers;
+    this.state = state;
     this.dom = elt(
       "button",
       {
         className: `${this.base.block}`,
         onclick: () => {
+          // TODO: hacer que el componente reciba por parámetro el dipatch que va a hacer así se puede especificar que modal es el que va a cerrar. Ya que este componente aparece en cada modal.
           dispatch({
             ui: {
               settings: { show: false },
               presentation: { show: false },
+              gameOver: { show: false },
             },
-            game: { continent: getContinentValue() },
+            game: {
+              continent: this.state.ui.continentSelector.selectedOption,
+              isNewGame: true,
+            },
           });
         },
         title: "Empezar",
@@ -31,5 +37,9 @@ export default class StartButton extends BaseComponent {
       },
       elt("span", { className: this.base.span }, "EMPEZAR")
     );
+  }
+
+  syncState(state) {
+    this.state = state;
   }
 }

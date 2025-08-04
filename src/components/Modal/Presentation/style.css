@@ -18,6 +18,11 @@
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
   margin: 0;
+  user-select: none;
+
+  /* Animation */
+  opacity: 1;
+  top: 0;
 }
 
 .presentation::backdrop {
@@ -78,4 +83,15 @@
 
 .presentation__subtitle--dark-mode {
   color: #e6f2ff;
+}
+
+/* Animation */
+.fade-in {
+  animation: fadeInDownBig forwards;
+  animation-duration: 0.5s;
+}
+
+.fade-out {
+  animation: fadeOutUpBig forwards;
+  animation-duration: 1s;
 }

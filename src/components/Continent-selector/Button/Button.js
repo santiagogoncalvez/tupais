@@ -11,26 +11,25 @@ import BaseComponent from "@shared/Base-component.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 
 export default class Button extends BaseComponent {
-  constructor(state, dispatch, getContinent) {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
-    this.getContinent = getContinent;
-    this._init(dispatch, getContinent);
+    this._init(dispatch);
   }
   syncState(state) {
     this.dom.querySelector("." + this.base.text).textContent =
-    CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
+      CONTINENTS_NAMES[
+        state.ui.continentSelector.selectedOption.toUpperCase()
+      ].toUpperCase();
     let isShow;
 
-    // TODO: refactorizar para que las propiedades que contolan el ContinentSElector sean generales ya que estan dentro de Settings y Presentation en el state global
-    console.log(state);
     if (
-      this.state.ui.settings.continentSelector.options.show !=
-      (isShow = state.ui.settings.continentSelector.options.show)
+      this.state.ui.continentSelector.options.show !=
+      (isShow = state.ui.continentSelector.options.show)
     ) {
       if (!isShow) {
         this.dom.focus();
@@ -40,31 +39,30 @@ export default class Button extends BaseComponent {
   }
   _init(dispatch) {
     this.dom.querySelector("." + this.base.text).textContent =
-      CONTINENTS_NAMES[this.getContinent().toUpperCase()].toUpperCase();
+      CONTINENTS_NAMES[
+        this.state.ui.continentSelector.selectedOption.toUpperCase()
+      ].toUpperCase();
     this.dom.addEventListener("click", (event) => {
       event.stopImmediatePropagation();
       dispatch({
         ui: {
-          settings: {
-            continentSelector: {
-              options: {
-                show: !this.state.ui.settings.continentSelector.options.show,
-              },
+          continentSelector: {
+            options: {
+              show: !this.state.ui.continentSelector.options.show,
             },
           },
           backdrop: { show: true },
         },
       });
     });
+
     this.dom.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp" || event.key == "ArrowDown") {
         dispatch({
           ui: {
-            settings: {
-              continentSelector: {
-                options: {
-                  show: !this.state.ui.settings.continentSelector.options.show,
-                },
+            continentSelector: {
+              options: {
+                show: !this.state.ui.continentSelector.options.show,
               },
             },
             backdrop: { show: true },

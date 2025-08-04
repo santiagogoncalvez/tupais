@@ -5,37 +5,49 @@ import "@Modal/Game-over/style.css";
 
 // Components
 import CloseButton from "@components/Button/Close-button/Close-button.js";
-import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
+import Results from "@Modal/Game-over/Results/Results.js";
+import GameModes from "@Modal/Game-over/Game-modes/Game-modes.js";
 
 // Otros
 import { base, modifiers } from "@Modal/Game-over/Game-over-class-names.js";
-import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class GameOver extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, continentSelector) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.dispatch = dispatch;
     this.state = state;
-    this.continent = CONTINENTS_NAMES.ALL;
+    this.isShow = false;
     this.closeButton = new CloseButton(dispatch, {
       ui: {
         gameOver: { show: false },
       },
+      game: {
+        isNewGame: true,
+      },
     });
-    this.continentSelector = new ContinentSelector(state, dispatch);
+
+    // Componente de resultados del juego: Results
+    this.results = new Results(state);
+
+    this.gameModes = new GameModes(state);
+    this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
   }
 
   _init() {
-    this.dom.querySelector("." + this.base.container);
+    let container = this.dom.querySelector("." + this.base.container);
+    this.dom.appendChild(this.closeButton.dom);
     this.dom
-      .querySelector("." + this.base.container)
-      .appendChild(this.continentSelector.dom);
+      .querySelector("." + this.base.subtitle)
+      .insertAdjacentElement("afterend", this.gameModes.dom);
+    this.dom
+      .querySelector("." + this.base.subtitle)
+      .insertAdjacentElement("afterend", this.results.dom);
     this.dom.addEventListener("cancel", (event) => {
       event.preventDefault();
     });
@@ -47,8 +59,13 @@ export default class GameOver extends BaseComponent {
         if (event.key == "Escape") {
           event.preventDefault();
           event.stopImmediatePropagation();
-          this.dispatch({ ui: { gameOver: { show: false } } });
-          this.dom.blur();
+          this.dispatch({
+            ui: { gameOver: { show: false } },
+            game: {
+              isNewGame: true,
+            },
+          });
+          // this.dom.blur();
         }
       };
     }
@@ -60,7 +77,7 @@ export default class GameOver extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state.ui.gameOver.show != state.ui.gameOver.show) {
+    if (this.isShow != state.ui.gameOver.show) {
       this._show(state.ui.gameOver.show);
       this._activeEvents(state.ui.gameOver.show);
       this.isShow = state.ui.gameOver.show;
@@ -70,39 +87,43 @@ export default class GameOver extends BaseComponent {
       this.continentSelector._setDarkMode(state.ui.darkMode);
     }
     this.closeButton.syncState(state);
+    this.results.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;
   }
 
   _show(isShow) {
     if (isShow) {
-      this.dom.showModal();
       this.dom.classList.add(this.modifiers.display.block);
       // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
+      this.dom.showModal();
       requestAnimationFrame(() => {
-        this.dom.classList.add(this.modifiers.show.block);
+        // this.dom.classList.add(this.modifiers.show.block);
+        this.dom.classList.add(this.modifiers.fade.in);
       });
+
+      // Insertar elementos cuando se muestra el modal
+      const container = this.dom.querySelector("." + this.base.container);
+      this.continentSelector.mountTo(container);
     }
 
     if (!isShow) {
       //Solo se debe ejecutar si está mostrado
       this.dom.classList.remove(this.modifiers.show.block);
+      this.dom.classList.remove(this.modifiers.fade.in);
+      this.dom.classList.add(this.modifiers.fade.out);
+
       this.dom.addEventListener(
-        "transitionend",
+        "animationend",
         () => {
+          // TODO: esto tarda un poco de más en ejecutarse, resolverlo después convitiendo Settings a un div o buscando otra forma de hacer que se puede abrir Settings de forma más rápida una vez cerrado.
           this.dom.classList.remove(this.modifiers.display.block);
+          this.dom.classList.remove(this.modifiers.fade.out);
+
           this.dom.close();
         },
         { once: true }
       );
     }
-  }
-
-  _setContinentValue(value) {
-    this.continent = value;
-  }
-
-  _getContinentValue() {
-    return this.continent;
   }
 }

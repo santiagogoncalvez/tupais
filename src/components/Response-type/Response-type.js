@@ -23,7 +23,7 @@ export default class ResponseType extends BaseComponent {
     this.closeButton = new CloseButton(
       dispatch,
       {
-        game: {
+        ui: {
           responseType: {
             isActive: false,
             close: true,
@@ -37,19 +37,20 @@ export default class ResponseType extends BaseComponent {
   }
 
   syncState(state) {
-    if (state.game.responseType.isActive) {
+    // isActive indica si se ya se creó o existe una notificación.
+    if (state.ui.responseType.isActive) {
       // Si no hay notificaciones, se agrega una nueva
       // Si ya hay una notificación, se actualiza el mensaje
       if (this.dom.querySelectorAll("." + this.base.notification).length == 0) {
-        this.addNotification(state.game.responseType.message, state);
+        this.addNotification(state.ui.responseType.message, state);
       } else {
         this.removeNotification();
-        this.addNotification(state.game.responseType.message, state);
+        this.addNotification(state.ui.responseType.message, state);
       }
     } else {
       let notification = this.dom.querySelector("." + this.base.notification);
 
-      if (state.game.responseType.close) {
+      if (state.ui.responseType.close) {
         notification.classList.add(this.modifiers.hidden.notification);
         notification.addEventListener(
           "animationend", // Usá "transitionend" si estás usando transition en CSS
@@ -57,7 +58,7 @@ export default class ResponseType extends BaseComponent {
             this.removeNotification();
             this.notificationTimeout = null; // Limpiar referencia
             this.dispatch({
-              game: {
+              ui: {
                 responseType: {
                   isActive: false,
                   close: false,
@@ -76,7 +77,7 @@ export default class ResponseType extends BaseComponent {
 
   addNotification(message) {
     this.dispatch({
-      game: {
+      ui: {
         responseType: {
           isActive: false,
           close: false,

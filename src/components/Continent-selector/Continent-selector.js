@@ -21,12 +21,13 @@ export default class continentSelector extends BaseComponent {
     this.modifiers = modifiers;
     this.state = state;
     this.continent = state.game.continent;
-    this.button = new Button(state, dispatch, this.getContinent.bind(this));
-    this.options = new Options(state, dispatch, this.setContinent.bind(this));
-    this.startButton = new StartButton(dispatch, this.getContinent.bind(this));
+    this.button = new Button(state, dispatch);
+    this.options = new Options(state, dispatch);
+    this.startButton = new StartButton(state, dispatch);
     this.backdrop = new Backdrop(state, dispatch);
     this.dom = this._createDom();
     this._init(dispatch);
+    this.dispatch = dispatch;
   }
   syncState(state) {
     if (this.state?.ui.darkMode != state?.ui.darkMode) {
@@ -34,6 +35,7 @@ export default class continentSelector extends BaseComponent {
     }
     this.button.syncState(state);
     this.options.syncState(state);
+    this.startButton.syncState(state);
     this.backdrop.syncState(state);
     this.state = state;
   }
@@ -44,10 +46,9 @@ export default class continentSelector extends BaseComponent {
     select.appendChild(this.startButton.dom);
     select.appendChild(this.backdrop.dom);
   }
-  getContinent() {
-    return this.continent;
-  }
-  setContinent(continent) {
-    this.continent = continent;
+  mountTo(container) {
+    if (this.dom.parentElement !== container) {
+      container.appendChild(this.dom);
+    }
   }
 }

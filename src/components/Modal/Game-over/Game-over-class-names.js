@@ -20,7 +20,7 @@ export const modifiers = {
     continentsText: "game-over__continents-text--dark-mode",
   },
   fade: {
-    in: "fade-in",
-    out: "fade-out",
+    in: "modal--fade-in",
+    out: "modal--fade-out",
   },
 };

@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@Modal/Settings/template.html?raw";
 
 // Styles
@@ -20,14 +22,13 @@ export default class Settings extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
     this.closeButton = new CloseButton(dispatch, {
-      ui: {
-        settings: { show: false },
-      },
+      type: ACTIONS.CLOSE_SETTINGS,
     });
     this.darkModeButton = new DarkModeButton(state, dispatch);
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
+    this._onAnimationEnd = this._onAnimationEnd.bind(this); // para poder removerlo
   }
 
   _init() {
@@ -47,7 +48,9 @@ export default class Settings extends BaseComponent {
         if (event.key == "Escape") {
           event.preventDefault();
           event.stopImmediatePropagation();
-          this.dispatch({ ui: { settings: { show: false } } });
+          this.dispatch({
+            type: ACTIONS.CLOSE_SETTINGS,
+          });
           document.activeElement.blur();
         }
       };
@@ -60,10 +63,10 @@ export default class Settings extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state.ui.settings.show != state.ui.settings.show) {
-      this._show(state.ui.settings.show);
-      this._activeEvents(state.ui.settings.show);
-      this.isShow = state.ui.settings.show;
+    if (this.state.ui.modals.settings.show != state.ui.modals.settings.show) {
+      this._show(state.ui.modals.settings.show);
+      this._activeEvents(state.ui.modals.settings.show);
+      this.isShow = state.ui.modals.settings.show;
     }
     if (this.state.ui.darkMode != state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
@@ -75,37 +78,35 @@ export default class Settings extends BaseComponent {
   }
 
   _show(isShow) {
+    // Siempre limpiamos posibles animaciones anteriores
+    this.dom.removeEventListener("animationend", this._onAnimationEnd);
+    this.dom.classList.remove(this.modifiers.fade.out);
+    this.dom.classList.remove(this.modifiers.fade.in);
+
     if (isShow) {
       this.dom.classList.add(this.modifiers.display.block);
-      // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
-      // this.dom.showModal();
+
       requestAnimationFrame(() => {
-        // this.dom.classList.add(this.modifiers.show.block);
         this.dom.classList.add(this.modifiers.fade.in);
       });
 
-      // Insertar elementos cuando se muestra el modal
       const container = this.dom.querySelector("." + this.base.container);
-      this.continentSelector.mountTo(container); 
+
+      this.continentSelector.mountTo(container);
+      this.continentSelector.setActionType(this.dom);
     }
 
     if (!isShow) {
-      //Solo se debe ejecutar si está mostrado
-      this.dom.classList.remove(this.modifiers.show.block);
-      this.dom.classList.remove(this.modifiers.fade.in);
       this.dom.classList.add(this.modifiers.fade.out);
 
-      this.dom.addEventListener(
-        "animationend",
-        () => {
-          // TODO: esto tarda un poco de más en ejecutarse, resolverlo después convitiendo Settings a un div o buscando otra forma de hacer que se puede abrir Settings de forma más rápida una vez cerrado.
-          this.dom.classList.remove(this.modifiers.display.block);
-          this.dom.classList.remove(this.modifiers.fade.out);
-
-          // this.dom.close();
-        },
-        { once: true }
-      );
+      this.dom.addEventListener("animationend", this._onAnimationEnd, {
+        once: true,
+      });
     }
+  }
+
+  _onAnimationEnd() {
+    this.dom.classList.remove(this.modifiers.display.block);
+    this.dom.classList.remove(this.modifiers.fade.out);
   }
 }

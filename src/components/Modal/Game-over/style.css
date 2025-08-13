@@ -10,6 +10,7 @@
   min-width: 100%;
   height: auto;
   min-height: 100%;
+  max-width: 100vw;
   opacity: 0;
   border: 0;
   padding: 0;
@@ -78,7 +79,7 @@
 }
 
 /* Animation */
-.fade-in {
+/* .fade-in {
   animation: fadeInDownBig forwards;
   animation-duration: 0.5s;
 }
@@ -86,4 +87,4 @@
 .fade-out {
   animation: fadeOutUpBig forwards;
   animation-duration: 1s;
-}
+} */

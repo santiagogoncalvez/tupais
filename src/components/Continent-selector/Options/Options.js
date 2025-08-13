@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Continent-selector/Options/template.html?raw";
 
 // Styles
@@ -43,17 +45,19 @@ export default class Options extends BaseComponent {
 
     for (let option of options) {
       //Eventos de mouse
-      option.addEventListener("click", () => {
+      option.addEventListener("click", (event) => {
         event.preventDefault();
         this.continent = option.dataset.value;
+        //* Set continent
         dispatch({
-          ui: {
-            continentSelector: {
-              options: { show: false },
-              selectedOption: this.continent,
-            },
-            backdrop: { show: false },
-          },
+          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
+        });
+        dispatch({
+          type: ACTIONS.HIDE_BACKDROP,
+        });
+        dispatch({
+          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
+          payload: this.continent,
         });
       });
 
@@ -95,13 +99,21 @@ export default class Options extends BaseComponent {
       event.stopPropagation();
       event.stopImmediatePropagation();
 
+      if (event.key == "Tab") {
+        event.preventDefault();
+      }
+
       if (event.key == "Escape") {
         event.preventDefault();
         dispatch({
-          ui: {
-            continentSelector: { options: { show: false } },
-            backdrop: { show: false },
-          },
+          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
+        });
+        dispatch({
+          type: ACTIONS.HIDE_BACKDROP,
+        });
+        dispatch({
+          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
+          payload: this.continent,
         });
       }
 
@@ -147,14 +159,16 @@ export default class Options extends BaseComponent {
         );
         if (!curOpt) return;
         this.continent = currOpt.dataset.value;
+        //* Set continent
         dispatch({
-          ui: {
-            continentSelector: {
-              options: { show: false },
-              selectedOption: this.continent,
-            },
-            backdrop: { show: false },
-          },
+          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
+        });
+        dispatch({
+          type: ACTIONS.HIDE_BACKDROP,
+        });
+        dispatch({
+          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
+          payload: this.continent,
         });
       }
     });
@@ -172,19 +186,16 @@ export default class Options extends BaseComponent {
     }
   }
   _showInit() {
-    this.dom.addEventListener(
-      "transitionend",
-      (event) => {
-        if (event.propertyName === "opacity") {
-          if (!this.isShow) {
-            this.isShow = true;
-          } else {
-            this.dom.classList.remove(this.modifiers.display.block);
-            this.isShow = false;
-          }
+    this.dom.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "opacity") {
+        if (!this.isShow) {
+          this.isShow = true;
+        } else {
+          this.dom.classList.remove(this.modifiers.display.block);
+          this.isShow = false;
         }
       }
-    );
+    });
   }
   _getContinent() {
     return this.continent;

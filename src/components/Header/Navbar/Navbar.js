@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Header/Navbar/template.html?raw";
 //Styles
 import "@components/Header/Navbar/style.css";
@@ -18,9 +20,7 @@ export default class Navbar extends BaseComponent {
     this.state = state;
     this.dispatch = dispatch;
     this.button = new CloseButton(this.dispatch, {
-      ui: {
-        navbar: { show: false },
-      },
+      type: ACTIONS.CLOSE_NAVBAR,
     });
     this.dom = this._createDom();
     this._init();
@@ -52,7 +52,7 @@ export default class Navbar extends BaseComponent {
     if (!this._clickEvent) {
       this._clickEvent = (event) => {
         if (!this.dom.contains(event.target)) {
-          this.dispatch({ ui: { navbar: { show: false } } });
+          this.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
         }
       };
     }
@@ -60,7 +60,7 @@ export default class Navbar extends BaseComponent {
       this._escEvent = (event) => {
         event.stopImmediatePropagation();
         if (event.key == "Escape") {
-          this.dispatch({ ui: { navbar: { show: false } } });
+          this.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
           this.dom.blur();
           this.dom.removeEventListener("keydown", this._escEvent);
         }

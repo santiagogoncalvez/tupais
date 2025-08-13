@@ -21,8 +21,8 @@ let state = {
   game: {
     continent: "all",
     countries: [
-      "Islas Malvinas",
       "Francia",
+      "Islas Malvinas",
       "Argentina",
       "Brasil",
       "Chile",
@@ -30,7 +30,9 @@ let state = {
     ],
     countryIndex: 0,
     answer: "",
-    sendAnser: false,
+    sendAnswer: false,
+    remainingAnswers: 2,
+    correctAnswers: 0,
   },
 };
 
@@ -42,4 +44,6 @@ function dispatch(action) {
   game.syncState(state);
 }
 
-document.body.prepend(game.dom);
+document.querySelector("main").prepend(game.dom);
+
+dispatch({ game: { continent: "all" } });

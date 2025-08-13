@@ -1,5 +1,7 @@
 import htmlString from "@Modal/Presentation/template.html?raw";
 
+import { ACTIONS } from "@constants/action-types.js";
+
 // Styles
 import "@Modal/Presentation/style.css";
 
@@ -22,14 +24,13 @@ export default class Presentation extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
     this.closeButton = new CloseButton(dispatch, {
-      ui: {
-        presentation: { show: false },
-      },
+      type: ACTIONS.CLOSE_PRESENTATION,
     });
     this.flagSlide = new FlagSlide();
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
+    this._onAnimationEnd = this._onAnimationEnd.bind(this); // para poder removerlo
   }
 
   _init() {
@@ -48,7 +49,9 @@ export default class Presentation extends BaseComponent {
         if (event.key == "Escape") {
           event.preventDefault();
           event.stopImmediatePropagation();
-          this.dispatch({ ui: { presentation: { show: false } } });
+          this.dispatch({
+            type: ACTIONS.CLOSE_PRESENTATION,
+          });
           this.dom.blur();
         }
       };
@@ -61,10 +64,13 @@ export default class Presentation extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state.ui.presentation.show != state.ui.presentation.show) {
-      this._show(state.ui.presentation.show);
-      this._activeEvents(state.ui.presentation.show);
-      this.isShow = state.ui.presentation.show;
+    if (
+      this.state.ui.modals.presentation.show !=
+      state.ui.modals.presentation.show
+    ) {
+      this._show(state.ui.modals.presentation.show);
+      this._activeEvents(state.ui.modals.presentation.show);
+      this.isShow = state.ui.modals.presentation.show;
     }
     if (this.state.ui.darkMode != state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
@@ -76,19 +82,23 @@ export default class Presentation extends BaseComponent {
   }
 
   _show(isShow) {
+    // Limpiar animaciones previas y eventos
+    this.dom.removeEventListener("animationend", this._onAnimationEnd);
+    this.dom.classList.remove(this.modifiers.fade.out);
+    this.dom.classList.remove(this.modifiers.fade.in);
+
     if (isShow) {
       if (document.readyState === "interactive") {
         this.dom.classList.add(this.modifiers.display.block);
-        // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
-        this.dom.showModal();
+
         requestAnimationFrame(() => {
-          // this.dom.classList.add(this.modifiers.show.block);
           this.dom.classList.add(this.modifiers.fade.in);
         });
 
-        // Insertar elementos cuando se muestra el modal
         const container = this.dom.querySelector("." + this.base.container);
+
         this.continentSelector.mountTo(container);
+        this.continentSelector.setActionType(this.dom);
       } else {
         document.addEventListener("DOMContentLoaded", () => {
           this._show(true);
@@ -97,22 +107,15 @@ export default class Presentation extends BaseComponent {
     }
 
     if (!isShow) {
-      ///Solo se debe ejecutar si está mostrado
-      this.dom.classList.remove(this.modifiers.show.block);
-      this.dom.classList.remove(this.modifiers.fade.in);
       this.dom.classList.add(this.modifiers.fade.out);
-
-      this.dom.addEventListener(
-        "animationend",
-        () => {
-          // TODO: esto tarda un poco de más en ejecutarse, resolverlo después convitiendo Settings a un div o buscando otra forma de hacer que se puede abrir Settings de forma más rápida una vez cerrado.
-          this.dom.classList.remove(this.modifiers.display.block);
-          this.dom.classList.remove(this.modifiers.fade.out);
-
-          this.dom.close();
-        },
-        { once: true }
-      );
+      this.dom.addEventListener("animationend", this._onAnimationEnd, {
+        once: true,
+      });
     }
+  }
+
+  _onAnimationEnd() {
+    this.dom.classList.remove(this.modifiers.display.block);
+    this.dom.classList.remove(this.modifiers.fade.out);
   }
 }

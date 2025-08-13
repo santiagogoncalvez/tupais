@@ -9,9 +9,11 @@
 
 .flag-slide {
   width: 100%;
+  max-width: 90%;
 }
 
 .flag-slide__container {
+  width: 100%;
   overflow: hidden;
   padding: 35px 0;
   padding-top: 0px;

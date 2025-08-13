@@ -5,7 +5,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 100px;
+  gap: 20px;
 }
 
 .score__statistics{
@@ -14,6 +14,7 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+  width: 120px;
 }
 
 .score__title{
@@ -22,16 +23,29 @@
   font-size: 0.9rem;
 }
 
-.score__points{
+/* .score__points{
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 500;
   border: 1px solid #e2e3e3;
-  /* background-color: #fcfcfc;   */
   border-radius: 8px;
   color: #5b5d5f;
-  width: 60px;
+  min-width: 60px;
   text-align: center;
   user-select: none;
+} */
+
+.score__points {
+  font-size: 1.1rem;
+  font-weight: 500;                /* un poco más destacado */
+  border: 1px solid #e2e3e3;      
+  background-color: #f9f9f9;       /* gris muy suave para resaltar sin parecer botón */
+  border-radius: 8px;              
+  color: #5b5d5f;                  
+  min-width: 60px;                 /* asegura que se vea bien con números grandes */
+  padding: 4px 8px;                /* vertical y horizontal para “aire” dentro */
+  text-align: center;              
+  display: inline-block;           
+  user-select: none;               
 }
 
 @keyframes pulse-scale {

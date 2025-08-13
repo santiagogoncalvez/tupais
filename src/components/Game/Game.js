@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import "@components/Game/style.css";
 import { base } from "@components/Game/Game-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
@@ -19,11 +21,17 @@ export default class Game extends BaseComponent {
     this.dom = elt(
       "div",
       { className: this.base.block },
-      this.score.dom,
-      this.country.dom,
-      this.answer.dom,
+      elt(
+        "div",
+        { className: this.base.container },
+        this.score.dom,
+        this.country.dom,
+        this.answer.dom
+      ),
       this.keyboard.dom
     );
+    this.dispatch = dispatch;
+    this._init();
   }
 
   syncState(state) {
@@ -31,5 +39,18 @@ export default class Game extends BaseComponent {
     this.country.syncState(state);
     this.answer.syncState(state);
     this.keyboard.syncState(state);
+    this.state = state;
+  }
+
+  _init() {
+    // Agregar evento para detectar por teclado la acción para cambiar de bandera
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        if (!this.state.ui.country.animation) {
+          this.dispatch({ type: ACTIONS.NEXT_COUNTRY });
+          this.dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
+        }
+      }
+    });
   }
 }

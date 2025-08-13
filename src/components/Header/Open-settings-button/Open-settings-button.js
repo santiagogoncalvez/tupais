@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Header/Open-settings-button/template.html?raw";
 import "@components/Header/Open-settings-button/style.css";
 import {
@@ -19,7 +21,7 @@ export default class OpenSettingsButton extends BaseComponent {
   _init(dispatch) {
     this.dom.addEventListener("click", () => {
       this.dom.blur();
-      dispatch({ ui: { settings: { show: true } } });
+      dispatch({ type: ACTIONS.OPEN_SETTINGS });
     });
   }
 

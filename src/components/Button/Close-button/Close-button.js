@@ -6,8 +6,9 @@ import {
 } from "@components/Button/Close-button/Close-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
+// actions puede tener una sola acción o ser un array de acción a despachar
 export default class CloseButton extends BaseComponent {
-  constructor(dispatch, action, options = {}) {
+  constructor(dispatch, actions, options = {}) {
     super();
     this.htmlString = htmlString;
     this.base = base;
@@ -16,7 +17,7 @@ export default class CloseButton extends BaseComponent {
 
     this._applyPosition(options.top, options.right); // ← NUEVO
 
-    this._init(dispatch, action);
+    this._init(dispatch, actions);
   }
 
   syncState(state) {
@@ -26,9 +27,14 @@ export default class CloseButton extends BaseComponent {
     this.state = state;
   }
 
-  _init(dispatch, action) {
+  _init(dispatch, actions) {
     this.dom.addEventListener("click", () => {
-      dispatch(action);
+      // Si hay más de una acción, despachamos todas, sino despachamos la única acción
+      if (Array.isArray(actions)) {
+        actions.forEach(dispatch);
+      } else {
+        dispatch(actions);
+      }
     });
   }
 

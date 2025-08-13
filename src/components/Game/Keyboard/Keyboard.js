@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Game/Keyboard/template.html?raw";
 import "@components/Game/Keyboard/style.css";
 import { base } from "@components/Game/Keyboard/Keyboard-class-names.js";
@@ -39,16 +41,17 @@ export default class Keyboard extends BaseComponent {
         )
           return;
         this.answer += button.value;
-        dispatch({ game: { answer: this.answer } });
+        dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
       });
     }
     backSpaceButton.addEventListener("click", () => {
       if (this.state.game.answer.length == 0) return;
       this.answer = this.answer.slice(0, this.answer.length - 1);
-      dispatch({ game: { answer: this.answer } });
+      dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
     });
     sendButton.addEventListener("click", () => {
-      dispatch({ game: { sendAnswer: true } });
+      dispatch({ type: ACTIONS.SEND_ANSWER });
+      dispatch({ type: ACTIONS.SHOW_NOTIFICATION });
     });
 
     window.addEventListener("keydown", (event) => {
@@ -94,15 +97,16 @@ export default class Keyboard extends BaseComponent {
         )
           return;
         this.answer += event.key;
-        dispatch({ game: { answer: this.answer } });
+        dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
       }
       if (event.key == "Backspace") {
         if (this.state.game.answer.length == 0) return;
         this.answer = this.answer.slice(0, this.answer.length - 1);
-        dispatch({ game: { answer: this.answer } });
+        dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
       }
       if (event.key == "Enter") {
-        dispatch({ game: { sendAnswer: true } });
+        dispatch({ type: ACTIONS.SEND_ANSWER });
+        dispatch({ type: ACTIONS.SHOW_NOTIFICATION });
       }
     });
   }

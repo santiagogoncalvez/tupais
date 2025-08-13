@@ -6,8 +6,11 @@ function updateState(state, action) {
     ui: {
       ...state.ui,
       ...action.ui,
-      settings: { ...state.ui.settings, ...action.ui?.settings },
-      presentation: { ...state.ui.presentation, ...action.ui?.presentation },
+      settings: { ...state.ui.modals.settings, ...action.ui?.settings },
+      presentation: {
+        ...state.ui.modals.presentation,
+        ...action.ui?.presentation,
+      },
     },
     game: { ...state.game, ...action.game },
   };

@@ -16,7 +16,11 @@ export default class Answer extends BaseComponent {
   }
 
   syncState(state) {
-    if (state.game.countryIndex == this.state.game.countryIndex) {
+    if (
+      state.game.countryIndex == this.state.game.countryIndex &&
+      state.game.continent == this.state.game.continent &&
+      Math.abs(state.game.answer.length - this.state.game.answer.length) <= 1
+    ) {
       this._insertAnswer(state);
     } else {
       this._clearTextOfLetters();
@@ -78,7 +82,6 @@ export default class Answer extends BaseComponent {
       letters[state.game.answer.length].querySelector(
         "." + this.base.letterText
       ).textContent = " ";
-      // TODO: definir tipo
       this._changeSelected(state.game.answer.length);
     }
   }

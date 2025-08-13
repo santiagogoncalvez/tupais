@@ -26,7 +26,7 @@ export default class CorrectFlags extends BaseComponent {
     let oldLength = this.state.game.correctFlags.length;
     let currLength = state.game.correctFlags.length;
 
-    if (currLength !== oldLength) {
+    if (currLength !== oldLength || state.game.completed) {
       // Borrar las banderas insertadas previamente
       this.dom.replaceChildren();
 

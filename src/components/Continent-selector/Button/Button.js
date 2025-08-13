@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Continent-selector/Button/template.html?raw";
 
 // Styles
@@ -45,28 +47,20 @@ export default class Button extends BaseComponent {
     this.dom.addEventListener("click", (event) => {
       event.stopImmediatePropagation();
       dispatch({
-        ui: {
-          continentSelector: {
-            options: {
-              show: !this.state.ui.continentSelector.options.show,
-            },
-          },
-          backdrop: { show: true },
-        },
+        type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS,
+      });
+      dispatch({
+        type: ACTIONS.SHOW_BACKDROP,
       });
     });
 
     this.dom.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp" || event.key == "ArrowDown") {
         dispatch({
-          ui: {
-            continentSelector: {
-              options: {
-                show: !this.state.ui.continentSelector.options.show,
-              },
-            },
-            backdrop: { show: true },
-          },
+          type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS,
+        });
+        dispatch({
+          type: ACTIONS.SHOW_BACKDROP,
         });
       }
     });

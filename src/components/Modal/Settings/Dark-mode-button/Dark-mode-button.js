@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@Modal/Settings/Dark-mode-button/template.html?raw";
 
 // Styles
@@ -20,7 +22,7 @@ export default class DarkModeButton extends BaseComponent {
     checkbox.checked = state.ui.darkMode;
 
     this.dom.addEventListener("change", () => {
-      dispatch({ ui: { darkMode: checkbox.checked } });
+      dispatch({ type: ACTIONS.TOGGLE_DARK_MODE });
     });
 
     this.dom.addEventListener("keydown", (event) => {

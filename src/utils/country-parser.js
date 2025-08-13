@@ -40,22 +40,21 @@ function getClues(country) {
 }
 
 function getCountriesByContinent(continent) {
-   return new Promise(async (resolve, reject) => {
-      if (continent === "america") continent = "americas";
+   // return new Promise(async (resolve, reject) => {
       try {
-         let result = [];
+         let countries = [];
          for (let i = 0; i < countriesJson.length; i++) {
             if (
                countriesJson[i].region.toLowerCase() === continent.toLowerCase()
             ) {
-               result.push(countriesJson[i]);
+               countries.push(countriesJson[i]);
             }
          }
-         resolve(result);
+         return(countries);
       } catch (err) {
-         reject(new Error(`Error request restCoutries API: ${err}`));
+         return(new Error(`Error request restCoutries API: ${err}`));
       }
-   });
+   // });
 }
 
 export async function getCoutryByName(name) {
@@ -76,25 +75,24 @@ export async function getCoutryByName(name) {
    });
 }
 
-export async function getAllCountries() {
-   return new Promise(async (resolve, reject) => {
+export function getAllCountries() {
+   // return new Promise(async (resolve, reject) => {
       try {
          let countries = countriesJson;
-         resolve(countries);
+         return(countries);
       } catch (err) {
-         reject(new Error(`Error request restCoutries API: ${err}`));
+         return(new Error(`Error request restCoutries API: ${err}`));
       }
-   });
+   // });
 }
 
-export async function getRandomCountries(
+export function getRandomCountries(
    continent,
    quantityCountries = 10,
-   imageRute
 ) {
-   return new Promise(async (resolve, reject) => {
+   // return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
-         "all continents",
+         "all",
          "asia",
          "europe",
          "americas",
@@ -108,12 +106,12 @@ export async function getRandomCountries(
 
       try {
          let countries;
-         if (continent === "all continents") {
-            countries = await getAllCountries();
+         if (continent === "all") {
+            countries = getAllCountries();
          }
 
-         if (continent !== "all continents") {
-            countries = await getCountriesByContinent(continent);
+         if (continent !== "all") {
+            countries = getCountriesByContinent(continent);
          }
 
          countries = shuffleArray(countries);
@@ -127,9 +125,10 @@ export async function getRandomCountries(
             let randomCountry = countries[i];
             if (!randomCountry) break;
 
-            let formattedName = formatWord(
+            let formattedName =
+               // formatWord(
                randomCountry.translations.spa.common
-            );
+            // );
 
             // Ignorar elemntos con más de 2 palabras
             if (moreThan2Words(formattedName)) {
@@ -137,25 +136,20 @@ export async function getRandomCountries(
                continue;
             }
 
-            result.push({
-               name: formattedName,
-               code: randomCountry.cca2.toLowerCase(),
-               region: randomCountry.region,
-               flagUrl: urlFlag(randomCountry.cca2.toLowerCase(), imageRute),
-            });
+            result.push(formattedName);
          }
 
-         resolve(result);
+         return(result);
       } catch (err) {
-         reject(new Error(`Error request getRandomCoutries: ${err}`));
+         return(new Error(`Error request getRandomCoutries: ${err}`));
       }
-   });
+   // });
 }
 
 export async function getRandomCountrieClues(continent, imageRute) {
    return new Promise(async (resolve, reject) => {
       let aceptedStrings = [
-         "all continents",
+         "all",
          "asia",
          "europe",
          "americas",
@@ -169,11 +163,11 @@ export async function getRandomCountrieClues(continent, imageRute) {
 
       try {
          let countries;
-         if (continent === "all continents") {
+         if (continent === "all") {
             countries = await getAllCountries();
          }
 
-         if (continent !== "all continents") {
+         if (continent !== "all") {
             countries = await getCountriesByContinent(continent);
          }
 

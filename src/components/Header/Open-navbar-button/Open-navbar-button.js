@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Header/Open-navbar-button/template.html?raw";
 import "@components/Header/Open-navbar-button/style.css";
 import {
@@ -26,7 +28,7 @@ export default class OpenNavbarButton extends BaseComponent {
     this.dom.addEventListener("click", (event) => {
       event.stopPropagation();
       event.stopImmediatePropagation();
-      dispatch({ ui: { navbar: { show: !this.show } } });
+      dispatch({ type: ACTIONS.OPEN_NAVBAR });
     });
   }
 }

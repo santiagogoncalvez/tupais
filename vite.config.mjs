@@ -21,6 +21,7 @@ export default defineConfig({
       "@constants": resolve(__dirname, "./src/constants"),
       "@shared": resolve(__dirname, "./src/shared"),
       "@styles": resolve(__dirname, "./src/styles"),
+      "@store": resolve(__dirname, "./src/store")
     },
   },
   build: {

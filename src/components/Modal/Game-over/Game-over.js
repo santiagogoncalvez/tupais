@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@Modal/Game-over/template.html?raw";
 
 // Styles
@@ -21,14 +23,16 @@ export default class GameOver extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
     this.isShow = false;
-    this.closeButton = new CloseButton(dispatch, {
-      ui: {
-        gameOver: { show: false },
+
+    // TODO: Esta parte ahora envía la acción de crear un nuevo juego, pero surge un error cuando se selecciona una opción del selector de continentes y se cierra el modal. Entiende como que se cambió de continente pero no es así. Entonces lo que hay que hacer es, cuando se cierra GameOver mediante el botón, enviar una acción para crear un nuevo juego pero con el continente que estaba antes, ya que para que se establezca un nuevo continente el jugador debe cambiar el continente y darle al botón empezar, sino se toma como que no se completó la acción. Así se está viendo en este momento.
+    this.closeButton = new CloseButton(dispatch, [
+      {
+        type: ACTIONS.CLOSE_GAME_OVER,
       },
-      game: {
-        isNewGame: true,
+      {
+        type: ACTIONS.NEW_GAME,
       },
-    });
+    ]);
 
     // Componente de resultados del juego: Results
     this.results = new Results(state);
@@ -37,10 +41,10 @@ export default class GameOver extends BaseComponent {
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
+    this._onAnimationEnd = this._onAnimationEnd.bind(this); // para poder removerlo
   }
 
   _init() {
-    let container = this.dom.querySelector("." + this.base.container);
     this.dom.appendChild(this.closeButton.dom);
     this.dom
       .querySelector("." + this.base.subtitle)
@@ -59,12 +63,12 @@ export default class GameOver extends BaseComponent {
         if (event.key == "Escape") {
           event.preventDefault();
           event.stopImmediatePropagation();
+          // Modificar para que en este caso se ejecute un nuevo juego o detectarlo desde el estado general. Esto sucede en el caso del modal GameOver ya que cuando este se cierra se debe iniciar si o si un nuevo juego.
           this.dispatch({
-            ui: { gameOver: { show: false } },
-            game: {
-              isNewGame: true,
-            },
+            type: ACTIONS.CLOSE_GAME_OVER,
           });
+          this.dispatch({ type: ACTIONS.NEW_GAME });
+
           // this.dom.blur();
         }
       };
@@ -77,10 +81,10 @@ export default class GameOver extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.isShow != state.ui.gameOver.show) {
-      this._show(state.ui.gameOver.show);
-      this._activeEvents(state.ui.gameOver.show);
-      this.isShow = state.ui.gameOver.show;
+    if (this.isShow != state.ui.modals.gameOver.show) {
+      this._show(state.ui.modals.gameOver.show);
+      this._activeEvents(state.ui.modals.gameOver.show);
+      this.isShow = state.ui.modals.gameOver.show;
     }
     if (this.state.ui.darkMode != state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
@@ -93,37 +97,35 @@ export default class GameOver extends BaseComponent {
   }
 
   _show(isShow) {
+    // Siempre limpiamos posibles animaciones anteriores
+    this.dom.removeEventListener("animationend", this._onAnimationEnd);
+    this.dom.classList.remove(this.modifiers.fade.out);
+    this.dom.classList.remove(this.modifiers.fade.in);
+
     if (isShow) {
       this.dom.classList.add(this.modifiers.display.block);
-      // Esperamos un frame para que el navegador pinte el display: flex antes de animar la opacidad
-      this.dom.showModal();
+
       requestAnimationFrame(() => {
-        // this.dom.classList.add(this.modifiers.show.block);
         this.dom.classList.add(this.modifiers.fade.in);
       });
 
-      // Insertar elementos cuando se muestra el modal
       const container = this.dom.querySelector("." + this.base.container);
+
       this.continentSelector.mountTo(container);
+      this.continentSelector.setActionType(this.dom);
     }
 
     if (!isShow) {
-      //Solo se debe ejecutar si está mostrado
-      this.dom.classList.remove(this.modifiers.show.block);
-      this.dom.classList.remove(this.modifiers.fade.in);
       this.dom.classList.add(this.modifiers.fade.out);
 
-      this.dom.addEventListener(
-        "animationend",
-        () => {
-          // TODO: esto tarda un poco de más en ejecutarse, resolverlo después convitiendo Settings a un div o buscando otra forma de hacer que se puede abrir Settings de forma más rápida una vez cerrado.
-          this.dom.classList.remove(this.modifiers.display.block);
-          this.dom.classList.remove(this.modifiers.fade.out);
-
-          this.dom.close();
-        },
-        { once: true }
-      );
+      this.dom.addEventListener("animationend", this._onAnimationEnd, {
+        once: true,
+      });
     }
+  }
+
+  _onAnimationEnd() {
+    this.dom.classList.remove(this.modifiers.display.block);
+    this.dom.classList.remove(this.modifiers.fade.out);
   }
 }

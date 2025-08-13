@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 // Style
 import "@components/Continent-selector/Start-button/Start-button.css";
 
@@ -19,17 +21,15 @@ export default class StartButton extends BaseComponent {
       {
         className: `${this.base.block}`,
         onclick: () => {
-          // TODO: hacer que el componente reciba por parámetro el dipatch que va a hacer así se puede especificar que modal es el que va a cerrar. Ya que este componente aparece en cada modal.
+          // Separar la lógica de ui y game y despachar una acción por cada sección del estado
           dispatch({
-            ui: {
-              settings: { show: false },
-              presentation: { show: false },
-              gameOver: { show: false },
-            },
-            game: {
-              continent: this.state.ui.continentSelector.selectedOption,
-              isNewGame: true,
-            },
+            type: this.actionType,
+          });
+          dispatch({
+            type: ACTIONS.SET_CONTINENT,
+          });
+          dispatch({
+            type: ACTIONS.NEW_GAME,
           });
         },
         title: "Empezar",
@@ -41,5 +41,8 @@ export default class StartButton extends BaseComponent {
 
   syncState(state) {
     this.state = state;
+  }
+  setActionType(actionType) {
+    this.actionType = actionType;
   }
 }

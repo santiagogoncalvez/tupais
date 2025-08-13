@@ -8,7 +8,6 @@ document.body.prepend(responseType.dom);
 responseType.syncState({
   game: {
     responseType: {
-      isActive: true,
       message: "Correcto",
     },
   },

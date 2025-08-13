@@ -1,3 +1,4 @@
 export const base = {
-  block: "game"
+  block: "game",
+  container: "game_container",
 };

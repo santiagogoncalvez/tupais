@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Continent-selector/template.html?raw";
 
 // Styles
@@ -49,6 +51,18 @@ export default class continentSelector extends BaseComponent {
   mountTo(container) {
     if (this.dom.parentElement !== container) {
       container.appendChild(this.dom);
+    }
+  }
+  setActionType(modal) {
+    // Establecer el tipo de acción personalizada que va a ejecutar
+    if (modal.classList.contains("presentation")) {
+      this.startButton.setActionType(ACTIONS.CLOSE_PRESENTATION);
+    }
+    if (modal.classList.contains("settings")) {
+      this.startButton.setActionType(ACTIONS.CLOSE_SETTINGS);
+    }
+    if (modal.classList.contains("game-over")) {
+      this.startButton.setActionType(ACTIONS.CLOSE_GAME_OVER);
     }
   }
 }

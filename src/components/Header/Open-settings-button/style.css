@@ -11,12 +11,27 @@
   padding: 0;
   user-select: none;
   margin: 0;
-  transition: all 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .header__open-setting-button:hover {
   background-color: rgb(245, 245, 245);
   cursor: pointer;
+}
+
+.header__open-setting-button:focus {
+  outline: none;
+  outline-offset: 0;
+}
+
+.header__open-setting-button:focus-visible {
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: 0;
+}
+
+.header__open-setting-button:active {
+  outline: 0px solid -webkit-focus-ring-color;
+  outline-offset: 0;
 }
 
 .header__open-setting-button--dark-mode {

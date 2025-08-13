@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@components/Backdrop/template.html?raw";
 //
 import "@components/Backdrop/style.css";
@@ -25,12 +27,10 @@ export default class Options extends BaseComponent {
   _init(dispatch) {
     this.dom.addEventListener("click", () => {
       dispatch({
-        ui: {
-          continentSelector: {
-            options: { show: false },
-          },
-          backdrop: { show: false },
-        },
+        type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
+      });
+      dispatch({
+        type: ACTIONS.HIDE_BACKDROP,
       });
     });
   }

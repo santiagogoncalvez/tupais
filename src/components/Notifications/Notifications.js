@@ -15,6 +15,12 @@ import BaseComponent from "@shared/Base-component.js";
 
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
+const lastAnswerTypeTranslations = {
+  Correct: "Correcto",
+  Incorrect: "Incorrecto",
+  Incomplete: "Respuesta incompleta",
+};
+
 export default class Notifications extends BaseComponent {
   constructor(state, dispatch) {
     super();
@@ -62,7 +68,7 @@ export default class Notifications extends BaseComponent {
     this.currentNotification = elt(
       "div",
       { className: this.base.notification },
-      elt("p", { className: this.base.message }, message),
+      elt("p", { className: this.base.message }, lastAnswerTypeTranslations[message]),
       this.closeButton.dom
     );
 

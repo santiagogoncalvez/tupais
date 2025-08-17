@@ -8,29 +8,6 @@ Example: const ACTIONS = {
 */
 
 export const ACTIONS = {
-  //* Game
-  // Game/Answer
-  SEND_ANSWER: "game/answer/send",
-  SET_ANSWER: "game/answer/set",
-  RESET_ANSWER: "game/answer/reset",
-
-  // Game/Country
-  SET_COUNTRY_INDEX: "game/country/index/set",
-  NEXT_COUNTRY: "game/country/index/next",
-  PREVIOUS_COUNTRY: "game/country/index/previous",
-  RESET_FLAGS: "game/country/flags/reset",
-
-  NEW_GAME: "game/new",
-  NEW_CONTINENT: "game/continent/new",
-
-  SET_TOTAL_ANSWERS: "game/total-answers/set",
-  ADD_CORRECT_FLAG: "game/flags/add-correct",
-  COMPLETE_GAME: "game/complete",
-  WIN_GAME: "game/win",
-  RESET_GAME: "game/reset",
-  SET_COUNTRIES: "game/countries/set",
-  SET_COUNTRY_INDEX: "game/country-index/set",
-
   //* Ui
   // Ui/Modals
   OPEN_PRESENTATION: "ui/modal/presentation/open",
@@ -60,4 +37,28 @@ export const ACTIONS = {
   SHOW_NOTIFICATION: "ui/notification/show",
   HIDE_NOTIFICATION: "ui/notification/hide",
   RESET_NOTIFICATION: "ui/notification/reset",
+
+  
+  //* Game
+  // Game/Answer
+  SEND_ANSWER: "game/answer/send",
+  SET_ANSWER: "game/answer/set",
+  RESET_ANSWER: "game/answer/reset",
+
+  // Game/Country
+  SET_COUNTRY_INDEX: "game/country/index/set",
+  NEXT_COUNTRY: "game/country/index/next",
+  PREVIOUS_COUNTRY: "game/country/index/previous",
+  RESET_FLAGS: "game/country/flags/reset",
+
+  NEW_GAME: "game/new",
+  NEW_CONTINENT: "game/continent/new",
+
+  SET_TOTAL_ANSWERS: "game/total-answers/set",
+  ADD_CORRECT_FLAG: "game/flags/add-correct",
+  COMPLETE_GAME: "game/complete",
+  WIN_GAME: "game/win",
+  RESET_GAME: "game/reset",
+  SET_COUNTRIES: "game/countries/set",
+  SET_COUNTRY_INDEX: "game/country-index/set",
 };

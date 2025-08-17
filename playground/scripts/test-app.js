@@ -1,10 +1,11 @@
-import { globalReducer } from "@store/reducers/global-reducer.js";
-
-import "@styles/global.css";
-
+import {
+  createStore,
+  rootReducer,
+  checkGameCompletion,
+} from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
-import { getRandomCountries } from "@utils/country-parser.js";
+import "@styles/global.css";
 
 import Presentation from "@Modal/Presentation/Presentation.js";
 import Settings from "@Modal/Settings/Settings.js";
@@ -14,74 +15,30 @@ import Game from "@components/Game/Game";
 import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-let state = {
-  ui: {
-    darkMode: false,
-    modals: {
-      presentation: {
-        show: false,
-      },
-      settings: {
-        show: false,
-      },
-      gameOver: { show: false },
-    },
-    navbar: {
-      show: false,
-    },
-    continentSelector: {
-      options: { show: false },
-      selectedOption: "all",
-    },
-    backdrop: { show: false },
-    country: {
-      animation: false,
-    },
-    // Notificaciones
-    notifications: {
-      show: false,
-      id: null,
-      message: "",
-    },
-  },
-  game: {
-    continent: "all",
-    // Esto es temporal, ya que en un principio se va a abrir Presentation y se va a elegir el continente o este va a estar guardado en el localStorage
-    countries: getRandomCountries("all", -1),
-    // countries: ["Argentina","Colombia", "Chile"],
-    countryIndex: 0,
-    answer: "",
-    sendAnswer: false,
-    correctAnswers: 0,
-    correctFlags: [],
-    remainingAnswers: 2,
-    totalAnswers: 2,
-    completed: false,
-    won: false,
-    isNewGame: false,
-  },
-};
+const store = createStore(rootReducer, [checkGameCompletion]);
 
-let continentSelector = new ContinentSelector(state, dispatch);
-let presentation = new Presentation(state, dispatch, continentSelector);
-let settings = new Settings(state, dispatch, continentSelector);
-let gameOver = new GameOver(state, dispatch, continentSelector);
-let header = new Header(state, dispatch);
-let game = new Game(state, dispatch);
-let notifications = new Notifications(state, dispatch);
-
-function dispatch(action) {
-  state = globalReducer(state, action);
-
-  console.log("Action:\n", action, "\nNew state:\n", state);
-
-  presentation.syncState(state);
-  settings.syncState(state);
-  gameOver.syncState(state);
-  header.syncState(state);
-  game.syncState(state);
-  notifications.syncState(state);
-}
+let continentSelector = new ContinentSelector(
+  store.getState(),
+  store.dispatch.bind(store)
+);
+let presentation = new Presentation(
+  store.getState(),
+  store.dispatch.bind(store),
+  continentSelector
+);
+let settings = new Settings(
+  store.getState(),
+  store.dispatch.bind(store),
+  continentSelector
+);
+let gameOver = new GameOver(
+  store.getState(),
+  store.dispatch.bind(store),
+  continentSelector
+);
+let header = new Header(store.getState(), store.dispatch.bind(store));
+let game = new Game(store.getState(), store.dispatch.bind(store));
+let notifications = new Notifications(store.getState(), store.dispatch.bind(store));
 
 document.body.prepend(header.dom);
 document.body.appendChild(presentation.dom);
@@ -90,8 +47,17 @@ document.body.appendChild(settings.dom);
 document.body.appendChild(gameOver.dom);
 document.body.appendChild(notifications.dom);
 
+function subscribeComponents() {
+  store.subscribe(presentation.syncState.bind(presentation));
+  store.subscribe(settings.syncState.bind(settings));
+  store.subscribe(gameOver.syncState.bind(gameOver));
+  store.subscribe(header.syncState.bind(header));
+  store.subscribe(game.syncState.bind(game));
+  store.subscribe(notifications.syncState.bind(notifications));
+}
+subscribeComponents();
+
 // Acción con nuevo formato de tipo
-dispatch({
+store.dispatch({
   type: ACTIONS.OPEN_PRESENTATION,
-  payload: true,
 });

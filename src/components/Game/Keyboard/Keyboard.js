@@ -51,7 +51,10 @@ export default class Keyboard extends BaseComponent {
     });
     sendButton.addEventListener("click", () => {
       dispatch({ type: ACTIONS.SEND_ANSWER });
-      dispatch({ type: ACTIONS.SHOW_NOTIFICATION });
+      dispatch({
+        type: ACTIONS.SHOW_NOTIFICATION,
+        payload: this.state.game.lastAnswerType,
+      });
     });
 
     window.addEventListener("keydown", (event) => {
@@ -106,7 +109,10 @@ export default class Keyboard extends BaseComponent {
       }
       if (event.key == "Enter") {
         dispatch({ type: ACTIONS.SEND_ANSWER });
-        dispatch({ type: ACTIONS.SHOW_NOTIFICATION });
+        dispatch({
+          type: ACTIONS.SHOW_NOTIFICATION,
+          payload: this.state.game.lastAnswerType,
+        });
       }
     });
   }

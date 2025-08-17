@@ -27,6 +27,7 @@ export default class StartButton extends BaseComponent {
           });
           dispatch({
             type: ACTIONS.SET_CONTINENT,
+            payload: this.state.ui.continentSelector.selectedOption,
           });
           dispatch({
             type: ACTIONS.NEW_GAME,

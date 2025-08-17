@@ -24,7 +24,7 @@ export default class Options extends BaseComponent {
     this._init(dispatch);
 
     // Animations
-    this.isShow = false;
+    this.visibilityState = "hidden"; // "hidden" | "showing" | "visible" | "hiding"
   }
   syncState(state) {
     if (
@@ -97,7 +97,7 @@ export default class Options extends BaseComponent {
 
     this.dom.addEventListener("keydown", (event) => {
       event.stopPropagation();
-      event.stopImmediatePropagation();
+      // event.stopImmediatePropagation();
 
       if (event.key == "Tab") {
         event.preventDefault();
@@ -105,6 +105,7 @@ export default class Options extends BaseComponent {
 
       if (event.key == "Escape") {
         event.preventDefault();
+        // El evento "Esc" de los modales se propaga a Options de continentSelector, lo que permite siempre cerrar las opciones.
         dispatch({
           type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
         });
@@ -173,30 +174,57 @@ export default class Options extends BaseComponent {
       }
     });
   }
+
   _show(isShow) {
-    if (isShow) {
-      this.dom.classList.add(this.modifiers.display.block);
-      requestAnimationFrame(() => {
-        this.dom.classList.add(this.modifiers.show.block);
-      });
-      this.dom.focus();
+    // cancelar cualquier ejecución previa encolada
+    if (this._showTimeout) {
+      clearTimeout(this._showTimeout);
+      this._showTimeout = null;
     }
-    if (!isShow) {
-      this.dom.classList.remove(this.modifiers.show.block);
+
+    // --- FORZAR RESET ANTERIOR ---
+    this.dom.classList.remove(this.modifiers.show.block);
+    this.dom.classList.remove(this.modifiers.display.block);
+
+    if (isShow) {
+      this.visibilityState = "showing";
+
+      // volver a poner display:block
+      this.dom.classList.add(this.modifiers.display.block);
+
+      // flush estilos
+      this.dom.offsetHeight;
+
+      // focus inmediato
+      this.dom.focus();
+
+      // encolar activación de transición
+      this._showTimeout = setTimeout(() => {
+        this.dom.classList.add(this.modifiers.show.block);
+      }, 0);
+    } else {
+      this.visibilityState = "hiding";
+
+      // encolar desactivación
+      this._showTimeout = setTimeout(() => {
+        this.dom.classList.remove(this.modifiers.show.block);
+      }, 0);
     }
   }
+
   _showInit() {
     this.dom.addEventListener("transitionend", (event) => {
-      if (event.propertyName === "opacity") {
-        if (!this.isShow) {
-          this.isShow = true;
-        } else {
-          this.dom.classList.remove(this.modifiers.display.block);
-          this.isShow = false;
-        }
+      if (event.propertyName !== "opacity") return;
+
+      if (this.visibilityState === "showing") {
+        this.visibilityState = "visible";
+      } else if (this.visibilityState === "hiding") {
+        this.visibilityState = "hidden";
+        this.dom.classList.remove(this.modifiers.display.block);
       }
     });
   }
+
   _getContinent() {
     return this.continent;
   }

@@ -46,12 +46,13 @@ export default class Settings extends BaseComponent {
     if (!this._escEvent) {
       this._escEvent = (event) => {
         if (event.key == "Escape") {
-          event.preventDefault();
-          event.stopImmediatePropagation();
+          // event.preventDefault();
+          // event.stopImmediatePropagation();
+          // document.activeElement.blur();
+
           this.dispatch({
             type: ACTIONS.CLOSE_SETTINGS,
           });
-          document.activeElement.blur();
         }
       };
     }

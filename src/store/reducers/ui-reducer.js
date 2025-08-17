@@ -17,6 +17,7 @@ export const initialState = {
   continentSelector: {
     options: { show: false },
     selectedOption: "all",
+    showState: "hiding",
   },
   backdrop: { show: false },
   country: {
@@ -33,178 +34,182 @@ export const initialState = {
 // Ahora el objeto state que se pasa es solamente la parte de UI osea lo que antes era state es el objeto que directamente se pasa. Y también hay que sacar el objeto que devuelve una propiedad "ui" ya que el state en sí ya es esa propiedad
 const reducerMap = {
   //* UI
-  [ACTIONS.OPEN_PRESENTATION]: (state) => {
+  [ACTIONS.OPEN_PRESENTATION]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         presentation: {
-          ...state.modals.presentation,
+          ...ui.modals.presentation,
           show: true,
         },
       },
     };
   },
-  [ACTIONS.CLOSE_PRESENTATION]: (state) => {
+  [ACTIONS.CLOSE_PRESENTATION]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         presentation: {
-          ...state.modals.presentation,
+          ...ui.modals.presentation,
           show: false,
         },
       },
     };
   },
-  [ACTIONS.OPEN_SETTINGS]: (state) => {
+  [ACTIONS.OPEN_SETTINGS]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         settings: {
-          ...state.modals.settings,
+          ...ui.modals.settings,
           show: true,
         },
       },
     };
   },
-  [ACTIONS.CLOSE_SETTINGS]: (state) => {
+  [ACTIONS.CLOSE_SETTINGS]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         settings: {
-          ...state.modals.settings,
+          ...ui.modals.settings,
           show: false,
         },
       },
     };
   },
-  [ACTIONS.TOGGLE_DARK_MODE]: (state) => {
+  [ACTIONS.TOGGLE_DARK_MODE]: (ui) => {
     return {
-      ...state,
-      darkMode: !state.darkMode,
+      ...ui,
+      darkMode: !ui.darkMode,
     };
   },
-  [ACTIONS.OPEN_GAME_OVER]: (state) => {
+  [ACTIONS.OPEN_GAME_OVER]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         gameOver: {
-          ...state.modals.gameOver,
+          ...ui.modals.gameOver,
           show: true,
         },
       },
     };
   },
-  [ACTIONS.CLOSE_GAME_OVER]: (state) => {
+  [ACTIONS.CLOSE_GAME_OVER]: (ui) => {
     return {
-      ...state,
+      ...ui,
       modals: {
-        ...state.modals,
+        ...ui.modals,
         gameOver: {
-          ...state.modals.gameOver,
+          ...ui.modals.gameOver,
           show: false,
         },
       },
     };
   },
-  [ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS]: (state) => {
+  [ACTIONS.OPEN_NAVBAR]: (ui) => {
     return {
-      ...state,
-      continentSelector: {
-        ...state.continentSelector,
-        options: {
-          show: true,
-        },
-      },
-    };
-  },
-  [ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS]: (state) => {
-    return {
-      ...state,
-      continentSelector: {
-        ...state.continentSelector,
-        options: {
-          show: false,
-        },
-      },
-    };
-  },
-  [ACTIONS.SHOW_BACKDROP]: (state) => {
-    return {
-      ...state,
-      backdrop: { show: true },
-    };
-  },
-  [ACTIONS.HIDE_BACKDROP]: (state) => {
-    return {
-      ...state,
-      backdrop: { show: false },
-    };
-  },
-  [ACTIONS.OPEN_NAVBAR]: (state) => {
-    return {
-      ...state,
+      ...ui,
       navbar: {
         show: true,
       },
     };
   },
-  [ACTIONS.CLOSE_NAVBAR]: (state) => {
+  [ACTIONS.CLOSE_NAVBAR]: (ui) => {
     return {
-      ...state,
+      ...ui,
       navbar: {
         show: false,
       },
     };
   },
-  [ACTIONS.SHOW_NOTIFICATION]: (state, action) => {
+  [ACTIONS.SHOW_NOTIFICATION]: (ui, action) => {
     // Esta parte del código debe encargarse solo de mostrar
     return {
-      ...state,
+      ...ui,
       notifications: {
-        ...state.notifications,
+        ...ui.notifications,
         show: true,
         id: Date.now(),
         message: action.payload,
       },
     };
   },
-  [ACTIONS.HIDE_NOTIFICATION]: (state) => {
+  [ACTIONS.HIDE_NOTIFICATION]: (ui) => {
     return {
-      ...state,
+      ...ui,
       notifications: {
-        ...state.notifications,
+        ...ui.notifications,
         show: false,
       },
     };
   },
-  [ACTIONS.SET_CONTINENT_SELECTOR_OPTION]: (state, action) => {
+
+  // Continent-selector
+  [ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS]: (ui) => {
     return {
-      ...state,
+      ...ui,
       continentSelector: {
-        ...state.continentSelector,
+        ...ui.continentSelector,
+        options: {
+          show: true,
+        },
+      },
+    };
+  },
+  [ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS]: (ui) => {
+    return {
+      ...ui,
+      continentSelector: {
+        ...ui.continentSelector,
+        options: {
+          show: false,
+        },
+      },
+    };
+  },
+  [ACTIONS.SHOW_BACKDROP]: (ui) => {
+    return {
+      ...ui,
+      backdrop: { show: true },
+    };
+  },
+  [ACTIONS.HIDE_BACKDROP]: (ui) => {
+    return {
+      ...ui,
+      backdrop: { show: false },
+    };
+  },
+  [ACTIONS.SET_CONTINENT_SELECTOR_OPTION]: (ui, action) => {
+    return {
+      ...ui,
+      continentSelector: {
+        ...ui.continentSelector,
         selectedOption: action.payload,
       },
     };
   },
-  [ACTIONS.START_COUNTRY_ANIMATION]: (state) => {
+
+  // Country
+  [ACTIONS.START_COUNTRY_ANIMATION]: (ui) => {
     return {
-      ...state,
+      ...ui,
       country: {
-        ...state.country,
+        ...ui.country,
         animation: true,
       },
     };
   },
-  [ACTIONS.STOP_COUNTRY_ANIMATION]: (state) => {
+  [ACTIONS.STOP_COUNTRY_ANIMATION]: (ui) => {
     return {
-      ...state,
+      ...ui,
       country: {
-        ...state.country,
+        ...ui.country,
         animation: false,
       },
     };
@@ -212,7 +217,7 @@ const reducerMap = {
 };
 
 //* Siempre se tienen que crear nuevo objetos, si se modifican las propiedades internas que hacen referencia a los objetos guardados en cada componente en el proceso de creación del nuevo estado no se van a poder actuzalizar de manera correcta
-export function uiReducer(state = initialState, action) {
+export function uiReducer(ui = initialState, action) {
   const handler = reducerMap[action.type];
-  return handler ? handler(state, action) : state;
+  return handler ? handler(ui, action) : ui;
 }

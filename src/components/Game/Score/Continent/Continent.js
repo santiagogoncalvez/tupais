@@ -1,3 +1,5 @@
+import { CONTINENTS_NAMES } from "@constants/continents-names.js";
+
 import htmlString from "@components/Game/Score/Continent/template.html?raw";
 
 // Styles
@@ -8,15 +10,6 @@ import {
   modifiers,
 } from "@components/Game/Score/Continent/Continent-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
-
-const continentTranslations = {
-  all: "todos",
-  europe: "europa",
-  asia: "asia",
-  africa: "áfrica",
-  americas: "américa",
-  oceania: "oceanía",
-};
 
 export default class Continent extends BaseComponent {
   constructor(state) {
@@ -31,13 +24,13 @@ export default class Continent extends BaseComponent {
 
   _init() {
     this.dom.querySelector("." + this.base.text).textContent =
-      continentTranslations[this.state.game.continent].toUpperCase();
+      CONTINENTS_NAMES[this.state.game.continent.toUpperCase()].toUpperCase();
   }
 
   syncState(state) {
     if (state.game.continent !== this.state.game.continent) {
       this.dom.querySelector("." + this.base.text).textContent =
-        continentTranslations[state.game.continent].toUpperCase();
+        CONTINENTS_NAMES[state.game.continent.toUpperCase()].toUpperCase();
       this.state = state;
     }
   }

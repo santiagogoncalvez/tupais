@@ -58,7 +58,7 @@ export default class Navbar extends BaseComponent {
     }
     if (!this._escEvent) {
       this._escEvent = (event) => {
-        event.stopImmediatePropagation();
+        // event.stopImmediatePropagation();
         if (event.key == "Escape") {
           this.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
           this.dom.blur();

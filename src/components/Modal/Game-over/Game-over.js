@@ -23,8 +23,6 @@ export default class GameOver extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
     this.isShow = false;
-
-    // TODO: Esta parte ahora envía la acción de crear un nuevo juego, pero surge un error cuando se selecciona una opción del selector de continentes y se cierra el modal. Entiende como que se cambió de continente pero no es así. Entonces lo que hay que hacer es, cuando se cierra GameOver mediante el botón, enviar una acción para crear un nuevo juego pero con el continente que estaba antes, ya que para que se establezca un nuevo continente el jugador debe cambiar el continente y darle al botón empezar, sino se toma como que no se completó la acción. Así se está viendo en este momento.
     this.closeButton = new CloseButton(dispatch, [
       {
         type: ACTIONS.CLOSE_GAME_OVER,
@@ -61,8 +59,8 @@ export default class GameOver extends BaseComponent {
     if (!this._escEvent) {
       this._escEvent = (event) => {
         if (event.key == "Escape") {
-          event.preventDefault();
-          event.stopImmediatePropagation();
+          // event.preventDefault();
+          // event.stopImmediatePropagation();
           // Modificar para que en este caso se ejecute un nuevo juego o detectarlo desde el estado general. Esto sucede en el caso del modal GameOver ya que cuando este se cierra se debe iniciar si o si un nuevo juego.
           this.dispatch({
             type: ACTIONS.CLOSE_GAME_OVER,

@@ -15,12 +15,12 @@ const initialState = {
   game: gameInit,
 };
 
+// Game middleware
 export const checkGameCompletion = (store) => (next) => (action) => {
   // Pasamos la acción primero para actualizar el estado
   const result = next(action);
 
   // Coordinación entre estados
-  // TODO: esta parte no debe devolver un estado, los middlewares devuelven acciones o ejecutan nuevas según estados nuevos creados por otros middlewares.
   if (action.type === ACTIONS.SEND_ANSWER) {
     const state = store.getState();
     if (state.game.remainingAnswers <= 0) {
@@ -30,8 +30,6 @@ export const checkGameCompletion = (store) => (next) => (action) => {
 
   return result;
 };
-
-// Game middleware
 
 // RootReducer manual: delega la acción a cada reducer.
 export function rootReducer(state, action) {

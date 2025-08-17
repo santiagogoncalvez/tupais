@@ -47,8 +47,8 @@ export default class Presentation extends BaseComponent {
     if (!this._escEvent) {
       this._escEvent = (event) => {
         if (event.key == "Escape") {
-          event.preventDefault();
-          event.stopImmediatePropagation();
+          // event.preventDefault();
+          // event.stopImmediatePropagation();
           this.dispatch({
             type: ACTIONS.CLOSE_PRESENTATION,
           });

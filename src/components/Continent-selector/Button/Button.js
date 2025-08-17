@@ -46,22 +46,18 @@ export default class Button extends BaseComponent {
       ].toUpperCase();
     this.dom.addEventListener("click", (event) => {
       event.stopImmediatePropagation();
-      dispatch({
-        type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS,
-      });
-      dispatch({
-        type: ACTIONS.SHOW_BACKDROP,
-      });
+      if (!this.state.ui.continentSelector.options.show) {
+        dispatch({ type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS });
+        dispatch({ type: ACTIONS.SHOW_BACKDROP });
+      }
     });
 
     this.dom.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp" || event.key == "ArrowDown") {
-        dispatch({
-          type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS,
-        });
-        dispatch({
-          type: ACTIONS.SHOW_BACKDROP,
-        });
+        if (!this.state.ui.continentSelector.options.show) {
+          dispatch({ type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS });
+          dispatch({ type: ACTIONS.SHOW_BACKDROP });
+        }
       }
     });
   }

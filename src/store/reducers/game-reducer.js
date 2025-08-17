@@ -5,14 +5,14 @@ import { prevIndex, nextIndex } from "@utils/circular-counter.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
-function getCorrectAnswersUpdate(state) {
-  const currentCount = state.correctAnswers;
+function getCorrectAnswersUpdate(game) {
+  const currentCount = game.correctAnswers;
   let newState = {
-    ...state,
+    ...game,
   };
 
-  let currAnswer = normStr(state?.answer);
-  let correctAnswer = normStr(state.countries[state.countryIndex]);
+  let currAnswer = normStr(game.answer);
+  let correctAnswer = normStr(game.countries[game.countryIndex]);
 
   // Verificar el tipo de respuesta
   // *Respuesta completa
@@ -26,11 +26,11 @@ function getCorrectAnswersUpdate(state) {
       newState = {
         ...newState,
         ...{
-          countryIndex: nextIndex(state.countryIndex, state.countries.length),
+          countryIndex: nextIndex(game.countryIndex, game.countries.length),
           answer: "",
           sendAnswer: false,
           correctAnswers: currentCount + 1,
-          remainingAnswers: state.remainingAnswers - 1,
+          remainingAnswers: game.remainingAnswers - 1,
           lastAnswerType: "Correct",
         },
       };
@@ -39,11 +39,11 @@ function getCorrectAnswersUpdate(state) {
       newState = {
         ...newState,
         ...{
-          countryIndex: nextIndex(state.countryIndex, state.countries.length),
+          countryIndex: nextIndex(game.countryIndex, game.countries.length),
           answer: "",
           sendAnswer: false,
           correctAnswers: currentCount,
-          remainingAnswers: state.remainingAnswers - 1,
+          remainingAnswers: game.remainingAnswers - 1,
           lastAnswerType: "Incorrect",
         },
       };
@@ -70,7 +70,7 @@ function getCorrectAnswersUpdate(state) {
   }
 
   // Verificar si el juego ha sido ganado
-  if (newState.correctAnswers >= state.totalAnswers) {
+  if (newState.correctAnswers >= game.totalAnswers) {
     newState = { ...newState, won: true };
   }
 
@@ -97,28 +97,28 @@ export const initialState = {
 
 const reducerMap = {
   //* GAME
-  [ACTIONS.NEW_GAME]: (state) => {
+  [ACTIONS.NEW_GAME]: (game) => {
     return {
-      ...state,
+      ...game,
       correctAnswers: 0,
       answer: "",
       correctFlags: [],
       remainingAnswers: 2,
-      countryIndex: nextIndex(state.countryIndex, state.countries.length),
+      countryIndex: nextIndex(game.countryIndex, game.countries.length),
       completed: false,
       won: false,
     };
   },
-  [ACTIONS.NEXT_COUNTRY]: (state) => {
+  [ACTIONS.NEXT_COUNTRY]: (game) => {
     return {
-      ...state,
-      countryIndex: nextIndex(state.countryIndex, state.countries.length),
+      ...game,
+      countryIndex: nextIndex(game.countryIndex, game.countries.length),
       answer: "",
     };
   },
-  [ACTIONS.SET_CONTINENT]: (state, action) => {
+  [ACTIONS.SET_CONTINENT]: (game, action) => {
     let newState = {
-      ...state,
+      ...game,
     };
 
     // Modificar el nuevo estado según si el continente cambió
@@ -136,19 +136,19 @@ const reducerMap = {
 
     return newState;
   },
-  [ACTIONS.SET_ANSWER]: (state, action) => {
+  [ACTIONS.SET_ANSWER]: (game, action) => {
     return {
-      ...state,
+      ...game,
       answer: action.payload,
     };
   },
-  [ACTIONS.SEND_ANSWER]: (state) => {
-    return getCorrectAnswersUpdate(state);
+  [ACTIONS.SEND_ANSWER]: (game) => {
+    return getCorrectAnswersUpdate(game);
   },
 };
 
 //* Siempre se tienen que crear nuevo objetos, si se modifican las propiedades internas que hacen referencia a los objetos guardados en cada componente en el proceso de creación del nuevo estado no se van a poder actuzalizar de manera correcta
-export function gameReducer(state = initialState, action) {
+export function gameReducer(game = initialState, action) {
   const handler = reducerMap[action.type];
-  return handler ? handler(state, action) : state;
+  return handler ? handler(game, action) : game;
 }

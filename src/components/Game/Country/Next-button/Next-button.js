@@ -16,23 +16,6 @@ export default class nextButton extends BaseComponent {
         className: this.base.block,
         title: "Siguiente ",
         onclick: () => {
-          /* 
-          dispatch({
-            ui: {
-              country: {
-                animation: true,
-              },
-            },
-            game: {
-              countryIndex: nextIndex(
-                this.state.game.countryIndex,
-                this.state.game.countries.length
-              ),
-              answer: "",
-            },
-          });
-          */
-          // TODO: aca va a haber 2 envios de acciones. Uno para game y otro para ui.
           dispatch({ type: ACTIONS.NEXT_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
         },

@@ -21,10 +21,14 @@ export default class Options extends BaseComponent {
     // Se asigna "all" como continente por defecto si no hay uno seleccionado.
     this.continent = state.ui.continentSelector.selectedOption || "all";
     this.dom = this._createDom();
+    this.dispatch = dispatch;
     this._init(dispatch);
 
     // Animations
     this.visibilityState = "hidden"; // "hidden" | "showing" | "visible" | "hiding"
+    this._showTimeout = null; // para manejar el timeout de la animación
+
+    this.alreadyClosed = false;
   }
   syncState(state) {
     if (
@@ -49,16 +53,7 @@ export default class Options extends BaseComponent {
         event.preventDefault();
         this.continent = option.dataset.value;
         //* Set continent
-        dispatch({
-          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
-        });
-        dispatch({
-          type: ACTIONS.HIDE_BACKDROP,
-        });
-        dispatch({
-          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
-          payload: this.continent,
-        });
+        this.closeSelector();
       });
 
       option.addEventListener("mouseenter", () => {
@@ -104,18 +99,7 @@ export default class Options extends BaseComponent {
       }
 
       if (event.key == "Escape") {
-        event.preventDefault();
-        // El evento "Esc" de los modales se propaga a Options de continentSelector, lo que permite siempre cerrar las opciones.
-        dispatch({
-          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
-        });
-        dispatch({
-          type: ACTIONS.HIDE_BACKDROP,
-        });
-        dispatch({
-          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
-          payload: this.continent,
-        });
+        this.closeSelector();
       }
 
       let curOpt = this.dom.querySelector(
@@ -161,17 +145,24 @@ export default class Options extends BaseComponent {
         if (!curOpt) return;
         this.continent = currOpt.dataset.value;
         //* Set continent
-        dispatch({
-          type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
-        });
-        dispatch({
-          type: ACTIONS.HIDE_BACKDROP,
-        });
-        dispatch({
-          type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
-          payload: this.continent,
-        });
+        this.closeSelector();
       }
+    });
+
+    this.dom.addEventListener("blur", () => {
+      this.closeSelector();
+    });
+  }
+
+  closeSelector() {
+    if (this.alreadyClosed) return;
+    this.alreadyClosed = true;
+
+    this.dispatch({ type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS });
+    this.dispatch({ type: ACTIONS.HIDE_BACKDROP });
+    this.dispatch({
+      type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
+      payload: this.continent,
     });
   }
 
@@ -188,6 +179,7 @@ export default class Options extends BaseComponent {
 
     if (isShow) {
       this.visibilityState = "showing";
+      this.alreadyClosed = false;
 
       // volver a poner display:block
       this.dom.classList.add(this.modifiers.display.block);

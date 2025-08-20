@@ -39,17 +39,17 @@
 }
 
 .keyboard__button {
-  color:rgb(49, 47, 47);
+  color: rgb(49, 47, 47);
   height: 56px;
   width: 47px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 0px solid transparent;
   margin: 0;
   text-align: center;
-  background-color: rgb(224, 231, 238);
+  background-color: rgb(228, 234, 240);
   cursor: pointer;
   user-select: none;
-  font-weight: 800;
+  font-weight: 900;
   transition: all 0.05s ease;
 }
 
@@ -67,7 +67,7 @@
   background-color: rgb(224, 231, 238);
   cursor: pointer;
   user-select: none;
-  font-weight: 600;
+  font-weight: 700;
   transform: rotate(180deg);
   transition: all 0.05s ease;
 }
@@ -85,7 +85,7 @@
   text-align: center;
   cursor: pointer;
   user-select: none;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 1px;
   background-color: rgb(224, 231, 238);
   color: #001f31;
@@ -94,4 +94,26 @@
 
 .keyboard__button--enter:hover {
   background: rgb(178, 189, 197);
+}
+
+/* Descativar botones */
+/* Botones deshabilitados */
+.keyboard__button:disabled,
+.keyboard__button--backspace:disabled,
+.keyboard__button--enter:disabled {
+  background-color: #d6d9e0; /* fondo más apagado */
+  color: #7a8a9b; /* texto gris suave */
+  /*cursor: not-allowed;*/
+  cursor: default; /* cursor prohibido */
+  opacity: 0.7; /* efecto de desactivado */
+  box-shadow: inset 0 0 0 1px #cfd6e3; /* borde sutil */
+  transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Evitar efectos hover en deshabilitados */
+.keyboard__button:disabled:hover,
+.keyboard__button--backspace:disabled:hover,
+.keyboard__button--enter:disabled:hover {
+  background-color: #d6d9e0;
+  box-shadow: inset 0 0 0 1px #cfd6e3;
 }

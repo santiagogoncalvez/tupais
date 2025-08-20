@@ -55,3 +55,9 @@ export function normStr(str) {
 
   return str;
 }
+
+export function formatOption(str) {
+  str = formatWord(str);
+  str = normStr(str);
+  return str;
+}

@@ -19,7 +19,7 @@ export default class Navbar extends BaseComponent {
     this.modifiers = modifiers;
     this.state = state;
     this.dispatch = dispatch;
-    this.button = new CloseButton(this.dispatch, {
+    this.closeButton = new CloseButton(this.dispatch, {
       type: ACTIONS.CLOSE_NAVBAR,
     });
     this.dom = this._createDom();
@@ -27,7 +27,7 @@ export default class Navbar extends BaseComponent {
   }
 
   _init() {
-    this.dom.prepend(this.button.dom);
+    this.dom.prepend(this.closeButton.dom);
   }
 
   syncState(state) {
@@ -58,9 +58,8 @@ export default class Navbar extends BaseComponent {
     }
     if (!this._escEvent) {
       this._escEvent = (event) => {
-        // event.stopImmediatePropagation();
         if (event.key == "Escape") {
-          this.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
+          this.closeButton.dom.click();
           this.dom.blur();
           this.dom.removeEventListener("keydown", this._escEvent);
         }

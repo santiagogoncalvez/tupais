@@ -1,8 +1,10 @@
 import {
   createStore,
   rootReducer,
-  checkSendAnswer,
+  checkSendAnswerMC,
   checkGameCompleted,
+  checkNextCountryMC,
+  checkNewGameMC,
 } from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
@@ -16,7 +18,12 @@ import Game from "@components/Game/Game";
 import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-const store = createStore(rootReducer, [checkSendAnswer, checkGameCompleted]);
+const store = createStore(rootReducer, [
+  checkSendAnswerMC,
+  checkGameCompleted,
+  checkNextCountryMC,
+  checkNewGameMC,
+]);
 
 let continentSelector = new ContinentSelector(
   store.getState(),
@@ -38,7 +45,11 @@ let gameOver = new GameOver(
   continentSelector
 );
 let header = new Header(store.getState(), store.dispatch.bind(store));
-let game = new Game(store.getState(), store.dispatch.bind(store));
+let game = new Game(
+  store.getState(),
+  store.dispatch.bind(store),
+  "multiple-choice"
+);
 let notifications = new Notifications(
   store.getState(),
   store.dispatch.bind(store)
@@ -63,5 +74,12 @@ subscribeComponents();
 
 // Acción con nuevo formato de tipo
 store.dispatch({
-  type: ACTIONS.OPEN_PRESENTATION,
+  type: "INIT",
 });
+setTimeout(() => {
+  store.dispatch({ type: ACTIONS.SHOW_OPTIONS_MULTIPLE_CHOICE });
+}, 100);
+
+// store.dispatch({
+//   type: ACTIONS.OPEN_PRESENTATION,
+// });

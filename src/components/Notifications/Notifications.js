@@ -42,8 +42,17 @@ export default class Notifications extends BaseComponent {
       { type: ACTIONS.HIDE_NOTIFICATION }, // "Intención" de cerrar
       { top: "5px", right: "5px" }
     );
+    this.init();
   }
 
+  init() {
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (!this.currentNotification) return;
+        this.closeButton.dom.click();
+      }
+    });
+  }
   syncState(state) {
     const prevNotif = this.state.ui.notifications;
     const newNotif = state.ui.notifications;
@@ -68,7 +77,11 @@ export default class Notifications extends BaseComponent {
     this.currentNotification = elt(
       "div",
       { className: this.base.notification },
-      elt("p", { className: this.base.message }, lastAnswerTypeTranslations[message]),
+      elt(
+        "p",
+        { className: this.base.message },
+        lastAnswerTypeTranslations[message]
+      ),
       this.closeButton.dom
     );
 
@@ -143,7 +156,7 @@ export default class Notifications extends BaseComponent {
     this.notificationTimeout = setTimeout(() => {
       if (!this.mouseenter) {
         // Solo avisa que el usuario quiere cerrar
-        this.dispatch({ type: ACTIONS.HIDE_NOTIFICATION });
+        this.closeButton.dom.click();
       }
     }, 2000);
   }

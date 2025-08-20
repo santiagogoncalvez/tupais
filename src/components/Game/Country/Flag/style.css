@@ -27,22 +27,22 @@
 
 .country__flag--in-left {
   animation: bounceInLeft forwards;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
 }
 
 .country__flag--out-right {
   animation: bounceOutRight forwards;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
 }
 
 .country__flag--in-right {
   animation: bounceInRight forwards;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
 }
 
 .country__flag--out-left {
   animation: bounceOutLeft forwards;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
 }
 
 .country__flag--active {

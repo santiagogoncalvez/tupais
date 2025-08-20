@@ -38,12 +38,16 @@ export const ACTIONS = {
   HIDE_NOTIFICATION: "ui/notification/hide",
   RESET_NOTIFICATION: "ui/notification/reset",
 
-  
   //* Game
   // Game/Answer
   SEND_ANSWER: "game/answer/send",
   SET_ANSWER: "game/answer/set",
   RESET_ANSWER: "game/answer/reset",
+
+  // Multiple choice
+  SEND_ANSWER_MULTIPLE_CHOICE: "game/answer/multiple-choice/send",
+  SHOW_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/show",
+  HIDE_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/hide",
 
   // Game/Country
   SET_COUNTRY_INDEX: "game/country/index/set",
@@ -52,6 +56,8 @@ export const ACTIONS = {
   RESET_FLAGS: "game/country/flags/reset",
 
   NEW_GAME: "game/new",
+  GAME_COMPLETED: "game/completed",
+  GAME_WON: "game/won",
   NEW_CONTINENT: "game/continent/new",
 
   SET_TOTAL_ANSWERS: "game/total-answers/set",

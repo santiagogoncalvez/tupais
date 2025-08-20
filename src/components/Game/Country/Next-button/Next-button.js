@@ -10,6 +10,7 @@ export default class nextButton extends BaseComponent {
     super();
     this.state = state;
     this.base = base;
+    this.dispatch = dispatch;
     this.dom = elt(
       "button",
       {
@@ -22,13 +23,39 @@ export default class nextButton extends BaseComponent {
       },
       elt("div", { className: this.base.icon })
     );
+    this._init();
   }
+
+  _init() {
+    // Agregar evento para detectar por teclado la acción para cambiar de bandera
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        this.dom.click();
+      }
+    });
+  }
+
   syncState(state) {
-    if (state.ui.country.animation) {
-      this.dom.disabled = true;
-    } else {
-      this.dom.disabled = false;
+    if (state.ui.country.animation != this.state.ui.country.animation) {
+      if (state.ui.country.animation) {
+        this.dom.disabled = true;
+      } else {
+        this.dom.disabled = false;
+      }
+    }
+
+    // Desactivar botones
+    if (state.game.completed != this.state.game.completed) {
+      if (state.game.completed) {
+        this._disableOptions(true);
+      } else {
+        this._disableOptions(false);
+      }
     }
     this.state = state;
+  }
+
+  _disableOptions(isDisabled) {
+    this.dom.disabled = isDisabled;
   }
 }

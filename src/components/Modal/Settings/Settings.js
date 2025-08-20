@@ -34,9 +34,10 @@ export default class Settings extends BaseComponent {
   _init() {
     this.dom.querySelector("." + this.base.container);
     this.dom.appendChild(this.closeButton.dom);
-    this.dom
-      .querySelector("." + this.base.subtitle)
-      .insertAdjacentElement("afterend", this.darkModeButton.dom);
+    // Botón de modo oscuro
+    // this.dom
+    //   .querySelector("." + this.base.subtitle)
+    //   .insertAdjacentElement("afterend", this.darkModeButton.dom);
     this.dom.addEventListener("cancel", (event) => {
       event.preventDefault();
     });
@@ -46,13 +47,7 @@ export default class Settings extends BaseComponent {
     if (!this._escEvent) {
       this._escEvent = (event) => {
         if (event.key == "Escape") {
-          // event.preventDefault();
-          // event.stopImmediatePropagation();
-          // document.activeElement.blur();
-
-          this.dispatch({
-            type: ACTIONS.CLOSE_SETTINGS,
-          });
+          this.closeButton.dom.click();
         }
       };
     }

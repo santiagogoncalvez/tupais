@@ -29,3 +29,26 @@
 .country__next-button:hover .country__button-icon--right {
   transform: scale(1.06);
 }
+
+/* Desabilitar botón*/
+/* Botón Next deshabilitado */
+.country__next-button:disabled {
+  background-color: #e0e3e8; /* fondo apagado */
+  /*cursor: not-allowed;*/
+  cursor: default; /* cursor prohibido */
+  opacity: 0.6; /* efecto visual de desactivado */
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Evitar hover en deshabilitado */
+.country__next-button:disabled:hover {
+  background-color: #e0e3e8;
+}
+
+/* Icono del botón deshabilitado */
+.country__next-button:disabled .country__button-icon--right {
+  filter: grayscale(100%); /* icono gris */
+  opacity: 0.6; /* combinación con el botón */
+  transform: scale(1); /* evitar efecto hover */
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}

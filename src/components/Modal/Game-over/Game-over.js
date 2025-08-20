@@ -59,15 +59,9 @@ export default class GameOver extends BaseComponent {
     if (!this._escEvent) {
       this._escEvent = (event) => {
         if (event.key == "Escape") {
-          // event.preventDefault();
-          // event.stopImmediatePropagation();
-          // Modificar para que en este caso se ejecute un nuevo juego o detectarlo desde el estado general. Esto sucede en el caso del modal GameOver ya que cuando este se cierra se debe iniciar si o si un nuevo juego.
-          this.dispatch({
-            type: ACTIONS.CLOSE_GAME_OVER,
-          });
-          this.dispatch({ type: ACTIONS.NEW_GAME });
-
-          // this.dom.blur();
+          // Esto sucede en el caso del modal GameOver ya que cuando este se cierra se debe iniciar si o si un nuevo juego.
+          this.closeButton.dom.click();
+          this.dom.blur();
         }
       };
     }

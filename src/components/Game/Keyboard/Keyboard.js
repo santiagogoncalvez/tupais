@@ -17,6 +17,14 @@ export default class Keyboard extends BaseComponent {
   }
 
   syncState(state) {
+    // Desactivar botones
+    if (state.game.completed != this.state.game.completed) {
+      if (state.game.completed) {
+        this._disableOptions(true);
+      } else {
+        this._disableOptions(false);
+      }
+    }
     this.answer = state.game.answer;
     this.state = state;
   }
@@ -89,31 +97,37 @@ export default class Keyboard extends BaseComponent {
         "ñ",
       ];
 
+      // Letras del abecedario
       if (letter.includes(event.key.toLowerCase())) {
-        // Las letras en mayusculas también deben ser aceptadas (event.key.toLowerCase())
-        if (
-          this.answer.length ==
-          this.state.game.countries[this.state.game.countryIndex].replace(
-            /\s+/g,
-            ""
-          ).length
-        )
-          return;
-        this.answer += event.key;
-        dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
+        let currLetterBt = this.dom.querySelector(
+          `.${this.base.letterButton}[value="${event.key}"]`
+        );
+        currLetterBt.click();
       }
+      // Borrar
       if (event.key == "Backspace") {
-        if (this.state.game.answer.length == 0) return;
-        this.answer = this.answer.slice(0, this.answer.length - 1);
-        dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
+        backSpaceButton.click();
       }
+      // Enviar
       if (event.key == "Enter") {
-        dispatch({ type: ACTIONS.SEND_ANSWER });
-        dispatch({
-          type: ACTIONS.SHOW_NOTIFICATION,
-          payload: this.state.game.lastAnswerType,
-        });
+        sendButton.click();
       }
     });
+  }
+
+  _disableOptions(isDisabled) {
+    const letterButtons = this.dom.querySelectorAll(
+      "." + this.base.letterButton
+    );
+    const backSpaceButton = this.dom.querySelector(
+      "." + this.base.backSpaceButton
+    );
+    const sendButton = this.dom.querySelector("." + this.base.sendButton);
+
+    for (let button of letterButtons) {
+      button.disabled = isDisabled;
+    }
+    backSpaceButton.disabled = isDisabled;
+    sendButton.disabled = isDisabled;
   }
 }

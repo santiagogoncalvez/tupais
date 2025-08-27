@@ -4,7 +4,9 @@ import Score from "@components/Game/Score/Score.js";
 let state = {
   game: {
     correctAnswers: 0,
-    remainingAnswers: 10,
+    remainingAnswers: 0,
+    continent: "americas",
+    time: 0,
   },
 };
 
@@ -15,8 +17,10 @@ document.body.prepend(score.dom);
 setTimeout(() => {
   score.syncState({
     game: {
-      correctAnswers: 1,
-      remainingAnswers: 9,
+      correctAnswers: 0,
+      remainingAnswers: 10,
+      continent: "americas",
+      time: 10,
     },
   });
-}, 1500);
+}, 1000);

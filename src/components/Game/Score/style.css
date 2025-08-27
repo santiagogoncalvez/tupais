@@ -5,47 +5,70 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 40px;
 }
 
-.score__statistics{
+.score__statistics {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 5px;
-  width: 120px;
+  width: 130px;
+  height: 100%;
 }
 
-.score__title{
-  color: #898c8f;
+.score__point-container {
+  /* height: 45px; */
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.score__title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score__icon {
+  /*padding: 0px 6px 0px 0px;*/
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.score__title {
+  color: #6e6e70;
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
-
-/* .score__points{
-  font-size: 1.1rem;
-  font-weight: 500;
-  border: 1px solid #e2e3e3;
-  border-radius: 8px;
-  color: #5b5d5f;
-  min-width: 60px;
-  text-align: center;
-  user-select: none;
-} */
 
 .score__points {
-  font-size: 1.1rem;
-  font-weight: 500;                /* un poco más destacado */
-  border: 1px solid #e2e3e3;      
-  background-color: #f9f9f9;       /* gris muy suave para resaltar sin parecer botón */
-  border-radius: 8px;              
-  color: #5b5d5f;                  
-  min-width: 60px;                 /* asegura que se vea bien con números grandes */
-  padding: 4px 8px;                /* vertical y horizontal para “aire” dentro */
-  text-align: center;              
-  display: inline-block;           
-  user-select: none;               
+  font-size: 1.2rem;
+  font-weight: 600; /* un poco más destacado */
+  border: 1px solid #e2e3e3;
+  background-color: #f9f9f9; /* gris muy suave para resaltar sin parecer botón */
+  border-radius: 8px;
+  color: #5b5d5f;
+  min-width: 60px; /* asegura que se vea bien con números grandes */
+  padding: 4px 8px; /* vertical y horizontal para “aire” dentro */
+  text-align: center;
+  display: inline-block;
+  user-select: none;
+}
+
+.score__successes-text {
+  padding: 0px 1px 0px 1px;
+  transform: scale(1);
+  display: inline-block;
+}
+.score__remaining-text {
+  padding: 0px 1px 0px 1px;
+  transform: scale(1);
+  display: inline-block;
 }
 
 @keyframes pulse-scale {

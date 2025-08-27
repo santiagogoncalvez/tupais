@@ -1,12 +1,12 @@
 import {
   createStore,
   rootReducer,
+  // checkSetGameMode,
+  checkSendAnswer,
+  checkSendAnswerTT,
+  checkNextCountryTT,
   checkNewGame,
-  checkSendAnswerMC,
   checkGameCompleted,
-  checkNextCountryMC,
-  checkNewGameMC,
-  checkAnimateCorrectMC,
 } from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
@@ -21,18 +21,18 @@ import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
 const store = createStore(rootReducer, [
+  // checkSetGameMode,
+  checkSendAnswer,
+  checkSendAnswerTT,
+  checkNextCountryTT,
   checkNewGame,
-  checkSendAnswerMC,
   checkGameCompleted,
-  checkNextCountryMC,
-  checkNewGameMC,
-  checkAnimateCorrectMC,
 ]);
 
 // Setear el modo actual
 store.dispatch({
   type: ACTIONS.SET_GAME_MODE,
-  payload: "multiple-choice",
+  payload: "time-trial",
 });
 
 let continentSelector = new ContinentSelector(

@@ -23,9 +23,31 @@ export default class Presentation extends BaseComponent {
     this.modifiers = modifiers;
     this.dispatch = dispatch;
     this.state = state;
-    this.closeButton = new CloseButton(dispatch, {
-      type: ACTIONS.CLOSE_PRESENTATION,
-    });
+
+    // Acción de nuevo juego
+    //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
+    if (
+      this.state.game.mode === "classic" ||
+      this.state.game.mode === "multiple-choice"
+    ) {
+      this.newGameAction = ACTIONS.NEW_GAME;
+    }
+    if (this.state.game.mode === "record") {
+      this.newGameAction = ACTIONS.NEW_GAME_RECORD;
+    }
+    if (this.state.game.mode === "time-trial") {
+      this.newGameAction = ACTIONS.NEW_GAME_TIME_TRIAL;
+    }
+
+    this.closeButton = new CloseButton(dispatch, [
+      {
+        type: ACTIONS.CLOSE_PRESENTATION,
+      },
+      {
+        type: this.newGameAction,
+      },
+    ]);
+
     this.flagSlide = new FlagSlide();
     this.continentSelector = continentSelector;
     this.dom = this._createDom();

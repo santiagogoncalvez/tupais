@@ -23,12 +23,28 @@ export default class GameOver extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
     this.isShow = false;
+
+    // Acción de nuevo juego
+    //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
+    if (
+      this.state.game.mode === "classic" ||
+      this.state.game.mode === "multiple-choice"
+    ) {
+      this.newGameAction = ACTIONS.NEW_GAME;
+    }
+    if (this.state.game.mode === "record") {
+      this.newGameAction = ACTIONS.NEW_GAME_RECORD;
+    }
+    if (this.state.game.mode === "time-trial") {
+      this.newGameAction = ACTIONS.NEW_GAME_TIME_TRIAL;
+    }
+
     this.closeButton = new CloseButton(dispatch, [
       {
         type: ACTIONS.CLOSE_GAME_OVER,
       },
       {
-        type: ACTIONS.NEW_GAME,
+        type: this.newGameAction,
       },
     ]);
 

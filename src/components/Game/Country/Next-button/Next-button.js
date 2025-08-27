@@ -17,6 +17,7 @@ export default class nextButton extends BaseComponent {
         className: this.base.block,
         title: "Siguiente ",
         onclick: () => {
+          dispatch({ type: ACTIONS.SKIP_COUNTRY });
           dispatch({ type: ACTIONS.NEXT_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
         },

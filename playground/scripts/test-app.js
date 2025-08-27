@@ -2,6 +2,7 @@ import {
   createStore,
   rootReducer,
   checkSendAnswer,
+  checkNewGame,
   checkGameCompleted,
 } from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
@@ -16,7 +17,17 @@ import Game from "@components/Game/Game";
 import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
-const store = createStore(rootReducer, [checkSendAnswer, checkGameCompleted]);
+const store = createStore(rootReducer, [
+  checkSendAnswer,
+  checkNewGame,
+  checkGameCompleted,
+]);
+
+// Setear el modo actual
+store.dispatch({
+  type: ACTIONS.SET_GAME_MODE,
+  payload: "classic",
+});
 
 let continentSelector = new ContinentSelector(
   store.getState(),

@@ -38,20 +38,32 @@ export const ACTIONS = {
   HIDE_NOTIFICATION: "ui/notification/hide",
   RESET_NOTIFICATION: "ui/notification/reset",
 
+  // Mode Multiple-choice
+  START_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/start",
+  STOP_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/stop",
+
   //* Game
   // Game/Answer
   SEND_ANSWER: "game/answer/send",
   SET_ANSWER: "game/answer/set",
   RESET_ANSWER: "game/answer/reset",
+  SET_GAME_MODE: "game/mode/set",
 
-  // Multiple choice
+  // Mode multiple choice
   SEND_ANSWER_MULTIPLE_CHOICE: "game/answer/multiple-choice/send",
   SHOW_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/show",
   HIDE_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/hide",
 
+  // Mode record
+  NEW_GAME_RECORD: "game/new/record",
+
+  // Mode time-trial
+  NEW_GAME_TIME_TRIAL: "game/new/time-trial",
+
   // Game/Country
   SET_COUNTRY_INDEX: "game/country/index/set",
   NEXT_COUNTRY: "game/country/index/next",
+  SKIP_COUNTRY: "game/country/index/skip",
   PREVIOUS_COUNTRY: "game/country/index/previous",
   RESET_FLAGS: "game/country/flags/reset",
 
@@ -67,4 +79,11 @@ export const ACTIONS = {
   RESET_GAME: "game/reset",
   SET_COUNTRIES: "game/countries/set",
   SET_COUNTRY_INDEX: "game/country-index/set",
+
+  // Timer
+  RESET_TIMER: "game/timer/reset",
+  DISCOUNT_TIMER: "game/timer/dicount",
+  SET_TIMER: "game/timer/set",
+
+  SET_ANSWER_TYPE: "game/last-answer-type/set",
 };

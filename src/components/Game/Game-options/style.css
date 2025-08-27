@@ -103,8 +103,8 @@
 
 /* Icono de botón deshabilitado */
 .game-options__button:disabled .game-options__button-icon {
-  background-color: #d1d9e6; /* fondo más apagado que el activo */
-  color: #7a8a9b; /* icono gris suave */
+  background-color: #d1d9e6;
+  color: #7a8a9b;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -146,4 +146,54 @@
 }
 .game-options.show .game-options__button:nth-child(4) {
   transition-delay: 0.3s, 0.3s, 0s, 0s;
+}
+
+/* Opcion correcta e incorrecta */
+/* ✅ Respuesta correcta */
+.game-options__button.correct {
+  background-color: #e6f9f0; /* verde muy suave */
+  border-color: #27ae60; /* verde éxito */
+  color: #004d25; /* texto verde oscuro */
+  box-shadow: 0 0 2px rgba(39, 174, 96, 0.4); /* glow suave */
+  transform: scale(1.02); /* leve pop-out */
+
+  /* reutilizamos la transición base */
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.game-options__button.correct .game-options__button-icon {
+  background-color: #27ae60; /* verde éxito */
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ❌ Respuesta incorrecta */
+.game-options__button.incorrect {
+  background-color: #fff0f0;
+  border-color: #e74c3c;
+  color: #5d1a14;
+  box-shadow: 0 0 2px rgba(231, 76, 60, 0.4);
+  transform: scale(0.98);
+
+  /* igual que arriba */
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.game-options__button.incorrect .game-options__button-icon {
+  background-color: #e74c3c;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Correct/Incorrect sin delay */
+.game-options__button.correct,
+.game-options__button.incorrect {
+  transition-delay: 0s !important; /* ignora los delays escalonados */
+  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }

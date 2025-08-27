@@ -1,7 +1,7 @@
 import { ACTIONS } from "@constants/action-types.js";
 
 import { normStr } from "@utils/string-parser.js";
-import { prevIndex, nextIndex } from "@utils/circular-counter.js";
+import { nextIndex } from "@utils/circular-counter.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
@@ -28,18 +28,19 @@ function getAnswers(game) {
         ...{
           sendAnswer: false,
           correctAnswers: currentCount + 1,
-          remainingAnswers: game.remainingAnswers - 1,
+          // remainingAnswers: game.remainingAnswers - 1,
           lastAnswerType: "Correct",
         },
       };
     } else {
       // *Respuesta incorrecta pero completa
+      // Esto en el modo clasico comun ahora no resta puntos ni países a adivinar por el momento.
       newState = {
         ...newState,
         ...{
           sendAnswer: false,
           correctAnswers: currentCount,
-          remainingAnswers: game.remainingAnswers - 1,
+          // remainingAnswers: game.remainingAnswers - 1,
           lastAnswerType: "Incorrect",
         },
       };
@@ -56,6 +57,25 @@ function getAnswers(game) {
   }
 
   return newState;
+}
+
+function newGame(game) {
+  return {
+    ...game,
+    correctAnswers: 0,
+    answer: "",
+    correctFlags: [],
+    remainingAnswers: 2,
+    countryIndex: nextIndex(game.countryIndex, game.countries.length),
+    completed: false,
+    won: false,
+    timer: {
+      ...game.timer,
+      time: -1,
+      // Tiempo inicial en segundos
+      initialTime: Date.now(),
+    },
+  };
 }
 
 // Multiple choice
@@ -130,7 +150,17 @@ let initState = {
   completed: false,
   won: false,
   isNewGame: false,
-  lastAnswerType: "",
+  lastAnswerType: "Incomplete",
+  skip: false,
+  mode: "classic",
+  modes: null,
+  timer: {
+    time: -1,
+    reset: false,
+    initialTime: null,
+    finalTime: null,
+    discount: false,
+  },
 };
 
 // Game-modes
@@ -146,21 +176,17 @@ export const initialState = initState;
 const reducerMap = {
   //* GAME
   [ACTIONS.NEW_GAME]: (game) => {
-    return {
-      ...game,
-      correctAnswers: 0,
-      answer: "",
-      correctFlags: [],
-      remainingAnswers: 2,
-      countryIndex: nextIndex(game.countryIndex, game.countries.length),
-      completed: false,
-      won: false,
-    };
+    return newGame(game);
   },
   [ACTIONS.GAME_COMPLETED]: (game) => {
     return {
       ...game,
       completed: true,
+      timer: {
+        ...game.timer,
+        // Tiempo final en segundos
+        finalTime: Date.now(),
+      },
     };
   },
   [ACTIONS.GAME_WON]: (game) => {
@@ -174,8 +200,17 @@ const reducerMap = {
       ...game,
       countryIndex: nextIndex(game.countryIndex, game.countries.length),
       answer: "",
+      skip: false,
     };
   },
+
+  [ACTIONS.SKIP_COUNTRY]: (game) => {
+    return {
+      ...game,
+      skip: true,
+    };
+  },
+
   [ACTIONS.SET_CONTINENT]: (game, action) => {
     let newState = {
       ...game,
@@ -210,7 +245,6 @@ const reducerMap = {
   [ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE]: (game) => {
     return getAnswersChoice(game);
   },
-  // Mode: Multiple choice
   [ACTIONS.SHOW_OPTIONS_MULTIPLE_CHOICE]: (game) => {
     return {
       ...game,
@@ -237,6 +271,69 @@ const reducerMap = {
           showOptions: false,
         },
       },
+    };
+  },
+  [ACTIONS.SET_GAME_MODE]: (game, action) => {
+    return {
+      ...game,
+      mode: action.payload,
+    };
+  },
+
+  // Modo record
+  [ACTIONS.NEW_GAME_RECORD]: (game) => {
+    return {
+      ...newGame(game),
+      remainingAnswers: game.countries.length,
+      totalAnswers: game.countries.length,
+    };
+  },
+
+  // Modo time-trial
+  [ACTIONS.NEW_GAME_TIME_TRIAL]: (game) => {
+    const newState = newGame(game);
+    return {
+      ...newState,
+      timer: {
+        ...newState.timer,
+        time: 10,
+      },
+    };
+  },
+
+  // Timer
+  [ACTIONS.RESET_TIMER]: (game) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        reset: !game.timer.reset,
+      },
+    };
+  },
+  [ACTIONS.DISCOUNT_TIMER]: (game) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        discount: !game.timer.discount,
+      },
+    };
+  },
+  [ACTIONS.SET_TIMER]: (game, action) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        time: action.payload,
+      },
+    };
+  },
+
+  [ACTIONS.SET_ANSWER_TYPE]: (game, action) => {
+    return {
+      ...game,
+      lastAnswerType: action.payload,
     };
   },
 };

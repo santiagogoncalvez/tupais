@@ -29,9 +29,24 @@ export default class StartButton extends BaseComponent {
             type: ACTIONS.SET_CONTINENT,
             payload: this.state.ui.continentSelector.selectedOption,
           });
-          dispatch({
-            type: ACTIONS.NEW_GAME,
-          });
+          if (
+            this.state.game.mode === "classic" ||
+            this.state.game.mode === "multiple-choice"
+          ) {
+            dispatch({
+              type: ACTIONS.NEW_GAME,
+            });
+          }
+          if (this.state.game.mode === "record") {
+            dispatch({
+              type: ACTIONS.NEW_GAME_RECORD,
+            });
+          }
+          if (this.state.game.mode === "time-trial") {
+            dispatch({
+              type: ACTIONS.NEW_GAME_TIME_TRIAL,
+            });
+          }
         },
         title: "Empezar",
         type: "button",

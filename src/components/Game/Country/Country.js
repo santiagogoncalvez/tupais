@@ -14,15 +14,13 @@ export default class Country extends BaseComponent {
     this.state = state;
     this.mode = mode;
     this.dom = elt("div", { className: this.base.block }, this.flag.dom);
-    this._init();
+    this._init(state);
   }
 
-  _init() {
-    if (this.mode === "multiple-choice") {
-    } else {
+  _init(state) {
+    if (state.game.mode === "classic" || state.game.mode === "time-trial") {
       this.dom.prepend(elt("div", { className: this.base.fill }));
-      this.dom
-        .appendChild(this.nextButton.dom);
+      this.dom.appendChild(this.nextButton.dom);
     }
   }
 

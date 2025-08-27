@@ -1,0 +1,24 @@
+.dots-indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 12px; */
+  height: 15px
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #9ED2FF; /* azul suave */
+  opacity: 0.6;
+  transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.dot.active {
+  background-color: #0088c2; /* azul fuerte */
+  opacity: 1;
+  transform: scale(1.2);
+  box-shadow: 0 0 2px rgba(0, 136, 194, 0.6);
+}

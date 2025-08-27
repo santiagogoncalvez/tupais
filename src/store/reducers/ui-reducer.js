@@ -29,6 +29,9 @@ export const initialState = {
     id: null,
     message: "",
   },
+  gameOptions: {
+    animateCorrect: false,
+  },
 };
 
 // Ahora el objeto state que se pasa es solamente la parte de UI osea lo que antes era state es el objeto que directamente se pasa. Y también hay que sacar el objeto que devuelve una propiedad "ui" ya que el state en sí ya es esa propiedad
@@ -211,6 +214,25 @@ const reducerMap = {
       country: {
         ...ui.country,
         animation: false,
+      },
+    };
+  },
+
+  [ACTIONS.START_ANIMATE_CORRECT_OPTION]: (ui) => {
+    return {
+      ...ui,
+      gameOptions: {
+        ...ui.gameOptions,
+        animateCorrect: true,
+      },
+    };
+  },
+  [ACTIONS.STOP_ANIMATE_CORRECT_OPTION]: (ui) => {
+    return {
+      ...ui,
+      gameOptions: {
+        ...ui.gameOptions,
+        animateCorrect: false,
       },
     };
   },

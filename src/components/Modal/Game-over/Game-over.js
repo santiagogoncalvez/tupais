@@ -26,11 +26,11 @@ export default class GameOver extends BaseComponent {
 
     // Acción de nuevo juego
     //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
-    if (
-      this.state.game.mode === "classic" ||
-      this.state.game.mode === "multiple-choice"
-    ) {
+    if (this.state.game.mode === "classic") {
       this.newGameAction = ACTIONS.NEW_GAME;
+    }
+    if (this.state.game.mode === "multiple-choice") {
+      this.newGameAction = ACTIONS.NEW_GAME_MULTIPLE_CHOICE;
     }
     if (this.state.game.mode === "record") {
       this.newGameAction = ACTIONS.NEW_GAME_RECORD;
@@ -61,11 +61,11 @@ export default class GameOver extends BaseComponent {
   _init() {
     this.dom.appendChild(this.closeButton.dom);
     this.dom
-      .querySelector("." + this.base.subtitle)
-      .insertAdjacentElement("afterend", this.gameModes.dom);
+      .querySelector("." + this.base.container)
+      .appendChild(this.results.dom);
     this.dom
-      .querySelector("." + this.base.subtitle)
-      .insertAdjacentElement("afterend", this.results.dom);
+      .querySelector("." + this.base.container)
+      .appendChild(this.gameModes.dom);
     this.dom.addEventListener("cancel", (event) => {
       event.preventDefault();
     });

@@ -88,6 +88,7 @@ export default class GameOptions extends BaseComponent {
         dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
         dispatch({ type: ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE });
 
+        // TODO: sacar de acá la lógica de mostrar notificación y agregarlo a un middleware común a todos los modos de juego que detecte el envío de una respuesta y envíe la acción SHOW_NOTIFICATION
         dispatch({
           type: ACTIONS.SHOW_NOTIFICATION,
           payload: this.state.game.lastAnswerType,
@@ -115,8 +116,8 @@ export default class GameOptions extends BaseComponent {
         `.${this.base.option}[value="${correctAnswer}"]`
       );
 
-      correctOption.classList.add("correct");
-      selectedOption.classList.add("incorrect");
+      correctOption?.classList.add("correct");
+      selectedOption?.classList.add("incorrect");
     }
 
     // Después de animación

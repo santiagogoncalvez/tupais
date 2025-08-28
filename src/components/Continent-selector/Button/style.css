@@ -1,5 +1,5 @@
 .continent-selector__button {
-  width: 100%;
+  width: 200px;
   height: 35px;
   background-color: white;
   color: #00405d;
@@ -9,6 +9,7 @@
   display: block;
   font-size: 1rem;
   transition: all 0.15s ease-in-out;
+  position: relative;
 }
 
 .continent-selector__button:hover {

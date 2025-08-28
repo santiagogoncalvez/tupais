@@ -123,6 +123,19 @@ export const checkSendAnswerMC = (store) => (next) => (action) => {
   return result;
 };
 
+export const checkSendNotAnswerMC = (store) => (next) => (action) => {
+  // Pasamos la acción primero para actualizar el estado
+  const result = next(action);
+
+  // Coordinación entre estados
+  if (action.type === ACTIONS.SEND_NOT_ANSWER) {
+    // Siguiente país de forma común.
+    store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
+  }
+
+  return result;
+};
+
 export const checkAnimateCorrectMC = (store) => (next) => (action) => {
   // Pasamos la acción primero para actualizar el estado
   const result = next(action);
@@ -156,7 +169,7 @@ export const checkNewGameMC = (store) => (next) => (action) => {
   const result = next(action);
 
   // Coordinación entre estados
-  if (action.type === ACTIONS.NEW_GAME) {
+  if (action.type === ACTIONS.NEW_GAME_MULTIPLE_CHOICE) {
     store.dispatch({ type: ACTIONS.HIDE_OPTIONS_MULTIPLE_CHOICE });
     setTimeout(() => {
       store.dispatch({ type: ACTIONS.SHOW_OPTIONS_MULTIPLE_CHOICE });

@@ -29,12 +29,14 @@ export default class StartButton extends BaseComponent {
             type: ACTIONS.SET_CONTINENT,
             payload: this.state.ui.continentSelector.selectedOption,
           });
-          if (
-            this.state.game.mode === "classic" ||
-            this.state.game.mode === "multiple-choice"
-          ) {
+          if (this.state.game.mode === "classic") {
             dispatch({
               type: ACTIONS.NEW_GAME,
+            });
+          }
+          if (this.state.game.mode === "multiple-choice") {
+            dispatch({
+              type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE,
             });
           }
           if (this.state.game.mode === "record") {

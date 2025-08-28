@@ -28,16 +28,16 @@
   top: 0;
 }
 
-.game-over::backdrop {
-  background: transparent;
-  height: 0px;
-  width: 0px;
-}
-
 .game-over__title {
   margin: 0;
   max-width: 100%;
   font-weight: 600;
+}
+
+.game-over::backdrop {
+  background: transparent;
+  height: 0px;
+  width: 0px;
 }
 
 .game-over__container {
@@ -47,13 +47,8 @@
   flex-direction: column;
   padding: 0px;
   height: fit-content ;
-}
-
-.game-over__subtitle {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  color: #00405d;
-  font-weight: 500;
+  width: 512px;
+  gap: 30px;
 }
 
 .game-over--show {

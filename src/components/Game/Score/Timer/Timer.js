@@ -1,5 +1,7 @@
 import { ACTIONS } from "@constants/action-types.js";
 
+import { formatTime } from "@utils/format-time.js";
+
 import htmlString from "@components/Game/Score/Timer/template.html?raw";
 
 // Styles
@@ -124,14 +126,23 @@ export default class Timer extends BaseComponent {
       const seconds = Math.floor(elapsed);
 
       if (this._limit && seconds >= this._limit) {
-        points.textContent = this.formatTime(this._limit);
+        points.textContent = formatTime(this._limit);
         progress.style.transform = "scaleX(1)";
         progress.style.background = this._colors[this._colors.length - 1];
+
+        this.dispatch({ type: ACTIONS.SET_ANSWER, payload: null });
+        if (this.state.game.mode === "multiple-choice") {
+          this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER_MULTIPLE_CHOICE });
+        } else {
+          this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER });
+        }
+
         this.dispatch({ type: ACTIONS.GAME_COMPLETED });
+
         return;
       }
 
-      points.textContent = this.formatTime(seconds);
+      points.textContent = formatTime(seconds);
 
       const cycleRatio = (elapsed % this._cycle) / this._cycle;
       progress.style.transform = `scaleX(${cycleRatio})`;
@@ -180,20 +191,26 @@ export default class Timer extends BaseComponent {
     const secondsLeft = this._ascending
       ? Math.floor(elapsed)
       : Math.ceil(this._duration - elapsed);
-    points.textContent = this.formatTime(secondsLeft);
+    points.textContent = formatTime(secondsLeft);
 
     if (elapsed < this._duration) {
       this._rafId = requestAnimationFrame(this._animate);
     } else {
       points.textContent = this._ascending
-        ? this.formatTime(this._duration)
+        ? formatTime(this._duration)
         : "00:00";
       progress.style.background = this._colors[this._colors.length - 1];
+
+      this.dispatch({ type: ACTIONS.SET_ANSWER, payload: null });
+      if (this.state.game.mode === "multiple-choice") {
+        this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER_MULTIPLE_CHOICE });
+      } else {
+        this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER });
+      }
+
       this.dispatch({ type: ACTIONS.GAME_COMPLETED });
     }
   }
-
-  applyPenalty(penalty = 2) {}
 
   pause() {
     if (this._paused) return;
@@ -227,19 +244,6 @@ export default class Timer extends BaseComponent {
       ["#9ED2FF", "#00b0f8", "#0088c2", "#001f31"],
       [0.5, 0.3, 0.15]
     );
-  }
-
-  formatTime(totalSeconds) {
-    const hrs = Math.floor(totalSeconds / 3600);
-    const mins = Math.floor((totalSeconds % 3600) / 60);
-    const secs = totalSeconds % 60;
-    return hrs > 0
-      ? `${hrs.toString().padStart(2, "0")}:${mins
-          .toString()
-          .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-      : `${mins.toString().padStart(2, "0")}:${secs
-          .toString()
-          .padStart(2, "0")}`;
   }
 }
 

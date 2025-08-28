@@ -17,9 +17,9 @@
 
 .timer__icon {
   /*padding: 0px 6px 0px 0px;*/
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
+  /* width: 18px;
+  height: 18px; */
+  margin-right: 4px;
 }
 
 .timer__title {
@@ -48,6 +48,8 @@
   border: 1px solid #e2e3e3;
   border-radius: 8px;
   overflow: hidden;
+  user-select: none;
+
 }
 
 .timer__progress {
@@ -56,6 +58,7 @@
   transform: scaleX(1);
   transform-origin: left;
   transition: transform 0.05s linear;
+  user-select: none;
 }
 
 .timer__points {

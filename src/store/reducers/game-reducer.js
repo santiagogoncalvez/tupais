@@ -5,20 +5,43 @@ import { nextIndex } from "@utils/circular-counter.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
+const GAME_TIME_TIMER = 600;
+
 function getAnswers(game) {
   const currentCount = game.correctAnswers;
   let newState = {
     ...game,
   };
 
+  if (game.answer == null) {
+    newState.incorrectFlags = [
+      ...newState.incorrectFlags,
+      newState.countries[newState.countryIndex],
+    ];
+    // *Respuesta incorrecta pero completa
+    // Esto en el modo clasico comun ahora no resta puntos ni países a. adivinar por el momento.
+    newState = {
+      ...newState,
+      ...{
+        sendAnswer: false,
+        correctAnswers: currentCount,
+        lastAnswerType: "Incorrect",
+      },
+    };
+    return newState;
+  }
+
   let currAnswer = normStr(game.answer);
   let correctAnswer = normStr(game.countries[game.countryIndex]);
 
   // Verificar el tipo de respuesta
+  //* El usuario no respondió. Ocurre cuando se acaba el tiempo.
+
   // *Respuesta completa
   if (currAnswer.length == correctAnswer.length) {
     // *Respuesta correcta
     if (currAnswer == correctAnswer) {
+      // Agregar país actual a correctFlags
       newState.correctFlags = [
         ...newState.correctFlags,
         newState.countries[newState.countryIndex],
@@ -33,8 +56,13 @@ function getAnswers(game) {
         },
       };
     } else {
+      // Agregar país actual a incorrectFlags
+      newState.incorrectFlags = [
+        ...newState.incorrectFlags,
+        newState.countries[newState.countryIndex],
+      ];
       // *Respuesta incorrecta pero completa
-      // Esto en el modo clasico comun ahora no resta puntos ni países a adivinar por el momento.
+      // Esto en el modo clasico comun ahora no resta puntos ni países a. adivinar por el momento.
       newState = {
         ...newState,
         ...{
@@ -65,13 +93,14 @@ function newGame(game) {
     correctAnswers: 0,
     answer: "",
     correctFlags: [],
+    incorrectFlags: [],
     remainingAnswers: 2,
     countryIndex: nextIndex(game.countryIndex, game.countries.length),
     completed: false,
     won: false,
     timer: {
       ...game.timer,
-      time: -1,
+      time: GAME_TIME_TIMER,
       // Tiempo inicial en segundos
       initialTime: Date.now(),
     },
@@ -91,10 +120,13 @@ function getAnswersChoice(game) {
   // Verificar el tipo de respuesta
   // *Respuesta correcta
   if (currAnswer == correctAnswer) {
-    newState.correctFlags = [
-      ...newState.correctFlags,
-      newState.countries[newState.countryIndex],
-    ];
+    let correctCountry = newState.countries[newState.countryIndex];
+    // Agregar país actual a correctFlags
+    newState.correctFlags = [...newState.correctFlags, correctCountry];
+    newState.incorrectFlags = newState.incorrectFlags.filter(
+      (c) => c !== correctCountry
+    );
+
     newState = {
       ...newState,
       ...{
@@ -144,7 +176,8 @@ let initState = {
   answer: "",
   sendAnswer: false,
   correctAnswers: 0,
-  correctFlags: [],
+  correctFlags: ["Argentina", "Brasil", "Paraguay", "Chile", "Perú"],
+  incorrectFlags: ["Colombia", "Venezuela", "Uruguay", "Ecuador", "Bolivia"],
   remainingAnswers: 2,
   totalAnswers: 2,
   completed: false,
@@ -155,7 +188,7 @@ let initState = {
   mode: "classic",
   modes: null,
   timer: {
-    time: -1,
+    time: GAME_TIME_TIMER,
     reset: false,
     initialTime: null,
     finalTime: null,
@@ -240,8 +273,39 @@ const reducerMap = {
   [ACTIONS.SEND_ANSWER]: (game) => {
     return getAnswers(game);
   },
+  [ACTIONS.SEND_NOT_ANSWER]: (game) => {
+    return getAnswers(game);
+  },
+  [ACTIONS.SEND_NOT_ANSWER_MULTIPLE_CHOICE]: (game) => {
+    return {
+      ...game,
+      ...{
+        sendAnswer: false,
+        remainingAnswers: game.remainingAnswers - 1,
+        lastAnswerType: "Incorrect",
+      },
+    };
+  },
 
   // Mode: Multiple choice
+  [ACTIONS.NEW_GAME_MULTIPLE_CHOICE]: (game) => {
+    // Selecciona la cantidad de países a responder desde countryIndex
+    let { countries, countryIndex, totalAnswers } = game;
+
+    // TODO: esto es un parche temporal. Corregir. Esto se hace porque después de crear un juego, se hace la acción de pasar al siguiente país (indice 1) en vez del país de índice 0. Al parecer esto no lo envía ninguna acción en sí pero alguna parte está modificando el índice lo que hace que cuando se inicia un juego se inicie en el país de índice 1, es decir el segundo país. Corregir para que se inicie en el primero (0) y haga la animación de entrada de una bandera además.
+    countryIndex = nextIndex(game.countryIndex, game.countries.length);
+
+    const selectedCountries = Array.from({ length: totalAnswers }, (_, i) => {
+      // desplazamiento circular
+      const idx = (countryIndex + i) % countries.length;
+      return countries[idx];
+    });
+
+    return {
+      ...newGame(game),
+      incorrectFlags: selectedCountries,
+    };
+  },
   [ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE]: (game) => {
     return getAnswersChoice(game);
   },
@@ -296,7 +360,7 @@ const reducerMap = {
       ...newState,
       timer: {
         ...newState.timer,
-        time: 10,
+        time: GAME_TIME_TIMER,
       },
     };
   },

@@ -3,6 +3,7 @@ import {
   rootReducer,
   checkNewGame,
   checkSendAnswerMC,
+  checkSendNotAnswerMC,
   checkGameCompleted,
   checkNextCountryMC,
   checkNewGameMC,
@@ -23,6 +24,7 @@ import ContinentSelector from "@components/Continent-selector/Continent-selector
 const store = createStore(rootReducer, [
   checkNewGame,
   checkSendAnswerMC,
+  checkSendNotAnswerMC,
   checkGameCompleted,
   checkNextCountryMC,
   checkNewGameMC,

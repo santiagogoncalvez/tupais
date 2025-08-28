@@ -16,10 +16,18 @@ export default class Answer extends BaseComponent {
   }
 
   syncState(state) {
+    // Normalizo: si es null lo paso a string vacío
+    const safeAnswer = state.game.answer ?? "";
+
+    if (state.game.answer == null) {
+      this.state = state;
+      return;
+    }
+
     if (
       state.game.countryIndex == this.state.game.countryIndex &&
       state.game.continent == this.state.game.continent &&
-      Math.abs(state.game.answer.length - this.state.game.answer.length) <= 1
+      Math.abs(safeAnswer.length - (this.state.game.answer?.length ?? 0)) <= 1
     ) {
       this._insertAnswer(state);
     } else {
@@ -70,19 +78,28 @@ export default class Answer extends BaseComponent {
   }
 
   _insertAnswer(state) {
+    const newAnswer = state.game.answer ?? "";
+    const oldAnswer = this.state.game.answer ?? "";
+
     const letters = this.dom.querySelectorAll("." + this.base.letter);
-    let size = state.game.answer.length - this.state.game.answer.length;
+
+    let size = newAnswer.length - oldAnswer.length;
+
     if (size > 0) {
-      letters[state.game.answer.length - 1].querySelector(
+      // Insertó un carácter nuevo
+      letters[newAnswer.length - 1].querySelector(
         "." + this.base.letterText
-      ).textContent = state.game.answer[state.game.answer.length - 1];
-      this._changeSelected(state.game.answer.length);
-      this._changeInserted(state.game.answer.length - 1);
+      ).textContent = newAnswer[newAnswer.length - 1];
+
+      this._changeSelected(newAnswer.length);
+      this._changeInserted(newAnswer.length - 1);
     } else if (size < 0) {
-      letters[state.game.answer.length].querySelector(
+      // Borró un carácter
+      letters[newAnswer.length].querySelector(
         "." + this.base.letterText
       ).textContent = " ";
-      this._changeSelected(state.game.answer.length);
+
+      this._changeSelected(newAnswer.length);
     }
   }
 

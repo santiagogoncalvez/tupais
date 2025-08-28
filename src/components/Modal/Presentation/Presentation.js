@@ -32,6 +32,9 @@ export default class Presentation extends BaseComponent {
     ) {
       this.newGameAction = ACTIONS.NEW_GAME;
     }
+    if (this.state.game.mode === "multiple-choice") {
+      this.newGameAction = ACTIONS.NEW_GAME_MULTIPLE_CHOICE;
+    }
     if (this.state.game.mode === "record") {
       this.newGameAction = ACTIONS.NEW_GAME_RECORD;
     }

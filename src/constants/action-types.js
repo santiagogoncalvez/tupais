@@ -50,9 +50,12 @@ export const ACTIONS = {
   SET_GAME_MODE: "game/mode/set",
 
   // Mode multiple choice
+  NEW_GAME_MULTIPLE_CHOICE: "game/new/multiple-choice",
   SEND_ANSWER_MULTIPLE_CHOICE: "game/answer/multiple-choice/send",
   SHOW_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/show",
   HIDE_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/hide",
+  SEND_NOT_ANSWER: "game/answer/not-send",
+  SEND_NOT_ANSWER_MULTIPLE_CHOICE: "game/answer/not-send/multiple-choice",
 
   // Mode record
   NEW_GAME_RECORD: "game/new/record",

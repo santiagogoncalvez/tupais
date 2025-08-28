@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   /* margin-top: 12px; */
-  height: 15px
+  height: 15px;
+  user-select: none;
 }
 
 .dot {
@@ -13,7 +14,8 @@
   border-radius: 50%;
   background-color: #9ED2FF; /* azul suave */
   opacity: 0.6;
-  transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  user-select: none;
 }
 
 .dot.active {

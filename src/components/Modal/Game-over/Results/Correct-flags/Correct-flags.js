@@ -18,8 +18,41 @@ export default class CorrectFlags extends BaseComponent {
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
-    this.dom = this._createDom();
     this.state = state;
+    this.dom = this._createDom();
+    this._init(state);
+  }
+
+  _init(state) {
+    let currLength = state.game.correctFlags.length;
+    // Borrar las banderas insertadas previamente
+    this.dom.replaceChildren();
+
+    // Agregar banderas respondidas
+    for (let i = 0; i < currLength; i++) {
+      this.dom.appendChild(
+        elt("img", {
+          src: `/tupais/images/flags/${getCountryCodeByName(
+            state.game.correctFlags[i]
+          )}.svg`,
+          className: this.base.flag,
+          alt: state.game.correctFlags[i],
+        })
+      );
+    }
+
+    // Agregar espacios que representan las banderas faltantes
+    for (let i = 0; i < state.game.incorrectFlags.length; i++) {
+      this.dom.appendChild(
+        elt("img", {
+          src: `/tupais/images/flags/${getCountryCodeByName(
+            state.game.incorrectFlags[i]
+          )}.svg`,
+          className: this.base.filler,
+          alt: state.game.incorrectFlags[i],
+        })
+      );
+    }
   }
 
   syncState(state) {
@@ -27,27 +60,7 @@ export default class CorrectFlags extends BaseComponent {
     let currLength = state.game.correctFlags.length;
 
     if (currLength !== oldLength || state.game.completed) {
-      // Borrar las banderas insertadas previamente
-      this.dom.replaceChildren();
-
-      // Agregar banderas respondidas
-      for (let i = 0; i < currLength; i++) {
-        this.dom.appendChild(
-          elt("img", {
-            src: `/tupais/images/flags/${getCountryCodeByName(
-              state.game.correctFlags[i]
-            )}.svg`,
-            className: this.base.flag,
-            alt: state.game.correctFlags[i],
-          })
-        );
-      }
-
-      // Agregar espacios que representan las banderas faltantes
-      for (let i = currLength; i < state.game.totalAnswers; i++) {
-        this.dom.appendChild(elt("div", { className: this.base.filler }));
-      }
-
+      this._init(state);
       this.state = state;
     }
   }

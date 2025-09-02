@@ -28,7 +28,7 @@ export default class OpenNavbarButton extends BaseComponent {
     this.dom.addEventListener("click", (event) => {
       event.stopPropagation();
       event.stopImmediatePropagation();
-      dispatch({ type: ACTIONS.OPEN_NAVBAR });
+      dispatch({ type: ACTIONS.TOGGLE_NAVBAR });
     });
   }
 }

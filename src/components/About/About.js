@@ -1,15 +1,12 @@
-import htmlString from "{PATH}/template.html?raw";
+import htmlString from "@components/About/template.html?raw";
 
 // Styles
-import "{PATH}/style.css";
+import "@components/About/style.css";
 
-import {
-  base,
-  modifiers,
-} from "{PATH}/(Component-name)-class-names.js";
+import { base, modifiers } from "@components/About/About-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class componentName extends BaseComponent {
+export default class About extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;
@@ -19,6 +16,5 @@ export default class componentName extends BaseComponent {
     this.dom = this._createDom();
   }
 
-  syncState(state) {
-  }
+  syncState(state) {}
 }

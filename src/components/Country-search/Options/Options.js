@@ -1,14 +1,15 @@
 import { ACTIONS } from "@constants/action-types.js";
+import elt from "@utils/elt.js";
 
-import htmlString from "@components/Continent-selector/Options/template.html?raw";
+import htmlString from "@components/Country-search/Options/template.html?raw";
 
 // Styles
-import "@components/Continent-selector/Options/style.css";
+import "@components/Country-search/Options/style.css";
 
 import {
   base,
   modifiers,
-} from "@components/Continent-selector/Options/Options-class-names.js";
+} from "@components/Country-search/Options/Options-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
@@ -29,6 +30,8 @@ export default class Options extends BaseComponent {
     this._showTimeout = null; // para manejar el timeout de la animación
 
     this.alreadyClosed = false;
+
+    this.hasMouseMove = true;
   }
   syncState(state) {
     if (
@@ -41,61 +44,24 @@ export default class Options extends BaseComponent {
     this.state = state;
   }
   _init(styleOptions) {
-    this._applySize(styleOptions.width, styleOptions.height);
-    this._applyPosition(styleOptions.top, styleOptions.right);
-
-    const options = this.dom.querySelectorAll("." + this.base.option);
-    let hasMouseMove = true;
-
-    this._assignSelected(true);
+    // this._applySize(styleOptions.width, styleOptions.height);
+    // this._applyPosition(styleOptions.top, styleOptions.right);
     this._showInit();
 
+    const options = this.dom.querySelectorAll("." + this.base.option);
+
     for (let option of options) {
-      //Eventos de mouse
-      option.addEventListener("click", (event) => {
-        event.preventDefault();
-        this.continent = option.dataset.value;
-        //* Set continent
-        this.closeSelector();
-      });
-
-      option.addEventListener("mouseenter", () => {
-        let curOpt = this.dom.querySelector(
-          "." + this.modifiers.selectedOption.option
-        );
-        if (curOpt)
-          curOpt.classList.remove(this.modifiers.selectedOption.option);
-
-        option.classList.add(this.modifiers.selectedOption.option);
-      });
-
-      option.addEventListener("mouseleave", () => {
-        let curOpt = this.dom.querySelector(
-          "." + this.modifiers.selectedOption.option
-        );
-        if (curOpt)
-          curOpt.classList.remove(this.modifiers.selectedOption.option);
-
-        option.classList.remove(this.modifiers.selectedOption.option);
-      });
-
-      option.addEventListener("mousemove", () => {
-        if (hasMouseMove) {
-          let currOpt = this.dom.querySelector(
-            "." + this.modifiers.selectedOption.option
-          );
-          currOpt.classList.remove(this.modifiers.selectedOption.option);
-          option.classList.add(this.modifiers.selectedOption.option);
-          hasMouseMove = false;
-        }
-      });
+      this._addOptionEvents(option);
     }
 
     //Eventos de teclado
-
     this.dom.addEventListener("keydown", (event) => {
       event.stopPropagation();
       // event.stopImmediatePropagation();
+
+      let curOpt = this.dom.querySelector(
+        "." + this.modifiers.selectedOption.option
+      );
 
       if (event.key == "Tab") {
         event.preventDefault();
@@ -105,40 +71,14 @@ export default class Options extends BaseComponent {
         this.closeSelector();
       }
 
-      let curOpt = this.dom.querySelector(
-        "." + this.modifiers.selectedOption.option
-      );
-
       if (event.key == "ArrowDown") {
         event.preventDefault();
-
-        hasMouseMove = true;
-        if (curOpt) {
-          let next = curOpt.nextElementSibling;
-          if (next) {
-            curOpt.classList.remove(this.modifiers.selectedOption.option);
-            next.classList.add(this.modifiers.selectedOption.option);
-          }
-        } else {
-          options[0].classList.add(this.modifiers.selectedOption.option);
-        }
+        selectNextOption();
       }
 
       if (event.key == "ArrowUp") {
         event.preventDefault();
-
-        hasMouseMove = true;
-        if (curOpt) {
-          let previous = curOpt.previousElementSibling;
-          if (previous) {
-            curOpt.classList.remove(this.modifiers.selectedOption.option);
-            previous.classList.add(this.modifiers.selectedOption.option);
-          }
-        } else {
-          options[options.length - 1].classList.add(
-            this.modifiers.selectedOption.option
-          );
-        }
+        selectPrevOption();
       }
       if (event.key == "Enter") {
         event.preventDefault();
@@ -155,6 +95,102 @@ export default class Options extends BaseComponent {
     this.dom.addEventListener("blur", () => {
       this.closeSelector();
     });
+  }
+
+  _addOptionEvents(option) {
+    //Eventos de mouse
+    option.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.continent = option.dataset.value;
+      //* Set continent
+      this.closeSelector();
+    });
+
+    option.addEventListener("mouseenter", () => {
+      let curOpt = this.dom.querySelector(
+        "." + this.modifiers.selectedOption.option
+      );
+      if (curOpt) curOpt.classList.remove(this.modifiers.selectedOption.option);
+
+      option.classList.add(this.modifiers.selectedOption.option);
+    });
+
+    option.addEventListener("mouseleave", () => {
+      let curOpt = this.dom.querySelector(
+        "." + this.modifiers.selectedOption.option
+      );
+      if (curOpt) curOpt.classList.remove(this.modifiers.selectedOption.option);
+
+      option.classList.remove(this.modifiers.selectedOption.option);
+    });
+
+    option.addEventListener("mousemove", () => {
+      if (this.hasMouseMove) {
+        let currOpt = this.dom.querySelector(
+          "." + this.modifiers.selectedOption.option
+        );
+        currOpt.classList.remove(this.modifiers.selectedOption.option);
+        option.classList.add(this.modifiers.selectedOption.option);
+        this.hasMouseMove = false;
+      }
+    });
+  }
+
+  selectNextOption() {
+    const options = this.dom.querySelectorAll("." + this.base.option);
+    let curOpt = this.dom.querySelector(
+      "." + this.modifiers.selectedOption.option
+    );
+
+    // Caso inicial: no hay nada seleccionado → tomar el primero
+    if (!curOpt) {
+      if (options.length > 0) {
+        options[0].classList.add(this.modifiers.selectedOption.option);
+      }
+      return;
+    }
+
+    // Hay un seleccionado → intentar ir al siguiente
+    let next = curOpt.nextElementSibling;
+    curOpt.classList.remove(this.modifiers.selectedOption.option);
+
+    if (next) {
+      next.classList.add(this.modifiers.selectedOption.option);
+    } else {
+      // Acá se aplicaría la lógica cuando se pasa del último al siguiente
+      // Ejemplo: YouTube
+    }
+    // Si no hay siguiente → queda sin selección (estado vacío como YouTube)
+  }
+
+  selectPrevOption() {
+    const options = this.dom.querySelectorAll("." + this.base.option);
+    let curOpt = this.dom.querySelector(
+      "." + this.modifiers.selectedOption.option
+    );
+
+    // Caso inicial: no hay nada seleccionado → tomar el último
+    if (!curOpt) {
+      if (options.length > 0) {
+        options[options.length - 1].classList.add(
+          this.modifiers.selectedOption.option
+        );
+      }
+      return;
+    }
+
+    // Hay un seleccionado → intentar ir al anterior
+    let prev = curOpt.previousElementSibling;
+    curOpt.classList.remove(this.modifiers.selectedOption.option);
+
+    // Si hay un anterior → seleccionarlo
+    if (prev) {
+      prev.classList.add(this.modifiers.selectedOption.option);
+    } else {
+      // Acá se aplicaría la lógica cuando se pasa del primero al anterior
+      // Ejemplo: YouTube
+    }
+    // Si no hay anterior → queda sin selección
   }
 
   closeSelector() {
@@ -189,9 +225,6 @@ export default class Options extends BaseComponent {
 
       // flush estilos
       this.dom.offsetHeight;
-
-      // focus inmediato
-      this.dom.focus();
 
       // encolar activación de transición
       this._showTimeout = setTimeout(() => {
@@ -236,5 +269,23 @@ export default class Options extends BaseComponent {
       );
       if (curOpt) curOpt.classList.remove(this.modifiers.selectedOption.option);
     }
+  }
+
+  // TODO: Hacer que renderOptions reciba los nombres de opciones y las pinte
+  renderOptions(optionNames) {
+    const fragment = document.createDocumentFragment();
+    for (let name of optionNames) {
+      let newOption = elt(
+        "div",
+        { className: this.base.option },
+        elt("span", {}, name)
+      );
+      newOption.setAttribute("data-value", name);
+      this._addOptionEvents(newOption);
+
+      fragment.appendChild(newOption);
+    }
+
+    this.dom.appendChild(fragment);
   }
 }

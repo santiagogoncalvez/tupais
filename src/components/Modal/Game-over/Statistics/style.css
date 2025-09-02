@@ -1,0 +1,44 @@
+.statistics {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.statistics__title {
+  color: #00405d;
+  font-weight: 500;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.statistics__container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: row;
+
+  width: 100%;
+  margin-top: 16px;
+}
+
+.statistics__score {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 120px;
+  height: 100%;
+}
+
+.statistics__data {
+  margin: 0;
+  width: fit-content;
+  font-size: 2rem;
+}
+.statistics__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+}

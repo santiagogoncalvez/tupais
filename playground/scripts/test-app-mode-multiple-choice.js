@@ -1,6 +1,7 @@
 import {
   createStore,
   rootReducer,
+  checkFirstLaunch,
   checkNewGame,
   checkSendAnswerMC,
   checkSendNotAnswerMC,
@@ -22,6 +23,7 @@ import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 
 const store = createStore(rootReducer, [
+  checkFirstLaunch,
   checkNewGame,
   checkSendAnswerMC,
   checkSendNotAnswerMC,
@@ -81,6 +83,13 @@ function subscribeComponents() {
 subscribeComponents();
 
 // Acción con nuevo formato de tipo
-store.dispatch({
-  type: ACTIONS.OPEN_PRESENTATION,
-});
+const state = store.getState();
+if (state.ui.firstLaunch) {
+  store.dispatch({
+    type: ACTIONS.OPEN_PRESENTATION,
+  });
+} else {
+  store.dispatch({
+    type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE,
+  });
+}

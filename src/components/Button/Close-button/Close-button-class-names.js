@@ -1,11 +1,11 @@
 export const base = {
-   block: "navbar__button",
+   block: "close-button",
 };
 
 export const modifiers = {
    darkMode: {
-      block: "navbar__button--dark-mode",
+      block: "close-button--dark-mode",
    },
-   show: "navbar__button--show",
-   hidden: "navbar__button--hidden",
+   show: "close-button--show",
+   hidden: "close-button--hidden",
 };

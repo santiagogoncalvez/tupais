@@ -21,6 +21,7 @@ export default class GameOptions extends BaseComponent {
   }
 
   syncState(state) {
+    if (state.game.mode != "multiple-choice") return;
     // Desactivar botones
     if (state.game.completed != this.state.game.completed) {
       if (state.game.completed) {

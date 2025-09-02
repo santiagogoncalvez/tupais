@@ -9,6 +9,7 @@ import "@Modal/Game-over/style.css";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 import Results from "@Modal/Game-over/Results/Results.js";
 import GameModes from "@Modal/Game-over/Game-modes/Game-modes.js";
+import Statistics from "@Modal/Game-over/Statistics/Statistics.js";
 
 // Otros
 import { base, modifiers } from "@Modal/Game-over/Game-over-class-names.js";
@@ -52,6 +53,7 @@ export default class GameOver extends BaseComponent {
     this.results = new Results(state);
 
     this.gameModes = new GameModes(state);
+    this.statistics = new Statistics(state);
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);
@@ -59,13 +61,12 @@ export default class GameOver extends BaseComponent {
   }
 
   _init() {
+    const container = this.dom.querySelector("." + this.base.container);
     this.dom.appendChild(this.closeButton.dom);
-    this.dom
-      .querySelector("." + this.base.container)
-      .appendChild(this.results.dom);
-    this.dom
-      .querySelector("." + this.base.container)
-      .appendChild(this.gameModes.dom);
+    container.appendChild(this.results.dom);
+    container.appendChild(this.gameModes.dom);
+    container.appendChild(this.statistics.dom);
+
     this.dom.addEventListener("cancel", (event) => {
       event.preventDefault();
     });
@@ -100,6 +101,7 @@ export default class GameOver extends BaseComponent {
     }
     this.closeButton.syncState(state);
     this.results.syncState(state);
+    this.statistics.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;
   }

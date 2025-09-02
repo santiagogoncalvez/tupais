@@ -1,9 +1,9 @@
-.navbar__button {
+.close-button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 1.8rem;
-  width: 1.8rem;
+  height: 29px;
+  width: 29px;
   background-color: #bfe1ff;
   border-radius: 0.4rem;
   border-color: rgba(255, 255, 255, 0);
@@ -18,25 +18,25 @@
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 0px;
+  top: 16px;
 }
 
-.navbar__button:hover {
+.close-button:hover {
   cursor: pointer;
 }
 
 /* Dark mode */
-.navbar__button--dark-mode {
+.close-button--dark-mode {
   background-image: url("/tupais/icons/close-dark-mode.png");
 }
 
 /* Show */
-.navbar__button--show{
+.close-button--show{
   opacity: 1;
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
 }
-.navbar__button--hidden {
+.close-button--hidden {
   opacity: 0;
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
 }

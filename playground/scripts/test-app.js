@@ -4,6 +4,7 @@ import {
   checkSendAnswer,
   checkNewGame,
   checkGameCompleted,
+  persistStatsMiddleware,
 } from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
@@ -21,6 +22,7 @@ const store = createStore(rootReducer, [
   checkSendAnswer,
   checkNewGame,
   checkGameCompleted,
+  persistStatsMiddleware,
 ]);
 
 // Setear el modo actual

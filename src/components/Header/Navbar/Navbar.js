@@ -21,7 +21,7 @@ export default class Navbar extends BaseComponent {
     this.dispatch = dispatch;
     this.closeButton = new CloseButton(this.dispatch, {
       type: ACTIONS.CLOSE_NAVBAR,
-    });
+    }, {top:"8px", right: "8px"});
     this.dom = this._createDom();
     this._init();
   }

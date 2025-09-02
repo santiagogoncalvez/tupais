@@ -32,6 +32,7 @@ export const initialState = {
   gameOptions: {
     animateCorrect: false,
   },
+  firstLaunch: JSON.parse(localStorage.getItem("ui.firstLaunch")) ?? true,
 };
 
 // Ahora el objeto state que se pasa es solamente la parte de UI osea lo que antes era state es el objeto que directamente se pasa. Y también hay que sacar el objeto que devuelve una propiedad "ui" ya que el state en sí ya es esa propiedad
@@ -100,6 +101,11 @@ const reducerMap = {
           ...ui.modals.gameOver,
           show: true,
         },
+        //* Cuando se abre game-over se cierra settings en el caso de que este abierto, para tener un único modal activo.
+        settings: {
+          ...ui.modals.settings,
+          show: false,
+        },
       },
     };
   },
@@ -112,6 +118,14 @@ const reducerMap = {
           ...ui.modals.gameOver,
           show: false,
         },
+      },
+    };
+  },
+  [ACTIONS.TOGGLE_NAVBAR]: (ui) => {
+    return {
+      ...ui,
+      navbar: {
+        show: !ui.navbar.show,
       },
     };
   },
@@ -234,6 +248,13 @@ const reducerMap = {
         ...ui.gameOptions,
         animateCorrect: false,
       },
+    };
+  },
+
+  [ACTIONS.SET_FIRST_LAUNCH]: (ui, action) => {
+    return {
+      ...ui,
+      firstLaunch: action.payload,
     };
   },
 };

@@ -17,6 +17,7 @@ export const ACTIONS = {
   OPEN_GAME_OVER: "ui/modal/game-over/open",
   CLOSE_GAME_OVER: "ui/modal/game-over/close",
 
+  TOGGLE_NAVBAR: "ui/navbar/toggle",
   OPEN_NAVBAR: "ui/navbar/open",
   CLOSE_NAVBAR: "ui/navbar/close",
   TOGGLE_DARK_MODE: "ui/dark-mode/toggle",
@@ -41,6 +42,8 @@ export const ACTIONS = {
   // Mode Multiple-choice
   START_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/start",
   STOP_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/stop",
+
+  SET_FIRST_LAUNCH: "ui/first-launch/set",
 
   //* Game
   // Game/Answer
@@ -89,4 +92,10 @@ export const ACTIONS = {
   SET_TIMER: "game/timer/set",
 
   SET_ANSWER_TYPE: "game/last-answer-type/set",
+
+  // --- acciones de estadísticas ---
+  STATS: {
+    GAME_WON: "stats/game-won",
+    GAME_LOST: "stats/game-lost",
+  },
 };

@@ -1,5 +1,5 @@
 .continent-selector {
-  width: 170px;
+  position: relative;
   width: 100%;
   max-width: 100%;
   display: flex;
@@ -9,14 +9,14 @@
 }
 
 .continent-selector__title {
-  margin: 0;
-  margin-bottom: 20px;
   color: #00405d;
   font-weight: 500;
+  margin: 0;
+  font-size: 1.3rem;
 }
 
 .continent-selector__text {
-  margin: 0;
+  margin-top: 16px;
   margin-bottom: 10px;
   color: #697276;
 }

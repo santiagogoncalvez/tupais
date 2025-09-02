@@ -16,6 +16,9 @@ export default class CloseButton extends BaseComponent {
     this.dom = this._createDom();
 
     this._applyPosition(options.top, options.right); // ← NUEVO
+    this._applyFilter(options.filter);
+    this._applySize(options.width, options.height);
+    this._applyTransform(options.transform); // ← NUEVO
 
     this._init(dispatch, actions);
   }
@@ -29,19 +32,23 @@ export default class CloseButton extends BaseComponent {
 
   _init(dispatch, actions) {
     this.dom.addEventListener("click", () => {
-      // Si hay más de una acción, despachamos todas, sino despachamos la única acción
+      const exec = (action) => {
+        if (typeof action === "function") {
+          // Si es una función, la ejecutamos
+          action();
+        } else {
+          // Si no, despachamos como siempre
+          dispatch(action);
+        }
+      };
+
+      // Si hay más de una acción, se itera sobre ellas
       if (Array.isArray(actions)) {
-        actions.forEach(dispatch);
+        actions.forEach(exec);
       } else {
-        dispatch(actions);
+        exec(actions);
       }
     });
-  }
-
-  _applyPosition(top, right) {
-    if (top) this.dom.style.top = top;
-    if (right) this.dom.style.right = right;
-    this.dom.style.position = "absolute";
   }
 
   show() {

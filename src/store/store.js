@@ -8,30 +8,38 @@ import {
   gameReducer,
   initialState as gameInit,
 } from "@store/reducers/game-reducer.js";
+import {
+  statsReducer,
+  initialState as statsInit,
+} from "@store/reducers/stats-reducer.js";
 
 // Estado inicial global
 const initialState = {
   ui: uiInit,
   game: gameInit,
+  stats: statsInit,
 };
 
-// Game middleware
-// export const checkSetGameMode = (store) => (next) => (action) => {
-//   // Pasamos la acción primero para actualizar el estado
-//   const result = next(action);
+export const checkFirstLaunch = (store) => (next) => (action) => {
+  // Pasamos la acción primero para actualizar el estado
+  const result = next(action);
 
-//   // Coordinación entre estados
-//   if (action.type === ACTIONS.SET_GAME_MODE) {
-//     console.log(action.payload);
-//     if (action.payload === "record") {
-//       store.dispatch({ type: ACTIONS.SET_TIMER, payload: 10 });
-//     } else {
-//       store.dispatch({ type: ACTIONS.SET_TIMER, payload: -1 });
-//     }
-//   }
+  // Coordinación entre estados
+  if (action.type === ACTIONS.CLOSE_PRESENTATION) {
+    const state = store.getState();
+    if (state.ui.firstLaunch) {
+      store.dispatch({ type: ACTIONS.SET_FIRST_LAUNCH, payload: false });
+      const state = store.getState();
+      console.log("Gardar firstLaunch en localStorage");
+      localStorage.setItem(
+        "ui.firstLaunch",
+        JSON.stringify(state.ui.firstLaunch)
+      );
+    }
+  }
 
-//   return result;
-// };
+  return result;
+};
 
 export const checkSendAnswer = (store) => (next) => (action) => {
   // Pasamos la acción primero para actualizar el estado
@@ -42,13 +50,13 @@ export const checkSendAnswer = (store) => (next) => (action) => {
     const state = store.getState();
     // Verificar si el juego se completo
     if (state.game.correctAnswers == state.game.remainingAnswers) {
-      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-
       const state = store.getState();
       // Verificar si el juego además se ganó
       if (state.game.correctAnswers >= state.game.totalAnswers) {
         store.dispatch({ type: ACTIONS.GAME_WON });
       }
+
+      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
     } else {
       // Siguiente país de forma común.
       if (state.game.lastAnswerType !== "Incomplete") {
@@ -84,7 +92,16 @@ export const checkGameCompleted = (store) => (next) => (action) => {
 
   // Coordinación entre estados
   if (action.type === ACTIONS.GAME_COMPLETED) {
+    // Actualizar Stats
+    const state = store.getState();
+    if (state.game.won) {
+      store.dispatch({ type: ACTIONS.STATS.GAME_WON });
+    } else {
+      store.dispatch({ type: ACTIONS.STATS.GAME_LOST });
+    }
+
     setTimeout(() => {
+      // Abrir modal de juego terminado.
       store.dispatch({ type: ACTIONS.OPEN_GAME_OVER });
     }, 1000);
   }
@@ -102,13 +119,13 @@ export const checkSendAnswerMC = (store) => (next) => (action) => {
     const state = store.getState();
     // Verificar si el juego se completo
     if (state.game.remainingAnswers <= 0) {
-      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-
       const state = store.getState();
       // Verificar si el juego además se ganó
       if (state.game.correctAnswers == state.game.totalAnswers) {
         store.dispatch({ type: ACTIONS.GAME_WON });
       }
+
+      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
     } else {
       // Siguiente país de forma común.
       store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
@@ -194,13 +211,13 @@ export const checkSendAnswerRecord = (store) => (next) => (action) => {
     }
 
     if (state.game.correctAnswers == state.game.remainingAnswers) {
-      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-
       const state = store.getState();
       // Verificar si el juego además se ganó
       if (state.game.correctAnswers >= state.game.totalAnswers) {
         store.dispatch({ type: ACTIONS.GAME_WON });
       }
+
+      store.dispatch({ type: ACTIONS.GAME_COMPLETED });
     } else {
       // Siguiente país de forma común.
       if (state.game.lastAnswerType !== "Incomplete") {
@@ -253,16 +270,31 @@ export const checkNextCountryTT = (store) => (next) => (action) => {
   return result;
 };
 
+// Stats
+export const persistStatsMiddleware = (store) => (next) => (action) => {
+  const result = next(action); // deja que el reducer procese
+  const state = store.getState();
+
+  // Podés filtrar acciones relevantes (ej: solo STATS/*)
+  if (action.type.startsWith("stats/")) {
+    localStorage.setItem("stats", JSON.stringify(state.stats));
+  }
+
+  return result;
+};
+
 // RootReducer manual: delega la acción a cada reducer.
 export function rootReducer(state, action) {
   // Reducers independientes
   let nextUi = uiReducer(state.ui, action);
   let nextGame = gameReducer(state.game, action);
+  let nextStats = statsReducer(state.stats, action);
 
   // Retorno del estado combinado
   return {
     ui: nextUi,
     game: nextGame,
+    stats: nextStats,
   };
 }
 

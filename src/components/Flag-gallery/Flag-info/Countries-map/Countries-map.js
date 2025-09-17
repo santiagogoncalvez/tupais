@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import translationsCountryNames from "@data/country-names-eng-spa.json" with { type: "json" };
 
@@ -13,8 +15,10 @@ let dom = document.createElement("div");
 dom.id = "map";
 
 export default class CountriesMap {
-    constructor(state) {
+    constructor(state, dispatch) {
         this.state = state;
+        this.dispatch = dispatch;
+
         this.dom = dom;
 
         //* his.countryLayers es asíncrono
@@ -128,9 +132,25 @@ export default class CountriesMap {
                 else countryName = originalName;
             }
 
-            layer.bindPopup(`<a class='country-link' href='#'>
-        <img class='country-flag' src="/tupais/images/flags/${countriesCca2[countryName]}.svg" alt="">
-        ${countryName}</a>`);
+            let route = `/flag-gallery/${countryName}`;
+            layer.bindPopup(`
+    <a class='country-link' href='${route}'>
+    <img class='country-flag' src="/tupais/images/flags/${countriesCca2[countryName]}.svg" alt="">
+    ${countryName}
+  </a>
+`);
+            // Cuando se abre el popup, vincular el click
+            layer.on("popupopen", (e) => {
+                const link = e.popup._contentNode.querySelector(".country-link");
+                if (link) {
+                    link.addEventListener("click", (event) => {
+                        event.preventDefault(); // evita recarga
+                        this.showCountry(countryName); // o tu función de navegación
+                        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+                    });
+                }
+            });
+
         }
 
         layer.getPopup().setLatLng(center).openOn(this.map);

@@ -12,7 +12,6 @@ import BaseComponent from "@shared/Base-component.js";
 import elt from "@utils/elt.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
-import countryNames from "@data/country-names.json" with { type: "json" };
 import countriesInfo from "@data/countries-info.json" with { type: "json" };
 
 import FlagList from "@components/Flag-gallery/Flag-list/Flag-list.js";
@@ -32,7 +31,7 @@ export default class FlagInfo extends BaseComponent {
 
     this.dom = this._createDom();
 
-    this.countriesMap = new CountriesMap();
+    this.countriesMap = new CountriesMap(state, dispatch);
 
     this._init();
   }

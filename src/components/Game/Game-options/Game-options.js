@@ -18,12 +18,26 @@ export default class GameOptions extends BaseComponent {
     this.answer = state.game.answer;
     this.dom = this._createDom();
     this._init(state, dispatch);
+    // this.syncState(state);
+
+    this.isNewMode = true;
   }
 
   syncState(state) {
-    if (state.game.mode != "multiple-choice") return;
-    // Desactivar botones
-    if (state.game.completed != this.state.game.completed) {
+    // Solo nos interesa multiple-choice
+    if (state.game.mode !== "multiple-choice") {
+      this.state = state;
+      return;
+    }
+
+    // Detectar cambio de modo
+    if (state.game.mode !== this.state.game.mode) {
+      console.log("CAMBIO DE MODO A MULTIPLE-CHOICE");
+      this.isNewMode = true;
+    }
+
+    // Desactivar botones si cambió completion
+    if (state.game.completed !== this.state.game.completed) {
       if (state.game.completed) {
         this._disableOptions(true);
         this._showCorrectAnswer(state);
@@ -32,18 +46,19 @@ export default class GameOptions extends BaseComponent {
       }
     }
 
-    // Mostrar
-    if (
-      state.game.modes.multipleChoice.showOptions !=
-      this.state.game.modes.multipleChoice.showOptions
-    ) {
-      if (state.game.modes.multipleChoice.showOptions) {
-        this._show(state);
-      } else this._hide();
+    // Mostrar u ocultar opciones si cambió o es un nuevo modo
+    const prevShow = this.state.game.modes.multipleChoice.showOptions;
+    const currShow = state.game.modes.multipleChoice.showOptions;
+
+    if (currShow !== prevShow || this.isNewMode) {
+      if (currShow) this._show(state);
+      else this._hide();
+      this.isNewMode = false;
     }
 
+    // Animación de respuesta correcta
     if (
-      state.ui.gameOptions.animateCorrect !=
+      state.ui.gameOptions.animateCorrect !==
       this.state.ui.gameOptions.animateCorrect
     ) {
       if (state.ui.gameOptions.animateCorrect) {
@@ -53,6 +68,7 @@ export default class GameOptions extends BaseComponent {
       }
     }
 
+    // Actualizar referencia
     this.answer = state.game.answer;
     this.state = state;
   }
@@ -88,12 +104,6 @@ export default class GameOptions extends BaseComponent {
         // Este método va a ejectuar la animación y cuando termine va a enviar las acciones
         dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
         dispatch({ type: ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE });
-
-        // TODO: sacar de acá la lógica de mostrar notificación y agregarlo a un middleware común a todos los modos de juego que detecte el envío de una respuesta y envíe la acción SHOW_NOTIFICATION
-        dispatch({
-          type: ACTIONS.SHOW_NOTIFICATION,
-          payload: this.state.game.lastAnswerType,
-        });
       });
     }
   }
@@ -102,23 +112,29 @@ export default class GameOptions extends BaseComponent {
     // Desabilitar botones
     this._disableOptions(true);
 
+    console.log("Tipo de respuesta:", state.game.lastAnswerType);
+
     // Animar
     let selectedOption = this.dom.querySelector(
       `.${this.base.option}[value="${this.answer}"]`
     );
     if (state.game.lastAnswerType === "Correct") {
-      selectedOption.classList.add("correct");
-    } else {
-      console.log("Respuesta incorrecta");
-      let correctAnswer = normStr(
-        state.game.countries[state.game.countryIndex]
-      );
-      let correctOption = this.dom.querySelector(
-        `.${this.base.option}[value="${correctAnswer}"]`
-      );
+      selectedOption?.classList.add("correct");
+    }
 
+    let correctAnswer = normStr(
+      state.game.countries[state.game.countryIndex]
+    );
+    let correctOption = this.dom.querySelector(
+      `.${this.base.option}[value="${correctAnswer}"]`
+    );
+    if (state.game.lastAnswerType === "Incorrect") {
       correctOption?.classList.add("correct");
       selectedOption?.classList.add("incorrect");
+    }
+
+    if (state.game.lastAnswerType === "Skipped") {
+      correctOption?.classList.add("correct");
     }
 
     // Después de animación
@@ -130,42 +146,31 @@ export default class GameOptions extends BaseComponent {
   }
 
   _show(state) {
-    const options = this.dom.querySelectorAll("." + this.base.option);
+    // Desenfocar botones activos
+    this.dom.querySelectorAll("." + this.base.option).forEach(button => {
+      if (document.activeElement === button) button.blur();
+    });
 
-    for (let button of options) {
-      if (document.activeElement === button) {
-        button.blur();
-      }
-    }
-    // Animaciones
-    // Simulación de abrir/cerrar (ejemplo con tecla "o")
-    if (this.dom.classList.contains("hide")) {
-      this.dom.classList.remove("hide");
-      this.dom.addEventListener(
-        "transitionend",
-        () => {
-          this._setOptions(state);
-          this.dom.classList.toggle("show");
-        },
-        { once: true }
-      );
-      return;
-    } else {
-      this._setOptions(state);
-      this.dom.classList.toggle("show");
-    }
+    // Preparar opciones
+    this._setOptions(state);
+
+    // Mostrar
+    this.dom.classList.remove("hide");
+    this.dom.classList.add("show");
+
+    // Limpiar clases de respuestas anteriores
+    this.dom.querySelector(".correct")?.classList.remove("correct");
+    this.dom.querySelector(".incorrect")?.classList.remove("incorrect");
   }
+
   _hide() {
-    // Animaciones
-    // Simulación de abrir/cerrar (ejemplo con tecla "o")
-    this.dom.classList.toggle("show");
+    this.dom.classList.remove("show");
     this.dom.classList.add("hide");
 
-    // Eliminar la animación de opciones correctas e incorrectas.
+    // Limpiar clases de respuestas anteriores
     this.dom.querySelector(".correct")?.classList.remove("correct");
     this.dom.querySelector(".incorrect")?.classList.remove("incorrect");
 
-    // Habilitar botones
     this._disableOptions(false);
   }
 

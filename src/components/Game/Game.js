@@ -41,6 +41,12 @@ export default class Game extends BaseComponent {
   }
 
   syncState(state) {
+    if (state.game.mode != this.state.game.mode) {
+      this._init(state);
+      this.state = state;
+      return;
+    }
+
     this.score.syncState(state);
     this.country.syncState(state);
     this.progressDots.syncState(state);
@@ -52,9 +58,23 @@ export default class Game extends BaseComponent {
 
   _init(state) {
     if (state.game.mode === "multiple-choice") {
+      // Eliminar elementos que no son del modo
+      this.answer.dom.remove();
+      this.keyboard.dom.remove();
+
+      // Agregar elementos nuevos
       this.score.dom.insertAdjacentElement("afterend", this.progressDots.dom);
       this.dom.appendChild(this.gameOptions.dom);
+
+      this.progressDots.syncState(state);
+      this.gameOptions.syncState(state);
     } else {
+      // TODO: averiguar por que no se cargan las opciones del modo multiple-choice.
+      // Eliminar elementos que no son del modo
+      this.progressDots.dom.remove();
+      this.gameOptions.dom.remove();
+
+      // Agregar elementos nuevos
       this.dom.appendChild(this.keyboard.dom);
       this.dom
         .querySelector("." + this.base.container)

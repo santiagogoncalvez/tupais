@@ -10,6 +10,7 @@ export default class nextButton extends BaseComponent {
     super();
     this.state = state;
     this.base = base;
+    this.state = state;
     this.dispatch = dispatch;
     this.dom = elt(
       "button",
@@ -17,9 +18,13 @@ export default class nextButton extends BaseComponent {
         className: this.base.block,
         title: "Siguiente ",
         onclick: () => {
+          dispatch({ type: ACTIONS.SET_ANSWER_TYPE, payload: "Skipped" });
           dispatch({ type: ACTIONS.SKIP_COUNTRY });
-          dispatch({ type: ACTIONS.NEXT_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
+
+          if (this.state.game.mode != "multiple-choice") {
+            dispatch({ type: ACTIONS.NEXT_COUNTRY });
+          }
         },
       },
       elt("div", { className: this.base.icon })

@@ -1,15 +1,15 @@
-import htmlString from "{PATH}/template.html?raw";
+import htmlString from "PATH/template.html?raw";
 
 // Styles
-import "{PATH}/style.css";
+import "PATH/style.css";
 
 import {
   base,
   modifiers,
-} from "{PATH}/(Component-name)-class-names.js";
+} from "PATH";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class componentName extends BaseComponent {
+export default class COMPONENT_NAME extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;

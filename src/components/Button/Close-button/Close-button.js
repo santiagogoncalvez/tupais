@@ -15,12 +15,14 @@ export default class CloseButton extends BaseComponent {
     this.modifiers = modifiers;
     this.dom = this._createDom();
 
+    this.actions = actions;
+
     this._applyPosition(options.top, options.right); // ← NUEVO
     this._applyFilter(options.filter);
     this._applySize(options.width, options.height);
     this._applyTransform(options.transform); // ← NUEVO
 
-    this._init(dispatch, actions);
+    this._init(dispatch);
   }
 
   syncState(state) {
@@ -30,7 +32,7 @@ export default class CloseButton extends BaseComponent {
     this.state = state;
   }
 
-  _init(dispatch, actions) {
+  _init(dispatch) {
     this.dom.addEventListener("click", () => {
       const exec = (action) => {
         if (typeof action === "function") {
@@ -43,10 +45,10 @@ export default class CloseButton extends BaseComponent {
       };
 
       // Si hay más de una acción, se itera sobre ellas
-      if (Array.isArray(actions)) {
-        actions.forEach(exec);
+      if (Array.isArray(this.actions)) {
+        this.actions.forEach(exec);
       } else {
-        exec(actions);
+        exec(this.actions);
       }
     });
   }
@@ -59,5 +61,9 @@ export default class CloseButton extends BaseComponent {
   hide() {
     this.dom.classList.remove(this.modifiers.show);
     this.dom.classList.add(this.modifiers.hidden);
+  }
+
+  setActions(actions) {
+    this.actions = actions;
   }
 }

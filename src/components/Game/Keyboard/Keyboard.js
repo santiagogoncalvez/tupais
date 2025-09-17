@@ -59,57 +59,32 @@ export default class Keyboard extends BaseComponent {
     });
     sendButton.addEventListener("click", () => {
       dispatch({ type: ACTIONS.SEND_ANSWER });
-      dispatch({
-        type: ACTIONS.SHOW_NOTIFICATION,
-        payload: this.state.game.lastAnswerType,
-      });
     });
 
     window.addEventListener("keydown", (event) => {
-      const letter = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z",
-        "ç",
-        "ñ",
+      const letters = [
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+        "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ç", "ñ"
       ];
 
+      const key = event.key.toLowerCase(); // normalizamos a minúscula
+
       // Letras del abecedario
-      if (letter.includes(event.key.toLowerCase())) {
-        let currLetterBt = this.dom.querySelector(
-          `.${this.base.letterButton}[value="${event.key}"]`
+      if (letters.includes(key)) {
+        // Buscamos el botón usando minúscula también
+        const currLetterBt = this.dom.querySelector(
+          `.${this.base.letterButton}[value="${key}"]`
         );
-        currLetterBt.click();
+        if (currLetterBt) currLetterBt.click();
       }
+
       // Borrar
-      if (event.key == "Backspace") {
+      if (key === "backspace") {
         backSpaceButton.click();
       }
+
       // Enviar
-      if (event.key == "Enter") {
+      if (key === "enter") {
         sendButton.click();
       }
     });

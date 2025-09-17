@@ -16,6 +16,8 @@
   transition: all 0.15s ease-in-out;
   z-index: 51;
   user-select: none;
+
+  top: 38px;
 }
 
 .continent-selector__options:focus {

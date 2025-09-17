@@ -1,15 +1,5 @@
-import {
-  createStore,
-  rootReducer,
-  checkFirstLaunch,
-  checkNewGame,
-  checkSendAnswerMC,
-  checkSendNotAnswerMC,
-  checkGameCompleted,
-  checkNextCountryMC,
-  checkNewGameMC,
-  checkAnimateCorrectMC,
-} from "@store/store.js";
+import store from "@store/store.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 import "@styles/global.css";
@@ -21,17 +11,6 @@ import Header from "@components/Header/Header.js";
 import Game from "@components/Game/Game";
 import Notifications from "@components/Notifications/Notifications.js";
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
-
-const store = createStore(rootReducer, [
-  checkFirstLaunch,
-  checkNewGame,
-  checkSendAnswerMC,
-  checkSendNotAnswerMC,
-  checkGameCompleted,
-  checkNextCountryMC,
-  checkNewGameMC,
-  checkAnimateCorrectMC,
-]);
 
 // Setear el modo actual
 store.dispatch({

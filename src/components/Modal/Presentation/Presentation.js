@@ -24,32 +24,8 @@ export default class Presentation extends BaseComponent {
     this.dispatch = dispatch;
     this.state = state;
 
-    // Acción de nuevo juego
-    //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
-    if (
-      this.state.game.mode === "classic" ||
-      this.state.game.mode === "multiple-choice"
-    ) {
-      this.newGameAction = ACTIONS.NEW_GAME;
-    }
-    if (this.state.game.mode === "multiple-choice") {
-      this.newGameAction = ACTIONS.NEW_GAME_MULTIPLE_CHOICE;
-    }
-    if (this.state.game.mode === "record") {
-      this.newGameAction = ACTIONS.NEW_GAME_RECORD;
-    }
-    if (this.state.game.mode === "time-trial") {
-      this.newGameAction = ACTIONS.NEW_GAME_TIME_TRIAL;
-    }
-
-    this.closeButton = new CloseButton(dispatch, [
-      {
-        type: ACTIONS.CLOSE_PRESENTATION,
-      },
-      {
-        type: this.newGameAction,
-      },
-    ]);
+    this.closeButton = new CloseButton(dispatch, []);
+    this.modifyAction(this.state);
 
     this.flagSlide = new FlagSlide();
     this.continentSelector = continentSelector;
@@ -87,16 +63,22 @@ export default class Presentation extends BaseComponent {
   syncState(state) {
     if (
       this.state.ui.modals.presentation.show !=
-      state.ui.modals.presentation.show
+      state.ui.modals.presentation.show && state.ui.firstLaunch
     ) {
       this._show(state.ui.modals.presentation.show);
       this._activeEvents(state.ui.modals.presentation.show);
       this.isShow = state.ui.modals.presentation.show;
     }
+
     if (this.state.ui.darkMode != state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
       this.continentSelector._setDarkMode(state.ui.darkMode);
     }
+
+    if (this.state.game.mode != state.game.mode) {
+      this.modifyAction(state);
+    }
+
     this.closeButton.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;
@@ -138,5 +120,29 @@ export default class Presentation extends BaseComponent {
   _onAnimationEnd() {
     this.dom.classList.remove(this.modifiers.display.block);
     this.dom.classList.remove(this.modifiers.fade.out);
+  }
+
+  modifyAction(state) {
+    // Acción de nuevo juego
+    //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
+    if (
+      state.game.mode === "classic"
+    ) {
+      this.newGameAction = ACTIONS.NEW_GAME;
+    }
+    if (state.game.mode === "multiple-choice") {
+      this.newGameAction = ACTIONS.NEW_GAME_MULTIPLE_CHOICE;
+    }
+    if (state.game.mode === "record") {
+      this.newGameAction = ACTIONS.NEW_GAME_RECORD;
+    }
+    if (state.game.mode === "time-trial") {
+      this.newGameAction = ACTIONS.NEW_GAME_TIME_TRIAL;
+    }
+
+    this.closeButton.setActions([
+      { type: ACTIONS.CLOSE_PRESENTATION },
+      { type: this.newGameAction }
+    ])
   }
 }

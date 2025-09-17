@@ -1,0 +1,66 @@
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 8px;
+}
+.country-btn {
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #464646;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.country-btn:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+/* Modificación del popup propio del componente del mapa */
+.leaflet-popup {
+  /* margin: 0; */
+  width: 150px;
+  height: 100px;
+}
+
+.leaflet-popup-content-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.country-link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.country-flag {
+  height: 40px;
+  width: auto;
+}
+
+.country-icon {
+  height: 100%;
+  width: auto;
+}

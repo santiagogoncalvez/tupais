@@ -10,19 +10,22 @@
       } */
 
       body {
-        user-select: none;
+        /* user-select: none; */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
       }
+      
     </style>
   </head>
   <body>
     <!-- Algunos tests no van a usar el main (Header, Settings, Presentation) y este main vacío genera conflictos. Cuando no se use debe estar comentado en los test.-->
     <main></main>
-    
-    <script src="/playground/scripts/test-country-search.js" type="module">
-    </script>
+
+    <script
+      src="/playground/scripts/test-flag-info.js"
+      type="module"
+    ></script>
   </body>
 </html>

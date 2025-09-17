@@ -21,13 +21,22 @@ export default class Navbar extends BaseComponent {
     this.dispatch = dispatch;
     this.closeButton = new CloseButton(this.dispatch, {
       type: ACTIONS.CLOSE_NAVBAR,
-    }, {top:"8px", right: "8px"});
+    }, { top: "8px", right: "8px" });
     this.dom = this._createDom();
     this._init();
   }
 
   _init() {
     this.dom.prepend(this.closeButton.dom);
+
+    const links = this.dom.querySelectorAll(".navbar__link");
+    for (let link of links) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault(); // evita que recargue
+        const route = link.getAttribute("href");
+        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+      });
+    }
   }
 
   syncState(state) {

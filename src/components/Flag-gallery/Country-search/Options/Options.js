@@ -1,29 +1,27 @@
 import { ACTIONS } from "@constants/action-types.js";
 import elt from "@utils/elt.js";
 
-import htmlString from "@components/Country-search/Options/template.html?raw";
+import htmlString from "@components/Flag-gallery/Country-search/Options/template.html?raw";
 
 // Styles
-import "@components/Country-search/Options/style.css";
+import "@components/Flag-gallery/Country-search/Options/style.css";
 
 import {
   base,
   modifiers,
-} from "@components/Country-search/Options/Options-class-names.js";
+} from "@components/Flag-gallery/Country-search/Options/Options-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
-  constructor(state, dispatch, options = {}) {
+  constructor() {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
-    this.state = state;
     // Se asigna "all" como continente por defecto si no hay uno seleccionado.
-    this.continent = state?.ui?.continentSelector.selectedOption || "all";
+    this.country = "";
     this.dom = this._createDom();
-    this.dispatch = dispatch;
-    this._init(options);
+    this._init();
 
     // Animations
     this.visibilityState = "hidden"; // "hidden" | "showing" | "visible" | "hiding"
@@ -32,6 +30,13 @@ export default class Options extends BaseComponent {
     this.alreadyClosed = false;
 
     this.hasMouseMove = true;
+
+    // Historial de opciones
+    // Se actualiza en syncState
+    // this.itemHistory = ["Argentina", "Brasil", "Chile", "Colombia", "Perú"];
+    this.itemHistory = [];
+    this.optionsLimit = 10;
+    this.arrayLimit = 10;
   }
   syncState(state) {
     if (
@@ -43,9 +48,7 @@ export default class Options extends BaseComponent {
     }
     this.state = state;
   }
-  _init(styleOptions) {
-    // this._applySize(styleOptions.width, styleOptions.height);
-    // this._applyPosition(styleOptions.top, styleOptions.right);
+  _init() {
     this._showInit();
 
     const options = this.dom.querySelectorAll("." + this.base.option);
@@ -86,24 +89,27 @@ export default class Options extends BaseComponent {
           "." + this.modifiers.selectedOption.option
         );
         if (!curOpt) return;
-        this.continent = currOpt.dataset.value;
+        this.country = currOpt.dataset.value;
         //* Set continent
         this.closeSelector();
       }
-    });
-
-    this.dom.addEventListener("blur", () => {
-      this.closeSelector();
     });
   }
 
   _addOptionEvents(option) {
     //Eventos de mouse
-    option.addEventListener("click", (event) => {
-      event.preventDefault();
-      this.continent = option.dataset.value;
-      //* Set continent
-      this.closeSelector();
+    option.addEventListener("click", () => {
+      const input = this.dom.parentElement.querySelector(".country-search__input");
+      const searchButton = this.dom.parentElement.querySelector(".country-search__button");
+
+      this.country = option.dataset.value;
+      input.value = this.country;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+
+      searchButton.click();
+
+      this.addToHistory(this.country);
+      this._show(false);
     });
 
     option.addEventListener("mouseenter", () => {
@@ -147,7 +153,7 @@ export default class Options extends BaseComponent {
       if (options.length > 0) {
         options[0].classList.add(this.modifiers.selectedOption.option);
       }
-      return;
+      return options[0].dataset.value;
     }
 
     // Hay un seleccionado → intentar ir al siguiente
@@ -156,6 +162,7 @@ export default class Options extends BaseComponent {
 
     if (next) {
       next.classList.add(this.modifiers.selectedOption.option);
+      return next.dataset.value;
     } else {
       // Acá se aplicaría la lógica cuando se pasa del último al siguiente
       // Ejemplo: YouTube
@@ -175,8 +182,8 @@ export default class Options extends BaseComponent {
         options[options.length - 1].classList.add(
           this.modifiers.selectedOption.option
         );
+        return options[options.length - 1].dataset.value;
       }
-      return;
     }
 
     // Hay un seleccionado → intentar ir al anterior
@@ -186,23 +193,12 @@ export default class Options extends BaseComponent {
     // Si hay un anterior → seleccionarlo
     if (prev) {
       prev.classList.add(this.modifiers.selectedOption.option);
+      return prev.dataset.value;
     } else {
       // Acá se aplicaría la lógica cuando se pasa del primero al anterior
       // Ejemplo: YouTube
     }
     // Si no hay anterior → queda sin selección
-  }
-
-  closeSelector() {
-    if (this.alreadyClosed) return;
-    this.alreadyClosed = true;
-
-    this.dispatch({ type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS });
-    this.dispatch({ type: ACTIONS.HIDE_BACKDROP });
-    this.dispatch({
-      type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
-      payload: this.continent,
-    });
   }
 
   _show(isShow) {
@@ -254,13 +250,13 @@ export default class Options extends BaseComponent {
   }
 
   _getContinent() {
-    return this.continent;
+    return this.country;
   }
   _assignSelected(isSelect) {
     // La primera vez que se llama a esta función, isSelect es true pero selectedOption es null, esto pasaría en Presentation. En este caso se asigna "all" como continente por defecto.
     let curOpt;
     if (isSelect) {
-      curOpt = this.dom.querySelector(`[data-value="${this.continent}"]`);
+      curOpt = this.dom.querySelector(`[data-value="${this.country}"]`);
       curOpt.classList.add(this.modifiers.selectedOption.option);
     }
     if (!isSelect) {
@@ -273,11 +269,56 @@ export default class Options extends BaseComponent {
 
   // TODO: Hacer que renderOptions reciba los nombres de opciones y las pinte
   renderOptions(optionNames) {
+    if (!optionNames || optionNames.length === 0) {
+      return;
+    }
+    this.dom.innerHTML = "";
+    
     const fragment = document.createDocumentFragment();
-    for (let name of optionNames) {
+    for (let i = 0; i < optionNames.length && i < this.optionsLimit; i++) {
       let newOption = elt(
         "div",
-        { className: this.base.option },
+        {
+          className: this.base.option,
+          tabIndex: 0,
+        },
+        elt("img", {
+          className: "search-options__icon",
+          src: "/tupais/icons/search.png",
+          alt: `search`,
+          loading: "lazy",
+          width: "18",
+          height: "18",
+        }),
+        elt("span", {}, optionNames[i])
+      );
+      newOption.setAttribute("data-value", optionNames[i]);
+
+      fragment.appendChild(newOption);
+      this._addOptionEvents(newOption);
+    }
+
+    this.dom.appendChild(fragment);
+  }
+
+  renderHistoryOptions() {
+    this.dom.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+    for (let name of this.itemHistory) {
+      let newOption = elt(
+        "div",
+        {
+          className: this.base.option,
+          tabIndex: 0,
+        },
+        elt("img", {
+          className: "search-options__icon",
+          src: "/tupais/icons/history.png",
+          alt: `history`,
+          loading: "lazy",
+          width: "18",
+          height: "18",
+        }),
         elt("span", {}, name)
       );
       newOption.setAttribute("data-value", name);
@@ -287,5 +328,33 @@ export default class Options extends BaseComponent {
     }
 
     this.dom.appendChild(fragment);
+  }
+
+  renderNoResults() {
+    this.dom.innerHTML = "";
+    let newOption = elt(
+      "div",
+      { className: this.base.option + ` ${this.base.option}--not-found` },
+      elt("span", {}, "No se encontraron resultados")
+    );
+    this.dom.appendChild(newOption);
+  }
+
+  addToHistory(item) {
+    // Evitar duplicados
+    if (this.itemHistory.includes(item)) {
+      // Mover el item al principio
+      this.itemHistory = this.itemHistory.filter((i) => i !== item);
+      this.itemHistory.unshift(item);
+      return;
+    }
+
+    // Agregar al inicio del array
+    this.itemHistory.unshift(item);
+
+    // Limitar el tamaño del historial a 10 elementos
+    if (this.itemHistory.length > this.arrayLimit) {
+      this.itemHistory.pop();
+    }
   }
 }

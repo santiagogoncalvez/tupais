@@ -24,14 +24,10 @@ export default class ProgressDots extends BaseComponent {
   }
 
   syncState(state) {
-    if (
-      state.game.modes.multipleChoice.showOptions !=
-      this.state.game.modes.multipleChoice.showOptions
-    ) {
-      if (state.game.remainingAnswers > 0) {
-        this.setCurrent(state.game.totalAnswers - state.game.remainingAnswers);
-      }
+    if (state.game.countryIndex !== this.state.game.countryIndex) {
+      this.setCurrent(state.game.totalAnswers - state.game.remainingAnswers);
     }
+
     this.state = state;
   }
 
@@ -49,7 +45,8 @@ export default class ProgressDots extends BaseComponent {
     let dots = this.dom.querySelectorAll(".dot");
     let dotActive = this.dom.querySelector(".active");
 
-    dotActive.classList.remove("active");
-    dots[index].classList.add("active");
+    if (dotActive) dotActive.classList.remove("active");
+
+    if (dots[index]) dots[index].classList.add("active");
   }
 }

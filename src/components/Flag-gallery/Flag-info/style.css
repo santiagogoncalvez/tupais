@@ -1,0 +1,131 @@
+.flag-info {
+  width: 100%;
+  height: 100%;
+  color: #001f31;
+
+  padding: 0px 15px 0px;
+}
+
+.flag-info__name{
+  margin-bottom: 0;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.flag-info__description{
+  margin: 0;
+}
+
+.flag-info__subtitle {
+  margin: 0;
+  text-align: center;
+}
+
+.flag-info__container {
+  width: 511px;
+  max-width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+
+  padding-bottom: 40px;
+}
+
+.flag-info__flag {
+  max-width: 100%;   /* ocupa como máximo el ancho del contenedor */
+  height: auto;      /* el alto se ajusta proporcionalmente */
+  border-radius: 4px;
+  border: 1px solid rgb(232, 232, 232);
+}
+
+.flag-info__details {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.flag-info__item {
+  display: flex;
+  justify-content: space-between; /* texto a la izquierda, valor a la derecha */
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* fondo suave para resaltar cada fila */
+  /* background-color: #f6f6f6;  */ /* Segunda opción de fondo*/
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.flag-info__item:hover {
+  background-color: #eef4fb; /* efecto hover para interacción */
+}
+
+.flag-info__label {
+  font-weight: 500;
+  color: #001f31; /* mismo color de texto principal */
+  margin-right: 8px;
+}
+
+.flag-info__data-container{
+  text-align: end;
+}
+
+.flag-info__value {
+  font-weight: 600;
+  color: #00405d; /* ligeramente distinto para diferenciar del label */
+  text-align: right;
+}
+
+/* Opcional: si querés que las “notas” como ISO o códigos estén más sutiles */
+.flag-info__note {
+  font-size: 0.8rem;
+  color: #7b7c7e;
+  user-select: none; /* evita selección de estas aclaraciones */
+  font-weight: 500;
+}
+
+/* Para responsive dentro del contenedor */
+@media (max-width: 520px) {
+  .flag-info__item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .flag-info__value {
+    text-align: left;
+    margin-top: 2px;
+  }
+}
+
+
+.flag-info__value--boolean {
+  display: inline-block;
+  padding: 2px 8px;           /* espacio interno */
+  border-radius: 12px;         /* forma tipo “pill” */
+  font-weight: 600;
+  font-size: 0.85rem;          /* un poco más pequeño que el valor normal */
+  text-align: center;
+  min-width: 32px;             /* opcional: que no quede muy estrecho */
+}
+
+/* Colores para los booleanos */
+.flag-info__value--boolean.true {
+  background-color: #d0f0c0;   /* verde suave */
+  color: #006400;              /* verde oscuro */
+}
+
+.flag-info__value--boolean.false {
+  background-color: #f8d7da;   /* rojo suave */
+  color: #842029;              /* rojo oscuro */
+}

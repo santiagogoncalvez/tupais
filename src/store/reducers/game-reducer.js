@@ -6,6 +6,10 @@ import { nextIndex } from "@utils/circular-counter.js";
 import { getRandomCountries } from "@utils/country-parser.js";
 
 const GAME_TIME_TIMER = 600;
+const GAME_TIME_TIMER_MODE_TIME_TRIAL = 10;
+const TOTAL_ANSWERS = 10;
+
+
 
 function getAnswers(game) {
   const currentCount = game.correctAnswers;
@@ -94,7 +98,8 @@ function newGame(game) {
     answer: "",
     correctFlags: [],
     incorrectFlags: [],
-    remainingAnswers: 2,
+    remainingAnswers: TOTAL_ANSWERS,
+    totalAnswers: TOTAL_ANSWERS,
     countryIndex: nextIndex(game.countryIndex, game.countries.length),
     completed: false,
     won: false,
@@ -104,6 +109,22 @@ function newGame(game) {
       // Tiempo inicial en segundos
       initialTime: Date.now(),
     },
+    modes: {
+      ...game.modes,
+      multipleChoice: {
+        ...game.modes.multipleChoice,
+        showOptions: false,
+      },
+    }
+
+    /* 
+      initState.modes = {
+        multipleChoice: {
+          options: getOptions(initState.countries[0], initState.countries),
+          showOptions: false,
+        },
+      };
+    */
   };
 }
 
@@ -178,8 +199,8 @@ let initState = {
   correctAnswers: 0,
   correctFlags: ["Argentina", "Brasil", "Paraguay", "Chile", "Perú"],
   incorrectFlags: ["Colombia", "Venezuela", "Uruguay", "Ecuador", "Bolivia"],
-  remainingAnswers: 2,
-  totalAnswers: 2,
+  remainingAnswers: TOTAL_ANSWERS,
+  totalAnswers: TOTAL_ANSWERS,
   completed: false,
   won: false,
   isNewGame: false,
@@ -193,7 +214,9 @@ let initState = {
     initialTime: null,
     finalTime: null,
     discount: false,
+    pause: null,
   },
+  firstSessionLaunch: true,
 };
 
 // Game-modes
@@ -237,10 +260,21 @@ const reducerMap = {
     };
   },
 
+  [ACTIONS.NEXT_COUNTRY_MULTIPLE_CHOICE]: (game) => {
+    return {
+      ...game,
+      countryIndex: nextIndex(game.countryIndex, game.countries.length),
+      // remainingAnswers: game.remainingAnswers - 1,
+      answer: "",
+      skip: false,
+    };
+  },
+
   [ACTIONS.SKIP_COUNTRY]: (game) => {
     return {
       ...game,
       skip: true,
+      remainingAnswers: game.remainingAnswers - 1,
     };
   },
 
@@ -360,18 +394,18 @@ const reducerMap = {
       ...newState,
       timer: {
         ...newState.timer,
-        time: GAME_TIME_TIMER,
+        time: GAME_TIME_TIMER_MODE_TIME_TRIAL,
       },
     };
   },
 
   // Timer
-  [ACTIONS.RESET_TIMER]: (game) => {
+  [ACTIONS.RESET_TIMER]: (game, action) => {
     return {
       ...game,
       timer: {
         ...game.timer,
-        reset: !game.timer.reset,
+        reset: action.payload,
       },
     };
   },
@@ -393,6 +427,25 @@ const reducerMap = {
       },
     };
   },
+  [ACTIONS.PAUSE_TIMER]: (game) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        pause: true,
+      },
+    };
+  },
+  [ACTIONS.CLEAR_PAUSE_TIMER]: (game) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        pause: false,
+      },
+    };
+  },
+
 
   [ACTIONS.SET_ANSWER_TYPE]: (game, action) => {
     return {

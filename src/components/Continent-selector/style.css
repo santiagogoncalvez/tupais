@@ -1,6 +1,6 @@
 .continent-selector {
   position: relative;
-  width: 100%;
+  width: 200px;
   max-width: 100%;
   display: flex;
   flex-direction: column;

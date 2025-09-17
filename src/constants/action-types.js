@@ -69,6 +69,7 @@ export const ACTIONS = {
   // Game/Country
   SET_COUNTRY_INDEX: "game/country/index/set",
   NEXT_COUNTRY: "game/country/index/next",
+  NEXT_COUNTRY_MULTIPLE_CHOICE: "game/multiple-choice/country/index/next",
   SKIP_COUNTRY: "game/country/index/skip",
   PREVIOUS_COUNTRY: "game/country/index/previous",
   RESET_FLAGS: "game/country/flags/reset",
@@ -90,12 +91,20 @@ export const ACTIONS = {
   RESET_TIMER: "game/timer/reset",
   DISCOUNT_TIMER: "game/timer/dicount",
   SET_TIMER: "game/timer/set",
+  PAUSE_TIMER: "game/timer/pause",
+  CLEAR_PAUSE_TIMER: "game/timer/pause/clear",
 
   SET_ANSWER_TYPE: "game/last-answer-type/set",
 
+
+  //* STATS
   // --- acciones de estadísticas ---
   STATS: {
     GAME_WON: "stats/game-won",
     GAME_LOST: "stats/game-lost",
   },
+
+
+  //* ROUTER
+  NAVIGATE_TO: "router/navigate-to"
 };

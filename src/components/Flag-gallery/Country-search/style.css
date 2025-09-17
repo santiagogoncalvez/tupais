@@ -1,33 +1,23 @@
 .country-search {
   position: relative;
   height: 40px;
-  width: 300px;
+  width: 400px;
   max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(253, 253, 253);
-  border: 1px solid rgb(240, 240, 240);
-  border-radius: 6px;
-  /* cursor: pointer; */
-  padding-left: 15px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.055);
   transition: all 0.2s ease;
-  margin: 10px;
 
   display: flex;
   align-items: center;
   justify-content: end;
+
+  border-radius: 0px 6px 6px 0px;
 }
 
 .country-search:hover {
   border-color: rgb(230, 230, 230);
-  /* border-color: black; */
-}
-
-.country-search:focus-within {
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.075);
-  border-color: rgb(200, 200, 200);
 }
 
 .country-search__input {
@@ -36,11 +26,23 @@
   border: none;
   outline: none;
   font-size: 1rem;
-  caret-color: #00405d;
+  caret-color: #001f31;
   background-color: rgb(253, 253, 253);
 
   color: #001f31;
   padding-right: 30px;
+  padding-left: 30px;
+
+  background-color: rgb(253, 253, 253);
+  border: 1px solid rgb(240, 240, 240);
+  border-width: 1px 1px 1px 1px;
+  border-radius: 6px 0px 0px 6px;
+  padding-left: 16px;
+}
+
+.country-search__input:focus-within {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.075);
+  border-color: rgb(200, 200, 200);
 }
 
 .country-search__input::placeholder {
@@ -74,10 +76,10 @@
 
 .country-search__button {
   padding: 0px 12px 0px 12px;
-  border: none;
-  border-radius: 0px 5px 5px 0px;
-
   background-color: rgb(253, 253, 253);
+  border: 1px solid rgb(240, 240, 240);
+  border-width: 1px 1px 1px 0px;
+  border-radius: 0px 6px 6px 0px;
 
   height: 100%;
   cursor: pointer;

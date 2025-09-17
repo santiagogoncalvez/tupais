@@ -36,9 +36,15 @@ export default class Timer extends BaseComponent {
   }
 
   syncState(state) {
+    // Pausar
+    if (state.game.timer.pause) {
+      this.pause();
+      this.dispatch({ type: ACTIONS.CLEAR_PAUSE_TIMER });
+    }
+
     // Reset
-    if (state.game.timer.reset != this.state.game.timer.reset) {
-      if (state.game.timer.reset) this.reset(state.game.timer.time);
+    if (state.game.timer.reset !== this.state.game.timer.reset) {
+      this.reset(state.game.timer.time);
     }
 
     // Aplicar penalización
@@ -72,7 +78,7 @@ export default class Timer extends BaseComponent {
     this.state = state;
   }
 
-  init(state) {}
+  init(state) { }
 
   startTimer(
     duration,
@@ -82,9 +88,6 @@ export default class Timer extends BaseComponent {
     limit = 600,
     cycle = 60
   ) {
-    const progress = this.dom.querySelector(".timer__progress");
-    const points = this.dom.querySelector(".timer__points");
-
     const steps = colors.length - 1;
     if (!weights || weights.length !== steps)
       weights = Array(steps).fill(1 / steps);
@@ -215,11 +218,16 @@ export default class Timer extends BaseComponent {
   pause() {
     if (this._paused) return;
     this._paused = true;
-    if (this._rafId) cancelAnimationFrame(this._rafId);
+    if (this._rafId) {
+      cancelAnimationFrame(this._rafId);
+      this._rafId = null;
+    }
 
     const now = performance.now();
     this._timeElapsed += (now - this._start) / 1000;
+    this._start = null; // opcional, pero deja más claro que está pausado
   }
+
 
   resume() {
     if (!this._paused) return;
@@ -252,7 +260,7 @@ function interpolateColor(c1, c2, t) {
   const c2rgb = parseInt(c2.slice(1), 16);
   const r = Math.round(
     ((c1rgb >> 16) & 0xff) +
-      t * (((c2rgb >> 16) & 0xff) - ((c1rgb >> 16) & 0xff))
+    t * (((c2rgb >> 16) & 0xff) - ((c1rgb >> 16) & 0xff))
   );
   const g = Math.round(
     ((c1rgb >> 8) & 0xff) + t * (((c2rgb >> 8) & 0xff) - ((c1rgb >> 8) & 0xff))

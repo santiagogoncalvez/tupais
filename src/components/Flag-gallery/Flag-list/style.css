@@ -13,7 +13,9 @@
   justify-content: center;
   align-items: start;
   flex-wrap: wrap;
-  gap: 25px;
+  /* gap: 25px; */
+  row-gap: 20px;
+  column-gap: 15px;
 
   list-style: none;
 
@@ -22,7 +24,7 @@
 /* 160px x 116px */
 .flag-list__item {
   /* height: 100px; */
-  width: 160px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +72,8 @@
 
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   color: #00638e;
 

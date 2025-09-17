@@ -6,7 +6,7 @@ export const checkSendAnswer = (store) => (next) => (action) => {
         const state = store.getState();
         if (state.game.mode !== "classic") return result;
 
-        if (state.game.correctAnswers == state.game.remainingAnswers) {
+        if (state.game.correctAnswers == state.game.totalAnswers) {
             if (state.game.correctAnswers >= state.game.totalAnswers) {
                 store.dispatch({ type: ACTIONS.GAME_WON });
             }

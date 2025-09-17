@@ -11,10 +11,8 @@ export const checkSendAnswerRecord = (store) => (next) => (action) => {
             return result;
         }
 
-        if (state.game.correctAnswers == state.game.remainingAnswers) {
-            if (state.game.correctAnswers >= state.game.totalAnswers) {
-                store.dispatch({ type: ACTIONS.GAME_WON });
-            }
+        if (state.game.correctAnswers == state.game.totalAnswers) {
+            store.dispatch({ type: ACTIONS.GAME_WON });
             store.dispatch({ type: ACTIONS.GAME_COMPLETED });
         } else {
             if (state.game.lastAnswerType !== "Incomplete") {

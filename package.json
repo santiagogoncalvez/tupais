@@ -1,40 +1,40 @@
 {
-   "name": "tu-pais",
-   "version": "1.0.0",
-   "description": "Website where you have to guess using different clues what country it is. Developed with HTML, CSS and Javascript.",
-   "main": "index.js",
-   "type": "module",
-   "directories": {
-      "test": "tests"
-   },
-   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "vite",
-      "build": "vite build",
-      "preview": "vite preview",
-      "playground": "concurrently \"vite\" \"npx open-cli http://localhost:5173/tupais/playground/\"",
-      "deploy": "gh-pages -d dist"
-   },
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/santiagogoncalvez/tupais.github.io.git"
-   },
-   "keywords": [
-      "html",
-      "css",
-      "javascript"
-   ],
-   "author": "Santiago Gonçalvez",
-   "license": "ISC",
-   "devDependencies": {
-      "concurrently": "^9.1.2",
-      "open-cli": "^8.0.0",
-      "vite": "^6.3.1"
-   },
-   "dependencies": {
-      "animate.css": "^4.1.1",
-      "fuse.js": "^7.1.0",
-      "gh-pages": "^6.3.0",
-      "leaflet": "^1.9.4"
-   }
+  "name": "tu-pais",
+  "version": "1.0.0-beta.1",
+  "description": "Primera versión beta de la aplicación",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "playground": "concurrently \"vite\" \"npx open-cli http://localhost:5173/tupais/playground/\"",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/santiagogoncalvez/tupais.github.io.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Santiago Gonçalvez",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "open-cli": "^8.0.0",
+    "vite": "^6.3.1"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "fuse.js": "^7.1.0",
+    "gh-pages": "^6.3.0",
+    "leaflet": "^1.9.4"
+  }
 }

@@ -6,7 +6,10 @@ export const checkSendAnswerTT = (store) => (next) => (action) => {
         const state = store.getState();
         if (state.game.mode !== "time-trial") return result;
 
-        if (state.game.correctAnswers != state.game.remainingAnswers) {
+        if (state.game.correctAnswers == state.game.totalAnswers) {
+            store.dispatch({ type: ACTIONS.GAME_WON });
+            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+        } else {
             if (state.game.lastAnswerType === "Correct") {
                 store.dispatch({ type: ACTIONS.RESET_TIMER, payload: Date.now() });
                 store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });

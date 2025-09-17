@@ -9,11 +9,11 @@
   /* padding: 30px 0px 30px 0px; */
 }
 
-.game-modes__mode {
+.game-modes__link {
   width: 165px;
   height: 75px;
-  
-  background-color: #00638E;
+
+  background-color: #00638e;
   color: #ffffff;
 
   /* background-color: #9ED2FF;
@@ -27,11 +27,15 @@
   transition: 0.1s background-color ease-in-out;
 }
 
-.game-modes__mode:hover{
+.game-modes__link.hidden{
+  display: none;
+}
+
+.game-modes__link:hover {
   background-color: #0073a4;
 }
 
-.game-modes__mode:focus{
+.game-modes__link:focus {
   outline: 2px solid #000000;
   outline-offset: 2px;
 }

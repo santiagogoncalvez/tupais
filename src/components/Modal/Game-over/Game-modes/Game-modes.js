@@ -1,3 +1,5 @@
+import { ACTIONS } from "@constants/action-types.js";
+
 import htmlString from "@Modal/Game-over/Game-modes/template.html?raw";
 
 // Styles
@@ -10,14 +12,52 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class GameModes extends BaseComponent {
-  constructor(state) {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
+    this.state = state;
+    this.dispatch = dispatch;
     this.dom = this._createDom();
-    this.syncState(state);
+
+    this._init(state);
   }
 
-  syncState(state) {}
+  _init(state) {
+    const links = this.dom.querySelectorAll(".game-modes__link");
+    for (let link of links) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault(); // evita que recargue
+        const route = link.getAttribute("href");
+        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+        this.dispatch({ type: ACTIONS.CLOSE_GAME_OVER });
+      });
+    }
+
+    this._showCorrectModes(state);
+  }
+
+  syncState(state) {
+    if (state.game.mode !== this.state.game.mode) {
+      this._showCorrectModes(state);
+    }
+
+    this.state = state;
+  }
+
+  _showCorrectModes(state) {
+    // mostrar todos los botones
+    document.querySelectorAll(".game-modes__link").forEach(btn => {
+      btn.classList.remove("hidden");
+    });
+
+    // ocultar solo el botón del modo actual
+    const currentModeBtn = document.querySelector(
+      `.game-modes__link[data-mode="${state.game.mode}"]`
+    );
+    if (currentModeBtn) {
+      currentModeBtn.classList.add("hidden");
+    }
+  }
 }

@@ -66,7 +66,6 @@ export default class CountrySearch extends BaseComponent {
     this.dom.appendChild(this.options.dom);
 
     input.addEventListener("input", () => {
-      console.log("input event");
       this.searchValue = input.value;
 
       // Mostrar opciones

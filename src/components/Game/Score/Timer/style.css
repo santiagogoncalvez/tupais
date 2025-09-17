@@ -17,15 +17,15 @@
 
 .timer__icon {
   /*padding: 0px 6px 0px 0px;*/
-  /* width: 18px;
-  height: 18px; */
+  width: 14px;
+  height: 14px;
   margin-right: 4px;
 }
 
 .timer__title {
   color: #6e6e70;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 .score__point-container {

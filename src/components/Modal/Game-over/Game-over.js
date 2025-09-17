@@ -32,7 +32,7 @@ export default class GameOver extends BaseComponent {
     // Componente de resultados del juego: Results
     this.results = new Results(state);
 
-    this.gameModes = new GameModes(state);
+    this.gameModes = new GameModes(state, dispatch);
     this.statistics = new Statistics(state);
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
@@ -86,6 +86,7 @@ export default class GameOver extends BaseComponent {
 
     this.closeButton.syncState(state);
     this.results.syncState(state);
+    this.gameModes.syncState(state);
     this.statistics.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;

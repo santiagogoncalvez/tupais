@@ -31,8 +31,7 @@ export default class Navbar extends BaseComponent {
 
     const links = this.dom.querySelectorAll(".navbar__link");
     for (let link of links) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault(); // evita que recargue
+      link.addEventListener("click", (event) => { // evita que recargue
         const route = link.getAttribute("href");
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       });

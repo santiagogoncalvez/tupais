@@ -32,7 +32,6 @@ export default class GameOptions extends BaseComponent {
 
     // Detectar cambio de modo
     if (state.game.mode !== this.state.game.mode) {
-      console.log("CAMBIO DE MODO A MULTIPLE-CHOICE");
       this.isNewMode = true;
     }
 
@@ -111,8 +110,6 @@ export default class GameOptions extends BaseComponent {
   _showCorrectAnswer(state, action) {
     // Desabilitar botones
     this._disableOptions(true);
-
-    console.log("Tipo de respuesta:", state.game.lastAnswerType);
 
     // Animar
     let selectedOption = this.dom.querySelector(

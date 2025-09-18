@@ -197,7 +197,6 @@ export default class FlagInfo extends BaseComponent {
     );
 
     // Índice Gini
-    console.log(countryInfo.gini);
     if (countryInfo?.gini && Object.keys(countryInfo.gini).length > 0) {
       const years = Object.keys(countryInfo.gini);
       const latestYear = years[years.length - 1];

@@ -44,7 +44,7 @@ export default class Statistics extends BaseComponent {
       bestStreak.querySelector(".statistics__data").textContent =
         state.stats.bestStreak;
 
-      console.log("Perdidas:", state.stats.gamesLost);
+      // console.log("Perdidas:", state.stats.gamesLost);
     }
     this.state = state;
   }

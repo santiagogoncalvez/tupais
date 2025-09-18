@@ -23,17 +23,20 @@ export const checkNextCountryTT = (store) => (next) => (action) => {
     const result = next(action);
     const state = store.getState();
 
-    if (action.type === ACTIONS.SEND_ANSWER) {
-        if (state.game.lastAnswerType !== "Correct" || state.game.skip) {
+    if (state.game.mode === "time-trial") {
+        if (action.type === ACTIONS.SEND_ANSWER) {
+            if (state.game.lastAnswerType !== "Correct" || state.game.skip) {
+                store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
+                store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
+            }
+        }
+
+        if (action.type === ACTIONS.SKIP_COUNTRY) {
             store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
             store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
         }
     }
 
-    if (action.type === ACTIONS.SKIP_COUNTRY) {
-        store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
-        store.dispatch({ type: ACTIONS.DISCOUNT_TIMER });
-    }
 
     return result;
 };

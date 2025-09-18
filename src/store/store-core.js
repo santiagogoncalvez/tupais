@@ -50,7 +50,7 @@ export function createStore(reducer, middlewares = []) {
         getState: () => state,
         dispatch: (action) => {
             state = reducer(state, action);
-            console.log("Action:\n", action, "\nNew state:\n", state);
+            // console.log("Action:\n", action, "\nNew state:\n", state);
 
             listeners.forEach((listener) => listener(state));
             return action;

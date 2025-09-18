@@ -60,7 +60,7 @@ export default class flagList extends BaseComponent {
         },
         elt("a", {
           className: "flag-list__link",
-          href: `/flag-gallery/${optionNames[i]}`,
+          href: `#/flag-gallery/${optionNames[i]}`,
         },
           elt("img", {
             className: "flag-list__flag-img",
@@ -73,10 +73,9 @@ export default class flagList extends BaseComponent {
           elt("span", {}, optionNames[i]))
       );
       newOption.setAttribute("data-value", optionNames[i]);
-      
+
       const link = newOption.querySelector(".flag-list__link");
-      link.addEventListener("click", (event) => {
-        event.preventDefault(); // evita que recargue
+      link.addEventListener("click", (event) => { // evita que recargue
         const route = `/flag-gallery/${optionNames[i]}`;
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       })

@@ -151,157 +151,116 @@ export default class App {
     }
 
     initRouting() {
-        // Detectar cambios con atrás/adelante
-        window.addEventListener("popstate", () => {
-            this.store.dispatch({
-                type: ACTIONS.NAVIGATE_TO,
-                payload: this.normalizeRoute(location.pathname),
-            });
+        // Escuchar cambios en el hash (links, back/forward)
+        window.addEventListener("hashchange", () => {
+            const route = this.normalizeRoute(location.hash);
+            this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         });
 
         // Navegación inicial
-        const initialRoute = this.normalizeRoute(location.pathname);
-        this.store.dispatch({
-            type: ACTIONS.NAVIGATE_TO,
-            payload: initialRoute,
-        });
+        const initialRoute = this.normalizeRoute(location.hash);
+        this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: initialRoute });
     }
 
-    // Quitar prefijo BASE_PATH para store
-    normalizeRoute(pathname) {
-        if (BASE_PATH && pathname.startsWith(BASE_PATH)) {
-            return pathname.slice(BASE_PATH.length) || "/";
-        }
-        return pathname;
+    // Normaliza hash → siempre devuelve ruta tipo "/about"
+    normalizeRoute(hash) {
+        if (!hash) return "/";
+        return hash.startsWith("#") ? hash.slice(1) || "/" : hash;
     }
 
-    // Función para hacer navegación programática
+    // Navegación programática (cambia el hash y despacha)
     navigateTo(route) {
-        const fullRoute = BASE_PATH + route;
-        if (location.pathname !== fullRoute) {
-            history.pushState({}, "", fullRoute);
+        if (location.hash !== "#" + route) {
+            location.hash = route; // esto dispara "hashchange"
+        } else {
+            // si el hash ya es igual, igual forzamos el dispatch
+            this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         }
-        this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
     }
 
     renderRoute() {
-        const { currentRoute } = this.store.getState().router;
+        let { currentRoute } = this.store.getState().router;
+        currentRoute = this.normalizeRoute(currentRoute);
 
-        // Si la ruta no cambió, no hacemos nada
+        // Evitar renders duplicados
         if (this.prevRoute === currentRoute) return;
+        this.prevRoute = currentRoute;
 
-        this.prevRoute = currentRoute; // actualizar la ruta anterior
-        this.main.innerHTML = ""; // limpiar contenedor
-
-        // Poner el deplazamiento al principio
-        window.scrollTo({
-            top: 0,      // posición superior
-            left: 0,     // opcional
-            behavior: "auto" // o "smooth" para animación suave
-        });
-
-        // Pausar temporizador cuando se cambia de una ruta a otra
+        // Reset del contenedor principal
+        this.main.innerHTML = "";
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
 
-        // Cerrar Navbar ya que generalmente se navega desde ahí
+        // Cerrar Navbar si está abierto
         const state = this.store.getState();
         if (state.ui.navbar.show) {
             this.store.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
         }
 
-        if (currentRoute === "/") {
-            this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+        // --- Ruteo ---
+        switch (true) {
+            case currentRoute === "/":
+                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME });
+                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
+                break;
 
-            this.store.dispatch({
-                type: ACTIONS.SET_GAME_MODE,
-                payload: "classic",
-            });
-            this.store.dispatch({
-                type: ACTIONS.NEW_GAME,
-            });
+            case currentRoute === "/multiple-choice":
+                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "multiple-choice" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
+                break;
 
-            if (!this.main.contains(this.game.dom)) {
-                //* Fijarse donde ponser this.presentation.dom para que se abra
-                // this.main.appendChild(this.presentation.dom);
-                this.main.appendChild(this.game.dom);
-            }
+            case currentRoute === "/record":
+                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "record" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
+                break;
 
-        } else if (currentRoute === "/multiple-choice") {
-            this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+            case currentRoute === "/time-trial":
+                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "time-trial" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
+                break;
 
-            if (!this.main.contains(this.game.dom)) {
-                this.main.appendChild(this.game.dom);
-            }
+            case currentRoute === "/flag-gallery":
+                this.about.dom.remove();
+                this.credits.dom.remove();
+                this.main.appendChild(this.flagGallery.dom);
+                break;
 
-            this.store.dispatch({
-                type: ACTIONS.SET_GAME_MODE,
-                payload: "multiple-choice",
-            });
-            this.store.dispatch({
-                type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE,
-            });
+            case currentRoute.startsWith("/flag-gallery/"):
+                this.about.dom.remove();
+                this.credits.dom.remove();
+                const country = currentRoute.split("/")[2];
+                if (country) {
+                    this.main.appendChild(this.flagInfo.dom);
+                    this.flagInfo.renderInfo({ name: country });
+                }
+                break;
 
-        } else if (currentRoute === "/record") {
-            this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+            case currentRoute === "/about":
+                this.flagGallery.dom.remove();
+                this.credits.dom.remove();
+                this.main.appendChild(this.about.dom);
+                break;
 
-            this.store.dispatch({
-                type: ACTIONS.SET_GAME_MODE,
-                payload: "record",
-            });
-            this.store.dispatch({
-                type: ACTIONS.NEW_GAME_RECORD,
-            });
+            case currentRoute === "/credits":
+                this.flagGallery.dom.remove();
+                this.about.dom.remove();
+                this.main.appendChild(this.credits.dom);
+                break;
 
-            if (!this.main.contains(this.game.dom)) {
-                this.main.appendChild(this.game.dom);
-            }
-
-        } else if (currentRoute === "/time-trial") {
-            this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-
-            this.store.dispatch({
-                type: ACTIONS.SET_GAME_MODE,
-                payload: "time-trial",
-            });
-            this.store.dispatch({
-                type: ACTIONS.NEW_GAME_TIME_TRIAL,
-            });
-
-            if (!this.main.contains(this.game.dom)) {
-                this.main.appendChild(this.game.dom);
-            }
-
-        } else if (currentRoute === "/flag-gallery") {
-            this.about.dom.remove();
-            this.credits.dom.remove();
-            this.main.appendChild(this.flagGallery.dom);
-
-        } else if (currentRoute.startsWith("/flag-gallery/")) {
-            this.about.dom.remove();
-            this.credits.dom.remove();
-
-            const country = currentRoute.split("/")[2]; // Ej: /flag-gallery/Argentina → "Argentina"
-            if (country) {
-                this.main.appendChild(this.flagInfo.dom);
-                this.flagInfo.renderInfo({ name: country });
-
-            }
-
-        } else if (currentRoute === "/about") {
-            this.flagGallery.dom.remove();
-            this.credits.dom.remove();
-            this.main.appendChild(this.about.dom);
-
-        } else if (currentRoute === "/credits") {
-            this.flagGallery.dom.remove();
-            this.about.dom.remove();
-            this.main.appendChild(this.credits.dom);
-
-        } else {
-            const notFound = document.createElement("div");
-            notFound.textContent = "404 - Página no encontrada";
-            this.main.appendChild(notFound);
+            default:
+                const notFound = document.createElement("div");
+                notFound.textContent = "404 - Página no encontrada";
+                this.main.appendChild(notFound);
+                break;
         }
-
     }
+
 }

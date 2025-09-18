@@ -69,10 +69,8 @@ export const persistStatsMiddleware = (store) => (next) => (action) => {
 // --- Router middleware ---
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
-        const newRoute = action.payload;
-        if (location.pathname !== BASE_PATH + newRoute) {
-            history.pushState({}, "", BASE_PATH + newRoute);
-        }
+        // acá podrías agregar logging, analytics, validaciones, etc.
+        console.log("[Router]", "Navegando a:", action.payload);
     }
     return next(action);
 };

@@ -27,8 +27,7 @@ export default class GameModes extends BaseComponent {
   _init(state) {
     const links = this.dom.querySelectorAll(".game-modes__link");
     for (let link of links) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault(); // evita que recargue
+      link.addEventListener("click", (event) => { // evita que recargue
         const route = link.getAttribute("href");
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         this.dispatch({ type: ACTIONS.CLOSE_GAME_OVER });

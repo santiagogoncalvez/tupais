@@ -132,7 +132,7 @@ export default class CountriesMap {
                 else countryName = originalName;
             }
 
-            let route = `/flag-gallery/${countryName}`;
+            let route = `#/flag-gallery/${countryName}`;
             layer.bindPopup(`
     <a class='country-link' href='${route}'>
     <img class='country-flag' src="/tupais/images/flags/${countriesCca2[countryName]}.svg" alt="">
@@ -144,7 +144,6 @@ export default class CountriesMap {
                 const link = e.popup._contentNode.querySelector(".country-link");
                 if (link) {
                     link.addEventListener("click", (event) => {
-                        event.preventDefault(); // evita recarga
                         this.showCountry(countryName); // o tu función de navegación
                         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
                     });

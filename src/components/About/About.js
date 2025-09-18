@@ -23,13 +23,12 @@ export default class About extends BaseComponent {
   }
 
   syncState(state) { }
-  
+
   _init() {
     const links = this.dom.querySelectorAll(".about__text-link--to-page");
 
     for (let link of links) {
       link.addEventListener("click", (event) => {
-        event.preventDefault();
         const route = link.getAttribute("href");
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       })

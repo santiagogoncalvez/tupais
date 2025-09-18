@@ -13,10 +13,13 @@ export default class Answer extends BaseComponent {
     this.state = state;
     this.dom = this._createDom();
     this._init(state);
+    this._resizeLetters();
+
+    // Recalcular tamaño de letras al redimensionar ventana
+    window.addEventListener("resize", () => this._resizeLetters());
   }
 
   syncState(state) {
-    // Normalizo: si es null lo paso a string vacío
     const safeAnswer = state.game.answer ?? "";
 
     if (state.game.answer == null) {
@@ -25,56 +28,47 @@ export default class Answer extends BaseComponent {
     }
 
     if (
-      state.game.countryIndex == this.state.game.countryIndex &&
-      state.game.continent == this.state.game.continent &&
+      state.game.countryIndex === this.state.game.countryIndex &&
+      state.game.continent === this.state.game.continent &&
       Math.abs(safeAnswer.length - (this.state.game.answer?.length ?? 0)) <= 1
     ) {
       this._insertAnswer(state);
+      this._resizeLetters();
     } else {
       this._clearTextOfLetters();
       this._renderLetters(state);
+      this._resizeLetters();
     }
 
     this.state = state;
+    this._resizeLetters(); // recalcular tamaño
   }
 
   _init(state) {
-    // Una sola palabra
-    const row = this.dom.querySelector("." + this.base.row1);
+    const row1 = this.dom.querySelector("." + this.base.row1);
     const row2 = this.dom.querySelector("." + this.base.row2);
 
-    let country = state.game.countries[state.game.countryIndex];
-    let firstWord = country.split(" ")[0];
-    let secondWord = country.split(" ")[1] || [];
+    const country = state.game.countries[state.game.countryIndex];
+    const [firstWord, secondWord = ""] = country.split(" ");
 
-    // Primera ejecución
+    // Crear letras primera palabra
     for (let i = 0; i < firstWord.length; i++) {
-      row.appendChild(
-        elt(
-          "div",
-          { className: this.base.letter },
-          elt("span", { className: this.base.letterText })
-        )
+      row1.appendChild(
+        elt("div", { className: this.base.letter }, elt("span", { className: this.base.letterText }))
       );
     }
 
-    // Seleccionar la primer letra
-    row
-      .querySelector("." + this.base.letter)
-      .classList.add(this.modifiers.selected.letter);
+    row1.querySelector("." + this.base.letter)?.classList.add(this.modifiers.selected.letter);
 
-    if (secondWord.length) {
-      row2.classList.add(this.modifiers.show.row);
-    }
+    // Crear letras segunda palabra si existe
+    if (secondWord.length) row2.classList.add(this.modifiers.show.row);
     for (let i = 0; i < secondWord.length; i++) {
       row2.appendChild(
-        elt(
-          "div",
-          { className: this.base.letter },
-          elt("span", { className: this.base.letterText })
-        )
+        elt("div", { className: this.base.letter }, elt("span", { className: this.base.letterText }))
       );
     }
+
+    this._resizeLetters();
   }
 
   _insertAnswer(state) {
@@ -82,41 +76,56 @@ export default class Answer extends BaseComponent {
     const oldAnswer = this.state.game.answer ?? "";
 
     const letters = this.dom.querySelectorAll("." + this.base.letter);
-
-    let size = newAnswer.length - oldAnswer.length;
+    const size = newAnswer.length - oldAnswer.length;
 
     if (size > 0) {
-      // Insertó un carácter nuevo
-      letters[newAnswer.length - 1].querySelector(
-        "." + this.base.letterText
-      ).textContent = newAnswer[newAnswer.length - 1];
-
+      letters[newAnswer.length - 1].querySelector("." + this.base.letterText).textContent =
+        newAnswer[newAnswer.length - 1];
       this._changeSelected(newAnswer.length);
       this._changeInserted(newAnswer.length - 1);
     } else if (size < 0) {
-      // Borró un carácter
-      letters[newAnswer.length].querySelector(
-        "." + this.base.letterText
-      ).textContent = " ";
-
+      letters[newAnswer.length].querySelector("." + this.base.letterText).textContent = " ";
       this._changeSelected(newAnswer.length);
     }
+
+    this._resizeLetters();
   }
 
   _renderLetters(state) {
-    // Una sola palabra
-    const row = this.dom.querySelector("." + this.base.row1);
-    const row2 = this.dom.querySelector("." + this.base.row2);
+    const row1 = this.dom.querySelector("." + this.base.row1);
+    let row2 = this.dom.querySelector("." + this.base.row2);
 
-    let oldCountry = this.state.game.countries[this.state.game.countryIndex];
-    let oldFirstWord = oldCountry.split(" ")[0];
-    let newCountry = state.game.countries[state.game.countryIndex];
-    let newFirstWord = newCountry.split(" ")[0];
+    const oldCountry = this.state.game.countries[this.state.game.countryIndex];
+    const newCountry = state.game.countries[state.game.countryIndex];
 
-    let difference = newFirstWord.length - oldFirstWord.length;
+    const [oldFirst, oldSecond = ""] = oldCountry.split(" ");
+    const [newFirst, newSecond = ""] = newCountry.split(" ");
 
-    if (difference > 0) {
-      for (let i = oldFirstWord.length; i < newFirstWord.length; i++) {
+    // --- Fila 1: siempre existe ---
+    this._adjustRowLetters(row1, oldFirst.length, newFirst.length);
+
+    // --- Fila 2: solo si hay segunda palabra ---
+    if (newSecond.length) {
+      if (!row2) {
+        // Crear dinámicamente row2
+        row2 = elt("div", { className: `answer__row ${this.base.row2}` });
+        this.dom.querySelector(".answer__container").appendChild(row2);
+      }
+      // row2.classList.add(this.modifiers.show.row);
+      this._adjustRowLetters(row2, oldSecond.length, newSecond.length);
+    } else if (row2) {
+      // No hay segunda palabra → limpiar row2
+      row2.textContent = "";
+      row2.classList.remove(this.modifiers.show.row);
+    }
+
+    this._changeSelected(0);
+    this._resizeLetters();
+  }
+
+  _adjustRowLetters(row, oldLength, newLength) {
+    if (newLength > oldLength) {
+      for (let i = oldLength; i < newLength; i++) {
         row.appendChild(
           elt(
             "div",
@@ -125,75 +134,20 @@ export default class Answer extends BaseComponent {
           )
         );
       }
-    } else {
+    } else if (newLength < oldLength) {
       const letters = Array.from(row.children);
-      for (let i = oldFirstWord.length - 1; i > newFirstWord.length - 1; i--) {
-        letters[i].remove();
-      }
-    }
-
-    this._changeSelected(0);
-
-    // Si tiene más de 2 letras.
-    let oldSecondWord = oldCountry.split(" ")[1] || [];
-    let newSecondWord = newCountry.split(" ")[1] || [];
-    if (!oldSecondWord.length && !newSecondWord.length) return;
-
-    if (!newSecondWord.length) {
-      row2.textContent = "";
-      row2.classList.remove(this.modifiers.show.row);
-      return;
-    }
-
-    if (newSecondWord.length) {
-      row2.classList.add(this.modifiers.show.row);
-    }
-
-    this._changeSelected(0);
-
-    difference = newSecondWord.length - oldSecondWord.length;
-
-    if (difference >= 0) {
-      let i;
-      if (difference == 0) {
-        i = 0;
-      } else {
-        i = oldSecondWord.length;
-      }
-
-      for (i; i < newSecondWord.length; i++) {
-        row2.appendChild(
-          elt(
-            "div",
-            { className: this.base.letter },
-            elt("span", { className: this.base.letterText })
-          )
-        );
-      }
-    } else {
-      const letters = Array.from(row2.children);
-      for (
-        let i = oldSecondWord.length - 1;
-        i > newSecondWord.length - 1;
-        i--
-      ) {
-        letters[i].remove();
-      }
+      for (let i = oldLength - 1; i >= newLength; i--) letters[i].remove();
     }
   }
 
+
   _clearTextOfLetters() {
-    const letterText = this.dom.querySelectorAll("." + this.base.letterText);
-    for (let text of letterText) {
-      text.textContent = "";
-    }
+    this.dom.querySelectorAll("." + this.base.letterText).forEach((text) => (text.textContent = ""));
   }
 
   _changeSelected(curIndex) {
     const letters = this.dom.querySelectorAll("." + this.base.letter);
-    this.dom
-      .querySelector("." + this.modifiers.selected.letter)
-      ?.classList.remove(this.modifiers.selected.letter);
+    this.dom.querySelector("." + this.modifiers.selected.letter)?.classList.remove(this.modifiers.selected.letter);
     letters[curIndex]?.classList.add(this.modifiers.selected.letter);
   }
 
@@ -202,10 +156,42 @@ export default class Answer extends BaseComponent {
     letters[index].classList.add(this.modifiers.insert.letter);
     letters[index].addEventListener(
       "animationend",
-      () => {
-        letters[index].classList.remove(this.modifiers.insert.letter);
-      },
+      () => letters[index].classList.remove(this.modifiers.insert.letter),
       { once: true }
     );
   }
+
+  // NUEVO: Redimensiona las letras según el ancho del contenedor
+  _resizeLetters() {
+    const rows = [this.dom.querySelector("." + this.base.row1), this.dom.querySelector("." + this.base.row2)].filter(Boolean);
+    if (!rows.length) return;
+
+    const maxLetterSize = 40; // px
+    const gap = parseInt(getComputedStyle(rows[0]).gap) || 4;
+
+    // 1️⃣ Encontrar la fila con más elementos
+    const maxElements = Math.max(...rows.map(row => row.children.length));
+
+    // 2️⃣ Calcular tamaño según la fila más ancha
+    rows.forEach(row => {
+      const containerWidth = row.clientWidth;
+      const totalGap = gap * (maxElements - 1); // usar maxElements
+      const letterSize = Math.min(maxLetterSize, (containerWidth - totalGap) / maxElements);
+
+      // 3️⃣ Aplicar tamaño a todas las letras de todas las filas
+      rows.forEach(r => {
+        Array.from(r.children).forEach(letter => {
+          letter.style.width = `${letterSize}px`;
+          letter.style.height = `${letterSize}px`;
+          letter.style.flex = `0 0 ${letterSize}px`;
+          const span = letter.querySelector("." + this.base.letterText);
+          if (span) {
+            span.style.fontSize = `${Math.floor(letterSize * 0.5)}px`;
+          }
+        });
+      });
+    });
+  }
+
+
 }

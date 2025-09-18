@@ -21,13 +21,6 @@ import FlagGallery from "@components/Flag-gallery/Flag-gallery.js";
 import FlagInfo from "@components/Flag-gallery/Flag-info/Flag-info.js";
 
 
-
-
-// Como la app está en un subdirectorio, si no: ""
-import {
-    BASE_PATH
-} from "@constants/base-path.js";
-
 export default class App {
     constructor() {
         this.store = store;
@@ -105,6 +98,8 @@ export default class App {
         this.mount();
         this.subscribeComponents();
         this.initRouting();
+
+
     }
 
     mount() {

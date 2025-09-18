@@ -93,6 +93,6 @@ export const coreMiddlewares = [
     checkGameCompleted,
     checkSendAnswerNotification,
     persistStatsMiddleware,
-    routerMiddleware,
+    // routerMiddleware,
     checkNewGame
 ];

@@ -1,18 +1,9 @@
 import { ACTIONS } from "@constants/action-types.js";
-
-// Popup que muestra el tipo de respuesta
 import htmlString from "@components/Notifications/template.html?raw";
-
-// Styles
 import "@components/Notifications/style.css";
-
 import elt from "@utils/elt.js";
-import {
-  base,
-  modifiers,
-} from "@components/Notifications/Notifications-class-names.js";
+import { base, modifiers } from "@components/Notifications/Notifications-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
-
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 const lastAnswerTypeTranslations = {
@@ -31,41 +22,37 @@ export default class Notifications extends BaseComponent {
     this.dom = this._createDom();
     this.dispatch = dispatch;
 
-    // Estado interno del componente
     this.mouseenter = false;
     this.notificationTimeout = null;
     this.currentNotification = null;
 
-    // Botón de cerrar
     this.closeButton = new CloseButton(
       dispatch,
-      { type: ACTIONS.HIDE_NOTIFICATION }, // "Intención" de cerrar
+      { type: ACTIONS.HIDE_NOTIFICATION },
       { top: "5px", right: "5px" }
     );
+
     this.init();
   }
 
   init() {
     window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        if (!this.currentNotification) return;
+      if (event.key === "Escape" && this.currentNotification) {
         this.closeButton.dom.click();
       }
     });
   }
+
   syncState(state) {
     const prevNotif = this.state.ui.notifications;
     const newNotif = state.ui.notifications;
 
     if (newNotif.show) {
-      if (newNotif.id != prevNotif.id) {
-        // Limpiar notificación previa
+      if (newNotif.id !== prevNotif.id) {
         this.removeNotification();
-        // Si se ha solicitado un reset, limpiar notificación previa
         this.showNotification(newNotif.message);
       }
     } else {
-      // Ocultar notificación actual
       this.hideNotification();
     }
 
@@ -73,49 +60,60 @@ export default class Notifications extends BaseComponent {
   }
 
   showNotification(message) {
-    // Crear nueva
     this.currentNotification = elt(
       "div",
       { className: this.base.notification },
-      elt(
-        "p",
-        { className: this.base.message },
-        lastAnswerTypeTranslations[message]
-      ),
+      elt("p", { className: this.base.message }, lastAnswerTypeTranslations[message] || message),
       this.closeButton.dom
     );
 
-    this.closeButton.hide();
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-    // Eventos del mouse
-    const onMouseEnter = () => {
-      this.mouseenter = true;
+    // Mostrar la cruz siempre en mobile
+    if (isTouchDevice) {
       this.closeButton.show();
-      this.clearNotificationTimeout();
+    } else {
+      this.closeButton.hide();
+    }
+
+    const onMouseEnter = () => {
+      if (!isTouchDevice) {
+        this.mouseenter = true;
+        this.clearNotificationTimeout();
+        this.closeButton.show();
+      }
     };
 
     const onMouseLeave = () => {
-      this.mouseenter = false;
-      this.closeButton.hide();
-      this.startNotificationTimeout();
+      if (!isTouchDevice) {
+        this.mouseenter = false;
+        this.closeButton.hide();
+        this.startNotificationTimeout();
+      }
     };
 
     this.currentNotification.addEventListener("mouseenter", onMouseEnter);
     this.currentNotification.addEventListener("mouseleave", onMouseLeave);
 
-    // Guardar referencias para limpiar después
     this._mouseEnterHandler = onMouseEnter;
     this._mouseLeaveHandler = onMouseLeave;
 
-    // Agregar al DOM
     this.dom.appendChild(this.currentNotification);
 
     // Animación de entrada
     this.currentNotification.classList.add(this.modifiers.show.notification);
 
-    // Iniciar timeout automático
-    this.startNotificationTimeout();
+    // Timeout automático: esperar a que la animación de entrada termine
+    this.currentNotification.addEventListener(
+      "animationend",
+      () => {
+        this.startNotificationTimeout();
+      },
+      { once: true }
+    );
   }
+
+
 
   hideNotification() {
     if (!this.currentNotification) return;
@@ -135,18 +133,11 @@ export default class Notifications extends BaseComponent {
   removeNotification() {
     if (!this.currentNotification) return;
 
-    // Limpiar eventos y timeout
-    this.currentNotification.removeEventListener(
-      "mouseenter",
-      this._mouseEnterHandler
-    );
-    this.currentNotification.removeEventListener(
-      "mouseleave",
-      this._mouseLeaveHandler
-    );
+    this.currentNotification.removeEventListener("mouseenter", this._mouseEnterHandler);
+    this.currentNotification.removeEventListener("mouseleave", this._mouseLeaveHandler);
+    document.removeEventListener("click", this._clickOutsideHandler);
     this.clearNotificationTimeout();
 
-    // Quitar del DOM
     this.currentNotification.remove();
     this.currentNotification = null;
   }
@@ -155,7 +146,6 @@ export default class Notifications extends BaseComponent {
     this.clearNotificationTimeout();
     this.notificationTimeout = setTimeout(() => {
       if (!this.mouseenter) {
-        // Solo avisa que el usuario quiere cerrar
         this.closeButton.dom.click();
       }
     }, 2000);

@@ -70,17 +70,23 @@ export default class GameOver extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.isShow != state.ui.modals.gameOver.show) {
-      this._show(state.ui.modals.gameOver.show);
-      this._activeEvents(state.ui.modals.gameOver.show);
-      this.isShow = state.ui.modals.gameOver.show;
+    const shouldShow = state.ui.modals.gameOver.show;
+    const showChanged = this.isShow !== shouldShow;
+
+    if (showChanged) {
+      // ⚡ Saltamos animación solo si juego terminó y pestaña estaba oculta
+      const skipAnimation = state.game.completed === true && document.hidden;
+      this._show(shouldShow, skipAnimation);
+      this._activeEvents(shouldShow);
+      this.isShow = shouldShow;
     }
-    if (this.state.ui.darkMode != state.ui.darkMode) {
+
+    if (this.state.ui.darkMode !== state.ui.darkMode) {
       this._setDarkMode(state.ui.darkMode);
       this.continentSelector._setDarkMode(state.ui.darkMode);
     }
 
-    if (this.state.game.mode != state.game.mode) {
+    if (this.state.game.mode !== state.game.mode) {
       this.modifyAction(state);
     }
 
@@ -92,33 +98,31 @@ export default class GameOver extends BaseComponent {
     this.state = state;
   }
 
-  _show(isShow) {
-    // Siempre limpiamos posibles animaciones anteriores
+  // ------------------- _show modificado -------------------
+  _show(isShow, skipAnimation = false) {
     this.dom.removeEventListener("animationend", this._onAnimationEnd);
-    this.dom.classList.remove(this.modifiers.fade.out);
-    this.dom.classList.remove(this.modifiers.fade.in);
+    this.dom.classList.remove(this.modifiers.fade.out, this.modifiers.fade.in);
 
     if (isShow) {
       this.dom.classList.add(this.modifiers.display.block);
 
-      requestAnimationFrame(() => {
-        this.dom.classList.add(this.modifiers.fade.in);
-      });
-
       const container = this.dom.querySelector("." + this.base.container);
-
       this.continentSelector.mountTo(container);
       this.continentSelector.setActionType(this.dom);
+
+      if (!skipAnimation) {
+        setTimeout(() => {
+          this.dom.classList.add(this.modifiers.fade.in);
+        }, 0);
+      }
     }
 
     if (!isShow) {
       this.dom.classList.add(this.modifiers.fade.out);
-
-      this.dom.addEventListener("animationend", this._onAnimationEnd, {
-        once: true,
-      });
+      this.dom.addEventListener("animationend", this._onAnimationEnd, { once: true });
     }
   }
+
 
   _onAnimationEnd() {
     this.dom.classList.remove(this.modifiers.display.block);

@@ -30,13 +30,22 @@ export default class Continent extends BaseComponent {
   }
 
   _init() {
-
     //* ->
     // this.dom.querySelector(".score__point-container").appendChild(this.continentSelector.dom);
+
+    //* Parche para funcionamiento normal
+    this.dom.querySelector("." + this.base.text).textContent =
+      CONTINENTS_NAMES[this.state.game.continent.toUpperCase()].toUpperCase();
   }
 
   syncState(state) {
     //* ->
     // this.continentSelector.syncState(state);
+
+    if (state.game.continent !== this.state.game.continent) {
+      this.dom.querySelector("." + this.base.text).textContent =
+        CONTINENTS_NAMES[state.game.continent.toUpperCase()].toUpperCase();
+      this.state = state;
+    }
   }
 }

@@ -75,6 +75,14 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Hover solo para dispositivos con puntero fino (mouse) */
+@media (hover: none) and (pointer: coarse) {
+  .game-options__button:hover {
+    box-shadow: none;
+    background-color: rgb(245, 250, 255);
+  }
+}
+
 .game-options__button:focus {
   /* outline: 2px solid #094c91; */
   outline: 0;
@@ -193,7 +201,8 @@
 .game-options__button.correct,
 .game-options__button.incorrect {
   transition-delay: 0s !important; /* ignora los delays escalonados */
-  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-property: background-color, border-color, color, box-shadow,
+    transform;
   transition-duration: 0.3s;
   transition-timing-function: ease;
 }

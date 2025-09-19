@@ -174,6 +174,8 @@ export default class CountrySearch extends BaseComponent {
     const prevRoute = this.state.router.currentRoute;
     const newRoute = state.router.currentRoute;
 
+    if (newRoute === prevRoute) return;
+
     const isGalleryRoot = (route) => route === "/flag-gallery";
     const isGalleryCountry = (route) => route.startsWith("/flag-gallery/");
 
@@ -182,9 +184,12 @@ export default class CountrySearch extends BaseComponent {
       (isGalleryCountry(prevRoute) && isGalleryRoot(newRoute)) ||
       (isGalleryCountry(prevRoute) && isGalleryCountry(newRoute));
 
-    // Si no se está dentro de flag-gallery ↔ país, entonces resetear
+    // Si no se está dentro de flag-gallery ↔ país, entonces resetear solo si había texto
     if (prevRoute !== newRoute && !stayingWithinGallery) {
-      this.clearInput();
+      const input = this.dom.querySelector(".country-search__input");
+      if (input && input.value.trim().length > 0) {
+        this.clearInput();
+      }
     }
 
     this.state = state;

@@ -13,12 +13,15 @@ import BaseComponent from "@shared/Base-component.js";
 import { CONTINENTS_NAMES } from "@constants/continents-names.js";
 
 export default class Button extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, { useBackdrop = true } = {}) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
+
+    this.useBackdrop = useBackdrop;
+
     this.dom = this._createDom();
     this._init(dispatch);
   }
@@ -44,19 +47,23 @@ export default class Button extends BaseComponent {
       CONTINENTS_NAMES[
         this.state.ui.continentSelector.selectedOption.toUpperCase()
       ].toUpperCase();
+    
     this.dom.addEventListener("click", (event) => {
       event.stopImmediatePropagation();
       if (!this.state.ui.continentSelector.options.show) {
         dispatch({ type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS });
-        dispatch({ type: ACTIONS.SHOW_BACKDROP });
+
+        if (this.useBackdrop) {
+          dispatch({ type: ACTIONS.SHOW_BACKDROP });
+        }
       }
     });
 
     this.dom.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp" || event.key == "ArrowDown") {
+        event.preventDefault();
         if (!this.state.ui.continentSelector.options.show) {
-          dispatch({ type: ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS });
-          dispatch({ type: ACTIONS.SHOW_BACKDROP });
+          this.dom.click();
         }
       }
     });

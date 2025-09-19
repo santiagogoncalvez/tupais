@@ -14,7 +14,6 @@ export default class Options extends BaseComponent {
     this.modifiers = modifiers;
     this.state = state;
     this.dom = this._createDom();
-    this._init(dispatch);
   }
 
   syncState(state) {
@@ -24,15 +23,7 @@ export default class Options extends BaseComponent {
     this.state = state;
   }
 
-  _init(dispatch) {
-    this.dom.addEventListener("click", () => {
-      dispatch({
-        type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS,
-      });
-      dispatch({
-        type: ACTIONS.HIDE_BACKDROP,
-      });
-    });
+  _init() {
   }
 
   _show(isShow) {

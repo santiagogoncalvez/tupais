@@ -1,4 +1,5 @@
 .continent {
+  position: relative;
   color: #5b5d5f;
   display: flex;
   align-items: center;
@@ -10,6 +11,7 @@
 }
 
 .continent__title-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

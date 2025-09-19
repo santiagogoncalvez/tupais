@@ -16,15 +16,22 @@
         align-items: center;
         justify-content: center;
       }
-      
+
+      .test-button {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+      }
     </style>
   </head>
   <body>
     <!-- Algunos tests no van a usar el main (Header, Settings, Presentation) y este main vacío genera conflictos. Cuando no se use debe estar comentado en los test.-->
-    <main></main>
+    <main>
+      <button class="test-button"></button>
+    </main>
 
     <script
-      src="/playground/scripts/test-flag-info.js"
+      src="/playground/scripts/test-contient-selector.js"
       type="module"
     ></script>
   </body>

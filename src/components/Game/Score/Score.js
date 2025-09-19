@@ -12,7 +12,7 @@ export default class Score extends BaseComponent {
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
-    this.continent = new Continent(state);
+    this.continent = new Continent(state, dispatch);
     this.timer = new Timer(state, dispatch);
     this.state = state;
     this.dom = this._createDom();

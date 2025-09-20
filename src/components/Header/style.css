@@ -25,6 +25,12 @@
    max-width: 75vw;
 }
 
+/** Parche para tener la misma disposición que antes aunque ya no esté el botón Close-settings */
+.header__fill-button {
+   height: 40px;
+   width: 40px;
+}
+
 .header__container {
    display: flex;
    justify-content: center;

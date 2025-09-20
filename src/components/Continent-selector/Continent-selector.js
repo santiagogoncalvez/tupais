@@ -24,7 +24,12 @@ export default class ContinentSelector extends BaseComponent {
    * @param {boolean} options.autoStart - Si se debe incluir el botón de start
    */
   constructor(state, dispatch,
-    { useBackdrop = true, autoStart = false, trueshowLabel = true } = {}) {
+    { useBackdrop = true,
+      autoStart = false,
+      trueshowLabel = true,
+      scope = "modal"
+    } = {}
+  ) {
     super();
     this.htmlString = htmlString;
     this.base = base;
@@ -33,18 +38,25 @@ export default class ContinentSelector extends BaseComponent {
     this.dispatch = dispatch;
     this.continent = state.game.continent;
     this.showLabel = trueshowLabel; // por defecto mostrar
+    this.scope = scope; // 👈 guardamos el scope
 
-    this.button = new Button(state, dispatch, { useBackdrop: useBackdrop });
-    this.options = new Options(state, dispatch, { autoStart: autoStart });
+    this.button = new Button(state, dispatch, {
+      useBackdrop: useBackdrop,
+      scope: this.scope,
+    });
+    this.options = new Options(state, dispatch, {
+      autoStart: autoStart,
+      scope: this.scope,
+    });
 
     this.autoStart = autoStart;
     if (!this.autoStart) {
-      this.startButton = new StartButton(state, dispatch);
+      this.startButton = new StartButton(state, dispatch, { scope: this.scope });
     }
 
     this.useBackdrop = useBackdrop;
     if (this.useBackdrop) {
-      this.backdrop = new Backdrop(state, dispatch);
+      this.backdrop = new Backdrop(state, dispatch, { scope: this.scope });
     }
 
     this.dom = this._createDom();
@@ -64,6 +76,7 @@ export default class ContinentSelector extends BaseComponent {
     if (this.useBackdrop) {
       this.backdrop.syncState(state);
     }
+
     this.state = state;
   }
 
@@ -99,21 +112,6 @@ export default class ContinentSelector extends BaseComponent {
   mountTo(container) {
     if (this.dom.parentElement !== container) {
       container.appendChild(this.dom);
-    }
-  }
-
-  setActionType(modal) {
-    // Establecer el tipo de acción personalizada que va a ejecutar
-    if (this.autoStart) return;
-
-    if (modal.classList.contains("presentation")) {
-      this.startButton.setActionType(ACTIONS.CLOSE_PRESENTATION);
-    }
-    if (modal.classList.contains("settings")) {
-      this.startButton.setActionType(ACTIONS.CLOSE_SETTINGS);
-    }
-    if (modal.classList.contains("game-over")) {
-      this.startButton.setActionType(ACTIONS.CLOSE_GAME_OVER);
     }
   }
 

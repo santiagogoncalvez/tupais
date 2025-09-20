@@ -24,28 +24,28 @@ export default class Continent extends BaseComponent {
 
     // TODO: Corregir la lógica cuando un select personalizado y un selec normal viven juntos en la app en diferentes lugares, ya que usan las mismas propiedades de estado para sus acciones. Si quito el personalizado si funciona el normal.
     //* ->
-    // this.continentSelector = new ContinentSelector(state, dispatch, { useBackdrop: false, autoStart: true, trueshowLabel: false });
+    this.continentSelector = new ContinentSelector(state, dispatch, { useBackdrop: false, autoStart: true, trueshowLabel: false, scope: "game" });
 
     this._init();
   }
 
   _init() {
     //* ->
-    // this.dom.querySelector(".score__point-container").appendChild(this.continentSelector.dom);
+    this.dom.querySelector(".score__point-container").appendChild(this.continentSelector.dom);
 
     //* Parche para funcionamiento normal
-    this.dom.querySelector("." + this.base.text).textContent =
-      CONTINENTS_NAMES[this.state.game.continent.toUpperCase()].toUpperCase();
+    // this.dom.querySelector("." + this.base.text).textContent =
+    //   CONTINENTS_NAMES[this.state.game.continent.toUpperCase()].toUpperCase();
   }
 
   syncState(state) {
     //* ->
-    // this.continentSelector.syncState(state);
+    this.continentSelector.syncState(state);
 
-    if (state.game.continent !== this.state.game.continent) {
-      this.dom.querySelector("." + this.base.text).textContent =
-        CONTINENTS_NAMES[state.game.continent.toUpperCase()].toUpperCase();
-      this.state = state;
-    }
+    // if (state.game.continent !== this.state.game.continent) {
+    //   this.dom.querySelector("." + this.base.text).textContent =
+    //     CONTINENTS_NAMES[state.game.continent.toUpperCase()].toUpperCase();
+    //   this.state = state;
+    // }
   }
 }

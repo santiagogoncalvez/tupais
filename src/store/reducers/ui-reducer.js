@@ -9,16 +9,33 @@ export const initialState = {
     settings: {
       show: false,
     },
-    gameOver: { show: false },
+    gameOver: {
+      show: false
+    },
   },
   navbar: {
     show: false,
   },
+  // continentSelector: {
+  //   options: { show: false },
+  //   selectedOption: "all",
+  //   showState: "hiding",
+  // },
+
+
   continentSelector: {
-    options: { show: false },
-    selectedOption: "all",
-    showState: "hiding",
+    game: {
+      options: { show: false },
+      selectedOption: "all",
+      showState: "hiding",
+    },
+    modal: {
+      options: { show: false },
+      selectedOption: "all",
+      showState: "hiding",
+    },
   },
+
   backdrop: { show: false },
   country: {
     animation: false,
@@ -168,28 +185,34 @@ const reducerMap = {
   },
 
   // Continent-selector
-  [ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS]: (ui) => {
+  [ACTIONS.SHOW_CONTINENT_SELECTOR_OPTIONS]: (ui, action) => {
+    const scope = action.payload.target;
     return {
       ...ui,
       continentSelector: {
         ...ui.continentSelector,
-        options: {
-          show: true,
+        [scope]: {
+          ...ui.continentSelector[scope],
+          options: { show: true },
         },
       },
     };
   },
-  [ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS]: (ui) => {
+  [ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS]: (ui, action) => {
+    const scope = action.payload.target;
     return {
       ...ui,
       continentSelector: {
         ...ui.continentSelector,
-        options: {
-          show: false,
+        [scope]: {
+          ...ui.continentSelector[scope],
+          options: { show: false },
         },
       },
     };
   },
+
+
   [ACTIONS.SHOW_BACKDROP]: (ui) => {
     return {
       ...ui,
@@ -203,14 +226,19 @@ const reducerMap = {
     };
   },
   [ACTIONS.SET_CONTINENT_SELECTOR_OPTION]: (ui, action) => {
+    const { continent, target } = action.payload;
     return {
       ...ui,
       continentSelector: {
         ...ui.continentSelector,
-        selectedOption: action.payload,
+        [target]: { // 👈 cada scope maneja su propio state
+          ...ui.continentSelector[target],
+          selectedOption: continent,
+        },
       },
     };
   },
+
 
   // Country
   [ACTIONS.START_COUNTRY_ANIMATION]: (ui) => {
@@ -257,6 +285,23 @@ const reducerMap = {
       firstLaunch: action.payload,
     };
   },
+
+  // Modals
+  [ACTIONS.OPEN_MODAL]: (ui, action) => ({
+    ...ui,
+    modals: {
+      ...ui.modals,
+      [action.payload]: { show: true },
+    },
+  }),
+
+  [ACTIONS.CLOSE_MODAL]: (ui, action) => ({
+    ...ui,
+    modals: {
+      ...ui.modals,
+      [action.payload]: { show: false },
+    },
+  }),
 };
 
 //* Siempre se tienen que crear nuevo objetos, si se modifican las propiedades internas que hacen referencia a los objetos guardados en cada componente en el proceso de creación del nuevo estado no se van a poder actuzalizar de manera correcta

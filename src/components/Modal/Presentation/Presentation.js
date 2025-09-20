@@ -101,7 +101,6 @@ export default class Presentation extends BaseComponent {
         const container = this.dom.querySelector("." + this.base.container);
 
         this.continentSelector.mountTo(container);
-        this.continentSelector.setActionType(this.dom);
       } else {
         document.addEventListener("DOMContentLoaded", () => {
           this._show(true);

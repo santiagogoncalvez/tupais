@@ -88,6 +88,52 @@ export const checkNewGame = (store) => (next) => (action) => {
     return result;
 };
 
+export const checkStartButton = (store) => (next) => (action) => {
+    if (action.type === ACTIONS.START_BUTTON_CLICKED) {
+        console.log(action);
+        const state = store.getState();
+        const { continent } = action.payload;
+
+        // Setear continente
+        store.dispatch({
+            type: ACTIONS.SET_CONTINENT,
+            payload: continent,
+        });
+
+        // Arrancar juego según modo
+        const mode = state.game.mode;
+        if (mode === "classic") {
+            store.dispatch({ type: ACTIONS.NEW_GAME });
+        }
+        if (mode === "multiple-choice") {
+            store.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
+        }
+        if (mode === "record") {
+            store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
+        }
+        if (mode === "time-trial") {
+            store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
+        }
+
+        // 🔥 Detectar qué modal está abierto
+        const openModal = Object.entries(state.ui.modals).find(
+            ([, modal]) => modal.show === true
+        );
+
+        if (openModal) {
+            const [modalName] = openModal;
+            store.dispatch({
+                type: ACTIONS.CLOSE_MODAL,
+                payload: modalName, // ej: "presentation", "settings", "gameOver"
+            });
+        }
+
+    }
+
+    return next(action);
+};
+
+
 // Agrupado
 export const coreMiddlewares = [
     checkFirstLaunch,
@@ -95,5 +141,6 @@ export const coreMiddlewares = [
     checkSendAnswerNotification,
     persistStatsMiddleware,
     // routerMiddleware,
+    checkStartButton,
     checkNewGame
 ];

@@ -89,7 +89,6 @@ export default class Settings extends BaseComponent {
       const container = this.dom.querySelector("." + this.base.container);
 
       this.continentSelector.mountTo(container);
-      this.continentSelector.setActionType(this.dom);
     }
 
     if (!isShow) {

@@ -25,7 +25,7 @@ export default class App {
     constructor() {
         this.store = store;
 
-        this.dom = elt("div", { className: "app" }, elt("main", {}));
+        this.dom = elt("div", { className: "app" }, elt("div", { className: "app__container" }, elt("main", {})));
 
         this.prevRoute = null; // <--- almacenar la ruta anterior
 
@@ -104,7 +104,8 @@ export default class App {
 
     mount() {
         // Montar header fijo
-        this.dom.prepend(this.header.dom);
+        const container = this.dom.querySelector(".app__container");
+        container.prepend(this.header.dom);
 
         // Montar modales
         this.dom.appendChild(this.presentation.dom);
@@ -119,11 +120,6 @@ export default class App {
     }
 
     syncState(state) {
-        if (state.ui.modals.settings.show) {
-            document.body.classList.add("hidden");
-        } else {
-            document.body.classList.remove("hidden");
-        }
     }
 
     subscribeComponents() {
@@ -138,7 +134,7 @@ export default class App {
         s(this.credits.syncState.bind(this.credits));
         s(this.flagGallery.syncState.bind(this.flagGallery));
         s(this.flagInfo.syncState.bind(this.flagInfo));
-        s(this.syncState.bind(this));
+        // s(this.syncState.bind(this));
 
 
         // Suscripción para renderizar según currentRoute
@@ -192,31 +188,40 @@ export default class App {
             this.store.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
         }
 
+        const newState = this.store.getState();
         // --- Ruteo ---
         switch (true) {
             case currentRoute === "/":
-                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 break;
 
             case currentRoute === "/multiple-choice":
-                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "multiple-choice" });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
                 break;
 
             case currentRoute === "/record":
-                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "record" });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
             case currentRoute === "/time-trial":
-                this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "time-trial" });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });

@@ -10,6 +10,11 @@ Example: const ACTIONS = {
 export const ACTIONS = {
   //* Ui
   // Ui/Modals
+  // Core genérico
+  OPEN_MODAL: "ui/modal/open",
+  CLOSE_MODAL: "ui/modal/close",
+
+  // Alias semánticos
   OPEN_PRESENTATION: "ui/modal/presentation/open",
   CLOSE_PRESENTATION: "ui/modal/presentation/close",
   OPEN_SETTINGS: "ui/modal/settings/open",
@@ -29,6 +34,7 @@ export const ACTIONS = {
   SHOW_CONTINENT_SELECTOR_OPTIONS: "ui/continent-selector/options/show",
   HIDE_CONTINENT_SELECTOR_OPTIONS: "ui/continent-selector/options/hide",
   SET_CONTINENT_SELECTOR_OPTION: "ui/continent-selector/options/set",
+  START_BUTTON_CLICKED: "ui/continent-selector/start/clicked",
 
   SET_CONTINENT: "game/continent/set",
   SHOW_BACKDROP: "ui/backdrop/show",

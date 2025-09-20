@@ -108,7 +108,6 @@ export default class GameOver extends BaseComponent {
 
       const container = this.dom.querySelector("." + this.base.container);
       this.continentSelector.mountTo(container);
-      this.continentSelector.setActionType(this.dom);
 
       if (!skipAnimation) {
         setTimeout(() => {

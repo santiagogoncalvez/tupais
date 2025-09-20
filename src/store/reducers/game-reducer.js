@@ -5,7 +5,7 @@ import { nextIndex } from "@utils/circular-counter.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
-const GAME_TIME_TIMER = 600;
+const GAME_TIME_TIMER = 60;
 const GAME_TIME_TIMER_MODE_TIME_TRIAL = 10;
 const TOTAL_ANSWERS = 10;
 
@@ -279,16 +279,17 @@ const reducerMap = {
   },
 
   [ACTIONS.SET_CONTINENT]: (game, action) => {
+    const continent = action.payload; // 👈 extraemos continent
     let newState = {
       ...game,
     };
 
     // Modificar el nuevo estado según si el continente cambió
-    if (newState.continent != action.payload) {
+    if (newState.continent !== continent) {
       newState = {
         ...newState,
-        continent: action.payload,
-        countries: getRandomCountries(action.payload, -1),
+        continent,
+        countries: getRandomCountries(continent, -1),
       };
       newState = {
         ...newState,

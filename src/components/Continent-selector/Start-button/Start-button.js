@@ -4,51 +4,34 @@ import { ACTIONS } from "@constants/action-types.js";
 import "@components/Continent-selector/Start-button/Start-button.css";
 
 import elt from "@utils/elt.js";
-import {
-  base,
-  modifiers,
-} from "@components/Continent-selector/Start-button/Start-button-class-names.js";
+import { base, modifiers } from "@components/Continent-selector/Start-button/Start-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class StartButton extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, { scope = "modal" } = {}) {
     super();
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
+    this.dispatch = dispatch;
+
+    this.scope = scope;
+
     this.dom = elt(
       "button",
       {
-        className: `${this.base.block}`,
+        className: this.base.block,
         onclick: () => {
-          // Separar la lógica de ui y game y despachar una acción por cada sección del estado
+          const continent =
+            this.state.ui.continentSelector?.[this.scope]?.selectedOption || "all";
+
           dispatch({
-            type: this.actionType,
+            type: ACTIONS.START_BUTTON_CLICKED,
+            payload: {
+              continent: continent,
+              target: this.scope,
+            },
           });
-          dispatch({
-            type: ACTIONS.SET_CONTINENT,
-            payload: this.state.ui.continentSelector.selectedOption,
-          });
-          if (this.state.game.mode === "classic") {
-            dispatch({
-              type: ACTIONS.NEW_GAME,
-            });
-          }
-          if (this.state.game.mode === "multiple-choice") {
-            dispatch({
-              type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE,
-            });
-          }
-          if (this.state.game.mode === "record") {
-            dispatch({
-              type: ACTIONS.NEW_GAME_RECORD,
-            });
-          }
-          if (this.state.game.mode === "time-trial") {
-            dispatch({
-              type: ACTIONS.NEW_GAME_TIME_TRIAL,
-            });
-          }
         },
         title: "Empezar",
         type: "button",
@@ -59,8 +42,5 @@ export default class StartButton extends BaseComponent {
 
   syncState(state) {
     this.state = state;
-  }
-  setActionType(actionType) {
-    this.actionType = actionType;
   }
 }

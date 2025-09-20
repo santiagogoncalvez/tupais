@@ -8,23 +8,26 @@ import { base, modifiers } from "@components/Continent-selector/Options/Options-
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
-  constructor(state, dispatch, options = {}) {
+  constructor(state, dispatch, { autoStart = false, scope = "modal" } = {}) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
-    this.continent = state?.ui?.continentSelector.selectedOption || "all";
-    this.dom = this._createDom();
+    this.scope = scope; // 👈 nuevo
     this.dispatch = dispatch;
 
-    this.autoStart = options.autoStart || false;
+    const scopedState = state?.ui?.continentSelector?.[this.scope] || {};
+    this.continent = scopedState.selectedOption || "all";
+
+    this.dom = this._createDom();
+    this.autoStart = autoStart;
 
     this.visibilityState = "hidden";
     this._showTimeout = null;
     this.alreadyClosed = false;
 
-    this._init(options);
+    this._init();
     this._showInit();
   }
 
@@ -70,7 +73,7 @@ export default class Options extends BaseComponent {
     // Manejo de teclado
     this.dom.addEventListener("keydown", (event) => {
       event.stopPropagation();
-      if (["Tab"].includes(event.key)) event.preventDefault();
+      if (event.key === "Tab") event.preventDefault();
 
       if (event.key === "Escape") this.closeSelector();
 
@@ -110,11 +113,13 @@ export default class Options extends BaseComponent {
         if (!currOpt) return;
         this.continent = currOpt.dataset.value;
         this.closeSelector();
+        this.sendOptionActions();
       }
     });
 
-    // Manejo de blur/focusout para no cerrar al cambiar foco dentro del selector
-    this.dom.addEventListener("blur", (event) => {
+
+    // Detectar pérdida de foco total (para accesibilidad con teclado)
+    this.dom.addEventListener("focusout", (event) => {
       if (!this.dom.contains(event.relatedTarget)) {
         this.closeSelector();
       }
@@ -125,16 +130,25 @@ export default class Options extends BaseComponent {
     if (this.alreadyClosed) return;
     this.alreadyClosed = true;
 
-    this.dispatch({ type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS });
-    this.dispatch({ type: ACTIONS.HIDE_BACKDROP });
+    this.dispatch({ type: ACTIONS.HIDE_CONTINENT_SELECTOR_OPTIONS, payload: { target: this.scope } });
+
+
+    if (!this.autoStart) {
+      this.dispatch({ type: ACTIONS.HIDE_BACKDROP, target: this.scope });
+    }
   }
 
   sendOptionActions() {
-    this.dispatch({ type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION, payload: this.continent });
+    this.dispatch({
+      type: ACTIONS.SET_CONTINENT_SELECTOR_OPTION,
+      payload: {
+        continent: this.continent,
+        target: this.scope
+      }
+    });
 
     if (this.autoStart) {
-      // Setear el continente, ya que si no hay botón de "Start" acá se debe setear el continente.
-
+      console.log("Continent selected Options:", this.continent);
       this.dispatch({ type: ACTIONS.SET_CONTINENT, payload: this.continent });
 
       const mode = this.state.game.mode;
@@ -146,9 +160,12 @@ export default class Options extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state.ui.continentSelector.options.show !== state.ui.continentSelector.options.show) {
-      this._show(state.ui.continentSelector.options.show);
-      this._assignSelected(state.ui.continentSelector.options.show);
+    const prevShow = this.state.ui.continentSelector[this.scope]?.options.show;
+    const nextShow = state.ui.continentSelector[this.scope]?.options.show;
+
+    if (prevShow !== nextShow) {
+      this._show(nextShow);
+      this._assignSelected(nextShow);
     }
     this.state = state;
   }

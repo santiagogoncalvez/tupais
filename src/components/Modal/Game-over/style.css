@@ -10,6 +10,7 @@
 
   width: 100%;
   max-width: 100vw;
+  height: 100%;
   /** Para que se vean bien los modales cuando estos se abren se tienen que poner el overflow del main o de los otros componentes en hidden para que no molesten el overflow-x de los modales */
   overflow: auto;
 
@@ -22,7 +23,7 @@
   margin: 0;
   user-select: none;
 
-  scrollbar-gutter: stable both-edges;
+  /* scrollbar-gutter: stable both-edges; */
 
   /* Animation */
   opacity: 1;

@@ -19,24 +19,35 @@ import countryNames from "@data/country-names.json" with { type: "json" };
 import { SORT_TYPES } from "@constants/sort-options.js";
 
 export default class flagList extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, scale = 1) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
     this.dispatch = dispatch;
+    this.scale = scale;
 
     this.dom = this._createDom();
 
     this.optionsLimit = 10;
 
     this._init();
+
+    this.setScale(scale);
   }
 
   _init() {
     // En este punto los items ya están ordenados alfabeticamente A-Z
     this.renderItems(countryNames);
+
+    // Si se pasó un scale distinto a 1, alinear al inicio
+    if (this.scale !== 1) {
+      const list = this.dom.querySelector(".flag-list__list");
+      if (list) {
+        list.style.justifyContent = "start";
+      }
+    }
   }
 
 
@@ -187,5 +198,11 @@ export default class flagList extends BaseComponent {
 
     const list = this.dom.querySelector(".flag-list__list");
     items.forEach(item => list.appendChild(item));
+  }
+
+
+  setScale(scale = 1) {
+    this.scale = scale;
+    this.dom.style.setProperty("--flag-scale", scale);
   }
 }

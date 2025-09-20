@@ -6,11 +6,11 @@
   gap: 16px;
   width: 100%;
   max-width: 100vw;
-  padding: 0px 10px 0px 10px;
+  /* padding: 0px 10px 0px 10px; */
 }
 
 .results__title {
-  color: #00405d;
+  /* color: #00405d; */
   font-weight: 500;
   margin: 0;
   font-size: 1.3rem;
@@ -25,39 +25,58 @@
   width: 100%;
 }
 
-.results__correct {
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* uno a la izq, otro a la der */
-  align-items: start; /* opcional, para centrar vertical */
-  font-size: 1.2rem;
-}
-.results__incorrect {
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* uno a la izq, otro a la der */
-  align-items: start; /* opcional, para centrar vertical */
-  font-size: 1.2rem;
-}
-.results__time {
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* uno a la izq, otro a la der */
-  align-items: start; /* opcional, para centrar vertical */
-  font-size: 1.2rem;
-}
-
 .results__flags {
-  width: 100%;
+  width: fit-content;
   display: flex;
-  justify-content: space-between; /* uno a la izq, otro a la der */
-  align-items: start; /* opcional, para centrar vertical */
+  /* justify-content: space-between; */
+  align-items: start;
   font-size: 1.2rem;
 }
 
 .results__span {
-  font-size: 24px;
-  font-weight: semibold;
-  color: #333;
-  word-spacing: -4px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  /* color: #111; */
+}
+
+
+
+/* Bloques correctas, incorrectas y tiempo */
+.results__correct,
+.results__incorrect,
+.results__time{
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+
+.results__correct-container,
+.results__incorrect-container,
+.results__time-container {
+  width: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: start;
+  font-size: 1.1rem;
+  padding: 12px;
+  border-radius: 6px;
+  background: #f1f5f9;
+}
+
+.results__correct-container {
+  border-left: 6px solid #10b981; /* verde */
+}
+.results__incorrect-container {
+  border-left: 6px solid #ef4444; /* rojo */
+}
+.results__time-container {
+  border-left: 6px solid #3b82f6; /* azul */
+}
+
+.results__flags-overflow{
+  max-height: 200px;
+  overflow: auto;
 }

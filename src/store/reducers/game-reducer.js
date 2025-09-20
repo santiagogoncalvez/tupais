@@ -5,7 +5,7 @@ import { nextIndex } from "@utils/circular-counter.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
-const GAME_TIME_TIMER = 60;
+const GAME_TIME_TIMER = 300;
 const GAME_TIME_TIMER_MODE_TIME_TRIAL = 10;
 const TOTAL_ANSWERS = 10;
 
@@ -61,10 +61,14 @@ function getAnswers(game) {
       };
     } else {
       // Agregar país actual a incorrectFlags
-      newState.incorrectFlags = [
-        ...newState.incorrectFlags,
-        newState.countries[newState.countryIndex],
-      ];
+      const currentFlag = newState.countries[newState.countryIndex];
+
+      if (!newState.incorrectFlags.includes(currentFlag)) {
+        newState.incorrectFlags = [
+          ...newState.incorrectFlags,
+          currentFlag,
+        ];
+      }
       // *Respuesta incorrecta pero completa
       // Esto en el modo clasico comun ahora no resta puntos ni países a. adivinar por el momento.
       newState = {
@@ -324,21 +328,21 @@ const reducerMap = {
 
   // Mode: Multiple choice
   [ACTIONS.NEW_GAME_MULTIPLE_CHOICE]: (game) => {
-    // Selecciona la cantidad de países a responder desde countryIndex
-    let { countries, countryIndex, totalAnswers } = game;
+    const { countries, totalAnswers } = game;
 
-    // TODO: esto es un parche temporal. Corregir. Esto se hace porque después de crear un juego, se hace la acción de pasar al siguiente país (indice 1) en vez del país de índice 0. Al parecer esto no lo envía ninguna acción en sí pero alguna parte está modificando el índice lo que hace que cuando se inicia un juego se inicie en el país de índice 1, es decir el segundo país. Corregir para que se inicie en el primero (0) y haga la animación de entrada de una bandera además.
-    countryIndex = nextIndex(game.countryIndex, game.countries.length);
+    // Empezar siempre desde el primer país
+    const countryIndex = 0;
 
-    const selectedCountries = Array.from({ length: totalAnswers }, (_, i) => {
-      // desplazamiento circular
-      const idx = (countryIndex + i) % countries.length;
+    // Obtener los siguientes 10 países para incorrectFlags
+    const incorrectFlags = Array.from({ length: totalAnswers }, (_, i) => {
+      // desplazamiento circular empezando después del actual
+      const idx = (game.countryIndex + 1 + i) % game.totalAnswers;
       return countries[idx];
     });
 
     return {
       ...newGame(game),
-      incorrectFlags: selectedCountries,
+      incorrectFlags,     // los 10 siguientes
     };
   },
   [ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE]: (game) => {

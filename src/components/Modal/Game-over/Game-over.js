@@ -30,7 +30,7 @@ export default class GameOver extends BaseComponent {
 
 
     // Componente de resultados del juego: Results
-    this.results = new Results(state);
+    this.results = new Results(state, dispatch);
 
     this.gameModes = new GameModes(state, dispatch);
     this.statistics = new Statistics(state);

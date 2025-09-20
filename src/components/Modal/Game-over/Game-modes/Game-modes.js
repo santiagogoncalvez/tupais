@@ -27,7 +27,7 @@ export default class GameModes extends BaseComponent {
   _init(state) {
     const links = this.dom.querySelectorAll(".game-modes__link");
     for (let link of links) {
-      link.addEventListener("click", (event) => { // evita que recargue
+      link.addEventListener("click", () => { // evita que recargue
         const route = link.getAttribute("href");
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         this.dispatch({ type: ACTIONS.CLOSE_GAME_OVER });
@@ -38,14 +38,17 @@ export default class GameModes extends BaseComponent {
   }
 
   syncState(state) {
-    if (state.game.mode !== this.state.game.mode) {
+    // if (state.game.mode !== this.state.game.mode) {
+    //* Parche para actualizar de forma correcta, ver por qué o en qué momento no actualiza bien. El error está en la comparación (state.game.mode !== this.state.game.mode) en algún moomento no son distintos y no actualiza.
       this._showCorrectModes(state);
-    }
+    // }
+
 
     this.state = state;
   }
 
   _showCorrectModes(state) {
+    console.log(state.game.mode);
     // mostrar todos los botones
     document.querySelectorAll(".game-modes__link").forEach(btn => {
       btn.classList.remove("hidden");

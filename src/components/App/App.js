@@ -179,7 +179,7 @@ export default class App {
 
         // Reset del contenedor principal
         this.main.innerHTML = "";
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        this.dom.querySelector(".app__container").scrollTo({ top: 0, left: 0, behavior: "auto" });
         this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
 
         // Cerrar Navbar si está abierto

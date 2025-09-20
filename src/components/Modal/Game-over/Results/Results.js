@@ -35,6 +35,7 @@ export default class Results extends BaseComponent {
   }
 
   syncState(state) {
+    // TODO: corregir esto para que solo se actualice cuando sea necesario.
     // if (state.game.completed != this.state.game.completed) {
     let correctData = this.dom
       .querySelector(".results__correct")

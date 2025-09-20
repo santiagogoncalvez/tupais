@@ -46,7 +46,6 @@ export default class Button extends BaseComponent {
       event.stopImmediatePropagation();
 
       if (this.selectedOptions.visibilityState !== "visible") {
-        console.log("show options from button");
         this.show(true);
       } else {
         this.show(false);

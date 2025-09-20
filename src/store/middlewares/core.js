@@ -90,7 +90,6 @@ export const checkNewGame = (store) => (next) => (action) => {
 
 export const checkStartButton = (store) => (next) => (action) => {
     if (action.type === ACTIONS.START_BUTTON_CLICKED) {
-        console.log(action);
         const state = store.getState();
         const { continent } = action.payload;
 

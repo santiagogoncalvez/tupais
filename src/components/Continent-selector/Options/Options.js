@@ -148,7 +148,6 @@ export default class Options extends BaseComponent {
     });
 
     if (this.autoStart) {
-      console.log("Continent selected Options:", this.continent);
       this.dispatch({ type: ACTIONS.SET_CONTINENT, payload: this.continent });
 
       const mode = this.state.game.mode;

@@ -15,7 +15,7 @@ import ContinentSelector from "@components/Continent-selector/Continent-selector
 // Setear el modo actual
 store.dispatch({
   type: ACTIONS.SET_GAME_MODE,
-  payload: "multiple-choice",
+  payload: "classic",
 });
 
 let continentSelector = new ContinentSelector(
@@ -69,6 +69,6 @@ if (state.ui.firstLaunch) {
   });
 } else {
   store.dispatch({
-    type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE,
+    type: ACTIONS.NEW_GAME_CLASSIC,
   });
 }

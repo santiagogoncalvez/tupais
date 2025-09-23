@@ -49,4 +49,5 @@
 
 .continent-selector__button-text{
   user-select: none;
+  flex: 1;
 }

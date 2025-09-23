@@ -28,7 +28,7 @@ const store = createStore(rootReducer, [
 // Setear el modo actual
 store.dispatch({
   type: ACTIONS.SET_GAME_MODE,
-  payload: "classic",
+  payload: "challenge",
 });
 
 let continentSelector = new ContinentSelector(

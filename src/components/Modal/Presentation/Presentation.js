@@ -125,12 +125,12 @@ export default class Presentation extends BaseComponent {
     // Acción de nuevo juego
     //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
     if (
-      state.game.mode === "classic"
+      state.game.mode === "challenge"
     ) {
       this.newGameAction = ACTIONS.NEW_GAME;
     }
-    if (state.game.mode === "multiple-choice") {
-      this.newGameAction = ACTIONS.NEW_GAME_MULTIPLE_CHOICE;
+    if (state.game.mode === "classic") {
+      this.newGameAction = ACTIONS.NEW_GAME_CLASSIC;
     }
     if (state.game.mode === "record") {
       this.newGameAction = ACTIONS.NEW_GAME_RECORD;

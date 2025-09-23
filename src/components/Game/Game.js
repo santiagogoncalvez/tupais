@@ -57,7 +57,7 @@ export default class Game extends BaseComponent {
   }
 
   _init(state) {
-    if (state.game.mode === "multiple-choice") {
+    if (state.game.mode === "classic") {
       // Eliminar elementos que no son del modo
       this.answer.dom.remove();
       this.keyboard.dom.remove();
@@ -69,7 +69,7 @@ export default class Game extends BaseComponent {
       this.progressDots.syncState(state);
       this.gameOptions.syncState(state);
     } else {
-      // TODO: averiguar por que no se cargan las opciones del modo multiple-choice.
+      // TODO: averiguar por que no se cargan las opciones del modo classic.
       // Eliminar elementos que no son del modo
       this.progressDots.dom.remove();
       this.gameOptions.dom.remove();

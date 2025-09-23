@@ -26,6 +26,6 @@ function subscribeComponents() {
 subscribeComponents();
 
 store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "record" });
-store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
+store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "challenge" });
 store.dispatch({ type: ACTIONS.NEW_GAME });
 store.dispatch({ type: ACTIONS.OPEN_GAME_OVER });

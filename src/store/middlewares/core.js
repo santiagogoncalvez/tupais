@@ -24,7 +24,7 @@ export const checkSendAnswerNotification = (store) => (next) => (action) => {
 
     if (
         action.type === ACTIONS.SEND_ANSWER ||
-        action.type === ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE
+        action.type === ACTIONS.SEND_ANSWER_CLASSIC
     ) {
         const state = store.getState();
         store.dispatch({
@@ -80,7 +80,7 @@ export const checkNewGame = (store) => (next) => (action) => {
     const result = next(action);
     if (
         action.type === ACTIONS.NEW_GAME ||
-        action.type === ACTIONS.NEW_GAME_MULTIPLE_CHOICE || action.type === ACTIONS.NEW_GAME_RECORD ||
+        action.type === ACTIONS.NEW_GAME_CLASSIC || action.type === ACTIONS.NEW_GAME_RECORD ||
         action.type === ACTIONS.NEW_GAME_TIME_TRIAL
     ) {
         store.dispatch({ type: ACTIONS.RESET_TIMER, payload: Date.now() });
@@ -101,11 +101,11 @@ export const checkStartButton = (store) => (next) => (action) => {
 
         // Arrancar juego según modo
         const mode = state.game.mode;
-        if (mode === "classic") {
+        if (mode === "challenge") {
             store.dispatch({ type: ACTIONS.NEW_GAME });
         }
-        if (mode === "multiple-choice") {
-            store.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
+        if (mode === "classic") {
+            store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
         }
         if (mode === "record") {
             store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });

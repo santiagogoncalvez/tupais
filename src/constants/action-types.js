@@ -13,6 +13,7 @@ export const ACTIONS = {
   // Core genérico
   OPEN_MODAL: "ui/modal/open",
   CLOSE_MODAL: "ui/modal/close",
+  CLOSE_ALL_MODALS: "ui/modals/all/close",
 
   // Alias semánticos
   OPEN_PRESENTATION: "ui/modal/presentation/open",
@@ -45,7 +46,7 @@ export const ACTIONS = {
   HIDE_NOTIFICATION: "ui/notification/hide",
   RESET_NOTIFICATION: "ui/notification/reset",
 
-  // Mode Multiple-choice
+  // Mode classic
   START_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/start",
   STOP_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/stop",
 
@@ -59,12 +60,12 @@ export const ACTIONS = {
   SET_GAME_MODE: "game/mode/set",
 
   // Mode multiple choice
-  NEW_GAME_MULTIPLE_CHOICE: "game/new/multiple-choice",
-  SEND_ANSWER_MULTIPLE_CHOICE: "game/answer/multiple-choice/send",
-  SHOW_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/show",
-  HIDE_OPTIONS_MULTIPLE_CHOICE: "game/answer/multiple-choice/options/hide",
+  NEW_GAME_CLASSIC: "game/new/classic",
+  SEND_ANSWER_CLASSIC: "game/answer/classic/send",
+  SHOW_OPTIONS_CLASSIC: "game/answer/classic/options/show",
+  HIDE_OPTIONS_CLASSIC: "game/answer/classic/options/hide",
   SEND_NOT_ANSWER: "game/answer/not-send",
-  SEND_NOT_ANSWER_MULTIPLE_CHOICE: "game/answer/not-send/multiple-choice",
+  SEND_NOT_ANSWER_CLASSIC: "game/answer/not-send/classic",
 
   // Mode record
   NEW_GAME_RECORD: "game/new/record",
@@ -75,7 +76,7 @@ export const ACTIONS = {
   // Game/Country
   SET_COUNTRY_INDEX: "game/country/index/set",
   NEXT_COUNTRY: "game/country/index/next",
-  NEXT_COUNTRY_MULTIPLE_CHOICE: "game/multiple-choice/country/index/next",
+  NEXT_COUNTRY_CLASSIC: "game/classic/country/index/next",
   SKIP_COUNTRY: "game/country/index/skip",
   PREVIOUS_COUNTRY: "game/country/index/previous",
   RESET_FLAGS: "game/country/flags/reset",

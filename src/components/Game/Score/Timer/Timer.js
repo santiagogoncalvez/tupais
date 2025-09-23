@@ -220,8 +220,8 @@ export default class Timer extends BaseComponent {
     progress.style.background = this._colors[this._colors.length - 1];
 
     this.dispatch({ type: ACTIONS.SET_ANSWER, payload: null });
-    if (this.state.game.mode === "multiple-choice") {
-      this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER_MULTIPLE_CHOICE });
+    if (this.state.game.mode === "classic") {
+      this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER_CLASSIC });
     } else {
       this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER });
     }

@@ -32,7 +32,7 @@ export default class App {
         // Setear modo de juego
         // this.store.dispatch({
         //     type: ACTIONS.SET_GAME_MODE,
-        //     payload: "classic",
+        //     payload: "challenge",
         // });
 
         // Instanciar componentes
@@ -195,18 +195,18 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
-                this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
-            case currentRoute === "/multiple-choice":
+            case currentRoute === "/challenge":
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "challenge" });
+                this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "multiple-choice" });
-                this.store.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
                 break;
 
             case currentRoute === "/record":
@@ -234,6 +234,7 @@ export default class App {
                 break;
 
             case currentRoute.startsWith("/flag-gallery/"):
+                this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
                 this.about.dom.remove();
                 this.credits.dom.remove();
                 const country = currentRoute.split("/")[2];

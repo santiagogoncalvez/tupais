@@ -22,7 +22,7 @@ export default class nextButton extends BaseComponent {
           dispatch({ type: ACTIONS.SKIP_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
 
-          if (this.state.game.mode != "multiple-choice") {
+          if (this.state.game.mode != "classic") {
             dispatch({ type: ACTIONS.NEXT_COUNTRY });
           }
         },

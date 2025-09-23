@@ -151,8 +151,8 @@ export default class Options extends BaseComponent {
       this.dispatch({ type: ACTIONS.SET_CONTINENT, payload: this.continent });
 
       const mode = this.state.game.mode;
-      if (mode === "classic") this.dispatch({ type: ACTIONS.NEW_GAME });
-      if (mode === "multiple-choice") this.dispatch({ type: ACTIONS.NEW_GAME_MULTIPLE_CHOICE });
+      if (mode === "challenge") this.dispatch({ type: ACTIONS.NEW_GAME });
+      if (mode === "classic") this.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
       if (mode === "record") this.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
       if (mode === "time-trial") this.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
     }

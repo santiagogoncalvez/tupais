@@ -302,6 +302,18 @@ const reducerMap = {
       [action.payload]: { show: false },
     },
   }),
+
+  [ACTIONS.CLOSE_ALL_MODALS]: (ui) => {
+    const closedModals = Object.keys(ui.modals).reduce((acc, key) => {
+      acc[key] = { ...ui.modals[key], show: false };
+      return acc;
+    }, {});
+
+    return {
+      ...ui,
+      modals: closedModals,
+    };
+  },
 };
 
 //* Siempre se tienen que crear nuevo objetos, si se modifican las propiedades internas que hacen referencia a los objetos guardados en cada componente en el proceso de creación del nuevo estado no se van a poder actuzalizar de manera correcta

@@ -18,7 +18,7 @@ export default class Country extends BaseComponent {
   }
 
   _init(state) {
-    if (state.game.mode === "classic" || state.game.mode === "time-trial") {
+    if (state.game.mode === "challenge" || state.game.mode === "time-trial") {
       this.dom.prepend(elt("div", { className: this.base.fill }));
       this.dom.appendChild(this.nextButton.dom);
     }

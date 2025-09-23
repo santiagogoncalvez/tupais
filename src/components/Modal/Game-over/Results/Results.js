@@ -11,7 +11,6 @@ import { formatTime } from "@utils/format-time.js";
 
 import BaseComponent from "@shared/Base-component.js";
 
-import CorrectFlags from "@Modal/Game-over/Results/Correct-flags/Correct-flags.js";
 import FlagList from "@components/Flag-gallery/Flag-list/Flag-list.js";
 
 export default class Results extends BaseComponent {

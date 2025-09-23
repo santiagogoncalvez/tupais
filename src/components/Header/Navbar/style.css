@@ -115,12 +115,12 @@
   background-position: center;
 }
 
-.navbar__icon--classic {
+.navbar__icon--challenge {
   background-image: url("/tupais/icons/navbar-classic.png");
 }
 
-.navbar__icon--multiple-choice {
-  background-image: url("/tupais/icons/navbar-multiple-choice.png");
+.navbar__icon--classic {
+  background-image: url("/tupais/icons/navbar-challenge.png");
 }
 
 .navbar__icon--clues {
@@ -163,12 +163,12 @@
   background-color: #00405d;
 }
 
-.navbar__icon--classic.navbar__icon--dark-mode {
-  background-image: url("/tupais/icons/navbar-classic-dark-mode.png");
+.navbar__icon--challenge.navbar__icon--dark-mode {
+  background-image: url("/tupais/icons/navbar-challenge-dark-mode.png");
 }
 
-.navbar__icon--multiple-choice.navbar__icon--dark-mode {
-  background-image: url("/tupais/icons/navbar-multiple-choice-dark-mode.png");
+.navbar__icon--classic.navbar__icon--dark-mode {
+  background-image: url("/tupais/icons/navbar-classic-dark-mode.png");
 }
 
 .navbar__icon--clues.navbar__icon--dark-mode {

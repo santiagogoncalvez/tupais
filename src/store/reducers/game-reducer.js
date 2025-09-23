@@ -210,7 +210,7 @@ let initState = {
   isNewGame: false,
   lastAnswerType: "Incomplete",
   skip: false,
-  mode: "classic",
+  mode: "challenge",
   modes: null,
   timer: {
     time: GAME_TIME_TIMER,
@@ -264,7 +264,7 @@ const reducerMap = {
     };
   },
 
-  [ACTIONS.NEXT_COUNTRY_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.NEXT_COUNTRY_CLASSIC]: (game) => {
     return {
       ...game,
       countryIndex: nextIndex(game.countryIndex, game.countries.length),
@@ -315,7 +315,7 @@ const reducerMap = {
   [ACTIONS.SEND_NOT_ANSWER]: (game) => {
     return getAnswers(game);
   },
-  [ACTIONS.SEND_NOT_ANSWER_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.SEND_NOT_ANSWER_CLASSIC]: (game) => {
     return {
       ...game,
       ...{
@@ -327,7 +327,7 @@ const reducerMap = {
   },
 
   // Mode: Multiple choice
-  [ACTIONS.NEW_GAME_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.NEW_GAME_CLASSIC]: (game) => {
     const { countries, totalAnswers } = game;
 
     // Empezar siempre desde el primer país
@@ -345,10 +345,10 @@ const reducerMap = {
       incorrectFlags,     // los 10 siguientes
     };
   },
-  [ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.SEND_ANSWER_CLASSIC]: (game) => {
     return getAnswersChoice(game);
   },
-  [ACTIONS.SHOW_OPTIONS_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.SHOW_OPTIONS_CLASSIC]: (game) => {
     return {
       ...game,
       modes: {
@@ -364,7 +364,7 @@ const reducerMap = {
       },
     };
   },
-  [ACTIONS.HIDE_OPTIONS_MULTIPLE_CHOICE]: (game) => {
+  [ACTIONS.HIDE_OPTIONS_CLASSIC]: (game) => {
     return {
       ...game,
       modes: {

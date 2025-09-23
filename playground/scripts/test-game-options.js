@@ -18,8 +18,8 @@ function subscribeComponents() {
 subscribeComponents();
 
 setTimeout(() => {
-  store.dispatch({ type: ACTIONS.SHOW_OPTIONS_MULTIPLE_CHOICE });
+  store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
 }, 1000);
 setTimeout(() => {
-  store.dispatch({ type: ACTIONS.HIDE_OPTIONS_MULTIPLE_CHOICE });
+  store.dispatch({ type: ACTIONS.HIDE_OPTIONS_CLASSIC });
 }, 3000);

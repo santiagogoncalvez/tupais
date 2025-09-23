@@ -24,8 +24,8 @@ export default class GameOptions extends BaseComponent {
   }
 
   syncState(state) {
-    // Solo nos interesa multiple-choice
-    if (state.game.mode !== "multiple-choice") {
+    // Solo nos interesa classic
+    if (state.game.mode !== "classic") {
       this.state = state;
       return;
     }
@@ -102,7 +102,7 @@ export default class GameOptions extends BaseComponent {
 
         // Este método va a ejectuar la animación y cuando termine va a enviar las acciones
         dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
-        dispatch({ type: ACTIONS.SEND_ANSWER_MULTIPLE_CHOICE });
+        dispatch({ type: ACTIONS.SEND_ANSWER_CLASSIC });
       });
     }
   }

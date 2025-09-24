@@ -1,5 +1,6 @@
 import { ACTIONS } from "@constants/action-types.js";
 
+let continentStorage = JSON.parse(localStorage.getItem("game.continent")) ?? "all";
 export const initialState = {
   darkMode: false,
   modals: {
@@ -26,12 +27,12 @@ export const initialState = {
   continentSelector: {
     game: {
       options: { show: false },
-      selectedOption: "all",
+      selectedOption: continentStorage,
       showState: "hiding",
     },
     modal: {
       options: { show: false },
-      selectedOption: "all",
+      selectedOption: continentStorage,
       showState: "hiding",
     },
   },

@@ -29,6 +29,7 @@
 .header__fill-button {
    height: 40px;
    width: 40px;
+   user-select: none;
 }
 
 .header__container {
@@ -48,4 +49,65 @@
 
 .header__title--dark-mode {
    color: #e6f2ff;
+}
+
+
+/* Ícono Github */
+.footer__github {
+  position: absolute;
+  right: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  padding: 0;
+  user-select: none;
+  margin: 0;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.footer__github:hover {
+  cursor: pointer;
+}
+
+.footer__github:hover .footer__icon-github {
+  opacity: 0;
+}
+.footer__github:hover .footer__icon-github--hover {
+  opacity: 1;
+}
+
+.footer__icon-github {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  background-image: url("/tupais/icons/github.svg");
+  background-size: 1.8rem 1.8rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer__icon-github--hover {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  background-color: transparent;
+  background-image: url("/tupais/icons/github-hover.svg");
+  background-size: 1.8rem 1.8rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 600px) {
+  .footer__github {
+    display: none;
+  }
 }

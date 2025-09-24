@@ -67,6 +67,16 @@ export const persistStatsMiddleware = (store) => (next) => (action) => {
     return result;
 };
 
+// --- Persistencia de Continent ---
+export const persistContinentMiddleware = (store) => (next) => (action) => {
+    const result = next(action);
+    if (action.type === ACTIONS.SET_CONTINENT) {
+        const state = store.getState();
+        localStorage.setItem("game.continent", JSON.stringify(state.game.continent));
+    }
+    return result;
+};
+
 // --- Router middleware ---
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
@@ -139,6 +149,7 @@ export const coreMiddlewares = [
     checkGameCompleted,
     checkSendAnswerNotification,
     persistStatsMiddleware,
+    persistContinentMiddleware,
     // routerMiddleware,
     checkStartButton,
     checkNewGame

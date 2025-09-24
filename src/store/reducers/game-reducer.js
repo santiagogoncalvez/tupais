@@ -192,17 +192,18 @@ function getOptions(correct, elements) {
   return [correct, ...randoms].sort(() => Math.random() - 0.5);
 }
 
+let continentStorage = JSON.parse(localStorage.getItem("game.continent")) ?? "all";
 let initState = {
-  continent: "all",
+  continent: continentStorage,
   // Esto es temporal, ya que en un principio se va a abrir Presentation y se va a elegir el continente o este va a estar guardado en el localStorage
-  countries: getRandomCountries("all", -1),
+  countries: getRandomCountries(continentStorage, -1),
   // countries: ["Argentina","Colombia", "Chile"],
   countryIndex: 0,
   answer: "",
   sendAnswer: false,
   correctAnswers: 0,
-  correctFlags: ["Argentina", "Brasil", "Paraguay", "Chile", "Perú"],
-  incorrectFlags: ["Colombia", "Venezuela", "Uruguay", "Ecuador", "Bolivia"],
+  correctFlags: [],
+  incorrectFlags: [],
   remainingAnswers: TOTAL_ANSWERS,
   totalAnswers: TOTAL_ANSWERS,
   completed: false,

@@ -329,12 +329,22 @@ export default class FlagInfo extends BaseComponent {
     // Mapa
     //* Parche temporal por ser la verificación asíncrona, ya que en el momento que se llama al método si se entra directo a la página no se cargaron todos los datos a la vez.
     setTimeout(() => {
+      // Eliminar subtítulo previo si existe
+      const prevSubtitle = container.querySelector(".flag-info__subtitle.location");
+      if (prevSubtitle) prevSubtitle.remove();
+
+      // Eliminar mapa previo si existe
+      const prevMap = container.querySelector(".countries-map");
+      if (prevMap) prevMap.remove();
+
       if (this.countriesMap.isCountryAvailable(country.name)) {
-        container.appendChild(elt("h3", { className: "flag-info__subtitle location" }, "Ubicación del país"));
+        container.appendChild(
+          elt("h3", { className: "flag-info__subtitle location" }, "Ubicación del país")
+        );
         this.countriesMap.showCountry(country.name);
         container.appendChild(this.countriesMap.dom);
       }
-    }, 100);
+    }, 500);
   }
 
 }

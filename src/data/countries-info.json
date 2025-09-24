@@ -42,7 +42,7 @@
     },
     "currencies": {
       "AFN": {
-        "name": "Afgani afgano",
+        "name": "Afgani",
         "symbol": "؋"
       }
     },
@@ -63,7 +63,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/af.svg"
     },
     "flags": {
-      "alt": "The flag of the Islamic Emirate of Afghanistan has a white field with Arabic inscriptions — the Shahada — in black across its center."
+      "alt": "La bandera del Emirato Islámico de Afganistán tiene un campo blanco con inscripciones árabes —la Shahada— en negro a través de su centro."
     }
   },
   {
@@ -85,7 +85,7 @@
     "capital": [
       "Mariehamn"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 1580,
@@ -139,7 +139,7 @@
     "capital": [
       "Tirana"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -182,7 +182,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/al.svg"
     },
     "flags": {
-      "alt": "The flag of Albania features a silhouetted double-headed black eagle at the center of a red field."
+      "alt": "La bandera de Albania cuenta con un águila negra de doble cabeza silueta en el centro de un campo rojo."
     }
   },
   {
@@ -203,9 +203,9 @@
     },
     "independent": true,
     "capital": [
-      "Berlin"
+      "Berlín"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": false,
     "borders": [
@@ -253,7 +253,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/de.svg"
     },
     "flags": {
-      "alt": "The flag of Germany is composed of three equal horizontal bands of black, red and gold."
+      "alt": "La bandera de Alemania está compuesta por tres bandas horizontales iguales de negro, rojo y oro."
     }
   },
   {
@@ -276,7 +276,7 @@
     "capital": [
       "Andorra la Vella"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": true,
     "borders": [
@@ -314,7 +314,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ad.svg"
     },
     "flags": {
-      "alt": "The flag of Andorra features three equal vertical bands of blue, yellow and red, with the coat of arms of Andorra centered in the yellow band."
+      "alt": "La bandera de Andorra cuenta con tres bandas verticales iguales de azul, amarillo y rojo, con el escudo de brazos de Andorra centrado en la banda amarilla."
     }
   },
   {
@@ -337,7 +337,7 @@
     "capital": [
       "Luanda"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -380,7 +380,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ao.svg"
     },
     "flags": {
-      "alt": "The flag of Angola features two equal horizontal bands of red and black, with a yellow emblem at its centre. This emblem consists of a five-pointed star within the hoist-side facing half of a cogwheel that is crossed on its lower end by a machete."
+      "alt": "La bandera de Angola cuenta con dos bandas horizontales iguales de rojo y negro, con un emblema amarillo en su centro. Este emblema consta de una estrella de cinco puntos dentro de la parte trasera frente a la mitad de una rueda que se cruza en su extremo inferior por un machete."
     }
   },
   {
@@ -400,9 +400,9 @@
     },
     "independent": false,
     "capital": [
-      "The Valley"
+      "El Valle"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 91,
@@ -415,7 +415,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -447,7 +447,7 @@
     "unMember": false,
     "idd": {},
     "independent": false,
-    "region": "Antarctic",
+    "region": "Antártico",
     "landlocked": false,
     "area": 14000000,
     "population": 1000,
@@ -496,9 +496,9 @@
     },
     "independent": true,
     "capital": [
-      "Saint John's"
+      "San Juan"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 442,
@@ -511,7 +511,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -532,7 +532,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ag.svg"
     },
     "flags": {
-      "alt": "The flag of Antigua and Barbuda has a red field with an inverted isosceles triangle based on the top edge and spanning the height of the field. This triangle has three horizontal bands of black, light blue and white, with the light blue band half the height of the two other bands. The top half of a golden-yellow sun is situated in the lower two-third of the black band to depict a rising sun."
+      "alt": "La bandera de Antigua y Barbuda tiene un campo rojo con un triángulo isosceles invertido basado en el borde superior y abarcando la altura del campo. Este triángulo tiene tres bandas horizontales de negro, azul claro y blanco, con la banda azul claro la mitad de la altura de las otras dos bandas. La mitad superior de un sol amarillo dorado está situado en el dos tercio inferior de la banda negra para representar un sol ascendente."
     }
   },
   {
@@ -599,7 +599,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sa.svg"
     },
     "flags": {
-      "alt": "The flag of Saudi Arabia has a green field, at the center of which is an Arabic inscription — the Shahada — in white above a white horizontal sabre with its tip pointed to the hoist side of the field."
+      "alt": "La bandera de Arabia Saudita tiene un campo verde, en el centro de la cual se encuentra una inscripción árabe —la Shahada— en blanco sobre un sabre blanco horizontal con su punta apuntada al lado del puño del campo."
     }
   },
   {
@@ -620,9 +620,9 @@
     },
     "independent": true,
     "capital": [
-      "Algiers"
+      "Argel"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -669,7 +669,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/dz.svg"
     },
     "flags": {
-      "alt": "The flag of Algeria features two equal vertical bands of green and white. A five-pointed red star within a fly-side facing red crescent is centered over the two-color boundary."
+      "alt": "La bandera de Argelia cuenta con dos bandas verticales iguales de verde y blanco. Una estrella roja de cinco puntos dentro de una crescent roja cara a la mosca se centra sobre el límite de dos colores."
     }
   },
   {
@@ -692,7 +692,7 @@
     "capital": [
       "Buenos Aires"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -737,7 +737,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ar.svg"
     },
     "flags": {
-      "alt": "The flag of Argentina features three equal horizontal bands of light blue, white and light blue. A brown-edged golden sun is centered in the white band."
+      "alt": "La bandera de Argentina cuenta con tres bandas horizontales iguales de azul claro, blanco y azul claro. Un sol dorado envejecido está centrado en la banda blanca."
     }
   },
   {
@@ -779,7 +779,7 @@
     },
     "currencies": {
       "AMD": {
-        "name": "Dram armenio",
+        "name": "Dram",
         "symbol": "֏"
       }
     },
@@ -803,7 +803,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/am.svg"
     },
     "flags": {
-      "alt": "The flag of Armenia is composed of three equal horizontal bands of red, blue and orange."
+      "alt": "La bandera de Armenia está compuesta por tres bandas horizontales iguales de rojo, azul y naranja."
     }
   },
   {
@@ -826,7 +826,7 @@
     "capital": [
       "Oranjestad"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 180,
@@ -881,7 +881,7 @@
     "capital": [
       "Canberra"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Australia y Nueva Zelanda",
     "landlocked": false,
     "area": 7692024,
@@ -925,7 +925,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/au.svg"
     },
     "flags": {
-      "alt": "The flag of Australia has a dark blue field. It features the flag of the United Kingdom — the Union Jack — in the canton, beneath which is a large white seven-pointed star. A representation of the Southern Cross constellation, made up of one small five-pointed and four larger seven-pointed white stars, is situated on the fly side of the field."
+      "alt": "La bandera de Australia tiene un campo azul oscuro. Cuenta con la bandera del Reino Unido —el Union Jack— en el cantón, bajo el cual hay una gran estrella blanca de siete puntos. Una representación de la constelación de la Cruz del Sur, compuesta por una pequeña estrella blanca de cinco puntos y cuatro grandes estrellas blancas de siete puntos, está situada en el lado volador del campo."
     }
   },
   {
@@ -946,9 +946,9 @@
     },
     "independent": true,
     "capital": [
-      "Vienna"
+      "Viena"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": true,
     "borders": [
@@ -995,7 +995,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/at.svg"
     },
     "flags": {
-      "alt": "The flag of Austria is composed of three equal horizontal bands of red, white and red."
+      "alt": "La bandera de Austria está compuesta por tres bandas horizontales iguales de rojo, blanco y rojo."
     }
   },
   {
@@ -1062,7 +1062,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/az.svg"
     },
     "flags": {
-      "alt": "The flag of Azerbaijan features three equal horizontal bands of blue, red and green, with a white fly-side facing crescent and eight-pointed star centered in the red band."
+      "alt": "La bandera de Azerbaiyán cuenta con tres bandas horizontales iguales de azul, rojo y verde, con una estrella blanca frente a la mosca crescent y de ocho puntos centrada en la banda roja."
     }
   },
   {
@@ -1085,7 +1085,7 @@
     "capital": [
       "Nassau"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 13943,
@@ -1123,7 +1123,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bs.svg"
     },
     "flags": {
-      "alt": "The flag of the Bahamas is composed of three equal horizontal bands of aquamarine, yellow and aquamarine, with a black equilateral triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end and spans about one-third the width of the field."
+      "alt": "La bandera de las Bahamas está compuesta por tres bandas horizontales iguales de aquamarine, amarillo y aquamarine, con un triángulo equilátero negro superpuesto en el lado aromático del campo. Este triángulo tiene su base en el extremo del puño y abarca alrededor de un tercio de la anchura del campo."
     }
   },
   {
@@ -1180,7 +1180,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bh.svg"
     },
     "flags": {
-      "alt": "The flag of Bahrain has a red field. On the hoist side, it features a white vertical band that spans about one-third the width of the field and is separated from the rest of the field by five adjoining fly-side pointing white isosceles triangles that serve as a serrated line."
+      "alt": "La bandera de Bahrein tiene un campo rojo. En el lado de la cizaña, cuenta con una banda vertical blanca que abarca alrededor de un tercio de la anchura del campo y se separa del resto del campo por cinco triángulos isosceles blancos adyacentes que sirven como una línea serrada."
     }
   },
   {
@@ -1220,7 +1220,7 @@
     },
     "currencies": {
       "BDT": {
-        "name": "Taka bangladesí",
+        "name": "Taka Bangladesí",
         "symbol": "৳"
       }
     },
@@ -1244,7 +1244,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bd.svg"
     },
     "flags": {
-      "alt": "The flag of Bangladesh has a dark green field bearing a large red circle that is offset slightly towards the hoist side of center."
+      "alt": "La bandera de Bangladesh tiene un campo verde oscuro con un gran círculo rojo que se compensa ligeramente hacia el lado del centro."
     }
   },
   {
@@ -1267,7 +1267,7 @@
     "capital": [
       "Bridgetown"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 430,
@@ -1301,7 +1301,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bb.svg"
     },
     "flags": {
-      "alt": "The flag of Barbados is composed of three equal vertical bands of ultramarine, gold and ultramarine. The head of a black trident is centered in the gold band."
+      "alt": "La bandera de Barbados está compuesta por tres bandas verticales iguales de ultramarina, oro y ultramarina. La cabeza de un tridente negro está centrada en la banda de oro."
     }
   },
   {
@@ -1322,9 +1322,9 @@
     },
     "independent": true,
     "capital": [
-      "Brussels"
+      "Bruselas"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": false,
     "borders": [
@@ -1369,7 +1369,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/be.svg"
     },
     "flags": {
-      "alt": "The flag of Belgium is composed of three equal vertical bands of black, yellow and red."
+      "alt": "La bandera de Bélgica está compuesta por tres bandas verticales iguales de negro, amarillo y rojo."
     }
   },
   {
@@ -1392,7 +1392,7 @@
     "capital": [
       "Belmopan"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -1405,7 +1405,7 @@
       "side": "right"
     },
     "languages": {
-      "bjz": "Belizean Creole",
+      "bjz": "Belicean Creole",
       "eng": "Inglés",
       "spa": "Español"
     },
@@ -1435,7 +1435,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bz.svg"
     },
     "flags": {
-      "alt": "The flag of Belize has a royal blue field with a thin red horizontal band at the top and bottom of the field and the national coat of arms in the center."
+      "alt": "La bandera de Belice tiene un campo azul real con una fina banda horizontal roja en la parte superior e inferior del campo y el escudo nacional de armas en el centro."
     }
   },
   {
@@ -1458,7 +1458,7 @@
     "capital": [
       "Porto-Novo"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -1501,7 +1501,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bj.svg"
     },
     "flags": {
-      "alt": "The flag of Benin features a green vertical band on its hoist side that takes up about two-fifth the width of the field and two equal horizontal bands of yellow and red adjoining the vertical band."
+      "alt": "La bandera de Benin cuenta con una banda vertical verde en su lado aromático que toma alrededor de dos quinta parte de la anchura del campo y dos bandas horizontales iguales de amarillo y rojo junto a la banda vertical."
     }
   },
   {
@@ -1524,7 +1524,7 @@
     "capital": [
       "Hamilton"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "area": 54,
@@ -1578,8 +1578,8 @@
     "capital": [
       "Minsk"
     ],
-    "region": "Europe",
-    "subregion": "Eastern Europe",
+    "region": "Europa",
+    "subregion": "Europa oriental",
     "landlocked": true,
     "borders": [
       "LVA",
@@ -1623,7 +1623,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/by.svg"
     },
     "flags": {
-      "alt": "The flag of Belarus features a vertical band, with a white and red ornamental pattern, spanning about one-fifth the width of the field on the hoist side. Adjoining the vertical band are two horizontal bands of red and green, with the red band twice the height of the green band."
+      "alt": "La bandera de Bielorrusia cuenta con una banda vertical, con un patrón ornamental blanco y rojo, que abarca alrededor de una quinta parte de la anchura del campo en el lado del puño. Junto a la banda vertical hay dos bandas horizontales de rojo y verde, con la banda roja dos veces la altura de la banda verde."
     }
   },
   {
@@ -1646,7 +1646,7 @@
     "capital": [
       "Sucre"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": true,
     "borders": [
@@ -1693,7 +1693,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bo.svg"
     },
     "flags": {
-      "alt": "The flag of Bolivia is composed of three equal horizontal bands of red, yellow and green, with the national coat of arms centered in the yellow band."
+      "alt": "La bandera de Bolivia está compuesta por tres bandas horizontales iguales de rojo, amarillo y verde, con el escudo nacional de brazos centrado en la banda amarilla."
     }
   },
   {
@@ -1716,7 +1716,7 @@
     "capital": [
       "Sarajevo"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -1759,7 +1759,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ba.svg"
     },
     "flags": {
-      "alt": "The flag of Bosnia and Herzegovina has a blue field, at the center of which is a large yellow hoist-side facing right-angled triangle that is based on the top edge and spans the height of the field. Adjacent to the hypotenuse of this triangle are nine adjoining five-pointed white stars with the top and bottom stars cut in half by the edges of the field."
+      "alt": "La bandera de Bosnia y Herzegovina tiene un campo azul, en el centro de la cual se encuentra un gran triángulo acolchado amarillo frente al lado derecho-ángulo que se basa en el borde superior y abarca la altura del campo. Adyacente a la hipotenusa de este triángulo son nueve estrellas blancas adyacentes de cinco puntos con las estrellas superiores e inferiores cortadas en la mitad por los bordes del campo."
     }
   },
   {
@@ -1782,8 +1782,8 @@
     "capital": [
       "Gaborone"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": true,
     "borders": [
       "NAM",
@@ -1826,7 +1826,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bw.svg"
     },
     "flags": {
-      "alt": "The flag of Botswana has a light blue field with a white-edged black horizontal band across its center."
+      "alt": "La bandera de Botswana tiene un campo azul claro con una banda horizontal de color blanco a través de su centro."
     }
   },
   {
@@ -1849,7 +1849,7 @@
     "capital": [
       "Brasília"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -1901,7 +1901,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/br.svg"
     },
     "flags": {
-      "alt": "The flag of Brazil has a green field with a large yellow rhombus in the center. Within the rhombus is a dark blue globe with twenty-seven small five-pointed white stars depicting a starry sky and a thin white convex horizontal band inscribed with the national motto 'Ordem e Progresso' across its center."
+      "alt": "La bandera de Brasil tiene un campo verde con un gran rhombus amarillo en el centro. Dentro del rhombus se encuentra un globo azul oscuro con veintisiete pequeñas estrellas blancas de cinco puntos que representan un cielo estrellado y una fina banda horizontal convexa blanca inscrita con el lema nacional 'Ordem e Progresso' a través de su centro."
     }
   },
   {
@@ -1965,7 +1965,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bn.svg"
     },
     "flags": {
-      "alt": "The flag of Brunei has a yellow field with two adjoining diagonal bands of white and black that extend from the upper hoist side of the field to the lower fly side. The red emblem of Brunei is centered on the field."
+      "alt": "La bandera de Brunei tiene un campo amarillo con dos bandas diagonales adyacentes de blanco y negro que se extienden desde el lado superior del campo hasta el lado inferior de la mosca. El emblema rojo de Brunei está centrado en el campo."
     }
   },
   {
@@ -1988,7 +1988,7 @@
     "capital": [
       "Sofia"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -2032,7 +2032,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bg.svg"
     },
     "flags": {
-      "alt": "The flag of Bulgaria is composed of three equal horizontal bands of white, green and red."
+      "alt": "La bandera de Bulgaria está compuesta por tres bandas horizontales iguales de blanco, verde y rojo."
     }
   },
   {
@@ -2055,7 +2055,7 @@
     "capital": [
       "Ouagadougou"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": true,
     "borders": [
@@ -2100,7 +2100,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bf.svg"
     },
     "flags": {
-      "alt": "The flag of Burkina Faso features two equal horizontal bands of red and green, with a yellow five-pointed star in the center."
+      "alt": "La bandera de Burkina Faso cuenta con dos bandas horizontales iguales de rojo y verde, con una estrella amarilla de cinco puntos en el centro."
     }
   },
   {
@@ -2123,8 +2123,8 @@
     "capital": [
       "Gitega"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "COD",
@@ -2166,7 +2166,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bi.svg"
     },
     "flags": {
-      "alt": "The flag of Burundi is divided by a white diagonal cross into four alternating triangular areas of red at the top and bottom, and green on the hoist and fly sides. A white circle, with three green-edged red six-pointed stars arranged to form a triangle, is superimposed at the center of the cross."
+      "alt": "La bandera de Burundi está dividida por una cruz diagonal blanca en cuatro zonas triangulares alternadas de rojo en la parte superior e inferior, y verde en los lados de la cizaña y la mosca. Un círculo blanco, con tres estrellas rojas de seis puntas verdes dispuestas para formar un triángulo, se superpone en el centro de la cruz."
     }
   },
   {
@@ -2234,7 +2234,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/bt.svg"
     },
     "flags": {
-      "alt": "The flag of Bhutan is divided diagonally, from the lower hoist-side corner to the upper fly-side corner, into an upper yellow and a lower orange triangle. A fly-side facing white dragon holding four jewels in its claws is situated along the boundary of the two triangles."
+      "alt": "La bandera de Bután se divide diagonalmente, desde la esquina inferior del lado izquierdo hasta la esquina superior del lado de la mosca, en un amarillo superior y un triángulo naranja inferior. Un dragón blanco frente a la mosca que sostiene cuatro joyas en sus garras está situado a lo largo del límite de los dos triángulos."
     }
   },
   {
@@ -2257,7 +2257,7 @@
     "capital": [
       "Praia"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "area": 4033,
@@ -2294,7 +2294,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cv.svg"
     },
     "flags": {
-      "alt": "The flag of Cape Verde is composed of five horizontal bands of blue, white, red, white and blue in the ratio of 6:1:1:1:3. A ring of ten five-pointed yellow stars is centered at three-eighth of the height from the bottom edge and three-eighth of the width from the hoist end of the field."
+      "alt": "La bandera de Cabo Verde está compuesta por cinco bandas horizontales de azul, blanco, rojo, blanco y azul en la proporción de 6:1:1:3. Un anillo de diez estrellas amarillas de cinco puntos se centra en el tres octavo de la altura desde el borde inferior y el tres octavo de la anchura desde el extremo de la cizaña del campo."
     }
   },
   {
@@ -2360,7 +2360,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kh.svg"
     },
     "flags": {
-      "alt": "The flag of Cambodia features three horizontal bands of blue, red and blue, with a white depiction of the temple complex, Angkor Wat centered in the red band."
+      "alt": "La bandera de Camboya cuenta con tres bandas horizontales de azul, rojo y azul, con una representación blanca del complejo del templo, Angkor Wat centrado en la banda roja."
     }
   },
   {
@@ -2381,9 +2381,9 @@
     },
     "independent": true,
     "capital": [
-      "Yaoundé"
+      "Yaundé"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -2429,7 +2429,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cm.svg"
     },
     "flags": {
-      "alt": "The flag of Cameroon is composed of three equal vertical bands of green, red and yellow, with a yellow five-pointed star in the center."
+      "alt": "La bandera de Camerún está compuesta por tres bandas verticales iguales de verde, rojo y amarillo, con una estrella amarilla de cinco puntos en el centro."
     }
   },
   {
@@ -2452,7 +2452,7 @@
     "capital": [
       "Ottawa"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "borders": [
@@ -2498,7 +2498,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ca.svg"
     },
     "flags": {
-      "alt": "The flag of Canada is composed of a red vertical band on the hoist and fly sides and a central white square that is twice the width of the vertical bands. A large eleven-pointed red maple leaf is centered in the white square."
+      "alt": "La bandera de Canadá está compuesta por una banda vertical roja en los lados de aro y mosca y una plaza blanca central que es el doble de la anchura de las bandas verticales. Una gran hoja de arce rojo de once puntos está centrada en la plaza blanca."
     }
   },
   {
@@ -2520,7 +2520,7 @@
     "capital": [
       "Kralendijk"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 328,
@@ -2615,7 +2615,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/qa.svg"
     },
     "flags": {
-      "alt": "The flag of Qatar has a maroon field, on the hoist side of which is a white vertical band that spans about one-third the width of the field and is separated from the rest of the field by nine adjoining fly-side pointing white isosceles triangles that serve as a serrated line."
+      "alt": "La bandera de Qatar tiene un campo de maroon, en el lado aro de que es una banda vertical blanca que abarca alrededor de un tercio de la anchura del campo y se separa del resto del campo por nueve triángulos isosceles blancos adyacentes que sirven como una línea serrada."
     }
   },
   {
@@ -2638,7 +2638,7 @@
     "capital": [
       "N'Djamena"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": true,
     "borders": [
@@ -2684,7 +2684,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/td.svg"
     },
     "flags": {
-      "alt": "The flag of Chad is composed of three equal vertical bands of blue, gold and red."
+      "alt": "La bandera del Chad está compuesta por tres bandas verticales iguales de azul, oro y rojo."
     }
   },
   {
@@ -2705,9 +2705,9 @@
     },
     "independent": true,
     "capital": [
-      "Prague"
+      "Praga"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": true,
     "borders": [
@@ -2722,12 +2722,12 @@
       "side": "right"
     },
     "languages": {
-      "ces": "Czech",
-      "slk": "Slovak"
+      "ces": "Checo",
+      "slk": "Eslovaco"
     },
     "currencies": {
       "CZK": {
-        "name": "Czech koruna",
+        "name": "Corona checa",
         "symbol": "Kč"
       }
     },
@@ -2751,7 +2751,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cz.svg"
     },
     "flags": {
-      "alt": "The flag of Czechia is composed of two equal horizontal bands of white and red, with a blue isosceles triangle superimposed on the hoist side of the field. The triangle has its base on the hoist end and spans about two-fifth the width of the field."
+      "alt": "La bandera de Chequia está compuesta por dos bandas horizontales iguales de blanco y rojo, con un triángulo isosceles azul superpuesto en el lado hútero del campo. El triángulo tiene su base en el extremo de la cizaña y abarca alrededor de dos quinta parte del ancho del campo."
     }
   },
   {
@@ -2774,7 +2774,7 @@
     "capital": [
       "Santiago"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -2792,7 +2792,7 @@
     },
     "currencies": {
       "CLP": {
-        "name": "Chilean peso",
+        "name": "Peso chileno",
         "symbol": "$"
       }
     },
@@ -2817,7 +2817,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cl.svg"
     },
     "flags": {
-      "alt": "The flag of Chile is composed of two equal horizontal bands of white and red, with a blue square of the same height as the white band superimposed in the canton. A white five-pointed star is centered in the blue square."
+      "alt": "La bandera de Chile está compuesta por dos bandas horizontales iguales de blanco y rojo, con un cuadrado azul de la misma altura que la banda blanca superpuesta en el cantón. Una estrella blanca de cinco puntos está centrada en la plaza azul."
     }
   },
   {
@@ -2871,7 +2871,7 @@
     },
     "currencies": {
       "CNY": {
-        "name": "Chinese yuan",
+        "name": "Yuan chino",
         "symbol": "¥"
       }
     },
@@ -2899,7 +2899,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cn.svg"
     },
     "flags": {
-      "alt": "The flag of China has a red field. In the canton are five yellow five-pointed stars — a large star and four smaller stars arranged in a vertical arc on the fly side of the large star."
+      "alt": "La bandera de China tiene un campo rojo. En el cantón hay cinco estrellas amarillas de cinco puntas: una gran estrella y cuatro estrellas más pequeñas dispuestas en un arco vertical en el lado volador de la gran estrella."
     }
   },
   {
@@ -2922,7 +2922,7 @@
     "capital": [
       "Nicosia"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "area": 9251,
@@ -2931,8 +2931,8 @@
       "side": "left"
     },
     "languages": {
-      "ell": "Greek",
-      "tur": "Turkish"
+      "ell": "Griego",
+      "tur": "Turco"
     },
     "currencies": {
       "EUR": {
@@ -2960,7 +2960,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cy.svg"
     },
     "flags": {
-      "alt": "The flag of Cyprus has a white field, at the center of which is a copper-colored silhouette of the Island of Cyprus above two green olive branches crossed at the stem."
+      "alt": "La bandera de Chipre tiene un campo blanco, en el centro de la cual es una silueta de color cobre de la isla de Chipre sobre dos ramas verdes de oliva cruzadas en el tallo."
     }
   },
   {
@@ -2981,9 +2981,9 @@
     },
     "independent": true,
     "capital": [
-      "Vatican City"
+      "Ciudad del Vaticano"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": true,
     "borders": [
@@ -2996,7 +2996,7 @@
     },
     "languages": {
       "ita": "Italiano",
-      "lat": "Latin"
+      "lat": "Latina"
     },
     "currencies": {
       "EUR": {
@@ -3021,7 +3021,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/va.svg"
     },
     "flags": {
-      "alt": "The flag of Vatican City is square shaped. It is composed of two equal vertical bands of yellow and white, with national coat of arms centered in the white band. The national coat of arms comprises the Papal Tiara superimposed on two crossed keys."
+      "alt": "La bandera de Ciudad del Vaticano tiene forma cuadrada. Se compone de dos bandas verticales iguales de amarillo y blanco, con escudo nacional de brazos centrado en la banda blanca. El escudo nacional de armas comprende el Papal Tiara superpuesto en dos llaves cruzadas."
     }
   },
   {
@@ -3044,7 +3044,7 @@
     "capital": [
       "Bogotá"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -3064,7 +3064,7 @@
     },
     "currencies": {
       "COP": {
-        "name": "Colombian peso",
+        "name": "Peso colombiano",
         "symbol": "$"
       }
     },
@@ -3088,7 +3088,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/co.svg"
     },
     "flags": {
-      "alt": "The flag of Colombia is composed of three horizontal bands of yellow, blue and red, with the yellow band twice the height of the other two bands."
+      "alt": "La bandera de Colombia está compuesta por tres bandas horizontales de amarillo, azul y rojo, con la banda amarilla dos veces la altura de las otras dos bandas."
     }
   },
   {
@@ -3111,8 +3111,8 @@
     "capital": [
       "Moroni"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 1862,
     "population": 869595,
@@ -3126,7 +3126,7 @@
     },
     "currencies": {
       "KMF": {
-        "name": "Comorian franc",
+        "name": "Franco comorano",
         "symbol": "Fr"
       }
     },
@@ -3150,7 +3150,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/km.svg"
     },
     "flags": {
-      "alt": "The flag of Comoros is composed of four equal horizontal bands of yellow, white, red and blue, with a green isosceles triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end, spans about two-fifth the width of the field and bears a fly-side facing white crescent and four five-pointed white stars arranged in a vertical line along the opening of the crescent."
+      "alt": "La bandera de las Comoras se compone de cuatro bandas horizontales iguales de amarillo, blanco, rojo y azul, con un triángulo isosceles verde superpuesto en el lado aro del campo. Este triángulo tiene su base en el extremo de la cizaña, abarca alrededor de dos quinta parte de la anchura del campo y lleva una grieta blanca cara a la mosca y cuatro estrellas blancas de cinco puntos dispuestas en una línea vertical a lo largo de la apertura de la grieta."
     }
   },
   {
@@ -3173,7 +3173,7 @@
     "capital": [
       "Brazzaville"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -3216,7 +3216,7 @@
     ],
     "coatOfArms": {},
     "flags": {
-      "alt": "The flag of the Republic of the Congo features a yellow diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. Above and beneath this band are a green and red triangle respectively."
+      "alt": "La bandera de la República del Congo cuenta con una banda diagonal amarilla que se extiende desde la esquina inferior del lado del aro hasta la esquina superior del lado de la mosca del campo. Arriba y debajo de esta banda son un triángulo verde y rojo respectivamente."
     }
   },
   {
@@ -3239,7 +3239,7 @@
     "capital": [
       "Kinshasa"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -3267,7 +3267,7 @@
     },
     "currencies": {
       "CDF": {
-        "name": "Congolese franc",
+        "name": "Franco congoleño",
         "symbol": "FC"
       }
     },
@@ -3292,7 +3292,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cd.svg"
     },
     "flags": {
-      "alt": "The flag of the Democratic Republic of the Congo has a sky-blue field with a yellow-edged red diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. A large five-pointed yellow star is situated above the diagonal band on the upper hoist side of the field."
+      "alt": "La bandera de la República Democrática del Congo tiene un campo azul cielo con una banda diagonal roja de color amarillo que se extiende desde la esquina inferior del lado del puño hasta la esquina superior del campo. Una gran estrella amarilla de cinco puntos está situada por encima de la banda diagonal en el lado superior del puño del campo."
     }
   },
   {
@@ -3329,7 +3329,7 @@
       "side": "right"
     },
     "languages": {
-      "kor": "Korean"
+      "kor": "Corea"
     },
     "currencies": {
       "KPW": {
@@ -3354,7 +3354,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kp.svg"
     },
     "flags": {
-      "alt": "The flag of North Korea is composed of three horizontal bands — a large central white-edged red band, and a blue band above and beneath the red band. On the hoist side of the red band is a red five-pointed star within a white circle."
+      "alt": "La bandera de Corea del Norte está compuesta por tres bandas horizontales: una gran banda roja central de color blanco, y una banda azul arriba y debajo de la banda roja. En el lado de la banda roja hay una estrella roja de cinco puntos dentro de un círculo blanco."
     }
   },
   {
@@ -3375,7 +3375,7 @@
     },
     "independent": true,
     "capital": [
-      "Seoul"
+      "Seúl"
     ],
     "region": "Asia",
     "subregion": "Asia Oriental",
@@ -3389,11 +3389,11 @@
       "side": "right"
     },
     "languages": {
-      "kor": "Korean"
+      "kor": "Corea"
     },
     "currencies": {
       "KRW": {
-        "name": "South Korean won",
+        "name": "Corea del Sur ganó",
         "symbol": "₩"
       }
     },
@@ -3418,7 +3418,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kr.svg"
     },
     "flags": {
-      "alt": "The flag of South Korea has a white field, at the center of which is a red and blue Taegeuk circle surrounded by four black trigrams, one in each corner."
+      "alt": "La bandera de Corea del Sur tiene un campo blanco, en el centro de la cual es un círculo rojo y azul de Taegeuk rodeado de cuatro trigramas negros, uno en cada esquina."
     }
   },
   {
@@ -3441,7 +3441,7 @@
     "capital": [
       "Yamoussoukro"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -3485,7 +3485,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ci.svg"
     },
     "flags": {
-      "alt": "The flag of Ivory Coast is composed of three equal vertical bands of orange, white and green."
+      "alt": "La bandera de Costa de Marfil está compuesta por tres bandas verticales iguales de naranja, blanco y verde."
     }
   },
   {
@@ -3508,7 +3508,7 @@
     "capital": [
       "San José"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -3549,7 +3549,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cr.svg"
     },
     "flags": {
-      "alt": "The flag of Costa Rica is composed of five horizontal bands of blue, white, red, white and blue. The central red band is twice the height of the other four bands."
+      "alt": "La bandera de Costa Rica está compuesta por cinco bandas horizontales de azul, blanco, rojo, blanco y azul. La banda roja central es el doble de la altura de las otras cuatro bandas."
     }
   },
   {
@@ -3572,7 +3572,7 @@
     "capital": [
       "Zagreb"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -3616,7 +3616,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/hr.svg"
     },
     "flags": {
-      "alt": "The flag of Croatia is composed of three equal horizontal bands of red, white and blue, with coat of arms of Croatia superimposed in the center."
+      "alt": "La bandera de Croacia está compuesta por tres bandas horizontales iguales de rojo, blanco y azul, con escudo de armas de Croacia superpuesto en el centro."
     }
   },
   {
@@ -3637,9 +3637,9 @@
     },
     "independent": true,
     "capital": [
-      "Havana"
+      "La Habana"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 109884,
@@ -3652,11 +3652,11 @@
     },
     "currencies": {
       "CUC": {
-        "name": "Cuban convertible peso",
+        "name": "Peso cubano convertible",
         "symbol": "$"
       },
       "CUP": {
-        "name": "Cuban peso",
+        "name": "Peso cubano",
         "symbol": "$"
       }
     },
@@ -3677,7 +3677,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cu.svg"
     },
     "flags": {
-      "alt": "The flag of Cuba is composed of five equal horizontal bands of blue alternating with white and a red equilateral triangle superimposed on the hoist side of the field. The triangle has its base on the hoist end, spans about two-fifth the width of the field and bears a white five-pointed star at its center."
+      "alt": "La bandera de Cuba está compuesta por cinco bandas horizontales iguales de azul alternando con un triángulo equilátero blanco y rojo superpuesto en el lado hútero del campo. El triángulo tiene su base en el extremo de la cizaña, abarca aproximadamente dos quinta parte de la anchura del campo y lleva una estrella blanca de cinco puntos en su centro."
     }
   },
   {
@@ -3699,7 +3699,7 @@
     "capital": [
       "Willemstad"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 444,
@@ -3753,9 +3753,9 @@
     },
     "independent": true,
     "capital": [
-      "Copenhagen"
+      "Copenhague"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -3767,11 +3767,11 @@
       "side": "right"
     },
     "languages": {
-      "dan": "Danish"
+      "dan": "Danés"
     },
     "currencies": {
       "DKK": {
-        "name": "Danish krone",
+        "name": "Corona danesa",
         "symbol": "kr"
       }
     },
@@ -3799,7 +3799,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/dk.svg"
     },
     "flags": {
-      "alt": "The flag of Denmark has a red field with a large white cross that extend to the edges of the field. The vertical part of this cross is offset towards the hoist side."
+      "alt": "La bandera de Dinamarca tiene un campo rojo con una gran cruz blanca que se extiende a los bordes del campo. La parte vertical de esta cruz se contrarresta hacia el lado izquierdo."
     }
   },
   {
@@ -3822,8 +3822,8 @@
     "capital": [
       "Djibouti"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "ERI",
@@ -3841,7 +3841,7 @@
     },
     "currencies": {
       "DJF": {
-        "name": "Djiboutian franc",
+        "name": "Djibouti Franco",
         "symbol": "Fr"
       }
     },
@@ -3865,7 +3865,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/dj.svg"
     },
     "flags": {
-      "alt": "The flag of Djibouti is composed of two equal horizontal bands of light blue and light green, with a white isosceles triangle superimposed on the hoist side of the field. The triangle has its base on the hoist end, spans about two-fifth the width of the field and bears a red five-pointed star at its center."
+      "alt": "La bandera de Djibouti está compuesta por dos bandas horizontales iguales de color azul claro y verde claro, con un triángulo isosceles blanco superpuesto en el lado hútero del campo. El triángulo tiene su base en el extremo de la cizaña, abarca aproximadamente dos quinta parte de la anchura del campo y lleva una estrella roja de cinco puntos en su centro."
     }
   },
   {
@@ -3888,7 +3888,7 @@
     "capital": [
       "Roseau"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 751,
@@ -3901,7 +3901,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -3922,7 +3922,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/dm.svg"
     },
     "flags": {
-      "alt": "The flag of Dominica has a green field with a large centered tricolor cross. The vertical and horizontal parts of the cross each comprise three bands of yellow, black and white. A red circle, bearing a hoist-side facing purple Sisserou parrot standing on a twig and encircled by ten five-pointed yellow-edged green stars, is superimposed at the center of the cross."
+      "alt": "La bandera de Dominica tiene un campo verde con una gran cruz tricolor centrada. Las partes verticales y horizontales de la cruz comprenden tres bandas de amarillo, negro y blanco. Un círculo rojo, que lleva un loro de Sisserou púrpura de cara al puño y rodeado de diez estrellas verdes de color amarillo de cinco puntas, se superpone en el centro de la cruz."
     }
   },
   {
@@ -3945,7 +3945,7 @@
     "capital": [
       "Quito"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -3987,7 +3987,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ec.svg"
     },
     "flags": {
-      "alt": "The flag of Ecuador is composed of the horizontal bands of yellow, blue and red, with the yellow band twice the height of the other two bands. The Ecuadorian coat of arms is superimposed in the center of the field."
+      "alt": "La bandera de Ecuador está compuesta por las bandas horizontales de amarillo, azul y rojo, con la banda amarilla dos veces la altura de las otras dos bandas. El escudo ecuatoriano de armas se superpone en el centro del campo."
     }
   },
   {
@@ -4008,9 +4008,9 @@
     },
     "independent": true,
     "capital": [
-      "Cairo"
+      "El Cairo"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -4029,7 +4029,7 @@
     },
     "currencies": {
       "EGP": {
-        "name": "Egyptian pound",
+        "name": "Libra de Egipto",
         "symbol": "£"
       }
     },
@@ -4054,7 +4054,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/eg.svg"
     },
     "flags": {
-      "alt": "The flag of Egypt is composed of three equal horizontal bands of red, white and black, with Egypt's national emblem — a hoist-side facing gold eagle of Saladin — centered in the white band."
+      "alt": "La bandera de Egipto está compuesta por tres bandas horizontales iguales de rojo, blanco y negro, con el emblema nacional de Egipto, un águila de oro frente al puño de Saladin, centrada en la banda blanca."
     }
   },
   {
@@ -4077,7 +4077,7 @@
     "capital": [
       "San Salvador"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -4118,7 +4118,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sv.svg"
     },
     "flags": {
-      "alt": "The flag of El Salvador is composed of three equal horizontal bands of cobalt blue, white and cobalt blue, with the national coat of arms centered in the white band."
+      "alt": "La bandera de El Salvador está compuesta por tres bandas horizontales iguales de azul cobalto, blanco y azul cobalto, con el escudo nacional de armas centrado en la banda blanca."
     }
   },
   {
@@ -4158,7 +4158,7 @@
     },
     "currencies": {
       "AED": {
-        "name": "United Arab Emirates dirham",
+        "name": "Emiratos Árabes Unidos dirham",
         "symbol": "د.إ"
       }
     },
@@ -4183,7 +4183,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ae.svg"
     },
     "flags": {
-      "alt": "The flag of United Arab Emirates features a red vertical band on its hoist side that takes up about one-fourth the width of the field and three equal horizontal bands of green, white and black adjoining the vertical band."
+      "alt": "La bandera de los Emiratos Árabes Unidos cuenta con una banda vertical roja en su lado acolchado que toma alrededor de una cuarta parte de la anchura del campo y tres bandas horizontales iguales de verde, blanco y negro que se unen a la banda vertical."
     }
   },
   {
@@ -4206,8 +4206,8 @@
     "capital": [
       "Asmara"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "DJI",
@@ -4247,7 +4247,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/er.svg"
     },
     "flags": {
-      "alt": "The flag of Eritrea comprises three triangles — a large red isosceles triangle with its base spanning the hoist end and its apex at the midpoint on the fly end, and a green and blue right-angled triangle above and beneath the red triangle. On the hoist side of the red triangle is a golden vertical olive branch encircled by a golden olive wreath."
+      "alt": "La bandera de Eritrea consta de tres triángulos: un gran triángulo isosceles rojo con su base que abarca el extremo de la cizaña y su ápice en el punto medio del extremo de la mosca, y un triángulo de derecha verde y azul sobre arriba y debajo del triángulo rojo. En el lado de la cizaña del triángulo rojo hay una rama de oliva vertical dorada rodeada por una corona de oliva dorada."
     }
   },
   {
@@ -4270,7 +4270,7 @@
     "capital": [
       "Ljubljana"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": false,
     "borders": [
@@ -4313,7 +4313,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/si.svg"
     },
     "flags": {
-      "alt": "The flag of Slovenia is composed of three equal horizontal bands of white, blue and red. The national coat of arms is situated in the upper hoist side of the field centered on the boundary between the white and blue bands."
+      "alt": "La bandera de Eslovenia está compuesta por tres bandas horizontales iguales de blanco, azul y rojo. El escudo nacional de armas está situado en el lado superior del campo centrado en el límite entre las bandas blancas y azules."
     }
   },
   {
@@ -4336,7 +4336,7 @@
     "capital": [
       "Madrid"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "borders": [
@@ -4354,8 +4354,8 @@
     "languages": {
       "spa": "Español",
       "cat": "Catalán",
-      "eus": "Basque",
-      "glc": "Galician"
+      "eus": "Vasco",
+      "glc": "Gallego"
     },
     "currencies": {
       "EUR": {
@@ -4384,7 +4384,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/es.svg"
     },
     "flags": {
-      "alt": "The flag of Spain is composed of three horizontal bands of red, yellow and red, with the yellow band twice the height of the red bands. In the yellow band is the national coat of arms offset slightly towards the hoist side of center."
+      "alt": "La bandera de España está compuesta por tres bandas horizontales de rojo, amarillo y rojo, con la banda amarilla dos veces la altura de las bandas rojas. En la banda amarilla está el escudo nacional de brazos contrarrestado ligeramente hacia el lado del centro."
     }
   },
   {
@@ -4723,7 +4723,7 @@
     "capital": [
       "Washington, D.C."
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "borders": [
@@ -4774,7 +4774,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/us.svg"
     },
     "flags": {
-      "alt": "The flag of the United States of America is composed of thirteen equal horizontal bands of red alternating with white. A blue rectangle, bearing fifty small five-pointed white stars arranged in nine rows where rows of six stars alternate with rows of five stars, is superimposed in the canton."
+      "alt": "La bandera de los Estados Unidos de América está compuesta por trece bandas horizontales iguales de rojo alternando con blanco. Un rectángulo azul, con cincuenta pequeñas estrellas blancas de cinco puntas dispuestas en nueve filas donde filas de seis estrellas alternan con filas de cinco estrellas, se superpone en el cantón."
     }
   },
   {
@@ -4797,7 +4797,7 @@
     "capital": [
       "Tallinn"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -4810,7 +4810,7 @@
       "side": "right"
     },
     "languages": {
-      "est": "Estonian"
+      "est": "Estonia"
     },
     "currencies": {
       "EUR": {
@@ -4838,7 +4838,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ee.svg"
     },
     "flags": {
-      "alt": "The flag of Estonia is composed of three equal horizontal bands of blue, black and white."
+      "alt": "La bandera de Estonia está compuesta por tres bandas horizontales iguales de azul, negro y blanco."
     }
   },
   {
@@ -4859,10 +4859,10 @@
     },
     "independent": true,
     "capital": [
-      "Addis Ababa"
+      "Addis Abeba"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "DJI",
@@ -4882,7 +4882,7 @@
     },
     "currencies": {
       "ETB": {
-        "name": "Ethiopian birr",
+        "name": "Etiopía",
         "symbol": "Br"
       }
     },
@@ -4906,7 +4906,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/et.svg"
     },
     "flags": {
-      "alt": "The flag of Ethiopia is composed of three equal horizontal bands of green, yellow and red, with the national emblem superimposed at the center of the field. The national emblem comprises a light blue circle bearing a golden-yellow pentagram with single yellow rays emanating from the angles between the points of the pentagram."
+      "alt": "La bandera de Etiopía está compuesta por tres bandas horizontales iguales de verde, amarillo y rojo, con el emblema nacional superpuesto en el centro del campo. El emblema nacional comprende un círculo azul claro con un pentagrama amarillo dorado con rayos amarillos únicos que emanan de los ángulos entre los puntos del pentagrama."
     }
   },
   {
@@ -4943,7 +4943,7 @@
     },
     "currencies": {
       "PHP": {
-        "name": "Philippine peso",
+        "name": "Peso filipino",
         "symbol": "₱"
       }
     },
@@ -4967,7 +4967,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ph.svg"
     },
     "flags": {
-      "alt": "The flag of Philippines is composed of two equal horizontal bands of blue and red, with a white equilateral triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end, spans about two-fifth the width of the field and bears a central golden-yellow sun with eight rays and a five-pointed golden-yellow star at each vertex."
+      "alt": "La bandera de Filipinas está compuesta por dos bandas horizontales iguales de azul y rojo, con un triángulo equilátero blanco superpuesto en el lado hútero del campo. Este triángulo tiene su base en el extremo de la cizaña, abarca aproximadamente dos quinta parte de la anchura del campo y lleva un sol central dorado amarillo con ocho rayos y una estrella dorada amarilla de cinco puntos en cada vértice."
     }
   },
   {
@@ -4990,7 +4990,7 @@
     "capital": [
       "Helsinki"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -5004,7 +5004,7 @@
       "side": "right"
     },
     "languages": {
-      "fin": "Finnish",
+      "fin": "Finland",
       "swe": "Sueco"
     },
     "currencies": {
@@ -5033,7 +5033,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/fi.svg"
     },
     "flags": {
-      "alt": "The flag of Finland has a white field with a large blue cross that extend to the edges of the field. The vertical part of this cross is offset towards the hoist side."
+      "alt": "La bandera de Finlandia tiene un campo blanco con una gran cruz azul que se extiende a los bordes del campo. La parte vertical de esta cruz se contrarresta hacia el lado izquierdo."
     }
   },
   {
@@ -5056,7 +5056,7 @@
     "capital": [
       "Suva"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Melanesia",
     "landlocked": false,
     "area": 18272,
@@ -5066,12 +5066,12 @@
     },
     "languages": {
       "eng": "Inglés",
-      "fij": "Fijian",
+      "fij": "Fiji",
       "hif": "Fiji Hindi"
     },
     "currencies": {
       "FJD": {
-        "name": "Fijian dollar",
+        "name": "Dólar de Fiji",
         "symbol": "$"
       }
     },
@@ -5095,7 +5095,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/fj.svg"
     },
     "flags": {
-      "alt": "The flag of Fiji has a light blue field. It features the flag of the United Kingdom — the Union Jack — in the canton and the shield of the national coat of arms centered in the fly half."
+      "alt": "La bandera de Fiji tiene un campo azul claro. Cuenta con la bandera del Reino Unido —el Union Jack— en el cantón y el escudo del escudo nacional de armas centrado en la mitad de la mosca."
     }
   },
   {
@@ -5116,9 +5116,9 @@
     },
     "independent": true,
     "capital": [
-      "Paris"
+      "París"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": false,
     "borders": [
@@ -5178,7 +5178,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/fr.svg"
     },
     "flags": {
-      "alt": "The flag of France is composed of three equal vertical bands of blue, white and red."
+      "alt": "La bandera de Francia está compuesta por tres bandas verticales iguales de azul, blanco y rojo."
     }
   },
   {
@@ -5201,7 +5201,7 @@
     "capital": [
       "Libreville"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -5243,7 +5243,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ga.svg"
     },
     "flags": {
-      "alt": "The flag of Gabon is composed of three equal horizontal bands of green, yellow and blue."
+      "alt": "La bandera del Gabón está compuesta por tres bandas horizontales iguales de verde, amarillo y azul."
     }
   },
   {
@@ -5266,7 +5266,7 @@
     "capital": [
       "Banjul"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -5306,7 +5306,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gm.svg"
     },
     "flags": {
-      "alt": "The flag of Gambia is composed of three equal horizontal bands of red, blue with white top and bottom edges, and green."
+      "alt": "La bandera de Gambia está compuesta por tres bandas horizontales iguales de rojo, azul con bordes blancos superior e inferior, y verde."
     }
   },
   {
@@ -5344,7 +5344,7 @@
       "side": "right"
     },
     "languages": {
-      "kat": "Georgian"
+      "kat": "Georgiano"
     },
     "currencies": {
       "GEL": {
@@ -5372,7 +5372,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ge.svg"
     },
     "flags": {
-      "alt": "The flag of Georgia has a white field with a large centered red cross that extends to the edges and divides the field into four quarters. A small red Bolnur-Katskhuri cross is centered in each quarter."
+      "alt": "La bandera de Georgia tiene un campo blanco con una gran cruz roja centrada que se extiende a los bordes y divide el campo en cuatro trimestres. Una pequeña cruz Bolnur-Katskhuri roja está centrada en cada trimestre."
     }
   },
   {
@@ -5395,7 +5395,7 @@
     "capital": [
       "Accra"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -5437,7 +5437,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gh.svg"
     },
     "flags": {
-      "alt": "The flag of Ghana is composed of three equal horizontal bands of red, gold and green, with a five-pointed black star centered in the gold band."
+      "alt": "La bandera de Ghana está compuesta por tres bandas horizontales iguales de rojo, oro y verde, con una estrella negra de cinco puntos centrada en la banda de oro."
     }
   },
   {
@@ -5459,7 +5459,7 @@
     "capital": [
       "Gibraltar"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "borders": [
@@ -5475,7 +5475,7 @@
     },
     "currencies": {
       "GIP": {
-        "name": "Gibraltar pound",
+        "name": "Libra de Gibraltar",
         "symbol": "£"
       }
     },
@@ -5514,9 +5514,9 @@
     },
     "independent": true,
     "capital": [
-      "Athens"
+      "Atenas"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "borders": [
@@ -5531,7 +5531,7 @@
       "side": "right"
     },
     "languages": {
-      "ell": "Greek"
+      "ell": "Griego"
     },
     "currencies": {
       "EUR": {
@@ -5559,7 +5559,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gr.svg"
     },
     "flags": {
-      "alt": "The flag of Greece is composed of nine equal horizontal bands of blue alternating with white. A blue square bearing a white cross is superimposed in the canton."
+      "alt": "La bandera de Grecia está compuesta por nueve bandas horizontales iguales de azul alternando con blanco. Un cuadrado azul que lleva una cruz blanca se superpone en el cantón."
     }
   },
   {
@@ -5580,9 +5580,9 @@
     },
     "independent": true,
     "capital": [
-      "St. George's"
+      "St. George"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 344,
@@ -5595,7 +5595,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -5616,7 +5616,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gd.svg"
     },
     "flags": {
-      "alt": "The flag of Grenada features a large central rectangular area surrounded by a red border, with three five-pointed yellow stars centered on the top and bottom borders. The central rectangle is divided diagonally into four alternating triangular areas of yellow at the top and bottom and green on the hoist and fly sides, and a five-pointed yellow star on a red circle is superimposed at its center. A symbolic nutmeg pod is situated on the green hoist-side triangle."
+      "alt": "La bandera de Granada cuenta con una gran zona rectangular central rodeada de una frontera roja, con tres estrellas amarillas de cinco puntos centradas en la parte superior e inferior. El rectángulo central se divide diagonalmente en cuatro áreas triangulares alternadas de amarillo en la parte superior e inferior y verde en los lados de la cizaña y la mosca, y una estrella amarilla de cinco puntos en un círculo rojo se superpone en su centro. Una cápsula simbólica de nuez moscada está situada en el triángulo del lado verde."
     }
   },
   {
@@ -5638,7 +5638,7 @@
     "capital": [
       "Nuuk"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "area": 2166086,
@@ -5647,7 +5647,7 @@
       "side": "right"
     },
     "languages": {
-      "kal": "Greenlandic"
+      "kal": "Groenlandia"
     },
     "currencies": {
       "DKK": {
@@ -5694,7 +5694,7 @@
     "capital": [
       "Basse-Terre"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 1628,
@@ -5748,7 +5748,7 @@
     "capital": [
       "Hagåtña"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 549,
@@ -5802,9 +5802,9 @@
     },
     "independent": true,
     "capital": [
-      "Guatemala City"
+      "Ciudad de Guatemala"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -5847,7 +5847,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gt.svg"
     },
     "flags": {
-      "alt": "The flag of Guatemala is composed of three equal vertical bands of light blue, white and light blue, with the national coat of arms centered in the white band."
+      "alt": "La bandera de Guatemala está compuesta por tres bandas verticales iguales de azul claro, blanco y azul claro, con el escudo nacional de armas centrado en la banda blanca."
     }
   },
   {
@@ -5869,7 +5869,7 @@
     "capital": [
       "Cayenne"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -5926,7 +5926,7 @@
     "capital": [
       "St. Peter Port"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 78,
@@ -5941,11 +5941,11 @@
     },
     "currencies": {
       "GBP": {
-        "name": "British pound",
+        "name": "Libra británica",
         "symbol": "£"
       },
       "GGP": {
-        "name": "Guernsey pound",
+        "name": "Libra de Guernsey",
         "symbol": "£"
       }
     },
@@ -5986,7 +5986,7 @@
     "capital": [
       "Conakry"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -6007,7 +6007,7 @@
     },
     "currencies": {
       "GNF": {
-        "name": "Guinean franc",
+        "name": "Franco guineano",
         "symbol": "Fr"
       }
     },
@@ -6031,7 +6031,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gn.svg"
     },
     "flags": {
-      "alt": "The flag of Guinea is composed of three equal vertical bands of red, yellow and green."
+      "alt": "La bandera de Guinea está compuesta por tres bandas verticales iguales de rojo, amarillo y verde."
     }
   },
   {
@@ -6054,7 +6054,7 @@
     "capital": [
       "Malabo"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "borders": [
@@ -6094,7 +6094,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gq.svg"
     },
     "flags": {
-      "alt": "The flag of Equatorial Guinea is composed of three equal horizontal bands of green, white and red with the national coat of arms centered in the white band and an isosceles triangle superimposed on the hoist side of the field. The triangle is light blue, has its base on the hoist end and spans about one-fifth the width of the field."
+      "alt": "La bandera de Guinea Ecuatorial está compuesta por tres bandas horizontales iguales de verde, blanco y rojo con el escudo nacional de brazos centrado en la banda blanca y un triángulo isosceles superpuesto en el lado del campo. El triángulo es azul claro, tiene su base en el extremo del puño y abarca alrededor de una quinta parte el ancho del campo."
     }
   },
   {
@@ -6117,7 +6117,7 @@
     "capital": [
       "Bissau"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -6131,7 +6131,7 @@
     },
     "languages": {
       "por": "Portugués",
-      "pov": "Upper Guinea Creole"
+      "pov": "Alto Guinea criollo"
     },
     "currencies": {
       "XOF": {
@@ -6159,7 +6159,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gw.svg"
     },
     "flags": {
-      "alt": "The flag of Guinea-Bissau features a red vertical band on its hoist side that takes up about two-fifth the width of the field, and two equal horizontal bands of yellow and green adjoining the vertical band. A five-pointed black star is centered in the vertical band."
+      "alt": "La bandera de Guinea-Bissau cuenta con una banda vertical roja en su lado acolchado que toma alrededor de dos quinta parte de la anchura del campo, y dos bandas horizontales iguales de amarillo y verde que se unen a la banda vertical. Una estrella negra de cinco puntos está centrada en la banda vertical."
     }
   },
   {
@@ -6182,7 +6182,7 @@
     "capital": [
       "Georgetown"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -6200,7 +6200,7 @@
     },
     "currencies": {
       "GYD": {
-        "name": "Guyanese dollar",
+        "name": "Dólar de Guyana",
         "symbol": "$"
       }
     },
@@ -6224,7 +6224,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gy.svg"
     },
     "flags": {
-      "alt": "The flag of Guyana has a green field with two isosceles triangles which share a common base on the hoist end. The smaller black-edged red triangle spanning half the width of the field is superimposed on the larger white-edged yellow triangle which spans the full width of the field."
+      "alt": "La bandera de Guyana tiene un campo verde con dos triángulos isosceles que comparten una base común en el extremo del puño. El triángulo rojo más pequeño de raza negra que abarca la mitad de la anchura del campo se superpone en el triángulo amarillo más grande de raza blanca que abarca la anchura completa del campo."
     }
   },
   {
@@ -6245,9 +6245,9 @@
     },
     "independent": true,
     "capital": [
-      "Port-au-Prince"
+      "Puerto Príncipe"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "borders": [
@@ -6260,11 +6260,11 @@
     },
     "languages": {
       "fra": "Francés",
-      "hat": "Haitian Creole"
+      "hat": "Haitiano criollo"
     },
     "currencies": {
       "HTG": {
-        "name": "Haitian gourde",
+        "name": "Gourde haitiano",
         "symbol": "G"
       }
     },
@@ -6288,7 +6288,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ht.svg"
     },
     "flags": {
-      "alt": "The flag of Haiti is composed of two equal horizontal bands of blue and red. A white square bearing the national coat of arms is superimposed at the center of the field."
+      "alt": "La bandera de Haití está compuesta por dos bandas horizontales iguales de azul y rojo. Un cuadrado blanco que lleva el escudo nacional de armas se superpone en el centro del campo."
     }
   },
   {
@@ -6311,7 +6311,7 @@
     "capital": [
       "Tegucigalpa"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -6329,7 +6329,7 @@
     },
     "currencies": {
       "HNL": {
-        "name": "Honduran lempira",
+        "name": "Lempira hondureña",
         "symbol": "L"
       }
     },
@@ -6353,7 +6353,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/hn.svg"
     },
     "flags": {
-      "alt": "The flag of Honduras is composed of three equal horizontal bands of turquoise, white and turquoise, with five small five-pointed turquoise stars arranged in a quincuncial pattern at the center of the white band."
+      "alt": "La bandera de Honduras está compuesta por tres bandas horizontales iguales de turquesa, blanco y turquesa, con cinco pequeñas estrellas de turquesa de cinco puntos dispuestas en un patrón quincuncial en el centro de la banda blanca."
     }
   },
   {
@@ -6374,7 +6374,7 @@
     },
     "independent": false,
     "capital": [
-      "City of Victoria"
+      "Ciudad de Victoria"
     ],
     "region": "Asia",
     "subregion": "Asia Oriental",
@@ -6393,7 +6393,7 @@
     },
     "currencies": {
       "HKD": {
-        "name": "Hong Kong dollar",
+        "name": "Dólar de Hong Kong",
         "symbol": "$"
       }
     },
@@ -6435,7 +6435,7 @@
     "capital": [
       "Budapest"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": true,
     "borders": [
@@ -6453,11 +6453,11 @@
       "side": "right"
     },
     "languages": {
-      "hun": "Hungarian"
+      "hun": "Húngaro"
     },
     "currencies": {
       "HUF": {
-        "name": "Hungarian forint",
+        "name": "Forint húngaro",
         "symbol": "Ft"
       }
     },
@@ -6481,7 +6481,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/hu.svg"
     },
     "flags": {
-      "alt": "The flag of Hungary is composed of three equal horizontal bands of red, white and green."
+      "alt": "La bandera de Hungría está compuesta por tres bandas horizontales iguales de rojo, blanco y verde."
     }
   },
   {
@@ -6502,7 +6502,7 @@
     },
     "independent": true,
     "capital": [
-      "New Delhi"
+      "Nueva Delhi"
     ],
     "region": "Asia",
     "subregion": "Asia Meridional",
@@ -6551,7 +6551,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/in.svg"
     },
     "flags": {
-      "alt": "The flag of India is composed of three equal horizontal bands of saffron, white and green. A navy blue wheel with twenty-four spokes — the Ashoka Chakra — is centered in the white band."
+      "alt": "La bandera de la India está compuesta por tres bandas horizontales iguales de azafrán, blanco y verde. El Ashoka Chakra está centrado en la banda blanca."
     }
   },
   {
@@ -6572,7 +6572,7 @@
     },
     "independent": true,
     "capital": [
-      "Jakarta"
+      "Yakarta"
     ],
     "region": "Asia",
     "subregion": "Sudeste Asiático",
@@ -6588,11 +6588,11 @@
       "side": "left"
     },
     "languages": {
-      "ind": "Indonesian"
+      "ind": "Indonesia"
     },
     "currencies": {
       "IDR": {
-        "name": "Indonesian rupiah",
+        "name": "Rupia indonesia",
         "symbol": "Rp"
       }
     },
@@ -6618,7 +6618,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/id.svg"
     },
     "flags": {
-      "alt": "The flag of Indonesia is composed of two equal horizontal bands of red and white."
+      "alt": "La bandera de Indonesia está compuesta por dos bandas horizontales iguales de rojo y blanco."
     }
   },
   {
@@ -6639,7 +6639,7 @@
     },
     "independent": true,
     "capital": [
-      "Baghdad"
+      "Bagdad"
     ],
     "region": "Asia",
     "subregion": "Asia Occidental",
@@ -6664,7 +6664,7 @@
     },
     "currencies": {
       "IQD": {
-        "name": "Iraqi dinar",
+        "name": "Dinero iraquí",
         "symbol": "ع.د"
       }
     },
@@ -6688,7 +6688,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/iq.svg"
     },
     "flags": {
-      "alt": "The flag of Iraq is composed of three equal horizontal bands of red, white and black. In the central white band are Arabic inscriptions in green."
+      "alt": "La bandera de Iraq está compuesta por tres bandas horizontales iguales de rojo, blanco y negro. En la banda blanca central están las inscripciones árabes en verde."
     }
   },
   {
@@ -6709,7 +6709,7 @@
     },
     "independent": true,
     "capital": [
-      "Tehran"
+      "Teherán"
     ],
     "region": "Asia",
     "subregion": "Asia Meridional",
@@ -6729,11 +6729,11 @@
       "side": "right"
     },
     "languages": {
-      "fas": "Persian (Farsi)"
+      "fas": "Persa (Farsi)"
     },
     "currencies": {
       "IRR": {
-        "name": "Iranian rial",
+        "name": "Iran rial",
         "symbol": "﷼"
       }
     },
@@ -6758,7 +6758,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ir.svg"
     },
     "flags": {
-      "alt": "The flag of Iran is composed of three equal horizontal bands of green, white and red. A red emblem of Iran is centered in the white band and Arabic inscriptions in white span the bottom edge of the green band and the top edge of the red band."
+      "alt": "La bandera de Irán está compuesta por tres bandas horizontales iguales de verde, blanco y rojo. Un emblema rojo de Irán está centrado en la banda blanca y las inscripciones árabes en blanco abarcan el borde inferior de la banda verde y el borde superior de la banda roja."
     }
   },
   {
@@ -6779,9 +6779,9 @@
     },
     "independent": true,
     "capital": [
-      "Dublin"
+      "Dublín"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -6794,7 +6794,7 @@
     },
     "languages": {
       "eng": "Inglés",
-      "gle": "Irish"
+      "gle": "Irlandés"
     },
     "currencies": {
       "EUR": {
@@ -6822,7 +6822,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ie.svg"
     },
     "flags": {
-      "alt": "The flag of Ireland is composed of three equal vertical bands of green, white and orange."
+      "alt": "La bandera de Irlanda está compuesta por tres bandas verticales iguales de verde, blanco y naranja."
     }
   },
   {
@@ -6841,7 +6841,7 @@
       ]
     },
     "independent": false,
-    "region": "Antarctic",
+    "region": "Antártico",
     "landlocked": false,
     "area": 49,
     "population": 0,
@@ -6849,7 +6849,7 @@
       "side": "right"
     },
     "languages": {
-      "nor": "Norwegian"
+      "nor": "Noruega"
     },
     "translations": {
       "spa": {
@@ -6884,7 +6884,7 @@
     "capital": [
       "Douglas"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 572,
@@ -6898,11 +6898,11 @@
     },
     "currencies": {
       "GBP": {
-        "name": "British pound",
+        "name": "Libra británica",
         "symbol": "£"
       },
       "IMP": {
-        "name": "Manx pound",
+        "name": "Libra de manjo",
         "symbol": "£"
       }
     },
@@ -6942,7 +6942,7 @@
     "capital": [
       "Flying Fish Cove"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Australia y Nueva Zelanda",
     "landlocked": false,
     "area": 135,
@@ -6995,7 +6995,7 @@
     "capital": [
       "Kingston"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Australia y Nueva Zelanda",
     "landlocked": false,
     "area": 36,
@@ -7047,7 +7047,7 @@
     "capital": [
       "Reykjavik"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 103000,
@@ -7056,11 +7056,11 @@
       "side": "right"
     },
     "languages": {
-      "isl": "Icelandic"
+      "isl": "Islandés"
     },
     "currencies": {
       "ISK": {
-        "name": "Icelandic króna",
+        "name": "Corona islandesa",
         "symbol": "kr"
       }
     },
@@ -7084,7 +7084,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/is.svg"
     },
     "flags": {
-      "alt": "The flag of Iceland has a blue field with a large white-edged red cross that extends to the edges of the field. The vertical part of this cross is offset towards the hoist side."
+      "alt": "La bandera de Islandia tiene un campo azul con una gran cruz roja de raza blanca que se extiende a los bordes del campo. La parte vertical de esta cruz se contrarresta hacia el lado izquierdo."
     }
   },
   {
@@ -7107,7 +7107,7 @@
     "capital": [
       "George Town"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 264,
@@ -7120,7 +7120,7 @@
     },
     "currencies": {
       "KYD": {
-        "name": "Cayman Islands dollar",
+        "name": "Dólar de las Islas Caimán",
         "symbol": "$"
       }
     },
@@ -7160,7 +7160,7 @@
     "capital": [
       "West Island"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Australia y Nueva Zelanda",
     "landlocked": false,
     "area": 14,
@@ -7211,7 +7211,7 @@
     "capital": [
       "Avarua"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 236,
@@ -7225,11 +7225,11 @@
     },
     "currencies": {
       "CKD": {
-        "name": "Cook Islands dollar",
+        "name": "Dólar de las Islas Cook",
         "symbol": "$"
       },
       "NZD": {
-        "name": "New Zealand dollar",
+        "name": "Dólar de Nueva Zelandia",
         "symbol": "$"
       }
     },
@@ -7269,7 +7269,7 @@
     "capital": [
       "Tórshavn"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 1393,
@@ -7278,16 +7278,16 @@
       "side": "right"
     },
     "languages": {
-      "dan": "Danish",
-      "fao": "Faroese"
+      "dan": "Danés",
+      "fao": "Faroes"
     },
     "currencies": {
       "DKK": {
-        "name": "Danish krone",
+        "name": "Corona danesa",
         "symbol": "kr"
       },
       "FOK": {
-        "name": "Faroese króna",
+        "name": "Corona feroesa",
         "symbol": "kr"
       }
     },
@@ -7327,7 +7327,7 @@
     "capital": [
       "King Edward Point"
     ],
-    "region": "Antarctic",
+    "region": "Antártico",
     "landlocked": false,
     "area": 3903,
     "population": 30,
@@ -7339,7 +7339,7 @@
     },
     "currencies": {
       "SHP": {
-        "name": "Saint Helena pound",
+        "name": "Libra de Santa Elena",
         "symbol": "£"
       }
     },
@@ -7368,7 +7368,7 @@
     "unMember": false,
     "idd": {},
     "independent": false,
-    "region": "Antarctic",
+    "region": "Antártico",
     "landlocked": false,
     "area": 412,
     "population": 0,
@@ -7412,7 +7412,7 @@
     "capital": [
       "Stanley"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "area": 12173,
@@ -7425,7 +7425,7 @@
     },
     "currencies": {
       "FKP": {
-        "name": "Falkland Islands pound",
+        "name": "Libra de las Islas Malvinas",
         "symbol": "£"
       }
     },
@@ -7465,7 +7465,7 @@
     "capital": [
       "Saipan"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 464,
@@ -7518,7 +7518,7 @@
     "capital": [
       "Majuro"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 181,
@@ -7553,7 +7553,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mh.svg"
     },
     "flags": {
-      "alt": "The flag of Marshall Islands has a blue field with two broadening adjacent diagonal bands of orange and white that extend from the lower hoist-side corner to the upper fly-side corner of the field. A large white star with twenty-four rays — four large rays at the cardinal points and twenty smaller rays — is situated in the upper hoist-side corner above the diagonal bands."
+      "alt": "La bandera de las Islas Marshall tiene un campo azul con dos bandas diagonales adyacentes de naranja y blanco que se extienden desde la esquina inferior del lado izquierdo hasta la esquina superior del lado de la mosca del campo. Una gran estrella blanca con veinticuatro rayos, cuatro grandes rayos en los puntos cardinales y veinte rayos más pequeños, está situada en la esquina superior del lado izquierdo sobre las bandas diagonales."
     }
   },
   {
@@ -7575,7 +7575,7 @@
     "capital": [
       "Adamstown"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 47,
@@ -7588,7 +7588,7 @@
     },
     "currencies": {
       "NZD": {
-        "name": "New Zealand dollar",
+        "name": "Dólar de Nueva Zelandia",
         "symbol": "$"
       }
     },
@@ -7626,7 +7626,7 @@
     "capital": [
       "Honiara"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Melanesia",
     "landlocked": false,
     "area": 28896,
@@ -7639,7 +7639,7 @@
     },
     "currencies": {
       "SBD": {
-        "name": "Solomon Islands dollar",
+        "name": "Dólar de las Islas Salomón",
         "symbol": "$"
       }
     },
@@ -7663,7 +7663,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sb.svg"
     },
     "flags": {
-      "alt": "The flag of Solomon Islands features a thin yellow diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. Above and beneath this band are a blue and green triangle respectively. Five white five-pointed stars arranged in an X shape are situated on the hoist side of the upper blue triangle."
+      "alt": "La bandera de las Islas Salomón cuenta con una fina banda diagonal amarilla que se extiende desde la esquina inferior del lado del puño hasta la esquina superior del lado de la mosca del campo. Arriba y debajo de esta banda son un triángulo azul y verde respectivamente. Cinco estrellas blancas de cinco puntas dispuestas en una forma X están situadas en el lado del agujero del triángulo azul superior."
     }
   },
   {
@@ -7685,7 +7685,7 @@
     "capital": [
       "Longyearbyen"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 61399,
@@ -7694,7 +7694,7 @@
       "side": "right"
     },
     "languages": {
-      "nor": "Norwegian"
+      "nor": "Noruega"
     },
     "currencies": {
       "NOK": {
@@ -7735,7 +7735,7 @@
     "capital": [
       "Fakaofo"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 12,
@@ -7750,7 +7750,7 @@
     },
     "currencies": {
       "NZD": {
-        "name": "New Zealand dollar",
+        "name": "Dólar de Nueva Zelandia",
         "symbol": "$"
       }
     },
@@ -7787,7 +7787,7 @@
     "capital": [
       "Cockburn Town"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 948,
@@ -7837,7 +7837,7 @@
     "capital": [
       "Washington DC"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "area": 34.2,
@@ -7890,7 +7890,7 @@
     "capital": [
       "Charlotte Amalie"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 347,
@@ -7941,7 +7941,7 @@
     "capital": [
       "Road Town"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 151,
@@ -7993,7 +7993,7 @@
     },
     "independent": true,
     "capital": [
-      "Jerusalem"
+      "Jerusalén"
     ],
     "region": "Asia",
     "subregion": "Asia Occidental",
@@ -8012,7 +8012,7 @@
     },
     "languages": {
       "ara": "Árabe",
-      "heb": "Hebrew"
+      "heb": "Hebreo"
     },
     "currencies": {
       "ILS": {
@@ -8040,7 +8040,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/il.svg"
     },
     "flags": {
-      "alt": "The flag of Israel has a white field with a blue hexagram — the Magen David — centered between two equal horizontal blue bands situated near the top and bottom edges of the field."
+      "alt": "La bandera de Israel tiene un campo blanco con un hexagrama azul — el Magen David— centrado entre dos bandas azules iguales situadas cerca de los bordes superior e inferior del campo."
     }
   },
   {
@@ -8061,9 +8061,9 @@
     },
     "independent": true,
     "capital": [
-      "Rome"
+      "Roma"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "borders": [
@@ -8108,7 +8108,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/it.svg"
     },
     "flags": {
-      "alt": "The flag of Italy is composed of three equal vertical bands of green, white and red."
+      "alt": "La bandera de Italia está compuesta por tres bandas verticales iguales de verde, blanco y rojo."
     }
   },
   {
@@ -8131,7 +8131,7 @@
     "capital": [
       "Kingston"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 10991,
@@ -8145,7 +8145,7 @@
     },
     "currencies": {
       "JMD": {
-        "name": "Jamaican dollar",
+        "name": "Dólar de Jamaica",
         "symbol": "$"
       }
     },
@@ -8169,7 +8169,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/jm.svg"
     },
     "flags": {
-      "alt": "The flag of Jamaica is divided by a gold diagonal cross into four alternating triangular areas of green at the top and bottom, and black on the hoist and fly sides"
+      "alt": "La bandera de Jamaica está dividida por una cruz diagonal de oro en cuatro zonas triangulares alternadas de verde en la parte superior e inferior, y negra en los lados de la cizaña y la mosca"
     }
   },
   {
@@ -8190,7 +8190,7 @@
     },
     "independent": true,
     "capital": [
-      "Tokyo"
+      "Tokio"
     ],
     "region": "Asia",
     "subregion": "Asia Oriental",
@@ -8201,11 +8201,11 @@
       "side": "left"
     },
     "languages": {
-      "jpn": "Japanese"
+      "jpn": "Japonés"
     },
     "currencies": {
       "JPY": {
-        "name": "Japanese yen",
+        "name": "Yen japonés",
         "symbol": "¥"
       }
     },
@@ -8230,7 +8230,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/jp.svg"
     },
     "flags": {
-      "alt": "The flag of Japan features a crimson-red circle at the center of a white field."
+      "alt": "La bandera de Japón cuenta con un círculo rojo en el centro de un campo blanco."
     }
   },
   {
@@ -8252,7 +8252,7 @@
     "capital": [
       "Saint Helier"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "area": 116,
@@ -8267,11 +8267,11 @@
     },
     "currencies": {
       "GBP": {
-        "name": "British pound",
+        "name": "Libra británica",
         "symbol": "£"
       },
       "JEP": {
-        "name": "Jersey pound",
+        "name": "Libra de Jersey",
         "symbol": "£"
       }
     },
@@ -8332,7 +8332,7 @@
     },
     "currencies": {
       "JOD": {
-        "name": "Jordanian dinar",
+        "name": "Dinero jordano",
         "symbol": "د.ا"
       }
     },
@@ -8357,7 +8357,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/jo.svg"
     },
     "flags": {
-      "alt": "The flag of Jordan is composed of three equal horizontal bands of black, white and green, with a red isosceles triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end, spans about half the width of the field and bears a small seven-pointed white star at its center."
+      "alt": "La bandera de Jordania está compuesta por tres bandas horizontales iguales de negro, blanco y verde, con un triángulo isosceles rojo superpuesto en el lado hútero del campo. Este triángulo tiene su base en el extremo del puño, abarca aproximadamente la mitad del ancho del campo y lleva una pequeña estrella blanca de siete puntos en su centro."
     }
   },
   {
@@ -8402,7 +8402,7 @@
     },
     "currencies": {
       "KZT": {
-        "name": "Kazakhstani tenge",
+        "name": "Kazajstáni tenge",
         "symbol": "₸"
       }
     },
@@ -8428,7 +8428,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kz.svg"
     },
     "flags": {
-      "alt": "The flag of Kazakhstan has a turquoise field, at the center of which is a gold sun with thirty-two rays above a soaring golden steppe eagle. A thin vertical band displays a national ornamental pattern — koshkar-muiz — in gold near the hoist end."
+      "alt": "La bandera de Kazajstán tiene un campo de turquesa, en el centro de la cual es un sol de oro con treinta y dos rayos sobre un águila de estepa dorada. Una banda vertical delgada muestra un patrón ornamental nacional — koshkar-muiz— en oro cerca del extremo del puño."
     }
   },
   {
@@ -8451,8 +8451,8 @@
     "capital": [
       "Nairobi"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "ETH",
@@ -8472,7 +8472,7 @@
     },
     "currencies": {
       "KES": {
-        "name": "Kenyan shilling",
+        "name": "Chelín keniano",
         "symbol": "Sh"
       }
     },
@@ -8496,7 +8496,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ke.svg"
     },
     "flags": {
-      "alt": "The flag of Kenya is composed of three equal horizontal bands of black, red with white top and bottom edges, and green. An emblem comprising a red, black and white Maasai shield covering two crossed white spears is superimposed at the center of the field."
+      "alt": "La bandera de Kenia está compuesta por tres bandas horizontales iguales de negro, rojo con bordes blancos superior e inferior, y verde. Un emblema que incluye un escudo Maasai rojo, negro y blanco que cubre dos lanzas blancas cruzadas se superpone en el centro del campo."
     }
   },
   {
@@ -8534,12 +8534,12 @@
       "side": "right"
     },
     "languages": {
-      "kir": "Kyrgyz",
+      "kir": "Kirguiz",
       "rus": "Ruso"
     },
     "currencies": {
       "KGS": {
-        "name": "Kyrgyzstani som",
+        "name": "Kirguistán",
         "symbol": "с"
       }
     },
@@ -8563,7 +8563,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kg.svg"
     },
     "flags": {
-      "alt": "The flag of Kyrgyzstan features a yellow sun with forty rays at the center of a red field. At the center of the sun is a stylized depiction of a tunduk."
+      "alt": "La bandera de Kirguistán cuenta con un sol amarillo con cuarenta rayos en el centro de un campo rojo. En el centro del sol hay una representación estilizada de un tunduk."
     }
   },
   {
@@ -8586,7 +8586,7 @@
     "capital": [
       "South Tarawa"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 811,
@@ -8604,7 +8604,7 @@
         "symbol": "$"
       },
       "KID": {
-        "name": "Kiribati dollar",
+        "name": "Dólar de Kiribati",
         "symbol": "$"
       }
     },
@@ -8630,7 +8630,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ki.svg"
     },
     "flags": {
-      "alt": "The flag of Kiribati is divided into two halves. While the upper half has a red field, at the center of which is a yellow frigate bird flying over the top half of a rising yellow sun with seventeen visible rays, the lower half is composed of six horizontal wavy bands of white alternating with blue to depict the ocean."
+      "alt": "La bandera de Kiribati se divide en dos mitades. Mientras que la mitad superior tiene un campo rojo, en el centro de que es un pájaro de fragata amarilla volando sobre la mitad superior de un sol amarillo ascendente con diecisiete rayos visibles, la mitad inferior se compone de seis bandas onduladas horizontales de blanco alternando con azul para representar el océano."
     }
   },
   {
@@ -8651,7 +8651,7 @@
     "capital": [
       "Pristina"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": true,
     "borders": [
@@ -8710,7 +8710,7 @@
     },
     "independent": true,
     "capital": [
-      "Kuwait City"
+      "Kuwait"
     ],
     "region": "Asia",
     "subregion": "Asia Occidental",
@@ -8729,7 +8729,7 @@
     },
     "currencies": {
       "KWD": {
-        "name": "Kuwaiti dinar",
+        "name": "Dinero kuwaití",
         "symbol": "د.ك"
       }
     },
@@ -8750,7 +8750,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kw.svg"
     },
     "flags": {
-      "alt": "The flag of Kuwait is composed of three equal horizontal bands of green, white and red, with a black trapezium superimposed on the hoist side of the field. This trapezium has its base on the hoist end and spans about one-fourth the width of the field."
+      "alt": "The flag of Kuwait is composed of three equal horizontal bands of green, white and red, with a black trapezium superimposed on the hoist side of the field. Este trapecio tiene su base en el extremo del puño y abarca aproximadamente una cuarta parte de la anchura del campo."
     }
   },
   {
@@ -8817,7 +8817,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/la.svg"
     },
     "flags": {
-      "alt": "The flag of Laos is composed of three horizontal bands of red, blue and red. The blue band is twice the height of the red bands and bears a white circle at its center."
+      "alt": "La bandera de Laos está compuesta por tres bandas horizontales de rojo, azul y rojo. La banda azul es el doble de la altura de las bandas rojas y lleva un círculo blanco en su centro."
     }
   },
   {
@@ -8840,8 +8840,8 @@
     "capital": [
       "Maseru"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": true,
     "borders": [
       "ZAF"
@@ -8857,7 +8857,7 @@
     },
     "currencies": {
       "LSL": {
-        "name": "Lesotho loti",
+        "name": "Lesotho",
         "symbol": "L"
       },
       "ZAR": {
@@ -8885,7 +8885,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ls.svg"
     },
     "flags": {
-      "alt": "The flag of Lesotho is composed of three horizontal bands of blue, white and green in the ratio of 3:4:3. A black mokorotlo — a Basotho hat — is centered in the white band."
+      "alt": "La bandera de Lesotho está compuesta por tres bandas horizontales de azul, blanco y verde en la proporción de 3:4:3. Un mokorotlo negro — un sombrero Basotho— está centrado en la banda blanca."
     }
   },
   {
@@ -8908,7 +8908,7 @@
     "capital": [
       "Riga"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -8923,7 +8923,7 @@
       "side": "right"
     },
     "languages": {
-      "lav": "Latvian"
+      "lav": "Letonia"
     },
     "currencies": {
       "EUR": {
@@ -8951,7 +8951,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lv.svg"
     },
     "flags": {
-      "alt": "The flag of Latvia has a carmine-red field with a thin white horizontal band across the middle of the field."
+      "alt": "La bandera de Letonia tiene un campo rojo carmín con una fina banda horizontal blanca en el medio del campo."
     }
   },
   {
@@ -8992,7 +8992,7 @@
     },
     "currencies": {
       "LBP": {
-        "name": "Lebanese pound",
+        "name": "Libra libanesa",
         "symbol": "ل.ل"
       }
     },
@@ -9016,7 +9016,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lb.svg"
     },
     "flags": {
-      "alt": "The flag of Lebanon is composed of three horizontal bands of red, white and red. The white band is twice the height of the red bands and bears a green Lebanese Cedar tree at its center."
+      "alt": "La bandera del Líbano está compuesta por tres bandas horizontales de rojo, blanco y rojo. La banda blanca es el doble de la altura de las bandas rojas y lleva un cedro libanés verde en su centro."
     }
   },
   {
@@ -9039,7 +9039,7 @@
     "capital": [
       "Monrovia"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -9057,7 +9057,7 @@
     },
     "currencies": {
       "LRD": {
-        "name": "Liberian dollar",
+        "name": "Dólar de Liberia",
         "symbol": "$"
       }
     },
@@ -9081,7 +9081,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lr.svg"
     },
     "flags": {
-      "alt": "The flag of Liberia is composed of eleven equal horizontal bands of red alternating with white. A blue square bearing a five-pointed white star is superimposed in the canton."
+      "alt": "La bandera de Liberia está compuesta por once bandas horizontales iguales de rojo alternando con blanco. Un cuadrado azul con una estrella blanca de cinco puntos está superpuesto en el cantón."
     }
   },
   {
@@ -9102,9 +9102,9 @@
     },
     "independent": true,
     "capital": [
-      "Tripoli"
+      "Trípoli"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -9125,7 +9125,7 @@
     },
     "currencies": {
       "LYD": {
-        "name": "Libyan dinar",
+        "name": "Dinero libio",
         "symbol": "ل.د"
       }
     },
@@ -9146,7 +9146,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ly.svg"
     },
     "flags": {
-      "alt": "The flag of Libya is composed of three horizontal bands of red, black and green, with the black band twice the height of the other two bands. At the center of the black band is a fly-side facing white crescent and a five-pointed white star placed just outside the crescent opening."
+      "alt": "La bandera de Libia está compuesta por tres bandas horizontales de rojo, negro y verde, con la banda negra dos veces la altura de las otras dos bandas. En el centro de la banda negra se encuentra una cresta blanca cara a la mosca y una estrella blanca de cinco puntos situada justo fuera de la apertura de la crescent."
     }
   },
   {
@@ -9169,7 +9169,7 @@
     "capital": [
       "Vaduz"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": true,
     "borders": [
@@ -9186,7 +9186,7 @@
     },
     "currencies": {
       "CHF": {
-        "name": "Swiss franc",
+        "name": "Franco suizo",
         "symbol": "Fr"
       }
     },
@@ -9207,7 +9207,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/li.svg"
     },
     "flags": {
-      "alt": "The flag of Liechtenstein is composed of two equal horizontal bands of blue and red, with a golden-yellow crown on the hoist side of the blue band."
+      "alt": "La bandera de Liechtenstein está compuesta por dos bandas horizontales iguales de azul y rojo, con una corona dorada amarilla en el lado arista de la banda azul."
     }
   },
   {
@@ -9230,7 +9230,7 @@
     "capital": [
       "Vilnius"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -9245,7 +9245,7 @@
       "side": "right"
     },
     "languages": {
-      "lit": "Lithuanian"
+      "lit": "Lituania"
     },
     "currencies": {
       "EUR": {
@@ -9273,7 +9273,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lt.svg"
     },
     "flags": {
-      "alt": "The flag of Lithuania is composed of three equal horizontal bands of yellow, green and red."
+      "alt": "La bandera de Lituania está compuesta por tres bandas horizontales iguales de amarillo, verde y rojo."
     }
   },
   {
@@ -9294,9 +9294,9 @@
     },
     "independent": true,
     "capital": [
-      "Luxembourg"
+      "Luxemburgo"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": true,
     "borders": [
@@ -9312,7 +9312,7 @@
     "languages": {
       "deu": "Alemán",
       "fra": "Francés",
-      "ltz": "Luxembourgish"
+      "ltz": "Luxemburgo"
     },
     "currencies": {
       "EUR": {
@@ -9340,7 +9340,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lu.svg"
     },
     "flags": {
-      "alt": "The flag of Luxembourg is composed of three equal horizontal bands of red, white and light blue."
+      "alt": "La bandera de Luxemburgo está compuesta por tres bandas horizontales iguales de color rojo, blanco y azul claro."
     }
   },
   {
@@ -9417,7 +9417,7 @@
     "capital": [
       "Skopje"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": true,
     "borders": [
@@ -9433,7 +9433,7 @@
       "side": "right"
     },
     "languages": {
-      "mkd": "Macedonian"
+      "mkd": "Macedonia"
     },
     "currencies": {
       "MKD": {
@@ -9461,7 +9461,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mk.svg"
     },
     "flags": {
-      "alt": "The flag of North Macedonia has a red field, at the center of which is a golden-yellow sun with eight broadening rays that extend to the edges of the field."
+      "alt": "La bandera del norte de Macedonia tiene un campo rojo, en el centro de que es un sol amarillo dorado con ocho rayos que se extienden a los bordes del campo."
     }
   },
   {
@@ -9484,8 +9484,8 @@
     "capital": [
       "Antananarivo"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 587041,
     "population": 27691019,
@@ -9494,11 +9494,11 @@
     },
     "languages": {
       "fra": "Francés",
-      "mlg": "Malagasy"
+      "mlg": "Malgache"
     },
     "currencies": {
       "MGA": {
-        "name": "Malagasy ariary",
+        "name": "Aria malgache",
         "symbol": "Ar"
       }
     },
@@ -9522,7 +9522,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mg.svg"
     },
     "flags": {
-      "alt": "The flag of Madagascar features a white vertical band on the hoist side that takes up about one-third the width of the field, and two equal horizontal bands of red and green adjoining the vertical band."
+      "alt": "La bandera de Madagascar cuenta con una banda vertical blanca en el lado del puño que toma alrededor de un tercio de la anchura del campo, y dos bandas horizontales iguales de rojo y verde junto a la banda vertical."
     }
   },
   {
@@ -9564,7 +9564,7 @@
     },
     "currencies": {
       "MYR": {
-        "name": "Malaysian ringgit",
+        "name": "Ringgit de Malasia",
         "symbol": "RM"
       }
     },
@@ -9588,7 +9588,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/my.svg"
     },
     "flags": {
-      "alt": "The flag of Malaysia is composed of fourteen equal horizontal bands of red alternating with white. A blue rectangle, bearing a fly-side facing yellow crescent and a fourteen-pointed yellow star placed just outside the crescent opening, is superimposed in the canton."
+      "alt": "La bandera de Malasia está compuesta por catorce bandas horizontales iguales de rojo alternando con blanco. Un rectángulo azul, que lleva una cresta amarilla cara a la mosca y una estrella amarilla de catorce puntos situada justo fuera de la apertura de la crescent, está superpuesto en el cantón."
     }
   },
   {
@@ -9611,8 +9611,8 @@
     "capital": [
       "Lilongwe"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "MOZ",
@@ -9654,7 +9654,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mw.svg"
     },
     "flags": {
-      "alt": "The flag of Malawi is composed of three equal horizontal bands of black, red and green. The top half of a red sun with thirty-one visible rays is centered in the black band."
+      "alt": "La bandera de Malawi está compuesta por tres bandas horizontales iguales de negro, rojo y verde. La mitad superior de un sol rojo con treinta y uno rayos visibles está centrada en la banda negra."
     }
   },
   {
@@ -9690,7 +9690,7 @@
     },
     "currencies": {
       "MVR": {
-        "name": "Maldivian rufiyaa",
+        "name": "Rufiya de Maldivas",
         "symbol": ".ރ"
       }
     },
@@ -9714,7 +9714,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mv.svg"
     },
     "flags": {
-      "alt": "The flag of Maldives has a red field, at the center of which is a large green rectangle bearing a fly-side facing white crescent."
+      "alt": "La bandera de Maldivas tiene un campo rojo, en el centro de la cual es un gran rectángulo verde que lleva una cresta blanca cara a la mosca."
     }
   },
   {
@@ -9737,7 +9737,7 @@
     "capital": [
       "Bamako"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": true,
     "borders": [
@@ -9783,7 +9783,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ml.svg"
     },
     "flags": {
-      "alt": "The flag of Mali is composed of three equal vertical bands of green, yellow and red."
+      "alt": "La bandera de Malí está compuesta por tres bandas verticales iguales de verde, amarillo y rojo."
     }
   },
   {
@@ -9806,7 +9806,7 @@
     "capital": [
       "Valletta"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "area": 316,
@@ -9816,7 +9816,7 @@
     },
     "languages": {
       "eng": "Inglés",
-      "mlt": "Maltese"
+      "mlt": "Maltés"
     },
     "currencies": {
       "EUR": {
@@ -9844,7 +9844,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mt.svg"
     },
     "flags": {
-      "alt": "The flag of Malta is composed of two equal vertical bands of white and red. A representation of the George cross edged in red is situated on the upper hoist-side corner of the white band."
+      "alt": "La bandera de Malta está compuesta por dos bandas verticales iguales de blanco y rojo. Una representación de la cruz George bordeada en rojo está situada en la esquina superior del lado del puño de la banda blanca."
     }
   },
   {
@@ -9867,7 +9867,7 @@
     "capital": [
       "Rabat"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -9911,7 +9911,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ma.svg"
     },
     "flags": {
-      "alt": "The flag of Morocco features a green pentagram — a five-pointed linear star — centered on a red field."
+      "alt": "La bandera de Marruecos cuenta con un pentagrama verde —una estrella lineal de cinco puntos— centrado en un campo rojo."
     }
   },
   {
@@ -9933,7 +9933,7 @@
     "capital": [
       "Fort-de-France"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 1128,
@@ -9987,8 +9987,8 @@
     "capital": [
       "Port Louis"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 2040,
     "population": 1265740,
@@ -10002,7 +10002,7 @@
     },
     "currencies": {
       "MUR": {
-        "name": "Mauritian rupee",
+        "name": "Rupia de Mauricio",
         "symbol": "₨"
       }
     },
@@ -10026,7 +10026,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mu.svg"
     },
     "flags": {
-      "alt": "The flag of Mauritius is composed of four equal horizontal bands of red, blue, yellow and green."
+      "alt": "La bandera de Mauricio está compuesta por cuatro bandas horizontales iguales de rojo, azul, amarillo y verde."
     }
   },
   {
@@ -10049,7 +10049,7 @@
     "capital": [
       "Nouakchott"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -10092,7 +10092,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mr.svg"
     },
     "flags": {
-      "alt": "The flag of Mauritania has a green field with a thin red horizontal band at the top and bottom of the field. At the center of the field is a five-pointed yellow star above an upward facing yellow crescent."
+      "alt": "La bandera de Mauritania tiene un campo verde con una fina banda horizontal roja en la parte superior e inferior del campo. En el centro del campo hay una estrella amarilla de cinco puntos por encima de una cresta amarilla hacia arriba."
     }
   },
   {
@@ -10114,8 +10114,8 @@
     "capital": [
       "Mamoudzou"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 374,
     "population": 226915,
@@ -10163,9 +10163,9 @@
     },
     "independent": true,
     "capital": [
-      "Mexico City"
+      "Ciudad de México"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "borders": [
@@ -10183,7 +10183,7 @@
     },
     "currencies": {
       "MXN": {
-        "name": "Mexican peso",
+        "name": "Peso mexicano",
         "symbol": "$"
       }
     },
@@ -10209,7 +10209,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mx.svg"
     },
     "flags": {
-      "alt": "The flag of Mexico is composed of three equal vertical bands of green, white and red, with the national coat of arms centered in the white band."
+      "alt": "La bandera de México está compuesta por tres bandas verticales iguales de verde, blanco y rojo, con el escudo nacional de armas centrado en la banda blanca."
     }
   },
   {
@@ -10232,7 +10232,7 @@
     "capital": [
       "Palikir"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 702,
@@ -10270,7 +10270,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/fm.svg"
     },
     "flags": {
-      "alt": "The flag of Micronesia has a light blue field, at the center of which are four five-pointed white stars arranged in the shape of a diamond."
+      "alt": "La bandera de Micronesia tiene un campo azul claro, en el centro de los cuales hay cuatro estrellas blancas de cinco puntos dispuestas en forma de diamante."
     }
   },
   {
@@ -10293,8 +10293,8 @@
     "capital": [
       "Chișinău"
     ],
-    "region": "Europe",
-    "subregion": "Eastern Europe",
+    "region": "Europa",
+    "subregion": "Europa oriental",
     "landlocked": true,
     "borders": [
       "ROU",
@@ -10306,7 +10306,7 @@
       "side": "right"
     },
     "languages": {
-      "ron": "Romanian"
+      "ron": "Rumania"
     },
     "currencies": {
       "MDL": {
@@ -10334,7 +10334,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/md.svg"
     },
     "flags": {
-      "alt": "The flag of Moldova is composed of three equal vertical bands of blue, yellow and red, with the national coat of arms centered in the yellow band."
+      "alt": "La bandera de Moldavia está compuesta por tres bandas verticales iguales de azul, amarillo y rojo, con el escudo nacional de brazos centrado en la banda amarilla."
     }
   },
   {
@@ -10355,9 +10355,9 @@
     },
     "independent": true,
     "capital": [
-      "Monaco"
+      "Mónaco"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": false,
     "borders": [
@@ -10394,7 +10394,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mc.svg"
     },
     "flags": {
-      "alt": "The flag of Monaco is composed of two equal horizontal bands of red and white."
+      "alt": "La bandera de Mónaco está compuesta por dos bandas horizontales iguales de rojo y blanco."
     }
   },
   {
@@ -10430,7 +10430,7 @@
       "side": "right"
     },
     "languages": {
-      "mon": "Mongolian"
+      "mon": "Mongolia"
     },
     "currencies": {
       "MNT": {
@@ -10459,7 +10459,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mn.svg"
     },
     "flags": {
-      "alt": "The flag of Mongolia is composed of three equal vertical bands of red, blue and red, with the national emblem — the Soyombo — in gold centered in the hoist-side red band."
+      "alt": "La bandera de Mongolia está compuesta por tres bandas verticales iguales de rojo, azul y rojo, con el emblema nacional —la Soyombo— en oro centrado en la banda roja del lado del puño."
     }
   },
   {
@@ -10482,7 +10482,7 @@
     "capital": [
       "Podgorica"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -10526,7 +10526,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/me.svg"
     },
     "flags": {
-      "alt": "The flag of Montenegro features a large red central rectangular area surrounded by a golden-yellow border. The coat of arms of Montenegro is centered in the red rectangle."
+      "alt": "La bandera de Montenegro cuenta con un gran área rectangular central roja rodeada de una frontera dorada amarilla. El escudo de los brazos de Montenegro está centrado en el rectángulo rojo."
     }
   },
   {
@@ -10548,7 +10548,7 @@
     "capital": [
       "Plymouth"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 102,
@@ -10561,7 +10561,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -10602,8 +10602,8 @@
     "capital": [
       "Maputo"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "MWI",
@@ -10647,7 +10647,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mz.svg"
     },
     "flags": {
-      "alt": "The flag of Mozambique is composed of three equal horizontal bands of teal, black with white top and bottom edges, and yellow. A red isosceles triangle spanning about two-fifth the width of the field is superimposed on the hoist side with its base on the hoist end. This triangle bears a crossed rifle and hoe in black superimposed on an open white book which is superimposed on a five-pointed yellow star."
+      "alt": "La bandera de Mozambique se compone de tres bandas horizontales iguales de teal, negro con bordes blancos superior e inferior, y amarillo. Un triángulo isosceles rojo que abarca alrededor de dos quinta parte de la anchura del campo se superpone en el lado de la cizaña con su base en el extremo de la cizaña. Este triángulo lleva un rifle cruzado y una manguera en negro superpuesto en un libro blanco abierto que se superpone en una estrella amarilla de cinco puntos."
     }
   },
   {
@@ -10714,7 +10714,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/mm.svg"
     },
     "flags": {
-      "alt": "The flag of Myanmar is composed of three equal horizontal bands of yellow, green and red, with a large five-pointed white star superimposed at the center of the field."
+      "alt": "La bandera de Myanmar está compuesta por tres bandas horizontales iguales de amarillo, verde y rojo, con una gran estrella blanca de cinco puntos superpuesta en el centro del campo."
     }
   },
   {
@@ -10737,8 +10737,8 @@
     "capital": [
       "Windhoek"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": false,
     "borders": [
       "AGO",
@@ -10764,7 +10764,7 @@
     },
     "currencies": {
       "NAD": {
-        "name": "Namibian dollar",
+        "name": "Dólar de Namibia",
         "symbol": "$"
       },
       "ZAR": {
@@ -10792,7 +10792,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/na.svg"
     },
     "flags": {
-      "alt": "The flag of Namibia features a white-edged red diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. Above and beneath this band are a blue and green triangle respectively. A gold sun with twelve triangular rays is situated on the hoist side of the upper triangle."
+      "alt": "La bandera de Namibia cuenta con una banda diagonal roja de borde blanco que se extiende desde la esquina inferior del lado del puño hasta la esquina superior del lado de la mosca del campo. Arriba y debajo de esta banda son un triángulo azul y verde respectivamente. Un sol dorado con doce rayos triangulares está situado en el lado acolchado del triángulo superior."
     }
   },
   {
@@ -10815,7 +10815,7 @@
     "capital": [
       "Yaren"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 21,
@@ -10853,7 +10853,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/nr.svg"
     },
     "flags": {
-      "alt": "The flag of Nauru has a dark blue field with a thin yellow horizontal band across the center and a large white twelve-pointed star beneath the horizontal band on the hoist side of the field."
+      "alt": "La bandera de Nauru tiene un campo azul oscuro con una fina banda horizontal amarilla a través del centro y una gran estrella blanca de doce puntas debajo de la banda horizontal en el lado hútero del campo."
     }
   },
   {
@@ -10893,7 +10893,7 @@
     },
     "currencies": {
       "NPR": {
-        "name": "Nepalese rupee",
+        "name": "Rupia nepalí",
         "symbol": "₨"
       }
     },
@@ -10917,7 +10917,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/np.svg"
     },
     "flags": {
-      "alt": "The flag of Nepal is the world's only non-quadrilateral flag of a sovereign country. It takes the shape of two adjoining right-angled triangles and has a crimson red field with deep blue edges. Within the smaller upper triangle is an emblem of the upper half of a white sun resting on an upward facing white crescent. The lower triangle bears a white sun with twelve rays."
+      "alt": "La bandera de Nepal es la única bandera no cuadrada del mundo de un país soberano. Toma la forma de dos triángulos adyacentes en ángulo derecho y tiene un campo rojo carmesí con bordes azules profundos. Dentro del triángulo superior más pequeño es un emblema de la mitad superior de un sol blanco descansando en una crescente blanca orientada hacia arriba. El triángulo inferior lleva un sol blanco con doce rayos."
     }
   },
   {
@@ -10940,7 +10940,7 @@
     "capital": [
       "Managua"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -10957,7 +10957,7 @@
     },
     "currencies": {
       "NIO": {
-        "name": "Nicaraguan córdoba",
+        "name": "Nicaragua córdoba",
         "symbol": "C$"
       }
     },
@@ -10981,7 +10981,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ni.svg"
     },
     "flags": {
-      "alt": "The flag of Nicaragua is composed of three equal horizontal bands of blue, white and blue, with the national coat of arms centered in the white band."
+      "alt": "La bandera de Nicaragua está compuesta por tres bandas horizontales iguales de azul, blanco y azul, con el escudo nacional de armas centrado en la banda blanca."
     }
   },
   {
@@ -11004,7 +11004,7 @@
     "capital": [
       "Niamey"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": true,
     "borders": [
@@ -11050,7 +11050,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ne.svg"
     },
     "flags": {
-      "alt": "The flag of Niger features three equal horizontal bands of orange, white and green, with an orange circle centered in the white band."
+      "alt": "La bandera de Níger cuenta con tres bandas horizontales iguales de naranja, blanco y verde, con un círculo naranja centrado en la banda blanca."
     }
   },
   {
@@ -11073,7 +11073,7 @@
     "capital": [
       "Abuja"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -11116,7 +11116,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ng.svg"
     },
     "flags": {
-      "alt": "The flag of Nigeria is composed of three equal vertical bands of green, white and green."
+      "alt": "La bandera de Nigeria está compuesta por tres bandas verticales iguales de verde, blanco y verde."
     }
   },
   {
@@ -11138,7 +11138,7 @@
     "capital": [
       "Alofi"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 260,
@@ -11152,7 +11152,7 @@
     },
     "currencies": {
       "NZD": {
-        "name": "New Zealand dollar",
+        "name": "Dólar de Nueva Zelandia",
         "symbol": "$"
       }
     },
@@ -11190,7 +11190,7 @@
     "capital": [
       "Oslo"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -11210,7 +11210,7 @@
     },
     "currencies": {
       "NOK": {
-        "name": "Norwegian krone",
+        "name": "Corona noruega",
         "symbol": "kr"
       }
     },
@@ -11234,7 +11234,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/no.svg"
     },
     "flags": {
-      "alt": "The flag of Norway has a red field with a large white-edged navy blue cross that extends to the edges of the field. The vertical part of this cross is offset towards the hoist side."
+      "alt": "La bandera de Noruega tiene un campo rojo con una gran cruz azul marino de color blanco que se extiende a los bordes del campo. La parte vertical de esta cruz se contrarresta hacia el lado izquierdo."
     }
   },
   {
@@ -11256,7 +11256,7 @@
     "capital": [
       "Nouméa"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Melanesia",
     "landlocked": false,
     "area": 18575,
@@ -11269,7 +11269,7 @@
     },
     "currencies": {
       "XPF": {
-        "name": "CFP franc",
+        "name": "Franco CFP",
         "symbol": "₣"
       }
     },
@@ -11310,7 +11310,7 @@
     "capital": [
       "Wellington"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Australia y Nueva Zelanda",
     "landlocked": false,
     "area": 270467,
@@ -11325,7 +11325,7 @@
     },
     "currencies": {
       "NZD": {
-        "name": "New Zealand dollar",
+        "name": "Dólar de Nueva Zelandia",
         "symbol": "$"
       }
     },
@@ -11350,7 +11350,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/nz.svg"
     },
     "flags": {
-      "alt": "The flag of New Zealand has a dark blue field with the flag of the United Kingdom — the Union Jack — in the canton and a representation of the Southern Cross constellation, made up of four five-pointed white-edged red stars, on the fly side of the field."
+      "alt": "La bandera de Nueva Zelanda tiene un campo azul oscuro con la bandera del Reino Unido —el Union Jack— en el cantón y una representación de la constelación de la Cruz del Sur, compuesta de cuatro estrellas rojas de raza blanca de cinco puntos, en el lado volador del campo."
     }
   },
   {
@@ -11412,7 +11412,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/om.svg"
     },
     "flags": {
-      "alt": "The flag of Oman features a red vertical band on the hoist side that takes up about one-fourth the width of the field, and three equal horizontal bands of white, red and green adjoining the vertical band. At the top of the vertical band is the white emblem of Oman."
+      "alt": "La bandera de Omán cuenta con una banda vertical roja en el lado del puño que toma alrededor de una cuarta parte de la anchura del campo, y tres bandas horizontales iguales de blanco, rojo y verde que se unen a la banda vertical. En la parte superior de la banda vertical se encuentra el emblema blanco de Omán."
     }
   },
   {
@@ -11435,7 +11435,7 @@
     "capital": [
       "Amsterdam"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": false,
     "borders": [
@@ -11476,7 +11476,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/nl.svg"
     },
     "flags": {
-      "alt": "The flag of the Netherlands is composed of three equal horizontal bands of red, white and blue."
+      "alt": "La bandera de los Países Bajos está compuesta por tres bandas horizontales iguales de rojo, blanco y azul."
     }
   },
   {
@@ -11519,7 +11519,7 @@
     },
     "currencies": {
       "PKR": {
-        "name": "Pakistani rupee",
+        "name": "Rupia paquistaní",
         "symbol": "₨"
       }
     },
@@ -11543,7 +11543,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pk.svg"
     },
     "flags": {
-      "alt": "The flag of Pakistan is composed of a white vertical band on its hoist side that takes up about one-fourth the width of the field and a dark green rectangular area that spans the rest of the field. A white fly-side facing crescent and five-pointed star are centered in the dark green area."
+      "alt": "La bandera de Pakistán está compuesta por una banda vertical blanca en su lado acolchado que toma alrededor de una cuarta parte de la anchura del campo y una zona rectangular verde oscuro que abarca el resto del campo. Una estrella blanca frente a la mosca frente crescent y cinco puntos se centran en la zona verde oscura."
     }
   },
   {
@@ -11566,7 +11566,7 @@
     "capital": [
       "Ngerulmud"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Micronesia",
     "landlocked": false,
     "area": 459,
@@ -11601,7 +11601,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pw.svg"
     },
     "flags": {
-      "alt": "The flag of Palau has a light blue field with a large golden-yellow circle that is offset slightly towards the hoist side of center."
+      "alt": "La bandera de Palau tiene un campo azul claro con un gran círculo amarillo dorado que se contrarresta ligeramente hacia el lado del centro."
     }
   },
   {
@@ -11623,7 +11623,7 @@
     "independent": false,
     "capital": [
       "Ramallah",
-      "Jerusalem"
+      "Jerusalén"
     ],
     "region": "Asia",
     "subregion": "Asia Occidental",
@@ -11643,7 +11643,7 @@
     },
     "currencies": {
       "EGP": {
-        "name": "Egyptian pound",
+        "name": "Libra de Egipto",
         "symbol": "E£"
       },
       "ILS": {
@@ -11651,7 +11651,7 @@
         "symbol": "₪"
       },
       "JOD": {
-        "name": "Jordanian dinar",
+        "name": "Dinero jordano",
         "symbol": "JD"
       }
     },
@@ -11694,9 +11694,9 @@
     },
     "independent": true,
     "capital": [
-      "Panama City"
+      "Ciudad de Panamá"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América Central",
     "landlocked": false,
     "borders": [
@@ -11713,7 +11713,7 @@
     },
     "currencies": {
       "PAB": {
-        "name": "Panamanian balboa",
+        "name": "Balboa panameña",
         "symbol": "B/."
       },
       "USD": {
@@ -11741,7 +11741,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pa.svg"
     },
     "flags": {
-      "alt": "The flag of Panama is composed of four equal rectangular areas — a white rectangular area with a blue five-pointed star at its center, a red rectangular area, a white rectangular area with a red five-pointed star at its center, and a blue rectangular area — in the upper hoist side, upper fly side, lower fly side and lower hoist side respectively."
+      "alt": "La bandera de Panamá está compuesta por cuatro áreas rectangulares iguales, una zona blanca rectangular con una estrella azul de cinco puntas en su centro, una zona rectangular roja, una zona rectangular blanca con una estrella roja de cinco puntas en su centro, y una zona rectangular azul, en la parte superior del puño, la parte superior de la mosca, la parte inferior de la mosca y la parte inferior del puño respectivamente."
     }
   },
   {
@@ -11764,7 +11764,7 @@
     "capital": [
       "Port Moresby"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Melanesia",
     "landlocked": false,
     "borders": [
@@ -11782,7 +11782,7 @@
     },
     "currencies": {
       "PGK": {
-        "name": "Papua New Guinean kina",
+        "name": "Papua Nueva Guinea kina",
         "symbol": "K"
       }
     },
@@ -11806,7 +11806,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pg.svg"
     },
     "flags": {
-      "alt": "The flag of Papua New Guinea is divided diagonally, from the upper hoist-side corner to the lower fly-side corner, into a lower black and an upper red triangle. On the hoist side of the lower black triangle is a representation of the Southern Cross constellation made up of one small and four larger five-pointed white stars. A golden Raggiana bird-of-paradise is situated on the fly side of the upper red triangle."
+      "alt": "La bandera de Papua Nueva Guinea se divide diagonalmente, desde la esquina superior del lado del puño hasta la esquina inferior del lado de la mosca, en un triángulo negro inferior y rojo superior. En el lado del puño del triángulo negro inferior es una representación de la constelación de la Cruz del Sur compuesta por una pequeña y cuatro estrellas blancas de cinco puntos más grandes. Un pájaro-de-paradise Raggiana dorado está situado en el lado de la mosca del triángulo rojo superior."
     }
   },
   {
@@ -11829,7 +11829,7 @@
     "capital": [
       "Asunción"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": true,
     "borders": [
@@ -11848,7 +11848,7 @@
     },
     "currencies": {
       "PYG": {
-        "name": "Paraguayan guaraní",
+        "name": "Paraguaya guaraní",
         "symbol": "₲"
       }
     },
@@ -11872,7 +11872,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/py.svg"
     },
     "flags": {
-      "alt": "The flag of Paraguay features three equal horizontal bands of red, white and blue, with an emblem centered in the white band. On the obverse side of the flag depicted, this emblem is the national coat of arms."
+      "alt": "La bandera de Paraguay cuenta con tres bandas horizontales iguales de rojo, blanco y azul, con un emblema centrado en la banda blanca. En el lado contrario de la bandera descrita, este emblema es el escudo nacional de armas."
     }
   },
   {
@@ -11895,7 +11895,7 @@
     "capital": [
       "Lima"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -11917,7 +11917,7 @@
     },
     "currencies": {
       "PEN": {
-        "name": "Peruvian sol",
+        "name": "Sol peruano",
         "symbol": "S/ "
       }
     },
@@ -11941,7 +11941,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pe.svg"
     },
     "flags": {
-      "alt": "The flag of Peru is composed of three equal vertical bands of red, white and red, with the national emblem centered in the white band."
+      "alt": "La bandera del Perú está compuesta por tres bandas verticales iguales de rojo, blanco y rojo, con el emblema nacional centrado en la banda blanca."
     }
   },
   {
@@ -11963,7 +11963,7 @@
     "capital": [
       "Papeetē"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 4167,
@@ -11976,7 +11976,7 @@
     },
     "currencies": {
       "XPF": {
-        "name": "CFP franc",
+        "name": "Franco CFP",
         "symbol": "₣"
       }
     },
@@ -12017,9 +12017,9 @@
     },
     "independent": true,
     "capital": [
-      "Warsaw"
+      "Varsovia"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": false,
     "borders": [
@@ -12037,7 +12037,7 @@
       "side": "right"
     },
     "languages": {
-      "pol": "Polish"
+      "pol": "Polaco"
     },
     "currencies": {
       "PLN": {
@@ -12065,7 +12065,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pl.svg"
     },
     "flags": {
-      "alt": "The flag of Poland is composed of two equal horizontal bands of white and red."
+      "alt": "La bandera de Polonia está compuesta por dos bandas horizontales iguales de blanco y rojo."
     }
   },
   {
@@ -12086,9 +12086,9 @@
     },
     "independent": true,
     "capital": [
-      "Lisbon"
+      "Lisboa"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": false,
     "borders": [
@@ -12129,7 +12129,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/pt.svg"
     },
     "flags": {
-      "alt": "The flag of Portugal is composed of two vertical bands of green and red in the ratio of 2:3, with the coat of arms of Portugal centered over the two-color boundary."
+      "alt": "La bandera de Portugal está compuesta por dos bandas verticales de verde y rojo en la relación de 2:3, con el escudo de armas de Portugal centrado sobre el límite de dos colores."
     }
   },
   {
@@ -12153,7 +12153,7 @@
     "capital": [
       "San Juan"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 8870,
@@ -12203,9 +12203,9 @@
     },
     "independent": true,
     "capital": [
-      "London"
+      "Londres"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -12221,7 +12221,7 @@
     },
     "currencies": {
       "GBP": {
-        "name": "British pound",
+        "name": "Libra británica",
         "symbol": "£"
       }
     },
@@ -12253,7 +12253,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/gb.svg"
     },
     "flags": {
-      "alt": "The flag of the United Kingdom — the Union Jack — has a blue field. It features the white-edged red cross of Saint George superimposed on the diagonal red cross of Saint Patrick which is superimposed on the diagonal white cross of Saint Andrew."
+      "alt": "La bandera del Reino Unido —el Union Jack— tiene un campo azul. Cuenta con la cruz roja blanca de San Jorge superpuesta en la cruz roja diagonal de San Patricio que se superpone en la cruz blanca diagonal de San Andrés."
     }
   },
   {
@@ -12276,7 +12276,7 @@
     "capital": [
       "Bangui"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": true,
     "borders": [
@@ -12322,7 +12322,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/cf.svg"
     },
     "flags": {
-      "alt": "The flag of Central African Republic is composed of four equal horizontal bands of blue, white, green and yellow intersected at the center by a vertical red band of equal size as the horizontal bands. A yellow five-pointed star is situated on the hoist side of the blue band."
+      "alt": "La bandera de la República Centroafricana está compuesta por cuatro bandas horizontales iguales de azul, blanco, verde y amarillo intersectados en el centro por una banda roja vertical de igual tamaño que las bandas horizontales. Una estrella amarilla de cinco puntas está situada en el lado del puño de la banda azul."
     }
   },
   {
@@ -12347,7 +12347,7 @@
     "capital": [
       "Santo Domingo"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "borders": [
@@ -12363,7 +12363,7 @@
     },
     "currencies": {
       "DOP": {
-        "name": "Dominican peso",
+        "name": "Peso dominicano",
         "symbol": "$"
       }
     },
@@ -12387,7 +12387,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/do.svg"
     },
     "flags": {
-      "alt": "The flag of the Dominican Republic is divided into four rectangles by a centered white cross that extends to the edges of the field and bears the national coat of arms in its center. The upper hoist-side and lower fly-side rectangles are blue and the lower hoist-side and upper fly-side rectangles are red."
+      "alt": "La bandera de la República Dominicana se divide en cuatro rectángulos por una cruz blanca centrada que se extiende a los bordes del campo y lleva el escudo nacional de armas en su centro. Los rectángulos del lado superior y del lado inferior de la mosca son azules y los rectángulos del lado inferior y del lado superior de la mosca son rojos."
     }
   },
   {
@@ -12410,7 +12410,7 @@
     "capital": [
       "Bratislava"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Central",
     "landlocked": true,
     "borders": [
@@ -12426,7 +12426,7 @@
       "side": "right"
     },
     "languages": {
-      "slk": "Slovak"
+      "slk": "Eslovaco"
     },
     "currencies": {
       "EUR": {
@@ -12454,7 +12454,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sk.svg"
     },
     "flags": {
-      "alt": "The flag of Slovakia is composed of three equal horizontal bands of white, blue and red. The coat of arms of Slovakia is superimposed at the center of the field slightly towards the hoist side."
+      "alt": "La bandera de Eslovaquia está compuesta por tres bandas horizontales iguales de blanco, azul y rojo. El escudo de armas de Eslovaquia se superpone en el centro del campo ligeramente hacia el lado del puño."
     }
   },
   {
@@ -12476,8 +12476,8 @@
     "capital": [
       "Saint-Denis"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 2511,
     "population": 840974,
@@ -12527,8 +12527,8 @@
     "capital": [
       "Kigali"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "BDI",
@@ -12548,7 +12548,7 @@
     },
     "currencies": {
       "RWF": {
-        "name": "Rwandan franc",
+        "name": "Franco rwandés",
         "symbol": "Fr"
       }
     },
@@ -12572,7 +12572,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/rw.svg"
     },
     "flags": {
-      "alt": "The flag of Rwanda is composed of three horizontal bands of light blue, yellow and green. The light blue band is twice the height of the other two bands and bears a yellow sun with twenty-four rays on its fly side."
+      "alt": "La bandera de Rwanda está compuesta por tres bandas horizontales de azul claro, amarillo y verde. La banda azul ligera es el doble de la altura de las otras dos bandas y lleva un sol amarillo con veinticuatro rayos en su lado de la mosca."
     }
   },
   {
@@ -12593,9 +12593,9 @@
     },
     "independent": true,
     "capital": [
-      "Bucharest"
+      "Bucarest"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": false,
     "borders": [
@@ -12611,7 +12611,7 @@
       "side": "right"
     },
     "languages": {
-      "ron": "Romanian"
+      "ron": "Rumania"
     },
     "currencies": {
       "RON": {
@@ -12639,7 +12639,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ro.svg"
     },
     "flags": {
-      "alt": "The flag of Romania is composed of three equal vertical bands of navy blue, yellow and red."
+      "alt": "La bandera de Rumania está compuesta por tres bandas verticales iguales de azul marino, amarillo y rojo."
     }
   },
   {
@@ -12664,10 +12664,10 @@
     },
     "independent": true,
     "capital": [
-      "Moscow"
+      "Moscú"
     ],
-    "region": "Europe",
-    "subregion": "Eastern Europe",
+    "region": "Europa",
+    "subregion": "Europa oriental",
     "landlocked": false,
     "borders": [
       "AZE",
@@ -12695,7 +12695,7 @@
     },
     "currencies": {
       "RUB": {
-        "name": "Russian ruble",
+        "name": "Rublo ruso",
         "symbol": "₽"
       }
     },
@@ -12729,7 +12729,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ru.svg"
     },
     "flags": {
-      "alt": "The flag of Russia is composed of three equal horizontal bands of white, blue and red."
+      "alt": "La bandera de Rusia está compuesta por tres bandas horizontales iguales de blanco, azul y rojo."
     }
   },
   {
@@ -12752,7 +12752,7 @@
     "capital": [
       "El Aaiún"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -12817,7 +12817,7 @@
     "capital": [
       "Marigot"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "borders": [
@@ -12872,7 +12872,7 @@
     "capital": [
       "Apia"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 2842,
@@ -12910,7 +12910,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ws.svg"
     },
     "flags": {
-      "alt": "The flag of Samoa has a red field. A blue rectangle, bearing a representation of the Southern Cross made up of five large and one smaller five-pointed white stars, is superimposed in the canton."
+      "alt": "La bandera de Samoa tiene un campo rojo. Un rectángulo azul, con una representación de la Cruz del Sur compuesta de cinco grandes y una pequeña estrella blanca de cinco puntos, está superpuesto en el cantón."
     }
   },
   {
@@ -12931,9 +12931,9 @@
     },
     "independent": false,
     "capital": [
-      "Pago Pago"
+      "Pago"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 199,
@@ -12984,7 +12984,7 @@
     "capital": [
       "Gustavia"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 21,
@@ -13035,7 +13035,7 @@
     "capital": [
       "Basseterre"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 261,
@@ -13048,7 +13048,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -13069,7 +13069,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/kn.svg"
     },
     "flags": {
-      "alt": "The flag of Saint Kitts and Nevis features two large five-pointed white stars within a yellow-edged black diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. Above and beneath this band are a green and red triangle respectively."
+      "alt": "La bandera de Saint Kitts y Nevis cuenta con dos grandes estrellas blancas de cinco puntos dentro de una banda diagonal negra de color amarillo que se extiende desde la esquina inferior del lado izquierdo hasta la esquina superior del lado de la mosca del campo. Arriba y debajo de esta banda son un triángulo verde y rojo respectivamente."
     }
   },
   {
@@ -13090,9 +13090,9 @@
     },
     "independent": true,
     "capital": [
-      "City of San Marino"
+      "Ciudad de San Marino"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Meridional",
     "landlocked": true,
     "borders": [
@@ -13129,7 +13129,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sm.svg"
     },
     "flags": {
-      "alt": "The flag of San Marino is composed of two equal horizontal bands of white and light blue, with the national coat of arms superimposed in the center."
+      "alt": "La bandera de San Marino está compuesta por dos bandas horizontales iguales de color blanco y azul claro, con el escudo nacional de armas superpuesto en el centro."
     }
   },
   {
@@ -13151,7 +13151,7 @@
     "capital": [
       "Saint-Pierre"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Norte",
     "landlocked": false,
     "area": 242,
@@ -13202,7 +13202,7 @@
     "capital": [
       "Kingstown"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 389,
@@ -13215,7 +13215,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -13236,7 +13236,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/vc.svg"
     },
     "flags": {
-      "alt": "The flag of Saint Vincent and the Grenadines is composed of three vertical bands of blue, gold and green. The gold band is twice as wide as the other two bands and bears three green diamonds arranged to form the letter V at its center."
+      "alt": "La bandera de San Vicente y las Granadinas está compuesta por tres bandas verticales de azul, oro y verde. La banda de oro es el doble de ancho que las otras dos bandas y lleva tres diamantes verdes dispuestos a formar la letra V en su centro."
     }
   },
   {
@@ -13259,7 +13259,7 @@
     "capital": [
       "Jamestown"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "area": 394,
@@ -13272,11 +13272,11 @@
     },
     "currencies": {
       "GBP": {
-        "name": "Pound sterling",
+        "name": "Libra esterlina",
         "symbol": "£"
       },
       "SHP": {
-        "name": "Saint Helena pound",
+        "name": "Libra de Santa Elena",
         "symbol": "£"
       }
     },
@@ -13315,7 +13315,7 @@
     "capital": [
       "Castries"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 616,
@@ -13328,7 +13328,7 @@
     },
     "currencies": {
       "XCD": {
-        "name": "Eastern Caribbean dollar",
+        "name": "Dólar del Caribe Oriental",
         "symbol": "$"
       }
     },
@@ -13352,7 +13352,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lc.svg"
     },
     "flags": {
-      "alt": "The flag of Saint Lucia has a light blue field, at the center of which are two triangles which share a common base — a small golden-yellow isosceles triangle superimposed on a large white-edged black isosceles triangle."
+      "alt": "La bandera de Santa Lucía tiene un campo azul claro, en el centro de que son dos triángulos que comparten una base común — un pequeño triángulo isosceles amarillo dorado superpuesto en un gran triángulo isosceles negro de borde blanco."
     }
   },
   {
@@ -13375,7 +13375,7 @@
     "capital": [
       "São Tomé"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": false,
     "area": 964,
@@ -13388,7 +13388,7 @@
     },
     "currencies": {
       "STN": {
-        "name": "São Tomé and Príncipe dobra",
+        "name": "São Tomé y Príncipe dobra",
         "symbol": "Db"
       }
     },
@@ -13412,7 +13412,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/st.svg"
     },
     "flags": {
-      "alt": "The flag of South Sudan is composed of three equal horizontal bands of black, red with white top and bottom edges, and green. A blue equilateral triangle which spans about two-fifth the width of the field is superimposed on the hoist side with its base on the hoist end of the field. At the center of this triangle is a five-pointed yellow star."
+      "alt": "La bandera de Sudán del Sur está compuesta por tres bandas horizontales iguales de negro, rojo con bordes blancos superior e inferior, y verde. Un triángulo equilátero azul que abarca alrededor de dos quintas partes de la anchura del campo se superpone en el lado de la cizaña con su base en el extremo de la cizaña del campo. En el centro de este triángulo hay una estrella amarilla de cinco puntos."
     }
   },
   {
@@ -13435,7 +13435,7 @@
     "capital": [
       "Dakar"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -13479,7 +13479,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sn.svg"
     },
     "flags": {
-      "alt": "The flag of Senegal is composed of three equal vertical bands of green, golden-yellow and red, with a five-pointed green star centered in the golden-yellow band."
+      "alt": "La bandera de Senegal está compuesta por tres bandas verticales iguales de verde, amarillo dorado y rojo, con una estrella verde de cinco puntos centrada en la banda dorada amarilla."
     }
   },
   {
@@ -13500,9 +13500,9 @@
     },
     "independent": true,
     "capital": [
-      "Belgrade"
+      "Belgrado"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Sudoriental",
     "landlocked": true,
     "borders": [
@@ -13525,7 +13525,7 @@
     },
     "currencies": {
       "RSD": {
-        "name": "Serbian dinar",
+        "name": "Dinero serbio",
         "symbol": "дин."
       }
     },
@@ -13550,7 +13550,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/rs.svg"
     },
     "flags": {
-      "alt": "The flag of Serbia is composed of three equal horizontal bands of red, blue and white. The coat of arms of Serbia is superimposed at the center of the field slightly towards the hoist side."
+      "alt": "La bandera de Serbia está compuesta por tres bandas horizontales iguales de rojo, azul y blanco. El escudo de armas de Serbia se superpone en el centro del campo ligeramente hacia el lado del puño."
     }
   },
   {
@@ -13573,8 +13573,8 @@
     "capital": [
       "Victoria"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 452,
     "population": 98462,
@@ -13612,7 +13612,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sc.svg"
     },
     "flags": {
-      "alt": "The flag of Seychelles is composed of five broadening oblique bands of blue, yellow, red, white and green, which extend from the hoist side of the bottom edge to the top and fly edges of the field."
+      "alt": "La bandera de Seychelles está compuesta por cinco bandas oblicuas más ampliadas de azul, amarillo, rojo, blanco y verde, que se extienden desde el lado puño del borde inferior hasta la parte superior y los bordes de la mosca del campo."
     }
   },
   {
@@ -13635,7 +13635,7 @@
     "capital": [
       "Freetown"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -13652,7 +13652,7 @@
     },
     "currencies": {
       "SLL": {
-        "name": "Sierra Leonean leone",
+        "name": "Sierra Leona",
         "symbol": "Le"
       }
     },
@@ -13676,7 +13676,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sl.svg"
     },
     "flags": {
-      "alt": "The flag of Sierra Leone is composed of three equal horizontal bands of green, white and blue."
+      "alt": "La bandera de Sierra Leona está compuesta por tres bandas horizontales iguales de verde, blanco y azul."
     }
   },
   {
@@ -13697,7 +13697,7 @@
     },
     "independent": true,
     "capital": [
-      "Singapore"
+      "Singapur"
     ],
     "region": "Asia",
     "subregion": "Sudeste Asiático",
@@ -13738,7 +13738,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sg.svg"
     },
     "flags": {
-      "alt": "The flag of Singapore is composed of two equal horizontal bands of red and white. On the hoist side of the red band is a fly-side facing white crescent which partially encloses five small five-pointed white stars arranged in the shape of a pentagon."
+      "alt": "La bandera de Singapur está compuesta por dos bandas horizontales iguales de rojo y blanco. En el lado del puño de la banda roja es una crescent blanco cara a la mosca que encierra parcialmente cinco pequeñas estrellas blancas de cinco puntos dispuestas en la forma de un pentágono."
     }
   },
   {
@@ -13760,7 +13760,7 @@
     "capital": [
       "Philipsburg"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "borders": [
@@ -13814,7 +13814,7 @@
     },
     "independent": true,
     "capital": [
-      "Damascus"
+      "Damas"
     ],
     "region": "Asia",
     "subregion": "Asia Occidental",
@@ -13836,7 +13836,7 @@
     },
     "currencies": {
       "SYP": {
-        "name": "Syrian pound",
+        "name": "Libra siria",
         "symbol": "£"
       }
     },
@@ -13861,7 +13861,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sy.svg"
     },
     "flags": {
-      "alt": "The flag of Syria is composed of three equal horizontal bands of red, white and black. At the center of the white band are two small five-pointed green stars arranged in a horizontal line."
+      "alt": "La bandera de Siria está compuesta por tres bandas horizontales iguales de rojo, blanco y negro. En el centro de la banda blanca hay dos pequeñas estrellas verdes de cinco puntos dispuestas en una línea horizontal."
     }
   },
   {
@@ -13884,8 +13884,8 @@
     "capital": [
       "Mogadishu"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "DJI",
@@ -13899,11 +13899,11 @@
     },
     "languages": {
       "ara": "Árabe",
-      "som": "Somali"
+      "som": "Somalia"
     },
     "currencies": {
       "SOS": {
-        "name": "Somali shilling",
+        "name": "Chelín somalí",
         "symbol": "Sh"
       }
     },
@@ -13927,7 +13927,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/so.svg"
     },
     "flags": {
-      "alt": "The flag of Somalia features a large five-pointed white star centered on a light blue field."
+      "alt": "La bandera de Somalia cuenta con una gran estrella blanca de cinco puntos centrada en un campo azul claro."
     }
   },
   {
@@ -13967,7 +13967,7 @@
     },
     "currencies": {
       "LKR": {
-        "name": "Sri Lankan rupee",
+        "name": "Rupia de Sri Lanka",
         "symbol": "Rs  රු"
       }
     },
@@ -13993,7 +13993,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/lk.svg"
     },
     "flags": {
-      "alt": "The flag of Sri Lanka features two large adjacent but separate rectangular areas, centered on a golden-yellow field. The smaller hoist-side rectangle is divided into two equal vertical bands of teal and orange, and the larger fly-side rectangle is maroon with a centered golden-yellow lion holding a Kastane sword in its right fore-paw and four golden-yellow Bo leaves, one in each corner."
+      "alt": "La bandera de Sri Lanka cuenta con dos grandes áreas rectangulares adyacentes pero separadas, centradas en un campo amarillo dorado. El rectángulo más pequeño del lado izquierdo se divide en dos bandas verticales iguales de teal y naranja, y el rectángulo más grande del lado de la mosca es marón con un león dorado-amarillo centrado que sostiene una espada Kastane en su falda derecha y cuatro amarillo dorado Bo sale, uno en cada esquina."
     }
   },
   {
@@ -14016,8 +14016,8 @@
     "capital": [
       "Mbabane"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": true,
     "borders": [
       "MOZ",
@@ -14059,7 +14059,7 @@
     ],
     "coatOfArms": {},
     "flags": {
-      "alt": "The flag of Eswatini is composed of three horizontal bands — a large central yellow-edged red band, and a light blue band above and beneath the red band. The red band is three times the height of the blue bands and bears a centered emblem made up of a large black and white Nguni shield covering two spears and a staff decorated with feather tassels, all placed horizontally."
+      "alt": "La bandera de Eswatini está compuesta por tres bandas horizontales: una gran banda roja central de color amarillo, y una banda azul claro arriba y debajo de la banda roja. La banda roja es tres veces la altura de las bandas azules y lleva un emblema centrado formado por un gran escudo Nguni blanco y negro que cubre dos lanzas y un personal decorado con borlas de plumas, todo colocado horizontalmente."
     }
   },
   {
@@ -14082,10 +14082,10 @@
     "capital": [
       "Pretoria",
       "Bloemfontein",
-      "Cape Town"
+      "Ciudad del Cabo"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": false,
     "borders": [
       "BWA",
@@ -14139,7 +14139,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/za.svg"
     },
     "flags": {
-      "alt": "The flag of South Africa is composed of two equal horizontal bands of red and blue, with a yellow-edged black isosceles triangle superimposed on the hoist side of the field. This triangle has its base centered on the hoist end, spans about two-fifth the width and two-third the height of the field, and is enclosed on its sides by the arms of a white-edged green horizontally oriented Y-shaped band which extends along the boundary of the red and blue bands to the fly end of the field."
+      "alt": "La bandera de Sudáfrica está compuesta por dos bandas horizontales iguales de rojo y azul, con un triángulo isósceles negro de color amarillo superpuesto en el lado hútero del campo. Este triángulo tiene su base centrada en el extremo de la cizaña, abarca alrededor de dos quintas partes de la anchura y dos tercios de la altura del campo, y está encerrado en sus lados por los brazos de una banda de color verde blanco orientado horizontalmente hacia Y que se extiende a lo largo del límite de las bandas rojas y azules al extremo de la mosca del campo."
     }
   },
   {
@@ -14162,7 +14162,7 @@
     "capital": [
       "Khartoum"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -14185,7 +14185,7 @@
     },
     "currencies": {
       "SDG": {
-        "name": "Sudanese pound"
+        "name": "Libra sudanesa"
       }
     },
     "translations": {
@@ -14208,7 +14208,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sd.svg"
     },
     "flags": {
-      "alt": "The flag of Sudan is composed of three equal horizontal bands of red, white and black, with a green isosceles triangle superimposed on the hoist side. The green triangle spans about two-fifth the width of the field with its base on the hoist end."
+      "alt": "La bandera de Sudán está compuesta por tres bandas horizontales iguales de rojo, blanco y negro, con un triángulo isósceles verde superpuesto en el lado del puño. El triángulo verde abarca alrededor de dos quintas partes de la anchura del campo con su base en el extremo del puño."
     }
   },
   {
@@ -14231,7 +14231,7 @@
     "capital": [
       "Juba"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Central",
     "landlocked": true,
     "borders": [
@@ -14252,7 +14252,7 @@
     },
     "currencies": {
       "SSP": {
-        "name": "South Sudanese pound",
+        "name": "Libra sudanesa",
         "symbol": "£"
       }
     },
@@ -14276,7 +14276,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ss.svg"
     },
     "flags": {
-      "alt": "The flag of South Sudan is composed of three equal horizontal bands of black, red with white top and bottom edges, and green. A blue equilateral triangle which spans about two-fifth the width of the field is superimposed on the hoist side with its base on the hoist end of the field. At the center of this triangle is a five-pointed yellow star."
+      "alt": "La bandera de Sudán del Sur está compuesta por tres bandas horizontales iguales de negro, rojo con bordes blancos superior e inferior, y verde. Un triángulo equilátero azul que abarca alrededor de dos quintas partes de la anchura del campo se superpone en el lado de la cizaña con su base en el extremo de la cizaña del campo. En el centro de este triángulo hay una estrella amarilla de cinco puntos."
     }
   },
   {
@@ -14297,9 +14297,9 @@
     },
     "independent": true,
     "capital": [
-      "Stockholm"
+      "Estocolmo"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Septentrional",
     "landlocked": false,
     "borders": [
@@ -14316,7 +14316,7 @@
     },
     "currencies": {
       "SEK": {
-        "name": "Swedish krona",
+        "name": "Corona sueca",
         "symbol": "kr"
       }
     },
@@ -14340,7 +14340,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/se.svg"
     },
     "flags": {
-      "alt": "The flag of Sweden has a blue field with a large golden-yellow cross that extend to the edges of the field. The vertical part of this cross is offset towards the hoist side."
+      "alt": "La bandera de Suecia tiene un campo azul con una gran cruz amarillo dorado que se extiende a los bordes del campo. La parte vertical de esta cruz se contrarresta hacia el lado izquierdo."
     }
   },
   {
@@ -14361,9 +14361,9 @@
     },
     "independent": true,
     "capital": [
-      "Bern"
+      "Berna"
     ],
-    "region": "Europe",
+    "region": "Europa",
     "subregion": "Europa Occidental",
     "landlocked": true,
     "borders": [
@@ -14386,7 +14386,7 @@
     },
     "currencies": {
       "CHF": {
-        "name": "Swiss franc",
+        "name": "Franco suizo",
         "symbol": "Fr."
       }
     },
@@ -14410,7 +14410,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ch.svg"
     },
     "flags": {
-      "alt": "The flag of Switzerland is square shaped. It features a white Swiss cross centered on a red field."
+      "alt": "La bandera de Suiza tiene forma cuadrada. Cuenta con una cruz blanca suiza centrada en un campo rojo."
     }
   },
   {
@@ -14433,7 +14433,7 @@
     "capital": [
       "Paramaribo"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -14451,7 +14451,7 @@
     },
     "currencies": {
       "SRD": {
-        "name": "Surinamese dollar",
+        "name": "Dólar de Suriname",
         "symbol": "$"
       }
     },
@@ -14475,7 +14475,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/sr.svg"
     },
     "flags": {
-      "alt": "The flag of Suriname is composed of five horizontal bands of green, white, red, white and green in the ratio of 2:1:4:1:2. A large five-pointed yellow star is centered in the red band."
+      "alt": "La bandera de Suriname está compuesta por cinco bandas horizontales de verde, blanco, rojo, blanco y verde en la relación de 2:1:4:1:2. Una gran estrella amarilla de cinco puntos está centrada en la banda roja."
     }
   },
   {
@@ -14513,11 +14513,11 @@
       "side": "left"
     },
     "languages": {
-      "tha": "Thai"
+      "tha": "Tailandia"
     },
     "currencies": {
       "THB": {
-        "name": "Thai baht",
+        "name": "Baht tailandés",
         "symbol": "฿"
       }
     },
@@ -14542,7 +14542,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/th.svg"
     },
     "flags": {
-      "alt": "The flag of Thailand is composed of five horizontal bands of red, white, blue, white and red, with the central blue band twice the height of the other four bands."
+      "alt": "La bandera de Tailandia está compuesta por cinco bandas horizontales de rojo, blanco, azul, blanco y rojo, con la banda azul central dos veces la altura de las otras cuatro bandas."
     }
   },
   {
@@ -14578,7 +14578,7 @@
     },
     "currencies": {
       "TWD": {
-        "name": "New Taiwan dollar",
+        "name": "Nuevo dólar de Taiwán",
         "symbol": "$"
       }
     },
@@ -14621,8 +14621,8 @@
     "capital": [
       "Dodoma"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "borders": [
       "BDI",
@@ -14645,7 +14645,7 @@
     },
     "currencies": {
       "TZS": {
-        "name": "Tanzanian shilling",
+        "name": "Chelín tanzano",
         "symbol": "Sh"
       }
     },
@@ -14669,7 +14669,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tz.svg"
     },
     "flags": {
-      "alt": "The flag of Tanzania features a yellow-edged black diagonal band that extends from the lower hoist-side corner to the upper fly-side corner of the field. Above and beneath this band are a green and light blue triangle respectively."
+      "alt": "La bandera de Tanzania cuenta con una banda diagonal negra de color amarillo que se extiende desde la esquina inferior del lado del puño hasta la esquina superior del lado de la mosca del campo. Arriba y debajo de esta banda son un triángulo azul verde y claro respectivamente."
     }
   },
   {
@@ -14712,7 +14712,7 @@
     },
     "currencies": {
       "TJS": {
-        "name": "Tajikistani somoni",
+        "name": "Somoni de Tayikistán",
         "symbol": "ЅМ"
       }
     },
@@ -14736,7 +14736,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tj.svg"
     },
     "flags": {
-      "alt": "The flag of Tajikistan is composed of three horizontal bands of red, white and green in the ratio of 2:3:2. A golden-yellow crown surmounted by an arc of seven five-pointed golden-yellow stars is centered in the white band."
+      "alt": "La bandera de Tayikistán está compuesta por tres bandas horizontales de rojo, blanco y verde en la relación de 2:3:2. Una corona dorada corona corona corona coronada por un arco de siete estrellas doradas de cinco puntos está centrada en la banda blanca."
     }
   },
   {
@@ -14756,10 +14756,10 @@
     },
     "independent": false,
     "capital": [
-      "Diego Garcia"
+      "Diego García"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": false,
     "area": 60,
     "population": 3000,
@@ -14808,7 +14808,7 @@
     "capital": [
       "Port-aux-Français"
     ],
-    "region": "Antarctic",
+    "region": "Antártico",
     "landlocked": false,
     "area": 7747,
     "population": 400,
@@ -14899,7 +14899,7 @@
     ],
     "coatOfArms": {},
     "flags": {
-      "alt": "The flag of Timor-Leste has a red field with two isosceles triangles which share a common base on the hoist end. The smaller black triangle, which bears a five-pointed white star at its center and spans one-third the width of the field, is superimposed on the larger yellow triangle that extends to the center of the field."
+      "alt": "La bandera de Timor-Leste tiene un campo rojo con dos triángulos isosceles que comparten una base común en el extremo del puño. El triángulo negro más pequeño, que lleva una estrella blanca de cinco puntos en su centro y abarca un tercio de la anchura del campo, se superpone en el triángulo amarillo más grande que se extiende al centro del campo."
     }
   },
   {
@@ -14922,7 +14922,7 @@
     "capital": [
       "Lomé"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Occidental",
     "landlocked": false,
     "borders": [
@@ -14964,7 +14964,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tg.svg"
     },
     "flags": {
-      "alt": "The flag of Togo is composed of five equal horizontal bands of green alternating with yellow. A red square bearing a five-pointed white star is superimposed in the canton."
+      "alt": "La bandera del Togo está compuesta por cinco bandas horizontales iguales de verde alternando con amarillo. Una plaza roja que lleva una estrella blanca de cinco puntos está superpuesta en el cantón."
     }
   },
   {
@@ -14987,7 +14987,7 @@
     "capital": [
       "Nuku'alofa"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 747,
@@ -15001,7 +15001,7 @@
     },
     "currencies": {
       "TOP": {
-        "name": "Tongan paʻanga",
+        "name": "Tongan paanga",
         "symbol": "T$"
       }
     },
@@ -15025,7 +15025,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/to.svg"
     },
     "flags": {
-      "alt": "The flag of Tonga has a red field. A white rectangle bearing a red Greek cross is superimposed in the canton."
+      "alt": "La bandera de Tonga tiene un campo rojo. Un rectángulo blanco que lleva una cruz griega roja se superpone en el cantón."
     }
   },
   {
@@ -15046,9 +15046,9 @@
     },
     "independent": true,
     "capital": [
-      "Port of Spain"
+      "Puerto de España"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "Caribe",
     "landlocked": false,
     "area": 5130,
@@ -15061,7 +15061,7 @@
     },
     "currencies": {
       "TTD": {
-        "name": "Trinidad and Tobago dollar",
+        "name": "Dólar de Trinidad y Tabago",
         "symbol": "$"
       }
     },
@@ -15085,7 +15085,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tt.svg"
     },
     "flags": {
-      "alt": "The flag of Trinidad and Tobago has a red field with a white-edged black diagonal band that extends from the upper hoist-side corner to the lower fly-side corner of the field."
+      "alt": "La bandera de Trinidad y Tobago tiene un campo rojo con una banda diagonal negra de color blanco que se extiende desde la esquina superior del lado del puño hasta la esquina inferior del lado de la mosca del campo."
     }
   },
   {
@@ -15106,9 +15106,9 @@
     },
     "independent": true,
     "capital": [
-      "Tunis"
+      "Túnez"
     ],
-    "region": "Africa",
+    "region": "África",
     "subregion": "África Septentrional",
     "landlocked": false,
     "borders": [
@@ -15125,7 +15125,7 @@
     },
     "currencies": {
       "TND": {
-        "name": "Tunisian dinar",
+        "name": "Dinero tunecino",
         "symbol": "د.ت"
       }
     },
@@ -15149,7 +15149,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tn.svg"
     },
     "flags": {
-      "alt": "The flag of Tunisia has a red field. A white circle bearing a five-pointed red star within a fly-side facing red crescent is situated at the center of the field."
+      "alt": "La bandera de Túnez tiene un campo rojo. Un círculo blanco que lleva una estrella roja de cinco puntos dentro de una crescent rojo cara a la mosca está situado en el centro del campo."
     }
   },
   {
@@ -15192,7 +15192,7 @@
     },
     "currencies": {
       "TMT": {
-        "name": "Turkmenistan manat",
+        "name": "Turkmenistán manat",
         "symbol": "m"
       }
     },
@@ -15216,7 +15216,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tm.svg"
     },
     "flags": {
-      "alt": "The flag of Turkmenistan has a green field. It features a red vertical band, bearing five carpet guls stacked above two crossed olive branches, near the hoist end of the field. Just to the fly side of the vertical band near the top edge of the field is a hoist-side facing white crescent and five small five-pointed white stars placed just outside the crescent opening."
+      "alt": "La bandera de Turkmenistán tiene un campo verde. Cuenta con una banda vertical roja, con cinco grúas de alfombra apiladas por encima de dos ramas de olivo cruzadas, cerca del extremo de la cizaña del campo. Justo a la parte de la mosca de la banda vertical cerca del borde superior del campo es una grieta blanca orientada al puño y cinco pequeñas estrellas blancas de cinco puntos situados justo fuera de la apertura crescente."
     }
   },
   {
@@ -15258,11 +15258,11 @@
       "side": "right"
     },
     "languages": {
-      "tur": "Turkish"
+      "tur": "Turco"
     },
     "currencies": {
       "TRY": {
-        "name": "Turkish lira",
+        "name": "Lira turca",
         "symbol": "₺"
       }
     },
@@ -15286,7 +15286,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tr.svg"
     },
     "flags": {
-      "alt": "The flag of Turkey has a red field bearing a large fly-side facing white crescent and a smaller five-pointed white star placed just outside the crescent opening. The white crescent and star are offset slightly towards the hoist side of center."
+      "alt": "La bandera de Turquía tiene un campo rojo que lleva una gran cara de mosca frente a la cresta blanca y una estrella blanca de cinco puntos más pequeña situada justo fuera de la apertura de la crescencia. La cresta blanca y la estrella se compensan ligeramente hacia el lado del centro."
     }
   },
   {
@@ -15309,7 +15309,7 @@
     "capital": [
       "Funafuti"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 26,
@@ -15327,7 +15327,7 @@
         "symbol": "$"
       },
       "TVD": {
-        "name": "Tuvaluan dollar",
+        "name": "Dólar de Tuvalu",
         "symbol": "$"
       }
     },
@@ -15351,7 +15351,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/tv.svg"
     },
     "flags": {
-      "alt": "The flag of Tuvalu has a light blue field with the flag of the United Kingdom — the Union Jack — in the canton. A representation of the country's nine Islands using nine five-pointed yellow stars is situated in the fly half of the field."
+      "alt": "La bandera de Tuvalu tiene un campo azul claro con la bandera del Reino Unido —el Union Jack— en el cantón. Una representación de las nueve islas del país utilizando nueve estrellas amarillas de cinco puntos está situada en la mitad de vuelo del campo."
     }
   },
   {
@@ -15374,8 +15374,8 @@
     "capital": [
       "Kyiv"
     ],
-    "region": "Europe",
-    "subregion": "Eastern Europe",
+    "region": "Europa",
+    "subregion": "Europa oriental",
     "landlocked": false,
     "borders": [
       "BLR",
@@ -15392,11 +15392,11 @@
       "side": "right"
     },
     "languages": {
-      "ukr": "Ukrainian"
+      "ukr": "Ucrania"
     },
     "currencies": {
       "UAH": {
-        "name": "Ukrainian hryvnia",
+        "name": "Hryvnia ucraniana",
         "symbol": "₴"
       }
     },
@@ -15421,7 +15421,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ua.svg"
     },
     "flags": {
-      "alt": "The flag of Ukraine is composed of two equal horizontal bands of blue and yellow."
+      "alt": "La bandera de Ucrania está compuesta por dos bandas horizontales iguales de azul y amarillo."
     }
   },
   {
@@ -15444,8 +15444,8 @@
     "capital": [
       "Kampala"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "COD",
@@ -15465,7 +15465,7 @@
     },
     "currencies": {
       "UGX": {
-        "name": "Ugandan shilling",
+        "name": "Chelín ugandés",
         "symbol": "Sh"
       }
     },
@@ -15489,7 +15489,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ug.svg"
     },
     "flags": {
-      "alt": "The flag of Uganda is composed of six equal horizontal bands of black, yellow, red, black, yellow and red. A white circle bearing a hoist-side facing grey red-crested crane is superimposed in the center of the field."
+      "alt": "La bandera de Uganda está compuesta por seis bandas horizontales iguales de negro, amarillo, rojo, negro, amarillo y rojo. Un círculo blanco que lleva una grúa gris de color rojo frente al puño se superpone en el centro del campo."
     }
   },
   {
@@ -15512,7 +15512,7 @@
     "capital": [
       "Montevideo"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -15529,7 +15529,7 @@
     },
     "currencies": {
       "UYU": {
-        "name": "Uruguayan peso",
+        "name": "Peso uruguayo",
         "symbol": "$"
       }
     },
@@ -15553,7 +15553,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/uy.svg"
     },
     "flags": {
-      "alt": "The flag of Uruguay is composed of nine equal horizontal bands of white alternating with blue, with a white square superimposed in the canton. In the white square is a yellow sun bearing a human face — the Sun of May — from which sixteen rays extend. The sun's rays alternate between triangular and wavy."
+      "alt": "La bandera de Uruguay está compuesta por nueve bandas horizontales iguales de blanco alternando con azul, con una plaza blanca superpuesta en el cantón. En la plaza blanca hay un sol amarillo que lleva una cara humana —el Sol de mayo— de la que se extienden dieciséis rayos. Los rayos del sol se alternan entre triangular y ondulado."
     }
   },
   {
@@ -15597,7 +15597,7 @@
     },
     "currencies": {
       "UZS": {
-        "name": "Uzbekistani soʻm",
+        "name": "Uzbekistán",
         "symbol": "so'm"
       }
     },
@@ -15621,7 +15621,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/uz.svg"
     },
     "flags": {
-      "alt": "The flag of Uzbekistan is composed of three equal horizontal bands of turquoise, white with red top and bottom edges, and green. On the hoist side of the turquoise band is a fly-side facing white crescent and twelve five-pointed white stars arranged just outside the crescent opening in three rows comprising three, four and five stars."
+      "alt": "La bandera de Uzbekistán está compuesta por tres bandas horizontales iguales de turquesa, blanco con bordes rojos superior e inferior, y verde. En la parte hídrica de la banda de turquesa se encuentra una crescente blanca cara a la mosca y doce estrellas blancas de cinco puntos dispuestas justo fuera de la apertura de la crescent en tres filas que comprenden tres, cuatro y cinco estrellas."
     }
   },
   {
@@ -15644,7 +15644,7 @@
     "capital": [
       "Port Vila"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Melanesia",
     "landlocked": false,
     "area": 12189,
@@ -15683,7 +15683,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/vu.svg"
     },
     "flags": {
-      "alt": "The flag of Vanuatu is composed of two equal horizontal bands of red and green, with a black isosceles triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end, spans about two-fifth the width of the field and is enclosed on its sides by the arms of a thin black-edged yellow horizontally oriented Y-shaped band which extends along the boundary of the red and green bands to the fly end of the field. A yellow boar's tusk encircling two yellow crossed namele leaves is centered in the triangle."
+      "alt": "La bandera de Vanuatu está compuesta por dos bandas horizontales iguales de color rojo y verde, con un triángulo isosceles negro superpuesto en el lado hútero del campo. Este triángulo tiene su base en el extremo de la cizaña, abarca alrededor de dos quinta parte de la anchura del campo y está encerrado en sus lados por los brazos de una fina banda de color amarillo de color negro orientado horizontalmente hacia Y que se extiende a lo largo del límite de las bandas rojas y verdes al extremo de la mosca del campo. El colmillo de un jabalí amarillo que rodea dos hojas de color amarillo cruzadas se centra en el triángulo."
     }
   },
   {
@@ -15706,7 +15706,7 @@
     "capital": [
       "Caracas"
     ],
-    "region": "Americas",
+    "region": "América",
     "subregion": "América del Sur",
     "landlocked": false,
     "borders": [
@@ -15724,7 +15724,7 @@
     },
     "currencies": {
       "VES": {
-        "name": "Venezuelan bolívar soberano",
+        "name": "Venezuela bolívar soberano",
         "symbol": "Bs.S."
       }
     },
@@ -15748,7 +15748,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ve.svg"
     },
     "flags": {
-      "alt": "The flag of Venezuela is composed of three equal horizontal bands of yellow, blue and red. At the center of the blue band are eight five-pointed white stars arranged in a horizontal arc."
+      "alt": "La bandera de Venezuela está compuesta por tres bandas horizontales iguales de amarillo, azul y rojo. En el centro de la banda azul hay ocho estrellas blancas de cinco puntos dispuestas en un arco horizontal."
     }
   },
   {
@@ -15785,11 +15785,11 @@
       "side": "right"
     },
     "languages": {
-      "vie": "Vietnamese"
+      "vie": "Vietnamita"
     },
     "currencies": {
       "VND": {
-        "name": "Vietnamese đồng",
+        "name": "Vietnamita",
         "symbol": "₫"
       }
     },
@@ -15813,7 +15813,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/vn.svg"
     },
     "flags": {
-      "alt": "The flag of Vietnam features a large five-pointed yellow star on a red field."
+      "alt": "La bandera de Vietnam cuenta con una gran estrella amarilla de cinco puntos en un campo rojo."
     }
   },
   {
@@ -15835,7 +15835,7 @@
     "capital": [
       "Mata-Utu"
     ],
-    "region": "Oceania",
+    "region": "Oceanía",
     "subregion": "Polinesia",
     "landlocked": false,
     "area": 142,
@@ -15848,7 +15848,7 @@
     },
     "currencies": {
       "XPF": {
-        "name": "CFP franc",
+        "name": "Franco CFP",
         "symbol": "₣"
       }
     },
@@ -15927,7 +15927,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/ye.svg"
     },
     "flags": {
-      "alt": "The flag of Yemen is composed of three equal horizontal bands of red, white and black."
+      "alt": "La bandera de Yemen está compuesta por tres bandas horizontales iguales de rojo, blanco y negro."
     }
   },
   {
@@ -15950,8 +15950,8 @@
     "capital": [
       "Lusaka"
     ],
-    "region": "Africa",
-    "subregion": "África Oriental",
+    "region": "África",
+    "subregion": "África",
     "landlocked": true,
     "borders": [
       "AGO",
@@ -15997,7 +15997,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/zm.svg"
     },
     "flags": {
-      "alt": "The flag of Zambia has a green field, on the fly side of which is a soaring orange African fish eagle above a rectangular area divided into three equal vertical bands of red, black and orange."
+      "alt": "La bandera de Zambia tiene un campo verde, en el lado de la mosca de la cual es un águila de pescado anaranjado africano sobre una zona rectangular dividida en tres bandas verticales iguales de rojo, negro y naranja."
     }
   },
   {
@@ -16020,8 +16020,8 @@
     "capital": [
       "Harare"
     ],
-    "region": "Africa",
-    "subregion": "Southern Africa",
+    "region": "África",
+    "subregion": "África meridional",
     "landlocked": true,
     "borders": [
       "BWA",
@@ -16053,7 +16053,7 @@
     },
     "currencies": {
       "ZWL": {
-        "name": "Zimbabwean dollar",
+        "name": "Dólar de Zimbabwe",
         "symbol": "$"
       }
     },
@@ -16077,7 +16077,7 @@
       "svg": "https://mainfacts.com/media/images/coats_of_arms/zw.svg"
     },
     "flags": {
-      "alt": "The flag of Zimbabwe is composed of seven equal horizontal bands of green, yellow, red, black, red, yellow and green, with a white isosceles triangle superimposed on the hoist side of the field. This triangle is edged in black, spans about one-fourth the width of the field and has its base on the hoist end. A yellow Zimbabwe bird superimposed on a five-pointed red star is centered in the triangle."
+      "alt": "La bandera de Zimbabue está compuesta por siete bandas horizontales iguales de verde, amarillo, rojo, negro, rojo, amarillo y verde, con un triángulo isosceles blanco superpuesto en el lado aromático del campo. Este triángulo está bordeado en negro, abarca aproximadamente una cuarta parte de la anchura del campo y tiene su base en el extremo del puño. Un pájaro amarillo Zimbabue superpuesto en una estrella roja de cinco puntos está centrado en el triángulo."
     }
   }
 ]

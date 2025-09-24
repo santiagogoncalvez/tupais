@@ -45,6 +45,7 @@ export default class Answer extends BaseComponent {
   }
 
   _init(state) {
+    console.log(state);
     const row1 = this.dom.querySelector("." + this.base.row1);
     const row2 = this.dom.querySelector("." + this.base.row2);
 

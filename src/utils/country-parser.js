@@ -13,6 +13,14 @@ function shuffleArray(arr) {
 }
 
 function getCountriesByContinent(continent) {
+   let aceptedStrings = {
+      "asia": "asia",
+      "europe": "europa",
+      "americas": "américa",
+      "oceania": "oceanía",
+      "africa": "áfrica",
+   };
+   continent = aceptedStrings[continent];
    // return new Promise(async (resolve, reject) => {
    try {
       let countries = [];

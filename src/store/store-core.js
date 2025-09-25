@@ -15,12 +15,18 @@ import {
     routerReducer,
     initialState as routerInit,
 } from "@store/reducers/router-reducer.js";
+import {
+    searchReducer,
+    initialState as searchInit,
+} from "@store/reducers/search-reducer.js";
+
 // Estado inicial global
 const initialState = {
     ui: uiInit,
     game: gameInit,
     stats: statsInit,
-    router: routerInit
+    router: routerInit,
+    search: searchInit
 };
 
 // RootReducer manual: delega la acción a cada reducer.
@@ -30,6 +36,7 @@ export function rootReducer(state, action) {
     let nextGame = gameReducer(state.game, action);
     let nextStats = statsReducer(state.stats, action);
     let nextRouter = routerReducer(state.router, action);
+    let nextSearch = searchReducer(state.search, action);
 
 
     // Retorno del estado combinado
@@ -37,7 +44,9 @@ export function rootReducer(state, action) {
         ui: nextUi,
         game: nextGame,
         stats: nextStats,
-        router: nextRouter
+        router: nextRouter,
+        search: nextSearch
+
     };
 }
 

@@ -29,7 +29,7 @@ export default class CountrySearch extends BaseComponent {
     this.state = state;
     this.dispatch = dispatch;
 
-    this.options = new Options({}, () => { }, {});
+    this.options = new Options(state, dispatch);
     this.closeButton = new CloseButton(() => { }, this.clearInput.bind(this), {
       top: "50%",
       right: "45px",

@@ -48,7 +48,6 @@ export default class GameModes extends BaseComponent {
   }
 
   _showCorrectModes(state) {
-    console.log(state.game.mode);
     // mostrar todos los botones
     document.querySelectorAll(".game-modes__link").forEach(btn => {
       btn.classList.remove("hidden");

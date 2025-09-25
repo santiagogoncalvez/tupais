@@ -77,6 +77,16 @@ export const persistContinentMiddleware = (store) => (next) => (action) => {
     return result;
 };
 
+// --- Persistencia de historial de búsquedas ---
+export const persistSearchHistoryMiddleware = (store) => (next) => (action) => {
+    const result = next(action);
+    if (action.type === ACTIONS.GALLERY_SEARCH_HISTORY_SET) {
+        const state = store.getState();
+        localStorage.setItem("search.flagGalleryHistory", JSON.stringify(state.search.flagGalleryHistory));
+    }
+    return result;
+};
+
 // --- Router middleware ---
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
@@ -150,6 +160,7 @@ export const coreMiddlewares = [
     checkSendAnswerNotification,
     persistStatsMiddleware,
     persistContinentMiddleware,
+    persistSearchHistoryMiddleware,
     // routerMiddleware,
     checkStartButton,
     checkNewGame

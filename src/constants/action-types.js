@@ -113,5 +113,8 @@ export const ACTIONS = {
 
 
   //* ROUTER
-  NAVIGATE_TO: "router/navigate-to"
+  NAVIGATE_TO: "router/navigate-to",
+
+  //* SEARCH
+  GALLERY_SEARCH_HISTORY_SET: "search/flagGalleryHistory/set"
 };

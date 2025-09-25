@@ -13,11 +13,14 @@ import {
 import BaseComponent from "@shared/Base-component.js";
 
 export default class Options extends BaseComponent {
-  constructor() {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
+
+    this.state = state;
+    this.dispatch = dispatch;
     // Se asigna "all" como continente por defecto si no hay uno seleccionado.
     this.country = "";
     this.dom = this._createDom();
@@ -34,7 +37,7 @@ export default class Options extends BaseComponent {
     // Historial de opciones
     // Se actualiza en syncState
     // this.itemHistory = ["Argentina", "Brasil", "Chile", "Colombia", "Perú"];
-    this.itemHistory = [];
+    this.itemHistory = [...state.search.flagGalleryHistory];
     this.optionsLimit = 10;
     this.arrayLimit = 10;
   }
@@ -273,7 +276,7 @@ export default class Options extends BaseComponent {
       return;
     }
     this.dom.innerHTML = "";
-    
+
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < optionNames.length && i < this.optionsLimit; i++) {
       let newOption = elt(
@@ -356,5 +359,7 @@ export default class Options extends BaseComponent {
     if (this.itemHistory.length > this.arrayLimit) {
       this.itemHistory.pop();
     }
+
+    this.dispatch({ type: ACTIONS.GALLERY_SEARCH_HISTORY_SET, payload: this.itemHistory });
   }
 }

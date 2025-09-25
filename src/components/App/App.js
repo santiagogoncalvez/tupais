@@ -142,6 +142,11 @@ export default class App {
     }
 
     initRouting() {
+        // Forzar hash en la primera carga si no hay
+        if (!location.hash) {
+            location.replace("#/");
+        }
+
         // Escuchar cambios en el hash (links, back/forward)
         window.addEventListener("hashchange", () => {
             const route = this.normalizeRoute(location.hash);

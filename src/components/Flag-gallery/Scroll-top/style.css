@@ -8,7 +8,7 @@
   height: 48px;
   border-radius: 8px;
   background-color: #fdfdfd;
-  border: 1px solid #e0e0e0;
+  border: 2px solid #e0e0e0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,8 @@
   opacity: 0;
   pointer-events: none;
   transform: translateY(var(--translateY)) scale(var(--scale));
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease,
+  border-color 0.2s ease;
   z-index: 100;
 }
 
@@ -39,6 +40,7 @@
   box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
               -6px -6px 12px rgba(255, 255, 255, 0.95);
   background-color: #fff;
+  border-color: #001f31;
 }
 
 .scroll-top__icon {

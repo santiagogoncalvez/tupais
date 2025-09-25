@@ -62,6 +62,10 @@ export default class Keyboard extends BaseComponent {
     });
 
     window.addEventListener("keydown", (event) => {
+      // No ejecutar nada si no se está en un modo de juego
+      const gameRoutes = ["/challenge", "/record", "time-trial"];
+      if (!gameRoutes.includes(this.state.router.currentRoute)) return;
+
       const letters = [
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
         "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ç", "ñ"

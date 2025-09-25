@@ -104,7 +104,8 @@
 
 .flag-list__item {
   width: calc(150px * var(--flag-scale));
-  height: calc(100px * var(--flag-scale));
+  /** Corrección de tamaño para que se adapte en alto al contenido  */
+  /* height: calc(100px * var(--flag-scale)); */
   display: flex;
   justify-content: center;
   align-items: center;

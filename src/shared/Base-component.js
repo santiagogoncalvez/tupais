@@ -42,4 +42,10 @@ export default class BaseComponent {
       this.dom.style.transform = transform;
     }
   }
+
+  _centerAbsolute() {
+    this._applyPosition("50%", null);     // top: 50%
+    this.dom.style.left = "50%";          // left: 50%
+    this._applyTransform("translate(-50%, -50%)");
+  }
 }

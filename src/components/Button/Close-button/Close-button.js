@@ -21,6 +21,7 @@ export default class CloseButton extends BaseComponent {
     this._applyFilter(options.filter);
     this._applySize(options.width, options.height);
     this._applyTransform(options.transform); // ← NUEVO
+    if (options.centerAbsolute) this._centerAbsolute();
 
     this._init(dispatch);
   }
@@ -33,7 +34,8 @@ export default class CloseButton extends BaseComponent {
   }
 
   _init(dispatch) {
-    this.dom.addEventListener("click", () => {
+    this.dom.addEventListener("click", (event) => {
+      event.stopPropagation();
       const exec = (action) => {
         if (typeof action === "function") {
           // Si es una función, la ejecutamos

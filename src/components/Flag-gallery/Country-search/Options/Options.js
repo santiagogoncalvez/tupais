@@ -11,9 +11,10 @@ import {
   modifiers,
 } from "@components/Flag-gallery/Country-search/Options/Options-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
+import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 export default class Options extends BaseComponent {
-  constructor(state, dispatch) {
+  constructor(state, dispatch, countrySearch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
@@ -21,6 +22,7 @@ export default class Options extends BaseComponent {
 
     this.state = state;
     this.dispatch = dispatch;
+    this.countrySearch = countrySearch;
     // Se asigna "all" como continente por defecto si no hay uno seleccionado.
     this.country = "";
     this.dom = this._createDom();
@@ -35,8 +37,13 @@ export default class Options extends BaseComponent {
     this.hasMouseMove = true;
 
     // Historial de opciones
-    // Se actualiza en syncState
-    // this.itemHistory = ["Argentina", "Brasil", "Chile", "Colombia", "Perú"];
+    /*
+    {
+      value: item,
+      exact: fromOption, 
+    } 
+    fromOPtion: true si vino de click en opción, false si fue fuzzy
+    */
     this.itemHistory = [...state.search.flagGalleryHistory];
     this.optionsLimit = 10;
     this.arrayLimit = 10;
@@ -57,7 +64,7 @@ export default class Options extends BaseComponent {
     const options = this.dom.querySelectorAll("." + this.base.option);
 
     for (let option of options) {
-      this._addOptionEvents(option);
+      this._addOptionEvents(option, true);
     }
 
     //Eventos de teclado
@@ -99,7 +106,7 @@ export default class Options extends BaseComponent {
     });
   }
 
-  _addOptionEvents(option) {
+  _addOptionEvents(option, isNormalOption) {
     //Eventos de mouse
     option.addEventListener("click", () => {
       const input = this.dom.parentElement.querySelector(".country-search__input");
@@ -107,11 +114,16 @@ export default class Options extends BaseComponent {
 
       this.country = option.dataset.value;
       input.value = this.country;
+
       input.dispatchEvent(new Event("input", { bubbles: true }));
+
+      // Opción comun y opción de historial por búsqueda exacta
+      if (isNormalOption) this.countrySearch.results = [this.country];
 
       searchButton.click();
 
-      this.addToHistory(this.country);
+      this.addToHistory(this.country, isNormalOption);
+
       this._show(false);
     });
 
@@ -298,7 +310,7 @@ export default class Options extends BaseComponent {
       newOption.setAttribute("data-value", optionNames[i]);
 
       fragment.appendChild(newOption);
-      this._addOptionEvents(newOption);
+      this._addOptionEvents(newOption, true);
     }
 
     this.dom.appendChild(fragment);
@@ -307,7 +319,8 @@ export default class Options extends BaseComponent {
   renderHistoryOptions() {
     this.dom.innerHTML = "";
     const fragment = document.createDocumentFragment();
-    for (let name of this.itemHistory) {
+
+    for (let item of this.itemHistory) {
       let newOption = elt(
         "div",
         {
@@ -322,10 +335,21 @@ export default class Options extends BaseComponent {
           width: "18",
           height: "18",
         }),
-        elt("span", {}, name)
+        elt("span", { className: "search-options__text" }, item.value),
+        elt("div", { className: "search-options__close-container" })
       );
-      newOption.setAttribute("data-value", name);
-      this._addOptionEvents(newOption);
+      newOption.setAttribute("data-value", item.value);
+
+      const closeButton = new CloseButton(() => { }, () => {
+        this.removeHistoryOption(newOption);
+      }, {
+        filter:
+          "invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(80%)", centerAbsolute: true
+      });
+      newOption.querySelector(".search-options__close-container").appendChild(closeButton.dom);
+
+      // Acá se va a ingresar el valor de isNormalOption desde la propiedad "fromOption" del elemento de historial
+      this._addOptionEvents(newOption, item.exact);
 
       fragment.appendChild(newOption);
     }
@@ -343,23 +367,49 @@ export default class Options extends BaseComponent {
     this.dom.appendChild(newOption);
   }
 
-  addToHistory(item) {
-    // Evitar duplicados
-    if (this.itemHistory.includes(item)) {
-      // Mover el item al principio
-      this.itemHistory = this.itemHistory.filter((i) => i !== item);
-      this.itemHistory.unshift(item);
-      return;
-    }
+  addToHistory(item, isNormalOption = true) {
+    // Evitar duplicados (comparando por value)
+    this.itemHistory = this.itemHistory.filter(i => i.value !== item);
 
-    // Agregar al inicio del array
-    this.itemHistory.unshift(item);
+    // Agregar al inicio con metadatos
+    this.itemHistory.unshift({
+      value: item,
+      exact: isNormalOption, // true si fue selección exacta, false si vino de búsqueda fuzzy
+    });
 
-    // Limitar el tamaño del historial a 10 elementos
+    // Limitar el tamaño del historial
     if (this.itemHistory.length > this.arrayLimit) {
       this.itemHistory.pop();
     }
 
-    this.dispatch({ type: ACTIONS.GALLERY_SEARCH_HISTORY_SET, payload: this.itemHistory });
+    this.dispatch({
+      type: ACTIONS.GALLERY_SEARCH_HISTORY_SET,
+      payload: this.itemHistory,
+    });
+  }
+
+  // Remover del historial
+  removeHistoryOption(optionEl) {
+    // Obtener valor del dataset
+    const value = optionEl.getAttribute("data-value");
+
+    // Remover del DOM
+    optionEl.remove();
+
+    if (this.dom.children.length == 0) this._show(false);
+
+    // Remover del array de historial
+    this.removeFromHistory(value);
+  }
+
+  removeFromHistory(value) {
+    // Filtrar el array quitando el item
+    this.itemHistory = this.itemHistory.filter((i) => i.value !== value);
+
+    // Despachar la actualización para que se guarde en el estado/localStorage
+    this.dispatch({
+      type: ACTIONS.GALLERY_SEARCH_HISTORY_SET,
+      payload: this.itemHistory,
+    });
   }
 }

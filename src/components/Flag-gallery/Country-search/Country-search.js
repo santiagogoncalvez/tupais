@@ -29,7 +29,7 @@ export default class CountrySearch extends BaseComponent {
     this.state = state;
     this.dispatch = dispatch;
 
-    this.options = new Options(state, dispatch);
+    this.options = new Options(state, dispatch, this);
     this.closeButton = new CloseButton(() => { }, this.clearInput.bind(this), {
       top: "50%",
       right: "45px",
@@ -56,13 +56,6 @@ export default class CountrySearch extends BaseComponent {
     let input = this.dom.querySelector(".country-search__input");
     input.after(this.closeButton.dom);
 
-    // this.options.renderOptions([
-    //   "Opcion 1",
-    //   "Opcion 2",
-    //   "Opcion 3",
-    //   "Opcion 4",
-    //   "Opcion 5",
-    // ]);
     this.dom.appendChild(this.options.dom);
 
     input.addEventListener("input", () => {
@@ -160,7 +153,7 @@ export default class CountrySearch extends BaseComponent {
 
       // Ejecutar búsqueda
       this.filterItems(this.results);
-      this.options.addToHistory(input.value);
+      this.options.addToHistory(input.value, false);
     });
   }
 

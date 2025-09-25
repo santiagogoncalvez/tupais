@@ -37,6 +37,7 @@
 }
 
 .search-options__option {
+  position: relative;
   background-color: white;
   color: #001f31;
   font-size: 1rem;
@@ -71,7 +72,19 @@
   background-color: rgb(240, 240, 240);
 }
 
+
+.search-options__close-container{
+  position: relative;
+  height: 100%;
+  width: fit-content;
+}
+
+.search-options__text{
+  flex: 1;
+}
+
 /* Dark mode */
 .search-options__options--dark-mode {
   box-shadow: 0px 2px 6px rgba(120, 120, 120, 0.302);
 }
+

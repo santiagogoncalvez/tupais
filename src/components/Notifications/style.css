@@ -3,7 +3,7 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  height: 200px;
+  height: fit-content;
   user-select: none;
 }
 

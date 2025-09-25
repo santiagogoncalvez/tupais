@@ -1,0 +1,55 @@
+.scroll-top {
+  --translateY: 5px;
+  --scale: 1;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(var(--translateY)) scale(var(--scale));
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 100;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  --translateY: 0;
+}
+
+.scroll-top.active {
+  --translateY: -2px;
+  --scale: 0.98;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.scroll-top--hover {
+  --translateY: -1px;
+  --scale: 1.05;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
+              -6px -6px 12px rgba(255, 255, 255, 0.95);
+  background-color: #fff;
+}
+
+.scroll-top__icon {
+  width: 28px;
+  height: 28px;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: invert(70%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(30%);
+}
+
+.scroll-top--hover .scroll-top__icon {
+  transform: rotate(0deg) scale(1);
+  filter: none;
+}

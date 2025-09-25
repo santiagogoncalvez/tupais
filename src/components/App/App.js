@@ -86,7 +86,7 @@ export default class App {
 
         this.flagGallery = new FlagGallery(
             this.store.getState(),
-            this.store.dispatch.bind(this.store)
+            this.store.dispatch.bind(this.store), this.dom.querySelector(".app__container")
         );
 
         this.flagInfo = new FlagInfo(

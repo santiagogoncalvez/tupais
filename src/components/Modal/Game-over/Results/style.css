@@ -25,6 +25,12 @@
   width: 100%;
 }
 
+.results__flags-overflow{
+  height: fit-content;
+  max-height: 270px;
+  overflow: auto;
+}
+
 .results__flags {
   width: fit-content;
   display: flex;
@@ -76,7 +82,3 @@
   border-left: 6px solid #3b82f6; /* azul */
 }
 
-.results__flags-overflow{
-  max-height: 250px;
-  overflow: auto;
-}

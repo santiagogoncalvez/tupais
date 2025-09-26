@@ -329,17 +329,19 @@ const reducerMap = {
 
   // Mode: Multiple choice
   [ACTIONS.NEW_GAME_CLASSIC]: (game) => {
-    const { countries, totalAnswers } = game;
+    let newGameSate = newGame(game)
+    const { countries, countryIndex, totalAnswers } = newGameSate;
+    console.log(totalAnswers);
 
     // Obtener los siguientes 10 países para incorrectFlags
-    const incorrectFlags = Array.from({ length: totalAnswers }, (_, i) => {
-      // desplazamiento circular empezando después del actual
-      const idx = (game.countryIndex + 1 + i) % game.totalAnswers;
+    const take = Math.min(totalAnswers, countries.length - 1); // no puedo tomar el actual
+    const incorrectFlags = Array.from({ length: take }, (_, i) => {
+      const idx = (countryIndex + i) % countries.length;
       return countries[idx];
     });
 
     return {
-      ...newGame(game),
+      ...newGameSate,
       incorrectFlags,     // los 10 siguientes
     };
   },

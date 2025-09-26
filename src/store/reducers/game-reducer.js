@@ -331,9 +331,6 @@ const reducerMap = {
   [ACTIONS.NEW_GAME_CLASSIC]: (game) => {
     const { countries, totalAnswers } = game;
 
-    // Empezar siempre desde el primer país
-    const countryIndex = 0;
-
     // Obtener los siguientes 10 países para incorrectFlags
     const incorrectFlags = Array.from({ length: totalAnswers }, (_, i) => {
       // desplazamiento circular empezando después del actual

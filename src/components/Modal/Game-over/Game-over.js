@@ -106,6 +106,8 @@ export default class GameOver extends BaseComponent {
     if (isShow) {
       this.dom.classList.add(this.modifiers.display.block);
 
+      this.dom.scrollTo({ top: 0 });
+
       const container = this.dom.querySelector("." + this.base.container);
       this.continentSelector.mountTo(container);
 

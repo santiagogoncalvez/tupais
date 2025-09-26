@@ -1,5 +1,7 @@
 import { ACTIONS } from "@constants/action-types.js";
 
+import {normalizeRoute} from "@utils/normalize-route.js";
+
 import htmlString from "@components/Header/Navbar/template.html?raw";
 //Styles
 import "@components/Header/Navbar/style.css";
@@ -31,8 +33,11 @@ export default class Navbar extends BaseComponent {
 
     const links = this.dom.querySelectorAll(".navbar__link");
     for (let link of links) {
-      link.addEventListener("click", (event) => { // evita que recargue
-        const route = link.getAttribute("href");
+      link.addEventListener("click", (event) => {
+        event.preventDefault(); // evita navegación por defecto
+        const href = link.getAttribute("href");
+        // Normalizar para enviar la ruta sin el hash
+        const route = normalizeRoute(href);
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       });
     }

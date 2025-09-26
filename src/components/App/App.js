@@ -3,6 +3,7 @@ import store from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
 import elt from "@utils/elt.js";
+import {normalizeRoute} from "@utils/normalize-route.js";
 
 import "@styles/global.css";
 import "@components/App/style.css";
@@ -149,19 +150,13 @@ export default class App {
 
         // Escuchar cambios en el hash (links, back/forward)
         window.addEventListener("hashchange", () => {
-            const route = this.normalizeRoute(location.hash);
+            const route = normalizeRoute(location.hash);
             this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         });
 
         // Navegación inicial
-        const initialRoute = this.normalizeRoute(location.hash);
+        const initialRoute = normalizeRoute(location.hash);
         this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: initialRoute });
-    }
-
-    // Normaliza hash → siempre devuelve ruta tipo "/about"
-    normalizeRoute(hash) {
-        if (!hash) return "/";
-        return hash.startsWith("#") ? hash.slice(1) || "/" : hash;
     }
 
     // Navegación programática (cambia el hash y despacha)
@@ -176,7 +171,7 @@ export default class App {
 
     renderRoute() {
         let { currentRoute } = this.store.getState().router;
-        currentRoute = this.normalizeRoute(currentRoute);
+        currentRoute = normalizeRoute(currentRoute);
 
         // Evitar renders duplicados
         if (this.prevRoute === currentRoute) return;

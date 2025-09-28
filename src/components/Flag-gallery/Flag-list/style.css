@@ -6,7 +6,6 @@
   width: 100%;
 
   padding: 0;
-  /* padding-bottom: 80px; */
   margin: 0;
 
   display: flex;
@@ -18,7 +17,16 @@
   column-gap: 15px;
 
   list-style: none;
+}
 
+.flag-list__continent {
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #001f31;
+  margin: 32px 0 16px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* 160px x 116px */
@@ -37,7 +45,6 @@
   border-radius: 8px;
 
   cursor: pointer;
-  text-decoration: none;
   color: inherit;
 
   transition: all 0.05s ease-in-out;
@@ -56,7 +63,7 @@
   text-align: center;
   font-weight: 600;
   font-size: 1.1rem;
-  background: #fafafa;   /* sutil contraste */
+  background: #fafafa; /* sutil contraste */
   border-radius: 6px;
   color: #001f31;
 }
@@ -80,6 +87,26 @@
   text-align: center;
 }
 
+.flag-list__name{
+  text-decoration: underline;
+}
+
+/* Información extra solo visible con ordenamientos de población/superficie */
+.flag-list__info {
+  font-size: 0.8rem;
+  color: #555;
+  text-align: center;
+  display: none;
+}
+
+.flag-list__item.show-extra .flag-list__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .flag-list__flag-img {
   height: 44px;
   width: auto;
@@ -88,11 +115,10 @@
   border: 1px solid rgb(232, 232, 232);
 }
 
-
 :root {
-  --flag-scale: 1;          /* escala global */
-  --flag-gap: 15px;         /* gap base entre items */
-  --flag-link-gap: 10px;    /* gap dentro del link */
+  --flag-scale: 1; /* escala global */
+  --flag-gap: 15px; /* gap base entre items */
+  --flag-link-gap: 10px; /* gap dentro del link */
 }
 
 .flag-list__list {
@@ -126,4 +152,5 @@
   gap: calc(var(--flag-link-gap) * var(--flag-scale));
   font-size: calc(1rem * var(--flag-scale));
   padding: calc(15px * var(--flag-scale));
+  text-decoration: none;
 }

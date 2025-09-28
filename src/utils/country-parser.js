@@ -1,6 +1,6 @@
 // Manejador de datos de los países de rescountries.com pero sin hacerle solicitudes a la api, los datos están guardados en el proyecto.
 import { moreThan2Words } from "@utils/string-parser.js";
-import countriesJson from "@data/countries-info.json" with { type: "json" };
+import countriesInfo from "@data/countries-info.json" with { type: "json" };
 import countriesCca2Json from "@data/country-cca2.json" with { type: "json" };
 
 
@@ -24,11 +24,11 @@ function getCountriesByContinent(continent) {
    // return new Promise(async (resolve, reject) => {
    try {
       let countries = [];
-      for (let i = 0; i < countriesJson.length; i++) {
+      for (let i = 0; i < countriesInfo.length; i++) {
          if (
-            countriesJson[i].region.toLowerCase() === continent.toLowerCase()
+            countriesInfo[i].region.toLowerCase() === continent.toLowerCase()
          ) {
-            countries.push(countriesJson[i]);
+            countries.push(countriesInfo[i]);
          }
       }
       return (countries);
@@ -43,9 +43,9 @@ export async function getCoutryByName(name) {
       try {
          let response = [];
 
-         for (let i = 0; i < countriesJson.length; i++) {
-            if (countriesJson[i].name.official === name) {
-               response.push(countriesJson[i]);
+         for (let i = 0; i < countriesInfo.length; i++) {
+            if (countriesInfo[i].name.official === name) {
+               response.push(countriesInfo[i]);
             }
          }
 
@@ -59,7 +59,7 @@ export async function getCoutryByName(name) {
 export function getAllCountries() {
    // return new Promise(async (resolve, reject) => {
    try {
-      let countries = countriesJson;
+      let countries = countriesInfo;
       return (countries);
    } catch (err) {
       return (new Error(`Error request restCoutries API: ${err}`));
@@ -130,3 +130,73 @@ export function getRandomCountries(
 export function getCountryCodeByName(name) {
    return countriesCca2Json[name] || null;
 } 
+
+/**
+ * Busca el continente (region) de un país en countriesInfo
+ * @param {string} countryName - Nombre común u oficial del país
+ * @param {Array} countriesInfo - Array con la info de países
+ * @returns {string|null} - Región (continente) o null si no se encontró
+ */
+export function getContinent(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   // Normalizar string para comparación
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   return country ? country.region : null;
+}
+
+export function getPopulation(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   return country ? country.population : null;
+}
+
+export function getArea(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   return country ? country.area : null;
+}

@@ -18,7 +18,7 @@ export default class Options extends BaseComponent {
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
-    // Se asigna "all" como continente por defecto si no hay uno seleccionado.
+
     this.option = "name-asc";
     this.dom = this._createDom();
     this.dispatch = dispatch;

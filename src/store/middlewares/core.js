@@ -1,7 +1,4 @@
 import { ACTIONS } from "@constants/action-types.js";
-import {
-    BASE_PATH
-} from "@constants/base-path.js";
 
 // --- Middleware de primer lanzamiento ---
 export const checkFirstLaunch = (store) => (next) => (action) => {

@@ -143,12 +143,12 @@ export default class App {
     }
 
     initRouting() {
-        // Forzar hash en la primera carga si no hay
+        // Forzar hash inicial si no hay
         if (!location.hash) {
             location.replace("#/");
         }
 
-        // Escuchar cambios en el hash (links, back/forward)
+        // Escuchar cambios reales del hash
         window.addEventListener("hashchange", () => {
             const route = normalizeRoute(location.hash);
             this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
@@ -159,15 +159,20 @@ export default class App {
         this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: initialRoute });
     }
 
+
     // Navegación programática (cambia el hash y despacha)
     navigateTo(route) {
-        if (location.hash !== "#" + route) {
-            location.hash = route; // esto dispara "hashchange"
+        const normalized = normalizeRoute(route);
+
+        if (normalizeRoute(location.hash) !== normalized) {
+            location.hash = normalized; // esto dispara "hashchange"
         } else {
-            // si el hash ya es igual, igual forzamos el dispatch
-            this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+            // Si ya estamos en la misma ruta, forzar dispatch
+            this.store.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: normalized });
         }
     }
+
+
 
     renderRoute() {
         let { currentRoute } = this.store.getState().router;

@@ -15,6 +15,12 @@ import BaseComponent from "@shared/Base-component.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import countryNames from "@data/country-names.json" with { type: "json" };
+import {
+  getContinent,
+  getPopulation,
+  getArea
+} from "@utils/country-parser.js";
+
 
 import { SORT_TYPES } from "@constants/sort-options.js";
 
@@ -31,6 +37,7 @@ export default class flagList extends BaseComponent {
     this.dom = this._createDom();
 
     this.optionsLimit = 10;
+    this.sortType = "name-asc";
 
     this._init();
 
@@ -54,83 +61,48 @@ export default class flagList extends BaseComponent {
   syncState(state) {
   }
 
-  renderItems(optionNames) {
-    if (!optionNames || optionNames.length === 0) {
-      return;
-    }
-    const list = this.dom.querySelector(".flag-list__list");
-    list.innerHTML = "";
-
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < optionNames.length; i++) {
-      let newOption = elt(
-        "il",
-        {
-          className: "flag-list__item",
-          tabIndex: 0,
-        },
-        elt("a", {
-          className: "flag-list__link",
-          href: `#/flag-gallery/${optionNames[i]}`,
-        },
-          elt("img", {
-            className: "flag-list__flag-img",
-            src: `/tupais/images/flags/${countriesCca2[optionNames[i]]}.svg`,
-            alt: `search`,
-            loading: "lazy",
-            height: "44px",
-            width: "100px"
-          }),
-          elt("span", {}, optionNames[i]))
-      );
-      newOption.setAttribute("data-value", optionNames[i]);
-
-      const link = newOption.querySelector(".flag-list__link");
-      link.addEventListener("click", (event) => { // evita que recargue
-        const route = `/flag-gallery/${optionNames[i]}`;
-        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
-      })
-
-      fragment.appendChild(newOption);
-    }
-
-    list.appendChild(fragment);
-  }
-
   // TODO: corregir error al filtrar con un solo resultado o mas
   filterItems(keepArray = []) {
-    const items = this.dom.querySelectorAll(".flag-list__item");
+    // 1️⃣ Re-renderizar todos los elementos para que existan en el DOM
+    this.renderItems(countryNames);
 
-    // Normalizar strings del array a mantener
+    const items = this.dom.querySelectorAll(".flag-list__item");
+    const labels = this.dom.querySelectorAll(".flag-list__continent");
+
     const normalize = str =>
-      str
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
     const keepNormalized = keepArray.map(normalize);
     let visibleCount = 0;
 
+    // 2️⃣ Mostrar/ocultar países
     items.forEach(item => {
       const value = normalize(item.getAttribute("data-value") || "");
-
       if (keepNormalized.includes(value)) {
-        item.style.display = ""; // mostrar
+        item.style.display = "";
         visibleCount++;
       } else {
-        item.style.display = "none"; // ocultar
+        item.style.display = "none";
       }
     });
 
-    if (visibleCount === 0) {
-      this.renderNoResults(true);
-    } else {
-      this.renderNoResults(false);
+    // 3️⃣ Mostrar/ocultar labels de continentes
+    labels.forEach(label => {
+      const continent = label.textContent.trim();
+      const countriesInContinent = Array.from(items).filter(
+        item => item.getAttribute("data-continent") === continent
+      );
+      const anyVisible = countriesInContinent.some(item => item.style.display !== "none");
+      label.style.display = anyVisible ? "" : "none";
+    });
 
-    }
+    // 4️⃣ No results
+    if (visibleCount === 0) this.renderNoResults(true);
+    else this.renderNoResults(false);
+
+    // Ordenar
+    this.sort(this.sortType);
   }
-
 
 
   renderNoResults(isRendered) {
@@ -146,16 +118,6 @@ export default class flagList extends BaseComponent {
       if (existingNoResults) {
         existingNoResults.remove();
       }
-    }
-  }
-
-  sort(type) {
-    if (type === SORT_TYPES.NAME_ASC) {
-      this.sortItemsAsc();
-    }
-    if (type === SORT_TYPES.NAME_DESC) {
-      this.sortItemsDesc();
-
     }
   }
 
@@ -200,9 +162,191 @@ export default class flagList extends BaseComponent {
     items.forEach(item => list.appendChild(item));
   }
 
-
   setScale(scale = 1) {
     this.scale = scale;
     this.dom.style.setProperty("--flag-scale", scale);
   }
+
+  sort(type) {
+    this.sortType = type;
+
+    const showExtraInfo = [
+      "population-asc",
+      "population-desc",
+      "area-asc",
+      "area-desc",
+    ].includes(type);
+
+    // Tomar solo los items visibles
+    const items = Array.from(this.dom.querySelectorAll(".flag-list__item"))
+      .filter(item => item.style.display !== "none");
+
+    // Obtener los nombres de los items
+    const visibleNames = items.map(item => item.getAttribute("data-value"));
+
+    let sortedNames = [...visibleNames];
+
+    switch (type) {
+      case "population-asc":
+        sortedNames.sort((a, b) => getPopulation(a) - getPopulation(b));
+        break;
+      case "population-desc":
+        sortedNames.sort((a, b) => getPopulation(b) - getPopulation(a));
+        break;
+      case "area-asc":
+        sortedNames.sort((a, b) => getArea(a) - getArea(b));
+        break;
+      case "area-desc":
+        sortedNames.sort((a, b) => getArea(b) - getArea(a));
+        break;
+      case "name-asc":
+        sortedNames.sort((a, b) => a.localeCompare(b, "es"));
+        break;
+      case "name-desc":
+        sortedNames.sort((a, b) => b.localeCompare(a, "es"));
+        break;
+      case "continent":
+        this.renderItemsByContinent(sortedNames);
+        return; // ya hace render, no hace falta más
+    }
+
+    this.renderItems(sortedNames);
+
+    // Tomar solo los items visibles
+    const sortedItems = Array.from(this.dom.querySelectorAll(".flag-list__item"))
+      .filter(item => item.style.display !== "none");
+
+    // Activar o desactivar info extra
+    sortedItems.forEach(item => {
+      if (showExtraInfo) {
+        item.classList.add("show-extra");
+      } else {
+        item.classList.remove("show-extra");
+      }
+    });
+  }
+
+
+  // Función genérica para ordenar por número (población o superficie)
+  sortByNumber(items, attr, asc = true) {
+    items.sort((a, b) => {
+      const aValue = parseInt(a.getAttribute(attr), 10);
+      const bValue = parseInt(b.getAttribute(attr), 10);
+      return asc ? aValue - bValue : bValue - aValue;
+    });
+
+    const list = this.dom.querySelector(".flag-list__list");
+    items.forEach(item => list.appendChild(item));
+  }
+
+
+  renderItems(optionNames) {
+    if (!optionNames || optionNames.length === 0) return;
+    const list = this.dom.querySelector(".flag-list__list");
+    list.innerHTML = "";
+
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < optionNames.length; i++) {
+      fragment.appendChild(this._createFlagItem(optionNames[i]));
+    }
+
+    list.appendChild(fragment);
+  }
+
+  renderItemsByContinent(optionNames) {
+    if (!optionNames || optionNames.length === 0) return;
+    const list = this.dom.querySelector(".flag-list__list");
+    list.innerHTML = "";
+
+    // Necesitás un mapeo: país -> continente
+    // Ejemplo: import countryContinents from "@data/country-continents.json"
+    const grouped = {};
+    for (let i = 0; i < optionNames.length; i++) {
+      const name = optionNames[i];
+      const continent = getContinent(name); // helper
+      if (!grouped[continent]) grouped[continent] = [];
+      grouped[continent].push(name);
+    }
+
+    // Ordenar continentes alfabéticamente
+    const sortedContinents = Object.keys(grouped).sort((a, b) =>
+      a.localeCompare(b, "es")
+    );
+
+    const fragment = document.createDocumentFragment();
+
+    for (const continent of sortedContinents) {
+      // Subtítulo del continente
+      const subtitle = elt("li", { className: "flag-list__continent" }, continent);
+      fragment.appendChild(subtitle);
+
+      // Ordenar países alfabéticamente dentro del continente
+      const sortedCountries = grouped[continent].sort((a, b) =>
+        a.localeCompare(b, "es")
+      );
+
+      // Insertar países de ese continente
+      for (const c of sortedCountries) {
+        fragment.appendChild(this._createFlagItem(c));
+      }
+    }
+
+    list.appendChild(fragment);
+  }
+
+
+  _createFlagItem(name) {
+    const population = getPopulation(name); // número en formato entero
+    const area = getArea(name); // número en km²
+    const continent = getContinent(name);
+
+    let newOption = elt(
+      "li", // corregido 'il' → 'li'
+      {
+        className: "flag-list__item",
+        tabIndex: 0,
+      },
+      elt("a", {
+        className: "flag-list__link",
+        href: `#/flag-gallery/${name}`,
+      },
+        elt("img", {
+          className: "flag-list__flag-img",
+          src: `/tupais/images/flags/${countriesCca2[name]}.svg`,
+          alt: `Bandera de ${name}`,
+          loading: "lazy",
+          height: "44px",
+          width: "100px"
+        }),
+        elt("span", { className: "flag-list__name" }, name),
+        // Información extra (invisible por defecto)
+        elt("div", { className: "flag-list__info" },
+          elt("div", { className: "flag-list__info-container" }, `Población:`,
+            elt("br"),
+            elt("span", { className: "flag-list__info-text" }, `${population.toLocaleString()}`)),
+          elt("div", { className: "flag-list__info-container" },
+            "Área:",
+            elt("br"),
+            elt("span", { className: "flag-list__info-text" }, `${area.toLocaleString()} km²`)
+          ),
+
+        )
+      ),
+    );
+    newOption.setAttribute("data-value", name);
+    newOption.setAttribute("data-population", population);
+    newOption.setAttribute("data-area", area);
+    newOption.setAttribute("data-continent", continent); // <-- clave para el filtrado
+
+
+    const link = newOption.querySelector(".flag-list__link");
+    link.addEventListener("click", () => {
+      const route = `/flag-gallery/${name}`;
+      this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+    });
+
+    return newOption;
+  }
+
+
 }

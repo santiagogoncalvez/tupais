@@ -34,7 +34,6 @@ export default class Navbar extends BaseComponent {
     const links = this.dom.querySelectorAll(".navbar__link");
     for (let link of links) {
       link.addEventListener("click", (event) => {
-        event.preventDefault(); // evita navegación por defecto
         const href = link.getAttribute("href");
         // Normalizar para enviar la ruta sin el hash
         const route = normalizeRoute(href);

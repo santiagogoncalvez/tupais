@@ -1,5 +1,7 @@
 import { ACTIONS } from "@constants/action-types.js";
 
+import { normalizeRoute } from "@utils/normalize-route.js";
+
 import htmlString from "@components/About/template.html?raw";
 
 // Styles
@@ -29,7 +31,9 @@ export default class About extends BaseComponent {
 
     for (let link of links) {
       link.addEventListener("click", (event) => {
-        const route = link.getAttribute("href");
+        const href = link.getAttribute("href");
+        // Normalizar para enviar la ruta sin el hash
+        const route = normalizeRoute(href);
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       })
     }

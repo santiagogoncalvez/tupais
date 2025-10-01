@@ -33,6 +33,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
 body {
@@ -44,6 +45,7 @@ body {
   /* height: fit-content; */
   /* flex-grow: 1; */
   overflow: hidden;
+  background-color: rgb(250, 250, 250);
 }
 
 

@@ -1,21 +1,52 @@
-.flag-gallery{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    width: 511px;
-    max-width: 100%;
+.flag-gallery {
+  width: 100%;
+  position: relative;
+}
+
+.flag-gallery__content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+}
+
+.flag-gallery__store {
+  /* width: fit-content; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 20px;
+  padding: 0px 100px;
+}
+
+.flag-gallery__store-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
 }
 
 .flag-gallery__container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-    padding: 0px 15px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 30px;
+  /* width: 511px; */
+  width: 100%;
+  padding: 0px 0px 40px 15px;
+}
+
+.flag-gallery__toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .flag-gallery__title {
@@ -23,4 +54,12 @@
   text-align: center;
   margin-top: 30px;
   margin-bottom: 0px;
+  width: 100%;
+}
+
+.flag-gallery__search-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

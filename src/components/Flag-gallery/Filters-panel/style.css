@@ -1,0 +1,198 @@
+/* Panel base */
+.filters-panel {
+  /* position: absolute; */
+
+  /* top: 0; */
+  /* right: -300px; */
+  /* left: 0; */
+  width: 300px;
+  height: 100%;
+  background: transparent;
+  /* box-shadow: -2px 0 6px rgba(0, 0, 0, 0.05); */
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  /* z-index: 1000; */
+  transition: right 0.3s ease-in-out;
+  /* border-left: 1px solid #e2e8f0; */
+}
+
+.filters-panel.is-open {
+  right: 0;
+}
+
+/* Header */
+.filters-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.filters-panel__title {
+  font-size: 1.2rem;
+  color: #001f31;
+  margin: 0;
+  margin-top: 5px;
+}
+
+/* Cajón de filtros activos */
+.active-filters {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 5px;
+}
+.filter-chip {
+  display: inline-flex; /* 🔑 flex en línea, se adapta al contenido */
+  align-items: center;
+  gap: 6px;
+
+  padding: 4px 10px;
+  background-color: #00638e; /* azul más fuerte que contraste con el hover */
+  color: white; 
+  /* border: 1px solid #9ed2ff; */
+  border-radius: 999px; /* pill shape */
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
+  user-select: none;
+  width: fit-content; /* asegura que solo ocupe lo que necesita */
+  max-width: 100%; /* no se desborda */
+}
+
+.filter-chip:hover {
+  background-color: #016a96;
+}
+
+.chip-close {
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  height: 18px;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip-close:hover {
+  background-color: #3f96bb;
+}
+
+/* Secciones */
+.filters-panel__section {
+  margin-bottom: 15px;
+}
+
+.filters-panel__label {
+  font-size: 1rem;
+  color: #001f31;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.filters-panel__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.filters-panel__options button {
+  background: #f5f8fc;
+  color: #001f31;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filters-panel__options button:hover,
+.filters-panel__options button.active {
+  background: #e2e8f0;
+  color: #001f31;
+  border-color: #b0b7c3;
+}
+
+/* Sliders */
+.filters-slider-alt {
+  width: 100%;
+  accent-color: #00638e;
+}
+
+/* Footer */
+.filters-panel__footer {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.filters-panel__reset,
+.filters-panel__apply {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  font-weight: 500;
+  background: white;
+  color: #001f31;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filters-panel__reset:hover,
+.filters-panel__apply:hover {
+  background: #e2e8f0;
+}
+
+/* Footer botón aplicar destacado */
+.filters-panel__apply {
+  border-color: #00405d;
+  font-weight: 600;
+  color: white;
+  background-color: #00638e;
+  border-color: #00638e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters-panel {
+    width: 100%;
+    right: -100%;
+  }
+  .filters-panel.is-open {
+    right: 0;
+  }
+}
+
+
+/* Botón de filtro activo */
+.filters-panel__options button.active {
+  background-color: #cfe0f3; /* azul claro, contraste suave */
+  color: #00405d;             /* texto más oscuro */
+  border: 1px solid #728ca2;  /* borde ligeramente más fuerte que el fondo */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* pequeño relieve */
+}
+
+/* Mantener transición suave */
+.filters-panel__options button {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover sobre botón activo */
+.filters-panel__options button.active:hover {
+  background-color: #b8d4e8; /* un poco más oscuro al pasar el mouse */
+  border-color: #7daac2;
+  cursor: pointer;
+}

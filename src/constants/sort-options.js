@@ -12,8 +12,8 @@ export const sortOptions = {
     "name-asc": "Nombre (A-Z)",
     "name-desc": "Nombre (Z-A)",
     "continent": "Continente",
-    "population-desc": "Población (mayor a menor)",
-    "population-asc": "Población (menor a mayor)",
-    "area-desc": "Superficie (mayor a menor)",
-    "area-asc": "Superficie (menor a mayor)",
+    "population-asc": "Menor población",
+    "population-desc": "Mayor población",
+    "area-asc": "Menor superficie",
+    "area-desc": "Mayor superficie",
 };

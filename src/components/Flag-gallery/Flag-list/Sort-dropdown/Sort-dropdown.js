@@ -14,7 +14,7 @@ import Button from "@components/Flag-gallery/Flag-list/Sort-dropdown/Button/Butt
 import Options from "@components/Flag-gallery/Flag-list/Sort-dropdown/Options/Options.js";
 
 export default class SortDropdown extends BaseComponent {
-  constructor(state, dispatch, orderAction) {
+  constructor(state, dispatch, sortAction) {
     super();
     this.htmlString = htmlString;
     this.base = base;
@@ -22,7 +22,7 @@ export default class SortDropdown extends BaseComponent {
     this.state = state;
     this.continent = state.game?.continent;
     this.options = new Options(state, dispatch);
-    this.button = new Button(state, dispatch, this.options, orderAction);
+    this.button = new Button(state, dispatch, this.options, sortAction);
     this.options.setOptionAction(this.button.setOption.bind(this.button));
     this.options.setAnimateButtonAction(this.button.animateButton.bind(this.button));
 

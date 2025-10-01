@@ -1,30 +1,18 @@
 import { ACTIONS } from "@constants/action-types.js";
-
 import elt from "@utils/elt.js";
-
 import htmlString from "@components/Flag-gallery/Flag-list/template.html?raw";
 
 // Styles
 import "@components/Flag-gallery/Flag-list/style.css";
 
-import {
-  base,
-  modifiers,
-} from "@components/Flag-gallery/Flag-list/Flag-list-class-names.js";
+import { base, modifiers } from "@components/Flag-gallery/Flag-list/Flag-list-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import countryNames from "@data/country-names.json" with { type: "json" };
-import {
-  getContinent,
-  getPopulation,
-  getArea
-} from "@utils/country-parser.js";
+import { getContinent, getPopulation, getArea } from "@utils/country-parser.js";
 
-
-import { SORT_TYPES } from "@constants/sort-options.js";
-
-export default class flagList extends BaseComponent {
+export default class FlagList extends BaseComponent {
   constructor(state, dispatch, scale = 1) {
     super();
     this.htmlString = htmlString;
@@ -35,131 +23,163 @@ export default class flagList extends BaseComponent {
     this.scale = scale;
 
     this.dom = this._createDom();
-
-    this.optionsLimit = 10;
     this.sortType = "name-asc";
 
-    this._init();
+    // Información extra
+    this.extraInfoShow = false;
 
+    // 🔹 Estado
+    this.allCountries = countryNames;
+    this.searchResults = null; // coincidencias del buscador
+    this.activeFilters = {};   // { continent: "Europe", ... }
+
+    this.items = [];
+    this.labels = [];
+
+    this._init();
     this.setScale(scale);
   }
 
   _init() {
-    // En este punto los items ya están ordenados alfabeticamente A-Z
-    this.renderItems(countryNames);
+    this.renderItems(this.allCountries);
+    this.items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
+    this.labels = Array.from(this.dom.querySelectorAll(".flag-list__continent"));
 
-    // Si se pasó un scale distinto a 1, alinear al inicio
     if (this.scale !== 1) {
       const list = this.dom.querySelector(".flag-list__list");
-      if (list) {
-        list.style.justifyContent = "start";
+      if (list) list.style.justifyContent = "start";
+    }
+  }
+
+  syncState(state) { }
+
+  // =========================
+  // 🔍 Búsqueda
+  // =========================
+  setSearchResults(results) {
+    this.searchResults = Array.isArray(results) ? results : [];
+    this.applyAll();
+  }
+
+  // =========================
+  // 🎛️ Filtros
+  // =========================
+  applyFilter({ category, value, remove = false }) {
+    if (remove) {
+      // 🔹 Eliminar solo ese filtro
+      if (category === "continent") {
+        delete this.activeFilters[category]; // continente único
+      } else if (Array.isArray(this.activeFilters[category])) {
+        this.activeFilters[category] = this.activeFilters[category].filter(v => v !== value);
+        if (this.activeFilters[category].length === 0) {
+          delete this.activeFilters[category];
+        }
       }
+    } else {
+      // 🔹 Agregar/activar filtro
+      if (category === "continent") {
+        this.activeFilters[category] = value;
+      } else {
+        if (!this.activeFilters[category]) this.activeFilters[category] = [];
+        if (!this.activeFilters[category].includes(value)) this.activeFilters[category].push(value);
+      }
+    }
+
+    this.applyAll();
+
+    // 🔹 Regenerar labels si el orden es por continente
+    if (this.sortType === "continent") {
+      const visibles = this.items
+        .filter(item => item.style.display !== "none")
+        .map(item => item.dataset.value);
+      this.renderItemsByContinent(visibles);
     }
   }
 
 
-  syncState(state) {
+
+  // =========================
+  // 🔽 Orden
+  // =========================
+  setSort(type) {
+    this.sortType = type;
+    this.applyAll();
   }
 
-  // TODO: corregir error al filtrar con un solo resultado o mas
-  filterItems(keepArray = []) {
-    // 1️⃣ Re-renderizar todos los elementos para que existan en el DOM
-    this.renderItems(countryNames);
+  // =========================
+  // ⚡ Motor principal
+  // =========================
+  applyAll() {
+    // 1️⃣ Base: búsqueda o todos
+    let result = this.searchResults ? [...this.searchResults] : [...this.allCountries];
 
-    const items = this.dom.querySelectorAll(".flag-list__item");
-    const labels = this.dom.querySelectorAll(".flag-list__continent");
+    // 2️⃣ Filtros activos
+    if (this.activeFilters.continent) {
+      result = result.filter(name => getContinent(name) === this.activeFilters.continent);
+    }
 
-    const normalize = str =>
-      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-
-    const keepNormalized = keepArray.map(normalize);
+    // 3️⃣ Mostrar/ocultar nodos
     let visibleCount = 0;
+    let visibleItems = [];
 
-    // 2️⃣ Mostrar/ocultar países
-    items.forEach(item => {
-      const value = normalize(item.getAttribute("data-value") || "");
-      if (keepNormalized.includes(value)) {
+    this.items.forEach(item => {
+      const name = item.dataset.value;
+      if (result.includes(name)) {
         item.style.display = "";
+        visibleItems.push(name);
         visibleCount++;
       } else {
         item.style.display = "none";
       }
     });
 
-    // 3️⃣ Mostrar/ocultar labels de continentes
-    labels.forEach(label => {
+    // 4️⃣ Mostrar/ocultar labels
+    this.labels.forEach(label => {
       const continent = label.textContent.trim();
-      const countriesInContinent = Array.from(items).filter(
-        item => item.getAttribute("data-continent") === continent
+      const anyVisible = this.items.some(
+        item => item.dataset.continent === continent && item.style.display !== "none"
       );
-      const anyVisible = countriesInContinent.some(item => item.style.display !== "none");
       label.style.display = anyVisible ? "" : "none";
     });
 
-    // 4️⃣ No results
-    if (visibleCount === 0) this.renderNoResults(true);
-    else this.renderNoResults(false);
-
-    // Ordenar
-    this.sort(this.sortType);
-  }
-
-
-  renderNoResults(isRendered) {
-    const list = this.dom.querySelector(".flag-list__list");
-    const noResultsItem = elt("li", { className: "flag-list__no-results" }, "No se encontraron resultados");
-    const existingNoResults = this.dom.querySelector(".flag-list__no-results");
-
-    if (isRendered) {
-      if (!existingNoResults) {
-        list.appendChild(noResultsItem);
-      }
+    // 5️⃣ Ordenar visibles o regenerar labels
+    if (this.sortType === "continent") {
+      this.renderItemsByContinent(visibleItems);
     } else {
-      if (existingNoResults) {
-        existingNoResults.remove();
-      }
+      this.sort(this.sortType, { reRender: false });
+    }
+
+
+
+    // 🔹 Caso: resultados vacíos
+    if (result.length === 0) {
+      // Ocultar todos los países
+      this.items.forEach(item => (item.style.display = "none"));
+      // Ocultar labels
+      this.labels.forEach(label => (label.style.display = "none"));
+      // Mostrar mensaje de "no results"
+      this.renderNoResults(true);
+      return;
+    } else {
+      this.renderNoResults(false);
     }
   }
 
-  sortItemsAsc() {
-    const items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
 
-    const normalize = str =>
-      str
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
 
-    items.sort((a, b) => {
-      const nameA = normalize(a.getAttribute("data-value") || "");
-      const nameB = normalize(b.getAttribute("data-value") || "");
-      return nameA.localeCompare(nameB, "es"); // comparador en español
-    });
-
-    // Reinsertar en el DOM en el nuevo orden
+  // =========================
+  // 🛠️ Utilidades
+  // =========================
+  renderNoResults(isRendered) {
     const list = this.dom.querySelector(".flag-list__list");
-    items.forEach(item => list.appendChild(item));
-  }
+    const noResultsItem = elt("li", { className: "flag-list__no-results" }, "No se encontraron resultados");
+    const existing = this.dom.querySelector(".flag-list__no-results");
 
-  sortItemsDesc() {
-    const items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
-
-    const normalize = str =>
-      str
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
-
-    items.sort((a, b) => {
-      const nameA = normalize(a.getAttribute("data-value") || "");
-      const nameB = normalize(b.getAttribute("data-value") || "");
-      return nameB.localeCompare(nameA, "es"); // invertido
-    });
-
-    const list = this.dom.querySelector(".flag-list__list");
-    items.forEach(item => list.appendChild(item));
+    if (isRendered) {
+      if (!existing) list.appendChild(noResultsItem);
+    } else {
+      if (existing) existing.remove();
+    }
   }
 
   setScale(scale = 1) {
@@ -167,77 +187,63 @@ export default class flagList extends BaseComponent {
     this.dom.style.setProperty("--flag-scale", scale);
   }
 
-  sort(type) {
+
+  sort(type, { reRender = true } = {}) {
     this.sortType = type;
 
-    const showExtraInfo = [
-      "population-asc",
-      "population-desc",
-      "area-asc",
-      "area-desc",
-    ].includes(type);
+    // 🔹 Si no es por continente, eliminar labels
+    if (type !== "continent") {
+      this.labels.forEach(label => label.remove());
+      this.labels = [];
+    }
 
-    // Tomar solo los items visibles
-    const items = Array.from(this.dom.querySelectorAll(".flag-list__item"))
-      .filter(item => item.style.display !== "none");
-
-    // Obtener los nombres de los items
-    const visibleNames = items.map(item => item.getAttribute("data-value"));
-
-    let sortedNames = [...visibleNames];
+    const items = this.items.filter(item => item.style.display !== "none");
+    let sortedItems = [...items];
 
     switch (type) {
       case "population-asc":
-        sortedNames.sort((a, b) => getPopulation(a) - getPopulation(b));
+        sortedItems.sort((a, b) => getPopulation(a.dataset.value) - getPopulation(b.dataset.value));
+        this.showExtraInfo(items, true);
         break;
       case "population-desc":
-        sortedNames.sort((a, b) => getPopulation(b) - getPopulation(a));
+        sortedItems.sort((a, b) => getPopulation(b.dataset.value) - getPopulation(a.dataset.value));
+        this.showExtraInfo(items, true);
         break;
       case "area-asc":
-        sortedNames.sort((a, b) => getArea(a) - getArea(b));
+        sortedItems.sort((a, b) => getArea(a.dataset.value) - getArea(b.dataset.value));
+        this.showExtraInfo(items, true);
         break;
       case "area-desc":
-        sortedNames.sort((a, b) => getArea(b) - getArea(a));
+        sortedItems.sort((a, b) => getArea(b.dataset.value) - getArea(a.dataset.value));
+        this.showExtraInfo(items, true);
         break;
       case "name-asc":
-        sortedNames.sort((a, b) => a.localeCompare(b, "es"));
-        break;
       case "name-desc":
-        sortedNames.sort((a, b) => b.localeCompare(a, "es"));
+        sortedItems.sort((a, b) =>
+          type === "name-asc"
+            ? a.dataset.value.localeCompare(b.dataset.value, "es")
+            : b.dataset.value.localeCompare(a.dataset.value, "es")
+        );
+        this.showExtraInfo(items, false);
         break;
       case "continent":
-        this.renderItemsByContinent(sortedNames);
-        return; // ya hace render, no hace falta más
+        if (reRender) this.renderItemsByContinent(sortedItems.map(i => i.dataset.value));
+        this.showExtraInfo(items, false);
+        return;
     }
 
-    this.renderItems(sortedNames);
-
-    // Tomar solo los items visibles
-    const sortedItems = Array.from(this.dom.querySelectorAll(".flag-list__item"))
-      .filter(item => item.style.display !== "none");
-
-    // Activar o desactivar info extra
-    sortedItems.forEach(item => {
-      if (showExtraInfo) {
-        item.classList.add("show-extra");
-      } else {
-        item.classList.remove("show-extra");
-      }
-    });
-  }
-
-
-  // Función genérica para ordenar por número (población o superficie)
-  sortByNumber(items, attr, asc = true) {
-    items.sort((a, b) => {
-      const aValue = parseInt(a.getAttribute(attr), 10);
-      const bValue = parseInt(b.getAttribute(attr), 10);
-      return asc ? aValue - bValue : bValue - aValue;
-    });
-
     const list = this.dom.querySelector(".flag-list__list");
-    items.forEach(item => list.appendChild(item));
+    sortedItems.forEach(item => list.appendChild(item));
   }
+
+  showExtraInfo(items, show) {
+    this.extraInfoShow = show; // 🔹 setear una sola vez
+    for (let item of items) {
+      if (show) item.classList.add("show-extra");
+      else item.classList.remove("show-extra");
+    }
+  }
+
 
 
   renderItems(optionNames) {
@@ -249,95 +255,96 @@ export default class flagList extends BaseComponent {
     for (let i = 0; i < optionNames.length; i++) {
       fragment.appendChild(this._createFlagItem(optionNames[i]));
     }
-
     list.appendChild(fragment);
+
+    this.items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
+    this.labels = Array.from(this.dom.querySelectorAll(".flag-list__continent"));
   }
 
   renderItemsByContinent(optionNames) {
     if (!optionNames || optionNames.length === 0) return;
-    const list = this.dom.querySelector(".flag-list__list");
-    list.innerHTML = "";
 
-    // Necesitás un mapeo: país -> continente
-    // Ejemplo: import countryContinents from "@data/country-continents.json"
+    const list = this.dom.querySelector(".flag-list__list");
+
+    // 🔹 Ocultar todos los items y labels primero
+    this.items.forEach(item => (item.style.display = "none"));
+    this.labels.forEach(label => label.remove());
+
+    // 🔹 Agrupar visibles según continentes
     const grouped = {};
     for (let i = 0; i < optionNames.length; i++) {
       const name = optionNames[i];
-      const continent = getContinent(name); // helper
+      const continent = getContinent(name);
       if (!grouped[continent]) grouped[continent] = [];
       grouped[continent].push(name);
     }
 
-    // Ordenar continentes alfabéticamente
+    // 🔹 Ordenar continentes
     const sortedContinents = Object.keys(grouped).sort((a, b) =>
       a.localeCompare(b, "es")
     );
 
-    const fragment = document.createDocumentFragment();
-
-    for (const continent of sortedContinents) {
-      // Subtítulo del continente
+    // 🔹 Insertar labels y mostrar países
+    sortedContinents.forEach(continent => {
+      // Crear subtítulo
       const subtitle = elt("li", { className: "flag-list__continent" }, continent);
-      fragment.appendChild(subtitle);
+      list.appendChild(subtitle);
 
-      // Ordenar países alfabéticamente dentro del continente
       const sortedCountries = grouped[continent].sort((a, b) =>
         a.localeCompare(b, "es")
       );
 
-      // Insertar países de ese continente
-      for (const c of sortedCountries) {
-        fragment.appendChild(this._createFlagItem(c));
-      }
-    }
+      sortedCountries.forEach(name => {
+        const item = this.items.find(i => i.dataset.value === name);
+        if (item) {
+          item.style.display = "";
+          list.appendChild(item);
+        }
+      });
+    });
 
-    list.appendChild(fragment);
+    // 🔹 Refrescar referencias
+    this.items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
+    this.labels = Array.from(this.dom.querySelectorAll(".flag-list__continent"));
   }
 
 
   _createFlagItem(name) {
-    const population = getPopulation(name); // número en formato entero
-    const area = getArea(name); // número en km²
+    const population = getPopulation(name);
+    const area = getArea(name);
     const continent = getContinent(name);
 
-    let newOption = elt(
-      "li", // corregido 'il' → 'li'
-      {
-        className: "flag-list__item",
-        tabIndex: 0,
-      },
-      elt("a", {
-        className: "flag-list__link",
-        href: `#/flag-gallery/${name}`,
-      },
+    const newOption = elt(
+      "li",
+      { className: "flag-list__item", tabIndex: 0 },
+      elt(
+        "a",
+        {
+          className: "flag-list__link",
+          href: `#/flag-gallery/${name}`,
+        },
         elt("img", {
           className: "flag-list__flag-img",
           src: `/tupais/images/flags/${countriesCca2[name]}.svg`,
           alt: `Bandera de ${name}`,
           loading: "lazy",
           height: "44px",
-          width: "100px"
+          width: "100px",
         }),
         elt("span", { className: "flag-list__name" }, name),
-        // Información extra (invisible por defecto)
-        elt("div", { className: "flag-list__info" },
-          elt("div", { className: "flag-list__info-container" }, `Población:`,
-            elt("br"),
-            elt("span", { className: "flag-list__info-text" }, `${population.toLocaleString()}`)),
-          elt("div", { className: "flag-list__info-container" },
-            "Área:",
-            elt("br"),
-            elt("span", { className: "flag-list__info-text" }, `${area.toLocaleString()} km²`)
-          ),
-
+        elt(
+          "div",
+          { className: "flag-list__info" },
+          elt("div", { className: "flag-list__info-container" }, "Población:", elt("br"), elt("span", { className: "flag-list__info-text" }, `${population.toLocaleString()}`)),
+          elt("div", { className: "flag-list__info-container" }, "Área:", elt("br"), elt("span", { className: "flag-list__info-text" }, `${area.toLocaleString()} km²`))
         )
-      ),
+      )
     );
+
     newOption.setAttribute("data-value", name);
     newOption.setAttribute("data-population", population);
     newOption.setAttribute("data-area", area);
-    newOption.setAttribute("data-continent", continent); // <-- clave para el filtrado
-
+    newOption.setAttribute("data-continent", continent);
 
     const link = newOption.querySelector(".flag-list__link");
     link.addEventListener("click", () => {
@@ -347,6 +354,4 @@ export default class flagList extends BaseComponent {
 
     return newOption;
   }
-
-
 }

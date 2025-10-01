@@ -1,11 +1,13 @@
 .dropdown-button {
   width: 100%;
   min-height: 35px;
-  background-color: white;
+  background-color: transparent;
   color: #001f31;
   text-align: center;
   border-radius: 6px;
-  border: 1px solid rgb(230, 230, 230);
+  /* border: 1px solid rgb(230, 230, 230); */
+  border-width: 0px;
+
 
   padding: 0px 15px 0px 15px;
 

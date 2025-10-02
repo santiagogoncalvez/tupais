@@ -10,7 +10,7 @@ import BaseComponent from "@shared/Base-component.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import countryNames from "@data/country-names.json" with { type: "json" };
-import { getContinent, getPopulation, getArea, getSubregion } from "@utils/country-parser.js";
+import { getContinent, getPopulation, getArea, getSubregion, getSeaAccess, getIsIsland, getLanguages } from "@utils/country-parser.js";
 
 export default class FlagList extends BaseComponent {
   constructor(state, dispatch, scale = 1) {
@@ -65,32 +65,36 @@ export default class FlagList extends BaseComponent {
   // 🎛️ Filtros
   // =========================
   applyFilter({ category, value, remove = false }) {
-    const buttons = this.dom.querySelectorAll(`.filters-panel__option[data-filter-category="${category}"]`);
+    if (category === "languages") {
+      // Inicializar como array
+      if (!Array.isArray(this.activeFilters.languages)) {
+        this.activeFilters.languages = [];
+      }
 
-    if (remove) {
-      // 🔹 Eliminar filtro de estado
-      delete this.activeFilters[category];
-
-      // 🔹 Desmarcar todos los botones de esa categoría
-      buttons.forEach(btn => btn.classList.remove("selected"));
+      if (remove) {
+        this.activeFilters.languages = this.activeFilters.languages.filter(
+          lang => lang !== value
+        );
+        if (this.activeFilters.languages.length === 0) {
+          delete this.activeFilters.languages;
+        }
+      } else {
+        if (!this.activeFilters.languages.includes(value)) {
+          this.activeFilters.languages.push(value);
+        }
+      }
     } else {
-      // 🔹 Selección única: asignar valor directamente
-      this.activeFilters[category] = value;
-
-      // 🔹 Limpiar selección visual de todos los botones de esa categoría
-      buttons.forEach(btn => btn.classList.remove("selected"));
-
-      // 🔹 Marcar solo el botón seleccionado
-      const selectedBtn = this.dom.querySelector(
-        `.filters-panel__option[data-filter-category="${category}"][data-filter-value="${value}"]`
-      );
-      if (selectedBtn) selectedBtn.classList.add("selected");
+      // Selección única
+      if (remove) {
+        delete this.activeFilters[category];
+      } else {
+        this.activeFilters[category] = value;
+      }
     }
 
-    // 🔹 Aplicar filtros
+    // Reaplicar filtros
     this.applyAll();
   }
-
 
 
 
@@ -118,6 +122,55 @@ export default class FlagList extends BaseComponent {
     if (this.activeFilters.subregion) {
       result = result.filter(name => getSubregion(name) === this.activeFilters.subregion);
     }
+
+    // 🔹 Filtrar por acceso al mar (selección única)
+    if (this.activeFilters.sea) {
+      result = result.filter(name => {
+        const landlocked = getSeaAccess(name);
+        if (this.activeFilters.sea === "Con acceso al mar") {
+          return landlocked === false;
+        } else if (this.activeFilters.sea === "Sin acceso al mar") {
+          return landlocked === true;
+        }
+        return true;
+      });
+    }
+
+    // 🔹 Filtrar por islas (selección única)
+    if (this.activeFilters.island) {
+      result = result.filter(name => {
+        const isIsland = getIsIsland(name);
+        if (this.activeFilters.island === "Es isla") {
+          return isIsland === true;
+        } else if (this.activeFilters.island === "No es isla") {
+          return isIsland === false;
+        }
+        return true;
+      });
+    }
+
+    // 🔹 Filtrar por idiomas (múltiple selección - AND)
+    if (this.activeFilters.languages && this.activeFilters.languages.length > 0) {
+      const normalize = s =>
+        s ? s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
+
+      const selectedLangs = Array.isArray(this.activeFilters.languages)
+        ? this.activeFilters.languages
+        : [this.activeFilters.languages];
+
+      const selectedNorm = selectedLangs.map(normalize).filter(Boolean);
+
+      result = result.filter(name => {
+        const langs = getLanguages(name) || []; // getLanguages devuelve array
+        const countryNorm = langs.map(normalize).filter(Boolean);
+
+        // AND: cada idioma seleccionado debe estar presente
+        return selectedNorm.every(sel =>
+          countryNorm.some(cn => cn === sel)
+        );
+      });
+    }
+
 
     // 🔹 Mostrar/ocultar nodos
     let visibleItems = [];

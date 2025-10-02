@@ -129,7 +129,7 @@ export function getRandomCountries(
 
 export function getCountryCodeByName(name) {
    return countriesCca2Json[name] || null;
-} 
+}
 
 /**
  * Busca el continente (region) de un país en countriesInfo
@@ -220,4 +220,88 @@ export function getSubregion(countryName) {
    });
 
    return country ? country.subregion : null;
+}
+
+export function getSeaAccess(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   return country ? country.landlocked : null;
+}
+
+export function getIsIsland(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   if (!country) return null;
+
+   // ❌ Excepción: la Antártida no se considera isla
+   if (normalize(country.name?.common) === "antartida" || normalize(country.name?.common) === "antarctica") {
+      return false;
+   }
+
+   // ✅ Si no tiene borders y no es landlocked => isla
+   if ((!country.borders || country.borders.length === 0) && !country.landlocked) {
+      return true;
+   }
+
+   return false;
+}
+
+export function getLanguages(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   // 🔍 Buscar país por nombre común, oficial o traducción en español
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   if (!country) return null;
+
+   // ✅ Extraer lenguajes si existen
+   if (country.languages && typeof country.languages === "object") {
+      // Retorna un array con todos los idiomas
+      return Object.values(country.languages);
+   }
+
+   return [];
 }

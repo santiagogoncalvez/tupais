@@ -4,7 +4,7 @@
   </header>
   <div class="active-filters"></div>
 
-  <div class="filters-panel__section">
+  <div class="filters-panel__section filters-panel__section--continent">
     <h3 class="filters-panel__label">Continente</h3>
     <div class="filters-panel__options">
       <button
@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <div class="filters-panel__section subregion">
+  <div class="filters-panel__section filters-panel__section--subregion">
     <h3 class="filters-panel__label">Subregión</h3>
     <div class="filters-panel__options filters-panel__options--collapsible">
       <button
@@ -224,30 +224,56 @@
         Sudeste Asiático
       </button>
     </div>
-    <button class="filters-panel__toggle"><span class="filters-panel__toggle-icon">+ </span><span class="filters-panel__toggle-text">Mostrar más</span></button>
-  </div>
-  <!--
-  <div class="filters-panel__section">
-    <h3 class="filters-panel__label">Población</h3>
-    <input
-      type="range"
-      min="0"
-      max="200000000"
-      step="1000000"
-      class="filters-slider-alt"
-    />
+    <button class="filters-panel__toggle">
+      <span class="filters-panel__toggle-icon">+ </span
+      ><span class="filters-panel__toggle-text">Mostrar más</span>
+    </button>
   </div>
 
-  <div class="filters-panel__section">
-    <h3 class="filters-panel__label">Área</h3>
-    <input
-      type="range"
-      min="0"
-      max="17000000"
-      step="10000"
-      class="filters-slider-alt"
-    />
-  </div> -->
+  <div class="filters-panel__section filters-panel__section--sea">
+    <h3 class="filters-panel__label">Acceso al mar</h3>
+    <div class="filters-panel__options">
+      <button
+        class="filters-panel__option"
+        data-filter-category="sea"
+        data-filter-value="Con acceso al mar"
+      >
+        Con acceso al mar
+      </button>
+      <button
+        class="filters-panel__option"
+        data-filter-category="sea"
+        data-filter-value="Sin acceso al mar"
+      >
+        Sin acceso al mar
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-panel__section filters-panel__section--island">
+    <h3 class="filters-panel__label">Islas</h3>
+    <div class="filters-panel__options">
+      <button
+        class="filters-panel__option"
+        data-filter-category="island"
+        data-filter-value="Es isla"
+      >
+        Es isla
+      </button>
+      <button
+        class="filters-panel__option"
+        data-filter-category="island"
+        data-filter-value="No es isla"
+      >
+        No es isla
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-panel__section filters-panel__section--languajes">
+    <h3 class="filters-panel__label">Lenguajes</h3>
+    <div class="filters-panel__options">
+</div>
 
   <footer class="filters-panel__footer">
     <!-- <button class="filters-panel__reset">Reiniciar</button>

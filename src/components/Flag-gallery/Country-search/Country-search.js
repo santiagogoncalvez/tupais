@@ -129,6 +129,9 @@ export default class CountrySearch extends BaseComponent {
       if (event.key === "Enter") {
         event.preventDefault();
         const button = this.dom.querySelector(".country-search__button");
+
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+
         button.click();
         input.blur();
         this.closeButton.show();
@@ -138,6 +141,8 @@ export default class CountrySearch extends BaseComponent {
         // Prevenir que el cursor se mueva al inicio del input por comportamiento nativo
         event.preventDefault();
         input.value = this.options.selectPrevOption() || this.searchValue;
+
+        // Para que el cursor se ponga al final siempre por ser un input
         input.setSelectionRange(input.value.length, input.value.length);
       }
 

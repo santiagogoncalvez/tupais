@@ -1,24 +1,26 @@
 import Fuse from 'fuse.js';
 import fuseConfig from '@config/fuse-config.js' with { type: 'json' };
-import countriesNames from "@data/country-names.json" with { type: "json" };
+// import countriesNames from "@data/country-names.json" with { type: "json" };
+import countriesSubregions from "@data/countries-subregions.json" with { type: "json" };
 
-import htmlString from "@components/Flag-gallery/Country-search/template.html?raw";
+import htmlString from "@components/Flag-gallery/Filters-panel/country-search/template.html?raw";
 
 // Styles
-import "@components/Flag-gallery/Country-search/style.css";
+import "@components/Flag-gallery/Filters-panel/country-search/style.css";
 
 import {
   base,
   modifiers,
-} from "@components/Flag-gallery/Country-search/Country-search-class-names.js";
+} from "@components/Flag-gallery/Filters-panel/country-search/country-search-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-import Options from "@components/Flag-gallery/Country-search/Options/Options.js";
+import Options from "@components/Flag-gallery/Filters-panel/country-search/Options/Options.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 import countryNames from "@data/country-names.json" with { type: "json" };
 
-const fuse = new Fuse(countriesNames, fuseConfig);
+// const fuse = new Fuse(countriesNames, fuseConfig);
+const fuse = new Fuse(countriesSubregions, fuseConfig);
 
 export default class CountrySearch extends BaseComponent {
   constructor(state, dispatch, filterItems) {
@@ -32,7 +34,7 @@ export default class CountrySearch extends BaseComponent {
     this.options = new Options(state, dispatch, this);
     this.closeButton = new CloseButton(() => { }, this.clearInput.bind(this), {
       top: "50%",
-      right: "45px",
+      right: "10px",
       filter:
         "invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(80%)",
       width: "30px",
@@ -53,7 +55,7 @@ export default class CountrySearch extends BaseComponent {
     // Oculatar CloseButton al iniciar
     this.closeButton.hide();
 
-    let input = this.dom.querySelector(".country-search__input");
+    let input = this.dom.querySelector(".country-search-subregion__input");
     input.after(this.closeButton.dom);
 
     this.dom.appendChild(this.options.dom);
@@ -75,7 +77,7 @@ export default class CountrySearch extends BaseComponent {
         this.closeButton.hide();
 
         // Resetear lista de items cuando se borra el input completamente
-        this.filterItems(countryNames);
+        this.filterItems(countriesSubregions);
 
         if (input !== document.activeElement) {
           input.focus();
@@ -91,22 +93,30 @@ export default class CountrySearch extends BaseComponent {
 
         this.results = results.map(result => result.item);
         // console.log(results);
+
+        // Seleccionar la primera opción ya que siempre es la respuesta con más coincidencia al texto ingresado
+        if (this.results.length != 0) {
+          this.options.dom.querySelector(".search-options-subregion__option").classList.add("search-options-subregion__option--selected");
+        }
       }
     });
 
     input.addEventListener("focus", () => {
       if (input.value.length === 0) {
-        if (this.options.itemHistory.length == 0) {
-          return;
-        }
-        this.options.renderHistoryOptions();
+        // if (this.options.itemHistory.length == 0) {
+        //   return;
+        // }
+        // this.options.renderHistoryOptions();
+
+        this.options.renderOptions(countriesSubregions);
+        this.results = countriesSubregions;
       }
 
       this.options._show(true);
     });
 
     input.addEventListener("blur", (event) => {
-      const options = this.dom.querySelector(".search-options");
+      const options = this.dom.querySelector(".search-options-subregion");
       if (
         event.relatedTarget && options.contains(event.relatedTarget)
       ) {
@@ -128,10 +138,17 @@ export default class CountrySearch extends BaseComponent {
 
       if (event.key === "Enter") {
         event.preventDefault();
-        const button = this.dom.querySelector(".country-search__button");
+
+        // Si no hay coincidencias no hacer nada
+        if (this.results.length === 0) return;
+
+        const button = this.dom.querySelector(".country-search-subregion__button");
         button.click();
         input.blur();
         this.closeButton.show();
+
+        // Ingresar la primera opción por defecto para evitar enviar resultados a medias
+        input.value = this.results[0];
       }
 
       if (event.key === "ArrowUp") {
@@ -147,19 +164,19 @@ export default class CountrySearch extends BaseComponent {
     });
 
     // Evento del botón
-    const searchButton = this.dom.querySelector(".country-search__button");
+    const searchButton = this.dom.querySelector(".country-search-subregion__button");
 
     searchButton.addEventListener("click", () => {
       if (input.value.length === 0) return;
 
       // Ejecutar búsqueda
       this.filterItems(this.results);
-      this.options.addToHistory(input.value, false);
+      // this.options.addToHistory(input.value, false);
     });
   }
 
   clearInput() {
-    let input = this.dom.querySelector(".country-search__input");
+    let input = this.dom.querySelector(".country-search-subregion__input");
     input.value = "";
     input.dispatchEvent(new Event("input", { bubbles: true }));
   }
@@ -180,7 +197,7 @@ export default class CountrySearch extends BaseComponent {
 
     // Si no se está dentro de flag-gallery ↔ país, entonces resetear solo si había texto
     if (prevRoute !== newRoute && !stayingWithinGallery) {
-      const input = this.dom.querySelector(".country-search__input");
+      const input = this.dom.querySelector(".country-search-subregion__input");
       if (input && input.value.trim().length > 0) {
         this.clearInput();
       }

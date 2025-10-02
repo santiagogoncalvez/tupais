@@ -9,6 +9,9 @@ import {
 } from "@components/Flag-gallery/Filters-panel/Filters-panel-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
+import CountrySearch from "@components/Flag-gallery/Filters-panel/Country-search/Country-search.js";
+
+
 import elt from "@utils/elt.js";
 
 
@@ -23,6 +26,18 @@ export default class FiltersPanel extends BaseComponent {
     this.filterAction = filterAction;
     this.dom = this._createDom();
 
+    this.countrySearch =
+      new CountrySearch(
+        state,
+        dispatch,
+        (data) => {
+          if (data.length == 1) {
+            // 
+            this.filterAction({ category: "subregion", value: data[0] });
+          }
+        }
+      );
+
     this.activeFilters = {}; // objeto que guarda los filtros activos
 
     this._init();
@@ -31,6 +46,7 @@ export default class FiltersPanel extends BaseComponent {
   _init() {
     const optionsButtons = this.dom.querySelectorAll(".filters-panel__option");
 
+    // Continente
     for (let option of optionsButtons) {
       option.addEventListener("click", () => {
         const category = option.dataset.filterCategory;
@@ -55,6 +71,9 @@ export default class FiltersPanel extends BaseComponent {
         this.renderFilterChip(category, value);
       });
     }
+
+    // Subregión
+    this.dom.querySelector(".filters-panel__section.subregion").appendChild(this.countrySearch.dom);
   }
 
   // Quita la clase "active" de todos los botones de la categoría

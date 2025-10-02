@@ -1,15 +1,15 @@
 import { ACTIONS } from "@constants/action-types.js";
 import elt from "@utils/elt.js";
 
-import htmlString from "@components/Flag-gallery/Country-search/Options/template.html?raw";
+import htmlString from "@components/Flag-gallery/Filters-panel/Country-search/Options/template.html?raw";
 
 // Styles
-import "@components/Flag-gallery/Country-search/Options/style.css";
+import "@components/Flag-gallery/Filters-panel/Country-search/Options/style.css";
 
 import {
   base,
   modifiers,
-} from "@components/Flag-gallery/Country-search/Options/Options-class-names.js";
+} from "@components/Flag-gallery/Filters-panel/Country-search/Options/Options-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
@@ -71,8 +71,8 @@ export default class Options extends BaseComponent {
   _addOptionEvents(option, isNormalOption) {
     //Eventos de mouse
     option.addEventListener("click", () => {
-      const input = this.dom.parentElement.querySelector(".country-search__input");
-      const searchButton = this.dom.parentElement.querySelector(".country-search__button");
+      const input = this.dom.parentElement.querySelector(".country-search-subregion__input");
+      const searchButton = this.dom.parentElement.querySelector(".country-search-subregion__button");
 
       this.country = option.dataset.value;
       input.value = this.country;
@@ -84,7 +84,7 @@ export default class Options extends BaseComponent {
 
       searchButton.click();
 
-      this.addToHistory(this.country, isNormalOption);
+      // this.addToHistory(this.country, isNormalOption);
 
       this._show(false);
     });
@@ -252,7 +252,9 @@ export default class Options extends BaseComponent {
     this.dom.innerHTML = "";
 
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < optionNames.length && i < this.optionsLimit; i++) {
+    for (let i = 0; i < optionNames.length
+      // && i < this.optionsLimit
+      ; i++) {
       let newOption = elt(
         "div",
         {
@@ -260,7 +262,7 @@ export default class Options extends BaseComponent {
           tabIndex: 0,
         },
         elt("img", {
-          className: "search-options__icon",
+          className: "search-options-subregion__icon",
           src: "/tupais/icons/search.png",
           alt: `search`,
           loading: "lazy",
@@ -290,15 +292,15 @@ export default class Options extends BaseComponent {
           tabIndex: 0,
         },
         elt("img", {
-          className: "search-options__icon",
+          className: "search-options-subregion__icon",
           src: "/tupais/icons/history.png",
           alt: `history`,
           loading: "lazy",
           width: "18",
           height: "18",
         }),
-        elt("span", { className: "search-options__text" }, item.value),
-        elt("div", { className: "search-options__close-container" })
+        elt("span", { className: "search-options-subregion__text" }, item.value),
+        elt("div", { className: "search-options-subregion__close-container" })
       );
       newOption.setAttribute("data-value", item.value);
 
@@ -308,7 +310,7 @@ export default class Options extends BaseComponent {
         filter:
           "invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(80%)", centerAbsolute: true
       });
-      newOption.querySelector(".search-options__close-container").appendChild(closeButton.dom);
+      newOption.querySelector(".search-options-subregion__close-container").appendChild(closeButton.dom);
 
       // Acá se va a ingresar el valor de isNormalOption desde la propiedad "fromOption" del elemento de historial
       this._addOptionEvents(newOption, item.exact);

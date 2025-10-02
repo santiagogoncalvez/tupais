@@ -9,7 +9,7 @@
   height: 100%;
   background: transparent;
   /* box-shadow: -2px 0 6px rgba(0, 0, 0, 0.05); */
-  padding: 0px 20px;
+  padding: 0px 20px 0px 0px;
   display: flex;
   flex-direction: column;
   /* z-index: 1000; */
@@ -116,6 +116,7 @@
   font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
+  text-align: start;
 }
 
 .filters-panel__options button:hover,

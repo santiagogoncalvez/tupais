@@ -30,7 +30,7 @@ export default class FlagGallery extends BaseComponent {
 
     this.state = state;
 
-    this.flagList = new FlagList(state, dispatch, 1.1);
+    this.flagList = new FlagList(state, dispatch, 1.15);
     this.countrySearch = new CountrySearch(state, dispatch, this.flagList.setSearchResults.bind(this.flagList));
     this.sortDropdown = new SortDropdown(state, dispatch, this.flagList.sort.bind(this.flagList));
     this.scrollTop = new ScrollTop(containerScroll);

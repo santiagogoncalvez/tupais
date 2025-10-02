@@ -200,3 +200,24 @@ export function getArea(countryName) {
 
    return country ? country.area : null;
 }
+
+export function getSubregion(countryName) {
+   if (!countryName || !Array.isArray(countriesInfo)) return null;
+
+   const normalize = str =>
+      str
+         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+         : "";
+
+   const target = normalize(countryName);
+
+   const country = countriesInfo.find(c => {
+      const common = normalize(c.name?.common);
+      const official = normalize(c.name?.official);
+      const translation = normalize(c.translations?.spa?.common);
+
+      return target === common || target === official || target === translation;
+   });
+
+   return country ? country.subregion : null;
+}

@@ -10,7 +10,7 @@ import BaseComponent from "@shared/Base-component.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import countryNames from "@data/country-names.json" with { type: "json" };
-import { getContinent, getPopulation, getArea } from "@utils/country-parser.js";
+import { getContinent, getPopulation, getArea, getSubregion } from "@utils/country-parser.js";
 
 export default class FlagList extends BaseComponent {
   constructor(state, dispatch, scale = 1) {
@@ -65,36 +65,33 @@ export default class FlagList extends BaseComponent {
   // 🎛️ Filtros
   // =========================
   applyFilter({ category, value, remove = false }) {
+    const buttons = this.dom.querySelectorAll(`.filters-panel__option[data-filter-category="${category}"]`);
+
     if (remove) {
-      // 🔹 Eliminar solo ese filtro
-      if (category === "continent") {
-        delete this.activeFilters[category]; // continente único
-      } else if (Array.isArray(this.activeFilters[category])) {
-        this.activeFilters[category] = this.activeFilters[category].filter(v => v !== value);
-        if (this.activeFilters[category].length === 0) {
-          delete this.activeFilters[category];
-        }
-      }
+      // 🔹 Eliminar filtro de estado
+      delete this.activeFilters[category];
+
+      // 🔹 Desmarcar todos los botones de esa categoría
+      buttons.forEach(btn => btn.classList.remove("selected"));
     } else {
-      // 🔹 Agregar/activar filtro
-      if (category === "continent") {
-        this.activeFilters[category] = value;
-      } else {
-        if (!this.activeFilters[category]) this.activeFilters[category] = [];
-        if (!this.activeFilters[category].includes(value)) this.activeFilters[category].push(value);
-      }
+      // 🔹 Selección única: asignar valor directamente
+      this.activeFilters[category] = value;
+
+      // 🔹 Limpiar selección visual de todos los botones de esa categoría
+      buttons.forEach(btn => btn.classList.remove("selected"));
+
+      // 🔹 Marcar solo el botón seleccionado
+      const selectedBtn = this.dom.querySelector(
+        `.filters-panel__option[data-filter-category="${category}"][data-filter-value="${value}"]`
+      );
+      if (selectedBtn) selectedBtn.classList.add("selected");
     }
 
+    // 🔹 Aplicar filtros
     this.applyAll();
-
-    // 🔹 Regenerar labels si el orden es por continente
-    if (this.sortType === "continent") {
-      const visibles = this.items
-        .filter(item => item.style.display !== "none")
-        .map(item => item.dataset.value);
-      this.renderItemsByContinent(visibles);
-    }
   }
+
+
 
 
 
@@ -110,30 +107,31 @@ export default class FlagList extends BaseComponent {
   // ⚡ Motor principal
   // =========================
   applyAll() {
-    // 1️⃣ Base: búsqueda o todos
     let result = this.searchResults ? [...this.searchResults] : [...this.allCountries];
 
-    // 2️⃣ Filtros activos
+    // 🔹 Filtrar por continente (selección única)
     if (this.activeFilters.continent) {
       result = result.filter(name => getContinent(name) === this.activeFilters.continent);
     }
 
-    // 3️⃣ Mostrar/ocultar nodos
-    let visibleCount = 0;
-    let visibleItems = [];
+    // 🔹 Filtrar por subregión (selección única)
+    if (this.activeFilters.subregion) {
+      result = result.filter(name => getSubregion(name) === this.activeFilters.subregion);
+    }
 
+    // 🔹 Mostrar/ocultar nodos
+    let visibleItems = [];
     this.items.forEach(item => {
       const name = item.dataset.value;
       if (result.includes(name)) {
         item.style.display = "";
         visibleItems.push(name);
-        visibleCount++;
       } else {
         item.style.display = "none";
       }
     });
 
-    // 4️⃣ Mostrar/ocultar labels
+    // 🔹 Mostrar/ocultar labels de continente
     this.labels.forEach(label => {
       const continent = label.textContent.trim();
       const anyVisible = this.items.some(
@@ -142,28 +140,23 @@ export default class FlagList extends BaseComponent {
       label.style.display = anyVisible ? "" : "none";
     });
 
-    // 5️⃣ Ordenar visibles o regenerar labels
+    // 🔹 Ordenar visibles o regenerar labels
     if (this.sortType === "continent") {
       this.renderItemsByContinent(visibleItems);
     } else {
       this.sort(this.sortType, { reRender: false });
     }
 
-
-
     // 🔹 Caso: resultados vacíos
     if (result.length === 0) {
-      // Ocultar todos los países
       this.items.forEach(item => (item.style.display = "none"));
-      // Ocultar labels
       this.labels.forEach(label => (label.style.display = "none"));
-      // Mostrar mensaje de "no results"
       this.renderNoResults(true);
-      return;
     } else {
       this.renderNoResults(false);
     }
   }
+
 
 
 

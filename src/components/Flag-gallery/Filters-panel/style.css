@@ -52,7 +52,7 @@
 
   padding: 4px 10px;
   background-color: #00638e; /* azul más fuerte que contraste con el hover */
-  color: white; 
+  color: white;
   /* border: 1px solid #9ed2ff; */
   border-radius: 999px; /* pill shape */
   font-size: 0.85rem;
@@ -176,18 +176,18 @@
   }
 }
 
-
 /* Botón de filtro activo */
 .filters-panel__options button.active {
   background-color: #cfe0f3; /* azul claro, contraste suave */
-  color: #00405d;             /* texto más oscuro */
-  border: 1px solid #728ca2;  /* borde ligeramente más fuerte que el fondo */
+  color: #00405d; /* texto más oscuro */
+  border: 1px solid #728ca2; /* borde ligeramente más fuerte que el fondo */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* pequeño relieve */
 }
 
 /* Mantener transición suave */
 .filters-panel__options button {
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* Hover sobre botón activo */
@@ -195,4 +195,43 @@
   background-color: #b8d4e8; /* un poco más oscuro al pasar el mouse */
   border-color: #7daac2;
   cursor: pointer;
+}
+
+/* Clases para contenedores de opciones colapsables por muchas opciones */
+.filters-panel__options--collapsible {
+  max-height: 180px; /* altura inicial visible */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.filters-panel__options--expanded {
+  max-height: 1000px; /* suficientemente grande para mostrar todo */
+}
+
+.filters-panel__toggle {
+  display: inline-block;
+  width: fit-content;
+  /* padding: 0.4rem 0.6rem; */
+  padding: 0;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #001f31; /* gris neutro, discreto */
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: start;
+  transition: color 0.2s ease;
+}
+.filters-panel__toggle-text {
+  text-decoration: underline; /* indicación ligera de focus */
+}
+
+.filters-panel__toggle:hover {
+  color: #00405d; /* sutil cambio al pasar el mouse */
+}
+
+.filters-panel__toggle:focus {
+  outline: none;
 }

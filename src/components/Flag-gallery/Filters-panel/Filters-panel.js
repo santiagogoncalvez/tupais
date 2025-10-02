@@ -9,7 +9,6 @@ import {
 } from "@components/Flag-gallery/Filters-panel/Filters-panel-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-import CountrySearch from "@components/Flag-gallery/Filters-panel/Country-search/Country-search.js";
 
 
 import elt from "@utils/elt.js";
@@ -26,17 +25,6 @@ export default class FiltersPanel extends BaseComponent {
     this.filterAction = filterAction;
     this.dom = this._createDom();
 
-    this.countrySearch =
-      new CountrySearch(
-        state,
-        dispatch,
-        (data) => {
-          if (data.length == 1) {
-            // 
-            this.filterAction({ category: "subregion", value: data[0] });
-          }
-        }
-      );
 
     this.activeFilters = {}; // objeto que guarda los filtros activos
 
@@ -58,6 +46,12 @@ export default class FiltersPanel extends BaseComponent {
           this._resetCategoryButtons(category);
         }
 
+        // 🔹 Si es continente, solo puede haber uno activo
+        if (category === "subregion") {
+          // Quitar highlight de todos los botones de la categoría
+          this._resetCategoryButtons(category);
+        }
+
         // Marcar botón como activo
         option.classList.add("active");
 
@@ -72,8 +66,17 @@ export default class FiltersPanel extends BaseComponent {
       });
     }
 
-    // Subregión
-    this.dom.querySelector(".filters-panel__section.subregion").appendChild(this.countrySearch.dom);
+    // Toggle "Mostrar más" / "Mostrar menos"
+    const toggleButtons = this.dom.querySelectorAll(".filters-panel__toggle");
+    toggleButtons.forEach(btn => {
+      const optionsContainer = btn.previousElementSibling; // asume que el botón sigue al contenedor
+      btn.addEventListener("click", () => {
+        const expanded = optionsContainer.classList.toggle("filters-panel__options--expanded");
+        btn.querySelector(".filters-panel__toggle-text").textContent = expanded ? "Mostrar menos" : "Mostrar más";
+        btn.querySelector(".filters-panel__toggle-icon").textContent = expanded ? "- " : "+ ";
+
+      });
+    });
   }
 
   // Quita la clase "active" de todos los botones de la categoría

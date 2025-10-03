@@ -37,6 +37,8 @@ export default class FlagInfo extends BaseComponent {
   }
 
   _init() {
+    // Semi breadcrumb para volver a la galería
+    // this.dom.querySelector(".flag-info__content").prepend(elt("a", { className: "flag-gallery__back-to-gallery", href: "#/flag-gallery", ariaLabel: "Volver a la galería" }, "⭠ Volver a la galería"));
     // const cointainer = this.dom.querySelector(".flag-info__container");
   }
 

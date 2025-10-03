@@ -127,11 +127,8 @@ export default class FlagList extends BaseComponent {
     if (this.activeFilters.sea) {
       result = result.filter(name => {
         const landlocked = getSeaAccess(name);
-        if (this.activeFilters.sea === "Con acceso al mar") {
-          return landlocked === false;
-        } else if (this.activeFilters.sea === "Sin acceso al mar") {
-          return landlocked === true;
-        }
+        if (this.activeFilters.sea === "Con acceso al mar") return landlocked === false;
+        if (this.activeFilters.sea === "Sin acceso al mar") return landlocked === true;
         return true;
       });
     }
@@ -140,11 +137,8 @@ export default class FlagList extends BaseComponent {
     if (this.activeFilters.island) {
       result = result.filter(name => {
         const isIsland = getIsIsland(name);
-        if (this.activeFilters.island === "Es isla") {
-          return isIsland === true;
-        } else if (this.activeFilters.island === "No es isla") {
-          return isIsland === false;
-        }
+        if (this.activeFilters.island === "Es isla") return isIsland === true;
+        if (this.activeFilters.island === "No es isla") return isIsland === false;
         return true;
       });
     }
@@ -161,16 +155,35 @@ export default class FlagList extends BaseComponent {
       const selectedNorm = selectedLangs.map(normalize).filter(Boolean);
 
       result = result.filter(name => {
-        const langs = getLanguages(name) || []; // getLanguages devuelve array
+        const langs = getLanguages(name) || [];
         const countryNorm = langs.map(normalize).filter(Boolean);
-
-        // AND: cada idioma seleccionado debe estar presente
-        return selectedNorm.every(sel =>
-          countryNorm.some(cn => cn === sel)
-        );
+        return selectedNorm.every(sel => countryNorm.some(cn => cn === sel));
       });
     }
 
+    // 🔹 Filtrar por población (rango) → único
+    if (this.activeFilters.population) {
+      const { min, max } = this.activeFilters.population; // valor único
+
+      result = result.filter(name => {
+        const item = this.items.find(i => i.dataset.value === name);
+        if (!item) return false;
+        const population = parseInt(item.dataset.population, 10);
+        return population >= min && population <= max;
+      });
+    }
+
+    // 🔹 Filtrar por área (rango) → único
+    if (this.activeFilters.area) {
+      const { min, max } = this.activeFilters.area; // valor único
+
+      result = result.filter(name => {
+        const item = this.items.find(i => i.dataset.value === name);
+        if (!item) return false;
+        const area = parseFloat(item.dataset.area); // 👈 usar parseFloat porque hay decimales
+        return area >= min && area <= max;
+      });
+    }
 
     // 🔹 Mostrar/ocultar nodos
     let visibleItems = [];
@@ -209,7 +222,6 @@ export default class FlagList extends BaseComponent {
       this.renderNoResults(false);
     }
   }
-
 
 
 

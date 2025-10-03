@@ -9,7 +9,7 @@
   height: 100%;
   background: transparent;
   /* box-shadow: -2px 0 6px rgba(0, 0, 0, 0.05); */
-  padding: 0px 20px 0px 0px;
+  padding: 0px 20px 40px 0px;
   display: flex;
   flex-direction: column;
   /* z-index: 1000; */
@@ -236,3 +236,6 @@
 .filters-panel__toggle:focus {
   outline: none;
 }
+
+
+

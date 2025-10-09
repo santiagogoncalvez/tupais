@@ -6,7 +6,7 @@ import htmlString from "@Modal/Settings/template.html?raw";
 import "@Modal/Settings/style.css";
 
 // Components
-import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js";
+// import DarkModeButton from "@Modal/Settings/Dark-mode-button/Dark-mode-button.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 // Otros
@@ -24,7 +24,7 @@ export default class Settings extends BaseComponent {
     this.closeButton = new CloseButton(dispatch, {
       type: ACTIONS.CLOSE_SETTINGS,
     });
-    this.darkModeButton = new DarkModeButton(state, dispatch);
+    // this.darkModeButton = new DarkModeButton(state, dispatch);
     this.continentSelector = continentSelector;
     this.dom = this._createDom();
     this._init(dispatch);

@@ -99,9 +99,8 @@
   transition: all 0s ease;
 }
 
-
 /* Inputs */
-.slider__inputs{
+.slider__inputs {
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -124,7 +123,7 @@
   }
 }
 
-.slider__value-type{
+.slider__value-type {
   height: fit-content;
   margin-left: 5px;
 }

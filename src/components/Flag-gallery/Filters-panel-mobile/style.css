@@ -1,47 +1,55 @@
 /* Panel base */
-.filters-panel {
-  /* position: absolute; */
+.filters-panel-mobile {
+  color: #001f31;
+  /* background: rgb(192, 192, 192); */
+  background: rgb(250, 250, 250);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
 
-  /* top: 0; */
-  /* right: -300px; */
-  /* left: 0; */
-  width: 300px;
-  height: 100%;
-  background: transparent;
-  /* box-shadow: -2px 0 6px rgba(0, 0, 0, 0.05); */
-  padding: 0px 40px 40px 0px;
-  padding: 20px 20px;
+  height: 100vh;
+  width: 100vw;
+  /* Este overflow hace que se vea correcto */
+
+  border: 0;
+  padding: 20px 40px 0px 40px;
+  padding-top: 16px;
+  /* padding-bottom: 130px; */
+  z-index: 11;
+  transition: all 0.3s ease-in-out;
+  margin: 0;
+  user-select: none;
+
+  /* scrollbar-gutter: stable both-edges; */
+}
+
+.filters-panel-mobile--show {
+  display: flex;
+}
+
+.filters-panel-mobile__container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: fit-content;
+  /* scrollbar-gutter: stable both-edges; */
+  padding: 20px 20px 20px 0px;
+
   display: flex;
   flex-direction: column;
-  /* z-index: 1000; */
-  transition: right 0.3s ease-in-out;
-  /* border-left: 1px solid #e2e8f0; */
-}
-
-/* Responsive */
-@media (max-width: 815px) {
-  .filters-panel {
-    display: none;
-  }
-}
-
-.filters-panel--hidden {
-  display: none;
-}
-
-.filters-panel.is-open {
-  right: 0;
+  gap: 15px;
 }
 
 /* Header */
-.filters-panel__header {
+.filters-panel-mobile__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
 }
 
-.filters-panel__title {
+.filters-panel-mobile__title {
   font-size: 1.2rem;
   color: #001f31;
   margin: 0;
@@ -101,18 +109,12 @@
   background-color: #3f96bb;
 }
 
-.filters-panel__container--modal{
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 /* Secciones */
-.filters-panel__section {
+.filters-panel-mobile__section {
   margin-bottom: 15px;
 }
 
-.filters-panel__label {
+.filters-panel-mobile__label {
   font-size: 1rem;
   color: #001f31;
   font-weight: 700;
@@ -120,13 +122,17 @@
   margin-bottom: 6px;
 }
 
-.filters-panel__options {
+.filters-panel-mobile__label:first-of-type {
+  margin-top: 0;
+}
+
+.filters-panel-mobile__options {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
 }
 
-.filters-panel__options button {
+.filters-panel-mobile__options button {
   background: #f5f8fc;
   color: #001f31;
   border: 1px solid #d1d5db;
@@ -138,8 +144,8 @@
   text-align: start;
 }
 
-.filters-panel__options button:hover,
-.filters-panel__options button.active {
+.filters-panel-mobile__options button:hover,
+.filters-panel-mobile__options button.active {
   background: #e2e8f0;
   color: #001f31;
   border-color: #b0b7c3;
@@ -152,17 +158,22 @@
 }
 
 /* Footer */
-.filters-panel__footer {
+.filters-panel-mobile__footer {
   margin-top: auto;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
 
-  margin-top: 15px;
+  height: 200px;
+
+  border-top: solid 1px #d1d5db;
 }
 
-.filters-panel__reset,
-.filters-panel__apply {
+.filters-panel-mobile__reset,
+.filters-panel-mobile__apply {
   flex: 1;
+  height: 50px;
   padding: 8px 0;
   border-radius: 5px;
   border: 1px solid #d1d5db;
@@ -170,17 +181,19 @@
   font-weight: 500;
   background: white;
   color: #001f31;
+  font-size: 1rem;
+
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
-.filters-panel__reset:hover {
+.filters-panel-mobile__reset:hover {
   background: #e2e8f0;
 }
-.filters-panel__apply:hover{
+.filters-panel-mobile__apply:hover {
   background-color: #12739d;
 }
 /* Footer botón aplicar destacado */
-.filters-panel__apply {
+.filters-panel-mobile__apply {
   border-color: #00405d;
   font-weight: 600;
   color: white;
@@ -188,10 +201,18 @@
   border-color: #00638e;
 }
 
-
+/* Responsive */
+@media (max-width: 768px) {
+  .filters-panel-mobile {
+    width: 100%;
+  }
+  .filters-panel-mobile.is-open {
+    right: 0;
+  }
+}
 
 /* Botón de filtro activo */
-.filters-panel__options button.active {
+.filters-panel-mobile__options button.active {
   background-color: #cfe0f3; /* azul claro, contraste suave */
   color: #00405d; /* texto más oscuro */
   border: 1px solid #728ca2; /* borde ligeramente más fuerte que el fondo */
@@ -199,30 +220,30 @@
 }
 
 /* Mantener transición suave */
-.filters-panel__options button {
+.filters-panel-mobile__options button {
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 /* Hover sobre botón activo */
-.filters-panel__options button.active:hover {
+.filters-panel-mobile__options button.active:hover {
   background-color: #b8d4e8; /* un poco más oscuro al pasar el mouse */
   border-color: #7daac2;
   cursor: pointer;
 }
 
 /* Clases para contenedores de opciones colapsables por muchas opciones */
-.filters-panel__options--collapsible {
+.filters-panel-mobile__options--collapsible {
   max-height: 180px; /* altura inicial visible */
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
-.filters-panel__options--expanded {
+.filters-panel-mobile__options--expanded {
   max-height: 1000px; /* suficientemente grande para mostrar todo */
 }
 
-.filters-panel__toggle {
+.filters-panel-mobile__toggle {
   display: inline-block;
   width: fit-content;
   /* padding: 0.4rem 0.6rem; */
@@ -238,27 +259,25 @@
   text-align: start;
   transition: color 0.2s ease;
 }
-.filters-panel__toggle-text {
+.filters-panel-mobile__toggle-text {
   text-decoration: underline; /* indicación ligera de focus */
 }
 
-.filters-panel__toggle:hover {
+.filters-panel-mobile__toggle:hover {
   color: #00405d; /* sutil cambio al pasar el mouse */
 }
 
-.filters-panel__toggle:focus {
+.filters-panel-mobile__toggle:focus {
   outline: none;
 }
 
-
-
-.filters-panel__clear {
+.filters-panel-mobile__clear {
   display: inline-block;
   width: fit-content;
-  margin-top: 10px;        /* separación de los chips */
+  margin-top: 10px; /* separación de los chips */
   font-size: 1rem;
   font-weight: 500;
-  color: #00638e;              /* gris discreto */
+  color: #00638e; /* gris discreto */
   background: none;
   border: none;
   padding: 0;
@@ -268,10 +287,10 @@
   text-align: start;
 }
 
-.filters-panel__clear:hover {
+.filters-panel-mobile__clear:hover {
   color: #000;
 }
 
-.filters-panel__clear:active {
+.filters-panel-mobile__clear:active {
   color: #333;
 }

@@ -1,4 +1,4 @@
-.country-search {
+.country-search-subregion {
   position: relative;
   height: 40px;
   width: 400px;
@@ -13,14 +13,14 @@
   align-items: center;
   justify-content: end;
 
-  border-radius: 0px 6px 6px 0px;
+  border-radius: 6px;
 }
 
-.country-search:hover {
+.country-search-subregion:hover {
   border-color: rgb(230, 230, 230);
 }
 
-.country-search__input {
+.country-search-subregion__input {
   width: 100%;
   height: 100%;
   border: none;
@@ -36,20 +36,20 @@
   background-color: rgb(253, 253, 253);
   border: 1px solid rgb(240, 240, 240);
   border-width: 1px 1px 1px 1px;
-  border-radius: 6px 0px 0px 6px;
+  border-radius: 6px;
   padding-left: 16px;
 }
 
-.country-search__input:focus-within {
+.country-search-subregion__input:focus-within {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.075);
   border-color: rgb(200, 200, 200);
 }
 
-.country-search__input::placeholder {
+.country-search-subregion__input::placeholder {
   color: rgb(150, 150, 150);
 }
 
-.country-search__close {
+.country-search-subregion__close {
   position: absolute;
   right: 40px;
   padding: 0px 14px 0px 14px;
@@ -61,20 +61,20 @@
   justify-content: center;
 }
 
-.country-search__close .country-search__icon {
+.country-search-subregion__close .country-search-subregion__icon {
   width: 16px;
   height: 16px;
   filter: invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%)
     contrast(86%);
 }
 
-.country-search__border {
+.country-search-subregion__border {
   height: 50%;
   width: 1.3px;
   background-color: rgb(223, 223, 223);
 }
 
-.country-search__button {
+.country-search-subregion__button {
   padding: 0px 12px 0px 12px;
   background-color: rgb(253, 253, 253);
   border: 1px solid rgb(240, 240, 240);
@@ -88,15 +88,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  user-select: none;
 }
 
-.country-search__button:hover {
+.country-search-subregion__button:hover {
   background-color: #daecff;
   transition-duration: 0.3s;
 }
 
-.country-search__button .country-search__icon {
+.country-search-subregion__button .country-search-subregion__icon {
   width: 20px;
 }

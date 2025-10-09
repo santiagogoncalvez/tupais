@@ -57,7 +57,6 @@ main {
   display: flex;
   align-items: start;
   justify-content: center;
-  /* overflow: auto; */
 }
 
 /* Modal Animation */

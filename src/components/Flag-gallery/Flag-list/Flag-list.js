@@ -45,10 +45,10 @@ export default class FlagList extends BaseComponent {
     this.items = Array.from(this.dom.querySelectorAll(".flag-list__item"));
     this.labels = Array.from(this.dom.querySelectorAll(".flag-list__continent"));
 
-    if (this.scale !== 1) {
-      const list = this.dom.querySelector(".flag-list__list");
-      if (list) list.style.justifyContent = "start";
-    }
+    // if (this.scale !== 1) {
+    //   const list = this.dom.querySelector(".flag-list__list");
+    //   if (list) list.style.justifyContent = "start";
+    // }
   }
 
   syncState(state) { }
@@ -374,7 +374,7 @@ export default class FlagList extends BaseComponent {
 
     const newOption = elt(
       "li",
-      { className: "flag-list__item", tabIndex: 0 },
+      { className: "flag-list__item", tabIndex: -1 },
       elt(
         "a",
         {

@@ -1,23 +1,48 @@
+:root {
+  --flag-base: 200px; /* base un poco más grande */
+  --flag-max: 240px; /* límite superior */
+  --flag-gap: 18px; /* separación más aireada */
+  --flag-scale: 1;
+}
+
 .flag-list {
   width: 100%;
 }
 
 .flag-list__list {
-  width: 100%;
-
-  padding: 0;
-  /* padding-left: 60px; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--flag-gap) * var(--flag-scale));
+  list-style: none;
   margin: 0;
+  padding: 0;
+
+  justify-content: center; /* 👈 clave: siempre a la izquierda */
+}
+
+.flag-list__item {
+  flex: 1 1 var(--flag-base); /* base flexible */
+  min-width: calc(var(--flag-base) * var(--flag-scale));
+  max-width: calc(var(--flag-max) * var(--flag-scale));
+  aspect-ratio: 4 / 3;
 
   display: flex;
-  justify-content: start;
-  align-items: start;
-  flex-wrap: wrap;
-  /* gap: 25px; */
-  row-gap: 15px;
-  column-gap: 15px;
+  justify-content: center;
+  align-items: center;
 
-  list-style: none;
+  background-color: #f5f8fc;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 6px rgba(48, 48, 48, 0.1);
+  border-radius: calc(8px * var(--flag-scale));
+
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+}
+
+.flag-list__item:hover {
+  background-color: hsla(210, 25%, 94%, 0.95);
+  border-color: #d0e3f0;
+  box-shadow: 0 2px 8px rgba(48, 48, 48, 0.12);
 }
 
 .flag-list__continent {
@@ -30,33 +55,32 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-/* 160px x 116px */
-.flag-list__item {
-  /* height: 100px; */
-  width: 150px;
+.flag-list__link {
+  width: 100%;
+  height: 100%;
+  padding: calc(15px * var(--flag-scale));
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: calc(10px * var(--flag-scale));
+  font-size: calc(1rem * var(--flag-scale));
+  color: #00638e;
+  text-align: center;
+  text-decoration: none;
 
-  /* padding: 4px 8px; */
-
-  background-color: #f5f8fc;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 6px rgba(48, 48, 48, 0.1); /* shadow-md */
-  border-radius: 8px;
-
-  cursor: pointer;
-  color: inherit;
-
-  transition: all 0.05s ease-in-out;
+  border-radius: calc(8px * var(--flag-scale));
 }
 
-.flag-list__item:hover {
-  background-color: hsla(210, 25%, 94%, 0.904);
-  /* border-color: #b3d4e8; */
-  border-color: hsla(210, 25%, 94%, 0.904);
+.flag-list__name {
+  text-decoration: underline;
+}
 
-  box-shadow: 0 0px 0px rgba(48, 48, 48, 0.15); /* shadow-lg */
+.flag-list__flag-img {
+  height: calc(80px * var(--flag-scale));
+  width: auto;
+  border-radius: calc(4px * var(--flag-scale));
+  border: 1px solid #e8e8e8;
 }
 
 .flag-list__no-results {
@@ -64,32 +88,9 @@
   text-align: center;
   font-weight: 600;
   font-size: 1.1rem;
-  background: #fafafa; /* sutil contraste */
+  background: #fafafa;
   border-radius: 6px;
   color: #001f31;
-}
-
-.flag-list__link {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  color: #00638e;
-
-  text-align: center;
-}
-
-.flag-list__name{
-  text-decoration: underline;
 }
 
 /* Información extra solo visible con ordenamientos de población/superficie */
@@ -106,52 +107,4 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
-}
-
-.flag-list__flag-img {
-  height: 44px;
-  width: auto;
-
-  border-radius: 4px;
-  border: 1px solid rgb(232, 232, 232);
-}
-
-:root {
-  --flag-scale: 1; /* escala global */
-  --flag-gap: 15px; /* gap base entre items */
-  --flag-link-gap: 10px; /* gap dentro del link */
-}
-
-.flag-list__list {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: calc(var(--flag-gap) * var(--flag-scale));
-  column-gap: calc(var(--flag-gap) * var(--flag-scale));
-}
-
-.flag-list__item {
-  width: calc(150px * var(--flag-scale));
-  /** Corrección de tamaño para que se adapte en alto al contenido  */
-  /* height: calc(100px * var(--flag-scale)); */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: calc(8px * var(--flag-scale));
-}
-
-.flag-list__flag-img {
-  height: calc(44px * var(--flag-scale));
-  width: auto;
-  border-radius: calc(4px * var(--flag-scale));
-}
-
-.flag-list__link {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: calc(var(--flag-link-gap) * var(--flag-scale));
-  font-size: calc(1rem * var(--flag-scale));
-  padding: calc(15px * var(--flag-scale));
-  text-decoration: none;
 }

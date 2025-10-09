@@ -1,11 +1,11 @@
 import { ACTIONS } from "@constants/action-types.js";
 
-import htmlString from "@Modal/Settings/Dark-mode-button/template.html?raw";
+import htmlString from "@components/Header/Dark-mode-button/template.html?raw";
 
 // Styles
-import "@Modal/Settings/Dark-mode-button/style.css";
+import "@components/Header/Dark-mode-button/style.css";
 
-import { base } from "@Modal/Settings/Dark-mode-button/Dark-mode-button-class-names.js";
+import { base } from "@components/Header/Dark-mode-button/Dark-mode-button-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class DarkModeButton extends BaseComponent {
@@ -23,6 +23,7 @@ export default class DarkModeButton extends BaseComponent {
 
     this.dom.addEventListener("change", () => {
       dispatch({ type: ACTIONS.TOGGLE_DARK_MODE });
+      document.body.classList.toggle("dark-mode");
     });
 
     this.dom.addEventListener("keydown", (event) => {

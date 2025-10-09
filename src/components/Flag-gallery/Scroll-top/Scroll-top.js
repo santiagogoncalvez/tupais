@@ -45,6 +45,7 @@ export default class ScrollTop extends BaseComponent {
     let ticking = false;
 
     const onScroll = () => {
+      // console.log("scroll", this.elementScroll.scrollTop);
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const shouldShow = this.elementScroll.scrollTop > this.scrollThreshold;

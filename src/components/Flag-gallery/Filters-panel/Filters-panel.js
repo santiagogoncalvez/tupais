@@ -176,5 +176,13 @@ export default class FiltersPanel extends BaseComponent {
 
     this._updateClearButton();
   }
+
+  show() {
+    this.dom.classList.remove("filters-panel--hidden");
+  }
+
+  hide() {
+    this.dom.classList.add("filters-panel--hidden");
+  }
 }
 

@@ -20,6 +20,7 @@
 
 .continent-selector__button:hover {
   border-color: rgb(210, 210, 210);
+  background-color: rgb(241, 241, 241);
 }
 
 .continent-selector__button:focus {

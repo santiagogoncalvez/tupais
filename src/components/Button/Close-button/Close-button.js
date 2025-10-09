@@ -58,6 +58,7 @@ export default class CloseButton extends BaseComponent {
   show() {
     this.dom.classList.remove(this.modifiers.hidden);
     this.dom.classList.add(this.modifiers.show);
+    
   }
 
   hide() {

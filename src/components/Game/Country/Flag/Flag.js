@@ -14,6 +14,11 @@ import countriesCca2 from "@data/country-cca2.json";
 
 const flagPath = "/tupais/images/flags/";
 
+const DIRECTIONS = {
+  FORWARD: "forward",
+  BACKWARD: "backward",
+}
+
 export default class Flag extends BaseComponent {
   constructor(state, dispatch) {
     super();
@@ -50,7 +55,7 @@ export default class Flag extends BaseComponent {
       state.game.countries.length
     );
 
-    if (direction == "forward") {
+    if (direction == DIRECTIONS.FORWARD) {
       let oldFlagIndex = this.flagIndex;
       let newFlagIndex = nextIndex(this.flagIndex, 3);
 
@@ -91,7 +96,7 @@ export default class Flag extends BaseComponent {
 
       this.flagIndex = newFlagIndex;
     }
-    if (direction == "backward") {
+    if (direction == DIRECTIONS.BACKWARD) {
       //Cambiar la imagen del anterior del anterior.
       let oldFlagIndex = this.flagIndex;
       let newFlagIndex = prevIndex(this.flagIndex, 3);

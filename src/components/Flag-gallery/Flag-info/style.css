@@ -63,6 +63,7 @@
   transition: all 0.2s;
 
   margin-top: 15px;
+  user-select: none;
 }
 
 .flag-info__back-to-gallery:hover {

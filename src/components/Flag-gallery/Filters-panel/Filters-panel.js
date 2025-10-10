@@ -116,6 +116,24 @@ export default class FiltersPanel extends BaseComponent {
 
     // 🔹 Actualizar visibilidad del botón limpiar
     this._updateClearButton();
+
+    // 🔹 Sincronizar sliders con los filtros
+    if (filters.population) {
+      this.sliderPopulation.setRange(filters.population);
+    } else {
+      this.sliderPopulation.reset();
+    }
+
+    if (filters.area) {
+      this.sliderArea.setRange(filters.area);
+    } else {
+      this.sliderArea.reset();
+    }
+
+    // 🔹 Sincronizar buscador de idiomas (si aplica)
+    if (!filters.languages?.length) {
+      this.languageSearch.reset();
+    }
   }
 
   renderFilterChips() {
@@ -352,6 +370,8 @@ export default class FiltersPanel extends BaseComponent {
     this.dispatch({ type: ACTIONS.SET_FILTERS, payload: this.activeFilters });
   }
 
-
+  reset() {
+    this.languageSearch.reset();
+  }
 }
 

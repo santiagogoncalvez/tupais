@@ -201,4 +201,13 @@ export default class Slider extends BaseComponent {
     const logMax = Math.log(this.max);
     return (Math.log(value) - logMin) / (logMax - logMin);
   }
+
+  setRange(range) {
+    if (!range || typeof range.min !== "number" || typeof range.max !== "number") return;
+
+    this.currentMin = Math.max(this.min, Math.min(range.min, this.max));
+    this.currentMax = Math.max(this.min, Math.min(range.max, this.max));
+
+    this.updatePositions();
+  }
 }

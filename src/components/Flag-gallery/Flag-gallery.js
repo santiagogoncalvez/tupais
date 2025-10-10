@@ -88,6 +88,9 @@ export default class FlagGallery extends BaseComponent {
     this.countrySearch.reset();
     this.flagList.reset();
 
+    // this.filtersPanel.reset();
+    // this.filtersPanelMobile.reset();
+
     // Esto provoca un re-render de los filtros, pero es necesario para que se deseleccionen
     this.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });
   }

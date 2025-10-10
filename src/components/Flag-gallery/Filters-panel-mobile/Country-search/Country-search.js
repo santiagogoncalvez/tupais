@@ -149,7 +149,7 @@ export default class CountrySearch extends BaseComponent {
         // TODO: Mejorar esto para que no falle si no hay coincidencias exactas
         // Seleccionar la opción que esté seleccionada (la que tiene la clase .selected)
         // Si no hay ninguna seleccionada, seleccionar la primera
-        
+
         // input.value = this.results[0];
         input.dispatchEvent(new Event("input", { bubbles: true }));
 
@@ -197,27 +197,40 @@ export default class CountrySearch extends BaseComponent {
   }
 
   syncState(state) {
-    const prevRoute = this.state.router.currentRoute;
-    const newRoute = state.router.currentRoute;
+    this.state = state;
+  }
 
-    if (newRoute === prevRoute) return;
+  reset() {
+    const input = this.dom.querySelector(".country-search-subregion__input");
+    if (input && input.value.trim().length > 0) {
+      this.clearInput();
+      this.options._show(false);
+    }
+  }
 
-    const isGalleryRoot = (route) => route === "/flag-gallery";
-    const isGalleryCountry = (route) => route.startsWith("/flag-gallery/");
+  setSelected(languages) {
+    if (!Array.isArray(languages)) return;
 
-    const stayingWithinGallery =
-      (isGalleryRoot(prevRoute) && isGalleryCountry(newRoute)) ||
-      (isGalleryCountry(prevRoute) && isGalleryRoot(newRoute)) ||
-      (isGalleryCountry(prevRoute) && isGalleryCountry(newRoute));
+    const input = this.dom.querySelector(".country-search-subregion__input");
+    if (!input) return;
 
-    // Si no se está dentro de flag-gallery ↔ país, entonces resetear solo si había texto
-    if (prevRoute !== newRoute && !stayingWithinGallery) {
-      const input = this.dom.querySelector(".country-search-subregion__input");
-      if (input && input.value.trim().length > 0) {
-        this.clearInput();
-      }
+    // Mostrar el input con los idiomas seleccionados (solo visual)
+    input.value = languages.join(", ");
+
+    // Opcional: mostrar los idiomas activos en la lista (si existieran)
+    if (this.options && this.options.dom) {
+      const optionNodes = this.options.dom.querySelectorAll(".search-options-subregion__option");
+      optionNodes.forEach(opt => {
+        const text = opt.textContent.trim();
+        if (languages.includes(text)) {
+          opt.classList.add("search-options-subregion__option--selected");
+        } else {
+          opt.classList.remove("search-options-subregion__option--selected");
+        }
+      });
     }
 
-    this.state = state;
+    // Guardar internamente
+    this.results = languages;
   }
 }

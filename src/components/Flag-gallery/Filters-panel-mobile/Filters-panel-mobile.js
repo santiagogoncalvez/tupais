@@ -270,6 +270,12 @@ export default class FiltersPanelMobile extends BaseComponent {
     this._syncActiveButtons();
     this._renderFilterChips();
     this._updateApplyCount();
+
+    // Resetear sliders y buscador
+    this.languageSearch.reset();
+    this.sliderArea.reset();
+    this.sliderPopulation.reset();
+    
     this.hide();
   }
 
@@ -374,6 +380,27 @@ export default class FiltersPanelMobile extends BaseComponent {
     // 🔢 5️⃣ Actualizar contadores
     this._updateApplyCount?.();
     this._updateFiltersCount?.();
+
+    // 🔹 Sincronizar sliders con los filtros
+    if (filters.population) {
+      this.sliderPopulation.setRange(filters.population);
+    } else {
+      this.sliderPopulation.reset();
+    }
+
+    if (filters.area) {
+      this.sliderArea.setRange(filters.area);
+    } else {
+      this.sliderArea.reset();
+    }
+
+    // 🔹 Sincronizar buscador de idiomas (si aplica)
+    if (!filters.languages?.length) {
+      this.languageSearch.reset();
+    }
   }
 
+  reset() {
+    this.languageSearch.reset();
+  }
 }

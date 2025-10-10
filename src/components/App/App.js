@@ -1,6 +1,7 @@
 import store from "@store/store.js";
 
 import { ACTIONS } from "@constants/action-types.js";
+import { ROUTES, isRoute } from "@constants/routes.js";
 
 import elt from "@utils/elt.js";
 import { normalizeRoute } from "@utils/normalize-route.js";
@@ -181,6 +182,7 @@ export default class App {
 
 
 
+
     renderRoute() {
         let { currentRoute } = this.store.getState().router;
         currentRoute = normalizeRoute(currentRoute);
@@ -193,7 +195,7 @@ export default class App {
         this.prevRoute = currentRoute;
 
         // Resetear filtros solo si venimos de otra ruta que no sea /flag-gallery
-        if (currentRoute.startsWith("/flag-gallery") && !fromRoute?.startsWith("/flag-gallery")) {
+        if (currentRoute.startsWith(ROUTES.FLAG_GALLERY) && !fromRoute?.startsWith(ROUTES.FLAG_GALLERY)) {
             this.flagGallery.reset();
         }
 
@@ -211,7 +213,7 @@ export default class App {
         const newState = this.store.getState();
         // --- Ruteo ---
         switch (true) {
-            case currentRoute === "/":
+            case currentRoute === ROUTES.HOME:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
@@ -220,7 +222,7 @@ export default class App {
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
-            case currentRoute === "/challenge":
+            case currentRoute === ROUTES.CHALLENGE:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
@@ -229,7 +231,7 @@ export default class App {
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 break;
 
-            case currentRoute === "/record":
+            case currentRoute === ROUTES.RECORD:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
@@ -238,7 +240,7 @@ export default class App {
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
-            case currentRoute === "/time-trial":
+            case currentRoute === ROUTES.TIME_TRIAL:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
@@ -247,13 +249,13 @@ export default class App {
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
                 break;
 
-            case currentRoute === "/flag-gallery":
+            case currentRoute === ROUTES.FLAG_GALLERY:
                 this.about.dom.remove();
                 this.credits.dom.remove();
                 this.main.appendChild(this.flagGallery.dom);
                 break;
 
-            case currentRoute.startsWith("/flag-gallery/"):
+            case currentRoute.startsWith(`${ROUTES.FLAG_GALLERY}/`):
                 this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
                 this.about.dom.remove();
                 this.credits.dom.remove();
@@ -264,13 +266,13 @@ export default class App {
                 }
                 break;
 
-            case currentRoute === "/about":
+            case currentRoute === ROUTES.ABOUT:
                 this.flagGallery.dom.remove();
                 this.credits.dom.remove();
                 this.main.appendChild(this.about.dom);
                 break;
 
-            case currentRoute === "/credits":
+            case currentRoute === ROUTES.CREDITS:
                 this.flagGallery.dom.remove();
                 this.about.dom.remove();
                 this.main.appendChild(this.credits.dom);

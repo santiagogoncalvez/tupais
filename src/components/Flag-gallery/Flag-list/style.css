@@ -57,7 +57,7 @@
 
 .flag-list__link {
   width: 100%;
-  height: fit-content;
+  min-height: 100%;
   padding: calc(15px * var(--flag-scale));
   display: flex;
   flex-direction: column;

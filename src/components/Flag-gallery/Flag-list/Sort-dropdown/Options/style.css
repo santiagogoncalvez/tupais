@@ -21,6 +21,11 @@
   top: 38px;
 }
 
+.dropdown-options:focus {
+  outline: 0px solid;
+  outline-offset: 0px;
+}
+
 .dropdown-options__options:focus {
   outline: 0px solid;
   outline-offset: 0px;

@@ -3,6 +3,8 @@ import { ACTIONS } from "@constants/action-types.js";
 import { normStr } from "@utils/string-parser.js";
 import { nextIndex } from "@utils/circular-counter.js";
 
+import { shuffle } from "@utils/shuffle.js";
+
 import { getRandomCountries } from "@utils/country-parser.js";
 
 const GAME_TIME_TIMER = 300;
@@ -99,6 +101,8 @@ function newGame(game) {
   return {
     ...game,
     correctAnswers: 0,
+    // Desordenar países
+    countries: shuffle(game.countries),
     answer: "",
     correctFlags: [],
     incorrectFlags: [],

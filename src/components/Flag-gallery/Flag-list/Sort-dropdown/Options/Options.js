@@ -53,11 +53,7 @@ export default class Options extends BaseComponent {
       //Eventos de mouse
       option.addEventListener("click", (event) => {
         event.preventDefault();
-        this.option = option.dataset.value;
-
-        this.optionAction(this.option);
-        this.buttonAction(false);
-        this._show(false);
+        this.sendOption(option.dataset.value)
       });
 
       option.addEventListener("mouseenter", () => {
@@ -147,15 +143,21 @@ export default class Options extends BaseComponent {
           "." + this.modifiers.selectedOption.option
         );
         if (!curOpt) return;
-        this.option = currOpt.dataset.value;
-        //* Set continent
-        this.closeSelector();
+        this.sendOption(currOpt.dataset.value)
       }
     });
 
     this.dom.addEventListener("blur", () => {
       this.closeSelector();
     });
+  }
+
+  sendOption(selectedOption) {
+    this.option = selectedOption;
+
+    this.optionAction(this.option);
+    this.buttonAction(false);
+    this._show(false);
   }
 
   closeSelector() {

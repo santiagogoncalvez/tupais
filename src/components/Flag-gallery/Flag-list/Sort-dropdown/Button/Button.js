@@ -54,6 +54,7 @@ export default class Button extends BaseComponent {
 
     this.dom.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp" || event.key == "ArrowDown") {
+        event.preventDefault();
         this.show(true);
       }
     });

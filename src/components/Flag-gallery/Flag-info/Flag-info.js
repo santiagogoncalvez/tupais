@@ -302,7 +302,7 @@ export default class FlagInfo extends BaseComponent {
         elt("li", { className: "flag-info__item flag-info__item--coat-of-arms" },
           elt("span", { className: "flag-info__label" }, "Escudo de armas: "),
           elt("div", { className: "flag-info__data-container" },
-            elt("img", { className: "flag-info__coat-of-arms", src: countryInfo.coatOfArms.svg, alt: `Escudo de armas de ${country.name}`, width: 40, height: 40 })
+            elt("img", { className: "flag-info__coat-of-arms", src: `/tupais/images/coat-of-arms/${countryInfo.cca2.toLowerCase()}.svg`, alt: `Escudo de armas de ${country.name}`, width: 40, height: 40 })
           )
         )
       );

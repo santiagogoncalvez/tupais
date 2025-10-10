@@ -3,18 +3,18 @@ import fuseConfig from '@config/fuse-config.js' with { type: 'json' };
 // import countriesNames from "@data/country-names.json" with { type: "json" };
 import countriesLanguajes from "@data/country-languages.json" with { type: "json" };
 
-import htmlString from "@components/Flag-gallery/Filters-panel/country-search/template.html?raw";
+import htmlString from "@components/Flag-gallery/Filters-panel/Country-search/template.html?raw";
 
 // Styles
-import "@components/Flag-gallery/Filters-panel/country-search/style.css";
+import "@components/Flag-gallery/Filters-panel/Country-search/style.css";
 
 import {
   base,
   modifiers,
-} from "@components/Flag-gallery/Filters-panel/country-search/country-search-class-names.js";
+} from "@components/Flag-gallery/Filters-panel/Country-search/Country-search-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-import Options from "@components/Flag-gallery/Filters-panel/country-search/Options/Options.js";
+import Options from "@components/Flag-gallery/Filters-panel/Country-search/Options/Options.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
 // import countryNames from "@data/country-names.json" with { type: "json" };

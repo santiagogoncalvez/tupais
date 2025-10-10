@@ -243,4 +243,10 @@ export default class Options extends BaseComponent {
   setAnimateButtonAction(action) {
     this.buttonAction = action;
   }
+
+  reset(sortingOption = "name-asc") {
+    this.option = sortingOption;
+    this._assignSelected(false);
+    this._assignSelected(true);
+  }
 }

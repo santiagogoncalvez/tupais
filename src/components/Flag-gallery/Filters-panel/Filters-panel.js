@@ -47,7 +47,7 @@ export default class FiltersPanel extends BaseComponent {
     this.clearButton = elt("button", { className: "filters-panel__clear" }, "Limpiar filtros");
     this.clearButton.style.display = "none"; // oculto por defecto
     this.clearButton.addEventListener("click", () => this.clearAllFilters());
-    this.dom.querySelector(".active-filters").after(this.clearButton);
+    this.dom.querySelector(".active-filters-container").appendChild(this.clearButton);
 
     this._init();
   }
@@ -119,6 +119,9 @@ export default class FiltersPanel extends BaseComponent {
   }
 
   renderFilterChips() {
+    const containerFilters = this.dom.querySelector(".active-filters-container");
+    containerFilters.style.display = Object.keys(this.activeFilters).length > 0 ? "flex" : "none";
+
     const container = this.dom.querySelector(".active-filters");
     if (!container) return;
 
@@ -241,6 +244,9 @@ export default class FiltersPanel extends BaseComponent {
   }
 
   renderFilterChip(category, value) {
+    const container = this.dom.querySelector(".active-filters-container");
+    container.style.display = Object.keys(this.activeFilters).length > 0 ? "flex" : "none";
+
     const chipsContainer = this.dom.querySelector(".active-filters");
     const isMulti = this.multiCategories.includes(category);
 

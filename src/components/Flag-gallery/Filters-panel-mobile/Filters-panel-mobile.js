@@ -134,9 +134,13 @@ export default class FiltersPanelMobile extends BaseComponent {
   }
 
   _renderFilterChips() {
+
+    const containerFilters = this.dom.querySelector(".active-filters-container");
+    containerFilters.style.display = Object.keys(this.pendingFilters).length > 0 ? "flex" : "none";
+
     const container = this.dom.querySelector(".active-filters");
-    container.style.display = Object.keys(this.pendingFilters).length > 0 ? "flex" : "none";
     container.innerHTML = "";
+
 
     Object.entries(this.pendingFilters).forEach(([category, value]) => {
       const values = Array.isArray(value) ? value : [value];

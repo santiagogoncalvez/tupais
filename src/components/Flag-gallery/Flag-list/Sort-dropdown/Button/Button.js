@@ -77,4 +77,10 @@ export default class Button extends BaseComponent {
   setOptionAction(action) {
     this.selectedOptionAction = action;
   }
+
+  reset(sortingOption = "name-asc") {
+    this.selectedOption = sortingOption;
+    this.dom.querySelector("." + this.base.value).textContent =
+      `${sortOptions[this.selectedOption]}`;
+  }
 }

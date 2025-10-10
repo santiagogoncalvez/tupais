@@ -412,4 +412,20 @@ export default class FlagList extends BaseComponent {
 
     return newOption;
   }
+
+  syncState(state) {
+    if (!state || !state.filters) return;
+
+    // Detectar cambios respecto al activeFilters actual
+    const newFilters = state.filters || {};
+    const filtersChanged = JSON.stringify(this.activeFilters) !== JSON.stringify(newFilters);
+
+    if (!filtersChanged) return;
+
+    // 🔹 Reemplazar activeFilters con los filtros del estado
+    this.activeFilters = JSON.parse(JSON.stringify(newFilters));
+
+    // 🔹 Aplicar todos los filtros a la lista sin hacer toggle
+    this.applyAll();
+  }
 }

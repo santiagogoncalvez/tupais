@@ -20,24 +20,55 @@ export default class SortDropdown extends BaseComponent {
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
+    this.dispatch = dispatch;
+    this.sortAction = sortAction;
+    this.dom = this._createDom();
+
     this.continent = state.game?.continent;
     this.options = new Options(state, dispatch);
     this.button = new Button(state, dispatch, this.options, sortAction);
     this.options.setOptionAction(this.button.setOption.bind(this.button));
     this.options.setAnimateButtonAction(this.button.animateButton.bind(this.button));
 
-    this.dom = this._createDom();
     this._init(dispatch);
-    this.dispatch = dispatch;
   }
+
   syncState(state) {
-    if (this.state?.ui.darkMode != state?.ui.darkMode) {
-      this._setDarkMode(state?.ui.darkMode);
+    const prevRoute = this.state?.router?.currentRoute || "";
+    const newRoute = state?.router?.currentRoute || "";
+
+    // 🔹 Si la ruta no cambió, no hacer nada
+    if (newRoute === prevRoute) return;
+
+    // --- Helpers ---
+    const isGalleryRoot = route => route === "/flag-gallery";
+    const isGalleryCountry = route => route.startsWith("/flag-gallery/");
+
+    // 🔹 Determinar si seguimos dentro del mismo contexto de la galería
+    const stayingWithinGallery =
+      (isGalleryRoot(prevRoute) && isGalleryCountry(newRoute)) ||
+      (isGalleryCountry(prevRoute) && isGalleryRoot(newRoute)) ||
+      (isGalleryCountry(prevRoute) && isGalleryCountry(newRoute));
+
+    // --- Reset de orden ---
+    if (!stayingWithinGallery) {
+      // Solo resetear si efectivamente cambiamos de contexto
+      const sortingOption = "name-asc";
+      console.log("🔁 Reiniciando orden a:", sortingOption);
+      if (this.button?.reset) this.button.reset(sortingOption);
+      if (this.options?.reset) this.options.reset(sortingOption);
+      if (this.sortAction) this.sortAction(sortingOption);
     }
-    this.button.syncState(state);
-    this.options.syncState(state);
+
+    // --- Sincronizar subcomponentes ---
+    if (this.button?.syncState) this.button.syncState(state);
+    if (this.options?.syncState) this.options.syncState(state);
+
+    // 🔹 Actualizar referencia local
     this.state = state;
   }
+
+  
   _init() {
     let select = this.dom.querySelector("." + this.base.select);
     select.appendChild(this.button.dom);

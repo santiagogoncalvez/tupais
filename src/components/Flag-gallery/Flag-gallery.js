@@ -21,7 +21,7 @@ import FiltersPanelMobile from "@components/Flag-gallery/Filters-panel-mobile/Fi
 
 
 export default class FlagGallery extends BaseComponent {
-  constructor(state, dispatch, containerScroll) {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
@@ -73,8 +73,10 @@ export default class FlagGallery extends BaseComponent {
 
   syncState(state) {
     this.countrySearch.syncState(state);
+    this.sortDropdown.syncState(state);
 
     this.filtersPanel.syncState(state);
     this.filtersPanelMobile.syncState(state);
+    this.flagList.syncState(state);
   }
 }

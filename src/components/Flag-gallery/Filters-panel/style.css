@@ -39,6 +39,11 @@
 }
 
 /* Cajón de filtros activos */
+.active-filters-container{
+  display: flex;
+  flex-direction: column;
+}
+
 .active-filters {
   display: flex;
   align-items: center;
@@ -47,6 +52,7 @@
   row-gap: 5px;
   column-gap: 5px;
 }
+
 .filter-chip {
   display: inline-flex; /* 🔑 flex en línea, se adapta al contenido */
   align-items: center;
@@ -91,10 +97,12 @@
   background-color: #3f96bb;
 }
 
-.filters-panel__container--modal{
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
+.filters-panel__container{
+  padding: 20px 0px 0px 0px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* Secciones */
@@ -108,6 +116,10 @@
   font-weight: 700;
   margin-top: 30px;
   margin-bottom: 6px;
+}
+
+.filters-panel__label:first-of-type {
+  margin-top: 0;
 }
 
 .filters-panel__options {

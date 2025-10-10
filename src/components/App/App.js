@@ -89,7 +89,7 @@ export default class App {
 
         this.flagGallery = new FlagGallery(
             this.store.getState(),
-            this.store.dispatch.bind(this.store), this.dom.querySelector(".app__container")
+            this.store.dispatch.bind(this.store)
         );
 
         this.flagInfo = new FlagInfo(
@@ -187,7 +187,22 @@ export default class App {
 
         // Evitar renders duplicados
         if (this.prevRoute === currentRoute) return;
+
+        // Guardar prevRoute antes de hacer cualquier dispatch
+        const fromRoute = this.prevRoute;
         this.prevRoute = currentRoute;
+
+        // Resetear filtros solo si venimos de otra ruta que no sea /flag-gallery
+        if (currentRoute.startsWith("/flag-gallery") && !fromRoute?.startsWith("/flag-gallery")) {
+            // Dispatch después de actualizar prevRoute
+            // TODO: modificar esto por un método de reseteo de FlagGallery: this.flagGallery.resetFilters() que resetea:
+            // - CountrySearch
+            // - SortDropdown
+            // - FiltersPanel
+            // - FiltersPanelMobile;
+
+            this.store.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });
+        }
 
         // Reset del contenedor principal
         this.main.innerHTML = "";

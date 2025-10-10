@@ -3,7 +3,7 @@ import store from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 
 import elt from "@utils/elt.js";
-import {normalizeRoute} from "@utils/normalize-route.js";
+import { normalizeRoute } from "@utils/normalize-route.js";
 
 import "@styles/global.css";
 import "@components/App/style.css";
@@ -20,6 +20,8 @@ import About from "@components/About/About.js";
 import Credits from "@components/Credits/Credits.js";
 import FlagGallery from "@components/Flag-gallery/Flag-gallery.js";
 import FlagInfo from "@components/Flag-gallery/Flag-info/Flag-info.js";
+import ScrollTop from "@components/Flag-gallery/Scroll-top/Scroll-top.js";
+
 
 
 export default class App {
@@ -95,6 +97,8 @@ export default class App {
             this.store.dispatch.bind(this.store)
         );
 
+        this.scrollTop = new ScrollTop(this.dom.querySelector(".app__container"));
+
 
         this.mount();
         this.subscribeComponents();
@@ -118,6 +122,9 @@ export default class App {
         // Contenedor principal
         this.main = this.dom.querySelector("main");
         this.main.appendChild(this.game.dom);
+
+        // Botón scroll to top
+        this.dom.appendChild(this.scrollTop.dom);
     }
 
     syncState(state) {

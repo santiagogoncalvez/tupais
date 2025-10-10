@@ -14,7 +14,6 @@ import elt from "@utils/elt.js";
 import CountrySearch from "@components/Flag-gallery/Country-search/Country-search.js";
 import SortDropdown from "@components/Flag-gallery/Flag-list/Sort-dropdown/Sort-dropdown.js";
 import FlagList from "@components/Flag-gallery/Flag-list/Flag-list.js";
-import ScrollTop from "@components/Flag-gallery/Scroll-top/Scroll-top.js";
 import FiltersPanel from "@components/Flag-gallery/Filters-panel/Filters-panel.js";
 import FiltersPanelMobile from "@components/Flag-gallery/Filters-panel-mobile/Filters-panel-mobile.js";
 
@@ -34,7 +33,6 @@ export default class FlagGallery extends BaseComponent {
     this.flagList = new FlagList(state, dispatch);
     this.countrySearch = new CountrySearch(state, dispatch, this.flagList.setSearchResults.bind(this.flagList));
     this.sortDropdown = new SortDropdown(state, dispatch, this.flagList.sort.bind(this.flagList));
-    this.scrollTop = new ScrollTop(containerScroll);
 
     this.filtersPanel = new FiltersPanel(state, dispatch, this.flagList.applyFilter.bind(this.flagList));
     this.filtersPanelMobile = new FiltersPanelMobile(state, dispatch, this.flagList.applyFilter.bind(this.flagList));
@@ -56,7 +54,6 @@ export default class FlagGallery extends BaseComponent {
     toolBar.prepend(this.sortDropdown.dom);
 
     container.appendChild(this.flagList.dom);
-    container.appendChild(this.scrollTop.dom);
 
     this.dom.querySelector(".flag-gallery__store-container").prepend(this.filtersPanel.dom);
     this.dom.querySelector(".flag-gallery__store-container").prepend(this.filtersPanelMobile.dom);

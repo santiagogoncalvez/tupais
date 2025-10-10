@@ -1,3 +1,6 @@
+import { ACTIONS } from "@constants/action-types.js";
+
+
 import htmlString from "@components/Flag-gallery/template.html?raw";
 
 // Styles
@@ -26,9 +29,10 @@ export default class FlagGallery extends BaseComponent {
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
+    this.state = state;
+    this.dispatch = dispatch;
     this.dom = this._createDom();
 
-    this.state = state;
 
     this.flagList = new FlagList(state, dispatch);
     this.countrySearch = new CountrySearch(state, dispatch, this.flagList.setSearchResults.bind(this.flagList));
@@ -78,5 +82,13 @@ export default class FlagGallery extends BaseComponent {
     this.filtersPanel.syncState(state);
     this.filtersPanelMobile.syncState(state);
     this.flagList.syncState(state);
+  }
+
+  reset() {
+    this.countrySearch.reset();
+    this.flagList.reset();
+
+    // Esto provoca un re-render de los filtros, pero es necesario para que se deseleccionen
+    this.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });
   }
 }

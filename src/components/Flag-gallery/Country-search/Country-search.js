@@ -170,27 +170,14 @@ export default class CountrySearch extends BaseComponent {
   }
 
   syncState(state) {
-    const prevRoute = this.state.router.currentRoute;
-    const newRoute = state.router.currentRoute;
-
-    if (newRoute === prevRoute) return;
-
-    const isGalleryRoot = (route) => route === "/flag-gallery";
-    const isGalleryCountry = (route) => route.startsWith("/flag-gallery/");
-
-    const stayingWithinGallery =
-      (isGalleryRoot(prevRoute) && isGalleryCountry(newRoute)) ||
-      (isGalleryCountry(prevRoute) && isGalleryRoot(newRoute)) ||
-      (isGalleryCountry(prevRoute) && isGalleryCountry(newRoute));
-
-    // Si no se está dentro de flag-gallery ↔ país, entonces resetear solo si había texto
-    if (prevRoute !== newRoute && !stayingWithinGallery) {
-      const input = this.dom.querySelector(".country-search__input");
-      if (input && input.value.trim().length > 0) {
-        this.clearInput();
-      }
-    }
-
     this.state = state;
+  }
+
+  reset() {
+    const input = this.dom.querySelector(".country-search__input");
+    if (input && input.value.trim().length > 0) {
+      this.clearInput();
+      this.options._show(false);
+    }
   }
 }

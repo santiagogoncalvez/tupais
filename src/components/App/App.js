@@ -194,14 +194,7 @@ export default class App {
 
         // Resetear filtros solo si venimos de otra ruta que no sea /flag-gallery
         if (currentRoute.startsWith("/flag-gallery") && !fromRoute?.startsWith("/flag-gallery")) {
-            // Dispatch después de actualizar prevRoute
-            // TODO: modificar esto por un método de reseteo de FlagGallery: this.flagGallery.resetFilters() que resetea:
-            // - CountrySearch
-            // - SortDropdown
-            // - FiltersPanel
-            // - FiltersPanelMobile;
-
-            this.store.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });
+            this.flagGallery.reset();
         }
 
         // Reset del contenedor principal

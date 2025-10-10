@@ -53,11 +53,7 @@ export default class SortDropdown extends BaseComponent {
     // --- Reset de orden ---
     if (!stayingWithinGallery) {
       // Solo resetear si efectivamente cambiamos de contexto
-      const sortingOption = "name-asc";
-      console.log("🔁 Reiniciando orden a:", sortingOption);
-      if (this.button?.reset) this.button.reset(sortingOption);
-      if (this.options?.reset) this.options.reset(sortingOption);
-      if (this.sortAction) this.sortAction(sortingOption);
+      this.reset();
     }
 
     // --- Sincronizar subcomponentes ---
@@ -68,7 +64,7 @@ export default class SortDropdown extends BaseComponent {
     this.state = state;
   }
 
-  
+
   _init() {
     let select = this.dom.querySelector("." + this.base.select);
     select.appendChild(this.button.dom);
@@ -78,5 +74,11 @@ export default class SortDropdown extends BaseComponent {
     if (this.dom.parentElement !== container) {
       container.appendChild(this.dom);
     }
+  }
+
+  reset(sortingOption = "name-asc") {
+    // console.log("🔁 Reiniciando orden a:", sortingOption);
+    if (this.button?.reset) this.button.reset(sortingOption);
+    if (this.options?.reset) this.options.reset(sortingOption);
   }
 }

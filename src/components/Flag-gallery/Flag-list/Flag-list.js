@@ -428,4 +428,9 @@ export default class FlagList extends BaseComponent {
     // 🔹 Aplicar todos los filtros a la lista sin hacer toggle
     this.applyAll();
   }
+
+  reset() {
+    const sortingOption = "name-asc";
+    this.sort(sortingOption);
+  }
 }

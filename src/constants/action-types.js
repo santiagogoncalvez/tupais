@@ -116,5 +116,9 @@ export const ACTIONS = {
   NAVIGATE_TO: "router/navigate-to",
 
   //* SEARCH
-  GALLERY_SEARCH_HISTORY_SET: "search/flagGalleryHistory/set"
+  GALLERY_SEARCH_HISTORY_SET: "search/flagGalleryHistory/set",
+
+  //* FILTERS
+  // --- acciones de filtros ---
+  SET_FILTERS: "filters/set",
 };

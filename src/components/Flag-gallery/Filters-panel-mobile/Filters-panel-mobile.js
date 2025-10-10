@@ -1,3 +1,6 @@
+import { ACTIONS } from "@constants/action-types.js";
+
+
 import htmlString from "@components/Flag-gallery/Filters-panel-mobile/template.html?raw";
 import "@components/Flag-gallery/Filters-panel-mobile/style.css";
 import { base, modifiers } from "@components/Flag-gallery/Filters-panel-mobile/Filters-panel-mobile-class-names.js";
@@ -22,70 +25,39 @@ export default class FiltersPanelMobile extends BaseComponent {
     this.filterAction = filterAction;
     this.dom = this._createDom();
 
-    // 🔹 Estado persistente de filtros aplicados
-    this.activeFilters = {};
-
-    // 🔹 Estado temporal de filtros seleccionados (antes de aplicar)
-    this.pendingFilters = {};
-
+    this.activeFilters = {}; // filtros aplicados
+    this.pendingFilters = {}; // filtros temporales
     this.multiCategories = ["languages"];
+    this._wasCleared = false;
 
-    // 🔹 Language search
+    // Language search
     this.languageSearch = new CountrySearch(state, dispatch, (languages) => {
-      if (languages.length === 1) {
-        this._queueFilter({ category: "languages", value: languages[0] });
-      }
+      if (languages.length === 1) this._queueFilter({ category: "languages", value: languages[0] });
     });
-    this.dom
-      .querySelector(".filters-panel-mobile__section--languajes")
-      .appendChild(this.languageSearch.dom);
+    this.dom.querySelector(".filters-panel-mobile__section--languajes").appendChild(this.languageSearch.dom);
 
-    // 🔹 Population slider
-    this.sliderPopulation = new Slider(
-      state,
-      dispatch,
-      undefined,
-      undefined,
-      (range) => {
-        this._queueFilter({ category: "population", value: range });
-      }
-    );
-    this.dom
-      .querySelector(".filters-panel-mobile__section--population")
-      .appendChild(this.sliderPopulation.dom);
+    // Population slider
+    this.sliderPopulation = new Slider(state, dispatch, undefined, undefined, (range) => {
+      this._queueFilter({ category: "population", value: range });
+    });
+    this.dom.querySelector(".filters-panel-mobile__section--population").appendChild(this.sliderPopulation.dom);
 
-    // 🔹 Área slider
-    this.sliderArea = new Slider(
-      state,
-      dispatch,
-      0,
-      17098242,
-      (range) => {
-        this._queueFilter({ category: "area", value: range });
-      },
-      10,
-      10000000,
-      true
-    );
-    this.dom
-      .querySelector(".filters-panel-mobile__section--area")
-      .appendChild(this.sliderArea.dom);
+    // Area slider
+    this.sliderArea = new Slider(state, dispatch, 0, 17098242, (range) => {
+      this._queueFilter({ category: "area", value: range });
+    }, 10, 10000000, true);
+    this.dom.querySelector(".filters-panel-mobile__section--area").appendChild(this.sliderArea.dom);
 
-    // 🔹 Botones del footer
+    // Botones footer
     this.resetButton = this.dom.querySelector(".filters-panel-mobile__reset");
     this.applyButton = this.dom.querySelector(".filters-panel-mobile__apply");
     this.applyCount = this.dom.querySelector(".filters-panel-mobile__apply-count");
 
-    this.resetButton.addEventListener("click", () =>
-      this.clearAllActiveFilters()
-    );
-    this.applyButton.addEventListener("click", () => this.applyPendingFilters());
+    this.resetButton.addEventListener("click", () => this._resetPendingFilters());
+    this.applyButton.addEventListener("click", () => this._applyPendingFilters());
 
-    // 🔹 Botón cerrar
-    this.closeButton = new CloseButton(dispatch, this.hide.bind(this), {
-      top: "10px",
-      right: "10px",
-    });
+    // Botón cerrar
+    this.closeButton = new CloseButton(dispatch, this._cancel.bind(this), { top: "10px", right: "10px" });
     this.dom.prepend(this.closeButton.dom);
 
     this._init();
@@ -93,35 +65,47 @@ export default class FiltersPanelMobile extends BaseComponent {
 
   _init() {
     // Botones de filtros
-    this.dom
-      .querySelectorAll(".filters-panel-mobile__option")
-      .forEach((option) => {
-        option.addEventListener("click", () => {
-          const category = option.dataset.filterCategory;
-          let value = option.dataset.filterValue;
-          try {
-            value = JSON.parse(value);
-          } catch { }
-          this._queueFilter({ category, value });
-        });
-      });
+    this.dom.querySelectorAll(".filters-panel-mobile__option").forEach((option) => {
+      option.addEventListener("click", () => {
+        const category = option.dataset.filterCategory;
+        let value = option.dataset.filterValue;
+        try { value = JSON.parse(value); } catch { }
 
-    // Toggle "Mostrar más/menos"
+        const isActive = option.classList.contains("active");
+
+        if (isActive) {
+          // Si ya está activo, eliminarlo como si fuera un chip
+          this._removePendingFilter(category, value);
+        } else {
+          // Si no está activo, agregarlo
+          this._queueFilter({ category, value });
+        }
+      });
+    });
+
+    // Toggle "mostrar más/menos"
     this.dom.querySelectorAll(".filters-panel-mobile__toggle").forEach((btn) => {
       const optionsContainer = btn.previousElementSibling;
       btn.addEventListener("click", () => {
-        const expanded = optionsContainer.classList.toggle(
-          "filters-panel-mobile__options--expanded"
-        );
-        btn.querySelector(".filters-panel-mobile__toggle-text").textContent =
-          expanded ? "Mostrar menos" : "Mostrar más";
-        btn.querySelector(".filters-panel-mobile__toggle-icon").textContent =
-          expanded ? "- " : "+ ";
+        const expanded = optionsContainer.classList.toggle("filters-panel-mobile__options--expanded");
+        btn.querySelector(".filters-panel-mobile__toggle-text").textContent = expanded ? "Mostrar menos" : "Mostrar más";
+        btn.querySelector(".filters-panel-mobile__toggle-icon").textContent = expanded ? "- " : "+ ";
       });
     });
+
+
+    // 🔹 Ocultar el panel automáticamente en pantallas grandes (>815px)
+    const handleResize = () => {
+      if (window.innerWidth > 815) this._cancel();
+    };
+
+    // Ejecutar al iniciar
+    handleResize();
+
+    // Escuchar redimensionamientos
+    window.addEventListener("resize", handleResize);
   }
 
-  // 🔹 Agrega un filtro temporal (pending)
   _queueFilter({ category, value }) {
     const isMulti = this.multiCategories.includes(category);
 
@@ -131,12 +115,9 @@ export default class FiltersPanelMobile extends BaseComponent {
       if (option) option.classList.add("active");
       this.pendingFilters[category] = value;
     } else {
-      if (!Array.isArray(this.pendingFilters[category]))
-        this.pendingFilters[category] = [];
+      if (!Array.isArray(this.pendingFilters[category])) this.pendingFilters[category] = [];
       if (this.pendingFilters[category].includes(value)) {
-        this.pendingFilters[category] = this.pendingFilters[category].filter(
-          (v) => v !== value
-        );
+        this.pendingFilters[category] = this.pendingFilters[category].filter((v) => v !== value);
       } else {
         this.pendingFilters[category].push(value);
       }
@@ -145,52 +126,28 @@ export default class FiltersPanelMobile extends BaseComponent {
         const btn = this._findOption(category, v);
         if (btn) btn.classList.add("active");
       });
-      if (this.pendingFilters[category].length === 0)
-        delete this.pendingFilters[category];
+      if (this.pendingFilters[category].length === 0) delete this.pendingFilters[category];
     }
 
     this._renderFilterChips();
     this._updateApplyCount();
   }
 
-  // 🔹 Muestra los chips del panel
   _renderFilterChips() {
     const container = this.dom.querySelector(".active-filters");
-
     container.style.display = Object.keys(this.pendingFilters).length > 0 ? "flex" : "none";
-
     container.innerHTML = "";
 
     Object.entries(this.pendingFilters).forEach(([category, value]) => {
       const values = Array.isArray(value) ? value : [value];
       values.forEach((val) => {
         let displayValue = val;
-        if (category === "population") {
-          displayValue =
-            typeof val === "object" ? `${val.min} h - ${val.max} h` : val;
-        } else if (category === "area") {
-          displayValue =
-            typeof val === "object"
-              ? `${val.min} km² - ${val.max} km²`
-              : val;
-        }
+        if (category === "population") displayValue = typeof val === "object" ? `${val.min} h - ${val.max} h` : val;
+        if (category === "area") displayValue = typeof val === "object" ? `${val.min} km² - ${val.max} km²` : val;
 
-        const chip = elt(
-          "span",
-          {
-            className: "filter-chip",
-            "data-category": category,
-            "data-value": JSON.stringify(val),
-          },
+        const chip = elt("span", { className: "filter-chip", "data-category": category, "data-value": JSON.stringify(val) },
           elt("span", { className: "chip-text" }, displayValue),
-          elt(
-            "button",
-            {
-              className: "chip-close",
-              onclick: () => this._removePendingFilter(category, val),
-            },
-            "×"
-          )
+          elt("button", { className: "chip-close", onclick: () => this._removePendingFilter(category, val) }, "×")
         );
         container.appendChild(chip);
       });
@@ -202,18 +159,14 @@ export default class FiltersPanelMobile extends BaseComponent {
     const valueStr = JSON.stringify(value);
 
     if (isMulti && Array.isArray(this.pendingFilters[category])) {
-      this.pendingFilters[category] = this.pendingFilters[category].filter(
-        (v) => JSON.stringify(v) !== valueStr
-      );
-      if (this.pendingFilters[category].length === 0)
-        delete this.pendingFilters[category];
+      this.pendingFilters[category] = this.pendingFilters[category].filter((v) => JSON.stringify(v) !== valueStr);
+      if (this.pendingFilters[category].length === 0) delete this.pendingFilters[category];
     } else {
       delete this.pendingFilters[category];
     }
 
     const button = this._findOption(category, value);
     if (button) button.classList.remove("active");
-
     if (category === "population") this.sliderPopulation.reset();
     if (category === "area") this.sliderArea.reset();
 
@@ -221,9 +174,8 @@ export default class FiltersPanelMobile extends BaseComponent {
     this._updateApplyCount();
   }
 
-  // 🔹 Aplica todos los filtros acumulados
-  // 🔹 Aplica todos los filtros acumulados (con diff entre active <-> pending)
-  applyPendingFilters() {
+  // 🔹 Aplica filtros seleccionados en pendingFilters
+  _applyPendingFilters() {
     const active = this.activeFilters || {};
     const pending = this.pendingFilters || {};
 
@@ -276,55 +228,48 @@ export default class FiltersPanelMobile extends BaseComponent {
           this.filterAction({ category, value: activeVal, remove: true });
           this.filterAction({ category, value: pendingVal });
         }
-        // si aStr === pStr -> no hacer nada
       }
     });
 
-    // Actualizar el estado interno del panel a la versión aplicada
+    // Actualizar estado interno
     this.activeFilters = JSON.parse(JSON.stringify(pending));
+    this._wasCleared = false; // reseteamos el flag
 
     // Sincronizar UI
     this._syncActiveButtons();
     this._renderFilterChips();
     this._updateApplyCount();
-
     this.hide();
-    
     this._updateFiltersCount();
+
+    this.dispatch({
+      type: ACTIONS.SET_FILTERS,
+      payload: this.activeFilters,
+    });
   }
 
-
-
-  // 🔹 Limpia todos los filtros activos y pendientes (footer “Limpiar filtros”)
-  clearAllActiveFilters() {
-    // 1️⃣ Remover cada filtro aplicado usando filterAction(remove: true)
-    Object.keys(this.activeFilters || {}).forEach(category => {
-      const current = this.activeFilters[category];
-      if (Array.isArray(current)) {
-        current.forEach(value => {
-          this.filterAction({ category, value, remove: true });
-        });
-      } else {
-        this.filterAction({ category, value: current, remove: true });
-      }
-    });
-
-    // 2️⃣ Resetar estado del panel
-    this.activeFilters = {};
-    this.pendingFilters = {};
+  // 🔹 Resetea filtros temporales (solo UI)
+  _resetPendingFilters() {
+    // Solo limpiar visualmente los chips y desactivar botones
     this._resetAllButtons();
+    this.pendingFilters = {};
     this._renderFilterChips();
     this.sliderPopulation.reset();
     this.sliderArea.reset();
     this._updateApplyCount();
-
-    this._updateFiltersCount();
   }
 
-
-  // 🔹 Sincroniza visualmente los botones activos según activeFilters
-  _syncActiveButtons() {
+  // 🔹 Cancelar cambios y cerrar panel
+  _cancel() {
+    this.pendingFilters = { ...this.activeFilters };
     this._resetAllButtons();
+    this._syncActiveButtons();
+    this._renderFilterChips();
+    this._updateApplyCount();
+    this.hide();
+  }
+
+  _syncActiveButtons() {
     Object.entries(this.activeFilters).forEach(([category, value]) => {
       const values = Array.isArray(value) ? value : [value];
       values.forEach((val) => {
@@ -334,68 +279,65 @@ export default class FiltersPanelMobile extends BaseComponent {
     });
   }
 
-  // 🔹 Helpers visuales
   _resetAllButtons() {
-    this.dom
-      .querySelectorAll(".filters-panel-mobile__option.active")
-      .forEach((btn) => btn.classList.remove("active"));
+    this.dom.querySelectorAll(".filters-panel-mobile__option.active").forEach((btn) => btn.classList.remove("active"));
   }
 
   _resetCategoryButtons(category) {
-    this.dom
-      .querySelectorAll(
-        `.filters-panel-mobile__option[data-filter-category="${category}"]`
-      )
-      .forEach((btn) => btn.classList.remove("active"));
+    this.dom.querySelectorAll(`.filters-panel-mobile__option[data-filter-category="${category}"]`).forEach((btn) => btn.classList.remove("active"));
   }
 
   _findOption(category, value) {
-    return this.dom.querySelector(
-      `.filters-panel-mobile__option[data-filter-category="${category}"][data-filter-value="${value}"]`
-    );
+    return this.dom.querySelector(`.filters-panel-mobile__option[data-filter-category="${category}"][data-filter-value="${value}"]`);
   }
 
   _updateApplyCount() {
     const total = Object.keys(this.pendingFilters).length;
-    this.applyCount.textContent = total > 0 ? ` (${total})` : " (0)";
+
+    if (!this.applyButton) {
+      this.applyButton = this.dom.querySelector(".filters-panel__apply");
+    }
+
+    if (total > 0) {
+      // Mostrar cantidad y habilitar
+      this.applyButton.textContent = `Aplicar (${total})`;
+    } else {
+      // Mostrar solo "Aplicar" y deshabilitar
+      this.applyButton.textContent = "Aplicar";
+    }
   }
 
+
   show() {
-    // Al abrir, sincronizamos filtros activos con los pendientes
+    // Siempre reflejar los filtros aplicados como pendientes al abrir
     this.pendingFilters = { ...this.activeFilters };
     this._syncActiveButtons();
     this._renderFilterChips();
     this._updateApplyCount();
     this.dom.classList.add("filters-panel-mobile--show");
+
+    this.dom.querySelector(".filters-panel-mobile__container").scrollTo({ top: 0 });
   }
 
   hide() {
     this.dom.classList.remove("filters-panel-mobile--show");
+
   }
 
-  // 🔹 Actualiza el contador visual del botón de filtros
+  // 🔹 Actualiza contador del botón filtros principal
   _updateFiltersCount() {
     const button = document.querySelector(".flag-gallery__filters-mobile-button");
     const countEl = button?.querySelector(".flag-gallery__filters-count");
-
     if (!button || !countEl) return;
 
-    // Contar filtros activos (de activeFilters)
     let count = 0;
     const filters = this.activeFilters || {};
-
     Object.values(filters).forEach(val => {
-      if (Array.isArray(val)) {
-        count += val.length;
-      } else if (val && typeof val === "object") {
-        // Rango (población, área)
-        if (val.min !== undefined && val.max !== undefined) count++;
-      } else if (val) {
-        count++;
-      }
+      if (Array.isArray(val)) count += val.length;
+      else if (val && typeof val === "object" && val.min !== undefined && val.max !== undefined) count++;
+      else if (val) count++;
     });
 
-    // Mostrar u ocultar el número
     if (count > 0) {
       button.classList.add("flag-gallery__filters-mobile-button--filtered");
       countEl.textContent = `(${count})`;
@@ -405,6 +347,29 @@ export default class FiltersPanelMobile extends BaseComponent {
       countEl.textContent = "";
       countEl.classList.remove("flag-gallery__filters-count--show");
     }
+  }
+
+  syncState(state) {
+    if (!state || !state.filters) return;
+
+    const { filters } = state;
+
+    // 🧹 1️⃣ Limpiar UI actual (chips + botones activos)
+    this._resetAllButtons();
+
+    // 🧩 2️⃣ Actualizar filtros internos
+    this.activeFilters = JSON.parse(JSON.stringify(filters || {}));
+    this.pendingFilters = JSON.parse(JSON.stringify(filters.pending || this.activeFilters));
+
+    // 🟢 3️⃣ Sincronizar botones activos según los filtros actuales
+    this._syncActiveButtons();
+
+    // 💠 4️⃣ Renderizar chips visibles
+    this._renderFilterChips();
+
+    // 🔢 5️⃣ Actualizar contadores
+    this._updateApplyCount?.();
+    this._updateFiltersCount?.();
   }
 
 }

@@ -76,5 +76,8 @@ export default class FlagGallery extends BaseComponent {
 
   syncState(state) {
     this.countrySearch.syncState(state);
+
+    this.filtersPanel.syncState(state);
+    this.filtersPanelMobile.syncState(state);
   }
 }

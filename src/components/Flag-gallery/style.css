@@ -29,6 +29,7 @@
   flex-direction: row;
   align-items: start;
   justify-content: center;
+  gap: 20px;
 }
 
 .flag-gallery__container {

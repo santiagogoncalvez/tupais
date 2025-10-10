@@ -10,11 +10,14 @@
   overflow-x: auto;
 }
 
-.game_container {
+.game__container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   flex: 1;
+
+  padding-top: 25px;
+  padding-bottom: 25px;
 }

@@ -107,6 +107,9 @@ export default class FiltersPanel extends BaseComponent {
     // 🔹 Resetear botones visuales
     this._resetAllButtons();
 
+    // 🔹 3️⃣ Actualizar estado visual (.active) sin alterar la lógica interna
+    this._markActiveButtons();
+
 
     // 🔹 Activar botones según filtros
     this.renderFilterChips();
@@ -173,10 +176,8 @@ export default class FiltersPanel extends BaseComponent {
   _applyCategoryFilter({ category, value }) {
     const isMulti = this.multiCategories.includes(category);
 
+    this._resetCategoryButtons(category);
     if (!isMulti || category === "population") {
-      this._resetCategoryButtons(category);
-      const option = this._findOption(category, value);
-      if (option) option.classList.add("active");
       this.activeFilters[category] = value;
     } else {
       if (!Array.isArray(this.activeFilters[category])) this.activeFilters[category] = [];
@@ -185,11 +186,7 @@ export default class FiltersPanel extends BaseComponent {
       } else {
         this.activeFilters[category].push(value);
       }
-      this._resetCategoryButtons(category);
-      this.activeFilters[category].forEach(v => {
-        const btn = this._findOption(category, v);
-        if (btn) btn.classList.add("active");
-      });
+
       if (this.activeFilters[category].length === 0) delete this.activeFilters[category];
     }
 
@@ -199,8 +196,22 @@ export default class FiltersPanel extends BaseComponent {
     // Mostrar/ocultar botón limpiar filtros
     this._updateClearButton();
 
+    // 🔹 3️⃣ Actualizar estado visual (.active) sin alterar la lógica interna
+    this._markActiveButtons();
+
+
     // 🔹 Actualizar estado global directamente
     this.dispatch({ type: ACTIONS.SET_FILTERS, payload: this.activeFilters });
+  }
+
+  _markActiveButtons() {
+    Object.entries(this.activeFilters).forEach(([category, value]) => {
+      const values = Array.isArray(value) ? value : [value];
+      values.forEach(val => {
+        const btn = this._findOption(category, val);
+        if (btn) btn.classList.add("active");
+      });
+    });
   }
 
   _updateClearButton() {

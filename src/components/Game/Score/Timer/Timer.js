@@ -47,25 +47,29 @@ export default class Timer extends BaseComponent {
 
     if (state.game.timer.discount !== this.state.game.timer.discount) {
       if (state.game.timer.discount) {
-        let penalty = 0;
+        // 1️⃣ Actualizamos _timeElapsed con el tiempo real transcurrido
+        const now = performance.now();
+        this._timeElapsed += (now - this._start) / 1000;
+
+        // 2️⃣ Calculamos el penalty
+        let penalty = 1;
         const secondsLeft = this._ascending
-          ? Math.floor(this._elapsed)
-          : Math.ceil(this._duration - this._elapsed);
+          ? Math.floor(this._timeElapsed)
+          : Math.ceil(this._duration - this._timeElapsed);
 
-        if (secondsLeft >= 8) penalty = 2;
-        else if (secondsLeft >= 5) penalty = 2;
-        else penalty = 1;
+        if (secondsLeft >= 5) penalty = 2;
 
+        // 3️⃣ Aplicamos descuento
         if (this._ascending) {
           this._timeElapsed = Math.max(0, this._timeElapsed - penalty);
         } else {
           this._timeElapsed = Math.min(this._duration, this._timeElapsed + penalty);
         }
 
-        // ⚡ Reiniciamos _start para que _elapsed se calcule bien
-        this._start = performance.now();
+        // 4️⃣ Reiniciamos _start
+        this._start = now;
 
-        // ⚡ Recalculamos _endTimeout si no es ascendente
+        // 5️⃣ Recalculamos timeout si es descendente
         if (!this._ascending && this._duration > 0) {
           if (this._endTimeout) clearTimeout(this._endTimeout);
           const remaining = this._duration - this._timeElapsed;
@@ -73,6 +77,7 @@ export default class Timer extends BaseComponent {
         }
       }
     }
+
 
 
     if (state.game.completed !== this.state.game.completed) {

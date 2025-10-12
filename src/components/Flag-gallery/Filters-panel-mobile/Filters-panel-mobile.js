@@ -1,3 +1,5 @@
+import { FILTER_CATEGORIES } from "@constants/filter-categories.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 
@@ -109,7 +111,7 @@ export default class FiltersPanelMobile extends BaseComponent {
   _queueFilter({ category, value }) {
     const isMulti = this.multiCategories.includes(category);
 
-    if (!isMulti || category === "population") {
+    if (!isMulti || category === FILTER_CATEGORIES.POPULATION) {
       this._resetCategoryButtons(category);
       const option = this._findOption(category, value);
       if (option) option.classList.add("active");
@@ -146,8 +148,8 @@ export default class FiltersPanelMobile extends BaseComponent {
       const values = Array.isArray(value) ? value : [value];
       values.forEach((val) => {
         let displayValue = val;
-        if (category === "population") displayValue = typeof val === "object" ? `${val.min} h - ${val.max} h` : val;
-        if (category === "area") displayValue = typeof val === "object" ? `${val.min} km² - ${val.max} km²` : val;
+        if (category === FILTER_CATEGORIES.POPULATION) displayValue = typeof val === "object" ? `${val.min} h - ${val.max} h` : val;
+        if (category === FILTER_CATEGORIES.AREA) displayValue = typeof val === "object" ? `${val.min} km² - ${val.max} km²` : val;
 
         const chip = elt("span", { className: "filter-chip", "data-category": category, "data-value": JSON.stringify(val) },
           elt("span", { className: "chip-text" }, displayValue),
@@ -171,8 +173,8 @@ export default class FiltersPanelMobile extends BaseComponent {
 
     const button = this._findOption(category, value);
     if (button) button.classList.remove("active");
-    if (category === "population") this.sliderPopulation.reset();
-    if (category === "area") this.sliderArea.reset();
+    if (category === FILTER_CATEGORIES.POPULATION) this.sliderPopulation.reset();
+    if (category === FILTER_CATEGORIES.AREA) this.sliderArea.reset();
 
     this._renderFilterChips();
     this._updateApplyCount();

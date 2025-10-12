@@ -1,3 +1,6 @@
+import { FILTER_CATEGORIES } from "@constants/filter-categories.js";
+
+
 import { ACTIONS } from "@constants/action-types.js";
 
 
@@ -161,11 +164,11 @@ export default class FiltersPanel extends BaseComponent {
       values.forEach(val => {
         let displayValue = val;
 
-        if (category === "population") {
+        if (category === FILTER_CATEGORIES.POPULATION) {
           displayValue = typeof val === "object"
             ? `${val.min} h - ${val.max} h`
             : val;
-        } else if (category === "area") {
+        } else if (category === FILTER_CATEGORIES.AREA) {
           displayValue = typeof val === "object"
             ? `${val.min} km² - ${val.max} km²`
             : val;
@@ -198,7 +201,7 @@ export default class FiltersPanel extends BaseComponent {
     const isMulti = this.multiCategories.includes(category);
 
     this._resetCategoryButtons(category);
-    if (!isMulti || category === "population") {
+    if (!isMulti || category === FILTER_CATEGORIES.POPULATION) {
       this.activeFilters[category] = value;
     } else {
       if (!Array.isArray(this.activeFilters[category])) this.activeFilters[category] = [];
@@ -270,13 +273,13 @@ export default class FiltersPanel extends BaseComponent {
 
     const valueStr = typeof value === "object" ? JSON.stringify(value) : value;
     let displayValue = value;
-    if (category === "population") {
+    if (category === FILTER_CATEGORIES.POPULATION) {
       displayValue = typeof value === "object" ? `${value.min} h - ${value.max} h` : value;
-    } else if (category === "area") {
+    } else if (category === FILTER_CATEGORIES.AREA) {
       displayValue = typeof value === "object" ? `${value.min} km² - ${value.max} km²` : value;
     }
 
-    if (!isMulti || category === "population") {
+    if (!isMulti || category === FILTER_CATEGORIES.POPULATION) {
       const existingChips = chipsContainer.querySelectorAll(`.filter-chip[data-category="${category}"]`);
       existingChips.forEach(chip => chip.remove());
     } else {
@@ -299,7 +302,7 @@ export default class FiltersPanel extends BaseComponent {
           const button = this._findOption(category, value);
           if (button) button.classList.remove("active");
           this.filterAction({ category, value, remove: true });
-          if (category === "population") this.sliderPopulation.reset();
+          if (category === FILTER_CATEGORIES.POPULATION) this.sliderPopulation.reset();
 
           this._updateClearButton();
 
@@ -360,8 +363,8 @@ export default class FiltersPanel extends BaseComponent {
     this.filterAction({ category, value, remove: true });
 
     // 5️⃣ Reset sliders si es necesario
-    if (category === "population") this.sliderPopulation.reset();
-    if (category === "area") this.sliderArea.reset();
+    if (category === FILTER_CATEGORIES.POPULATION) this.sliderPopulation.reset();
+    if (category === FILTER_CATEGORIES.AREA) this.sliderArea.reset();
 
     // 6️⃣ Actualizar visibilidad del botón Limpiar
     this._updateClearButton();

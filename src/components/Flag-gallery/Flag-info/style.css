@@ -70,9 +70,6 @@
   border-color: #b2b2b2;
 }
 
-.flag-info__back-to-gallery-text {
-  /* text-decoration: underline; */
-}
 
 .flag-info__flag {
   max-width: 100%; /* ocupa como máximo el ancho del contenedor */
@@ -128,7 +125,7 @@
 .flag-info__note {
   font-size: 0.8rem;
   color: #7b7c7e;
-  user-select: none; /* evita selección de estas aclaraciones */
+  user-select: none;
   font-weight: 500;
 }
 

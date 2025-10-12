@@ -1,3 +1,8 @@
+import { SORT_TYPES } from "@constants/sort-options.js";
+
+import { FILTER_CATEGORIES } from "@constants/filter-categories.js";
+
+
 import { ACTIONS } from "@constants/action-types.js";
 import elt from "@utils/elt.js";
 import htmlString from "@components/Flag-gallery/Flag-list/template.html?raw";
@@ -23,7 +28,7 @@ export default class FlagList extends BaseComponent {
     this.scale = scale;
 
     this.dom = this._createDom();
-    this.sortType = "name-asc";
+    this.sortType = SORT_TYPES.NAME_ASC;
 
     // Información extra
     this.extraInfoShow = false;
@@ -65,7 +70,7 @@ export default class FlagList extends BaseComponent {
   // 🎛️ Filtros
   // =========================
   applyFilter({ category, value, remove = false }) {
-    if (category === "languages") {
+    if (category === FILTER_CATEGORIES.LANGUAGES) {
       // Inicializar como array
       if (!Array.isArray(this.activeFilters.languages)) {
         this.activeFilters.languages = [];
@@ -207,7 +212,7 @@ export default class FlagList extends BaseComponent {
     });
 
     // 🔹 Ordenar visibles o regenerar labels
-    if (this.sortType === "continent") {
+    if (this.sortType === SORT_TYPES.CONTINENT) {
       this.renderItemsByContinent(visibleItems);
     } else {
       this.sort(this.sortType, { reRender: false });
@@ -250,7 +255,7 @@ export default class FlagList extends BaseComponent {
     this.sortType = type;
 
     // 🔹 Si no es por continente, eliminar labels
-    if (type !== "continent") {
+    if (type !== SORT_TYPES.CONTINENT) {
       this.labels.forEach(label => label.remove());
       this.labels = [];
     }
@@ -259,32 +264,32 @@ export default class FlagList extends BaseComponent {
     let sortedItems = [...items];
 
     switch (type) {
-      case "population-asc":
+      case SORT_TYPES.POPULATION_ASC:
         sortedItems.sort((a, b) => getPopulation(a.dataset.value) - getPopulation(b.dataset.value));
         this.showExtraInfo(items, true);
         break;
-      case "population-desc":
+      case SORT_TYPES.POPULATION_DESC:
         sortedItems.sort((a, b) => getPopulation(b.dataset.value) - getPopulation(a.dataset.value));
         this.showExtraInfo(items, true);
         break;
-      case "area-asc":
+      case SORT_TYPES.AREA_ASC:
         sortedItems.sort((a, b) => getArea(a.dataset.value) - getArea(b.dataset.value));
         this.showExtraInfo(items, true);
         break;
-      case "area-desc":
+      case SORT_TYPES.AREA_DESC:
         sortedItems.sort((a, b) => getArea(b.dataset.value) - getArea(a.dataset.value));
         this.showExtraInfo(items, true);
         break;
-      case "name-asc":
-      case "name-desc":
+      case SORT_TYPES.NAME_ASC:
+      case SORT_TYPES.NAME_DESC:
         sortedItems.sort((a, b) =>
-          type === "name-asc"
+          type === SORT_TYPES.NAME_ASC
             ? a.dataset.value.localeCompare(b.dataset.value, "es")
             : b.dataset.value.localeCompare(a.dataset.value, "es")
         );
         this.showExtraInfo(items, false);
         break;
-      case "continent":
+      case SORT_TYPES.CONTINENT:
         if (reRender) this.renderItemsByContinent(sortedItems.map(i => i.dataset.value));
         this.showExtraInfo(items, false);
         return;
@@ -430,7 +435,7 @@ export default class FlagList extends BaseComponent {
   }
 
   reset() {
-    const sortingOption = "name-asc";
+    const sortingOption = SORT_TYPES.NAME_ASC;
     this.sort(sortingOption);
   }
 }

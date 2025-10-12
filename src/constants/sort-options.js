@@ -9,11 +9,11 @@ export const SORT_TYPES = {
 };
 
 export const sortOptions = {
-    "name-asc": "Nombre (A-Z)",
-    "name-desc": "Nombre (Z-A)",
-    "continent": "Continente",
-    "population-asc": "Menor población",
-    "population-desc": "Mayor población",
-    "area-asc": "Menor superficie",
-    "area-desc": "Mayor superficie",
+    [SORT_TYPES.NAME_ASC]: "Nombre (A-Z)",
+    [SORT_TYPES.NAME_DESC]: "Nombre (Z-A)",
+    [SORT_TYPES.CONTINENT]: "Continente",
+    [SORT_TYPES.POPULATION_ASC]: "Menor población",
+    [SORT_TYPES.POPULATION_DESC]: "Mayor población",
+    [SORT_TYPES.AREA_ASC]: "Menor superficie",
+    [SORT_TYPES.AREA_DESC]: "Mayor superficie",
 };

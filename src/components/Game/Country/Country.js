@@ -21,7 +21,6 @@ export default class Country extends BaseComponent {
   }
 
   _init(state) {
-    console.log("Iniciando modo de juego:", state.game.mode);
     if (state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
       this.renderButton(state);
     }

@@ -1,3 +1,5 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 import "@components/Game/style.css";
@@ -57,7 +59,7 @@ export default class Game extends BaseComponent {
   }
 
   _init(state) {
-    if (state.game.mode === "classic") {
+    if (state.game.mode === GAME_MODES.CLASSIC) {
       // Eliminar elementos que no son del modo
       this.answer.dom.remove();
       this.keyboard.dom.remove();

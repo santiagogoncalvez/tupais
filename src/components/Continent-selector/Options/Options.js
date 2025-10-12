@@ -1,3 +1,6 @@
+import { VISIBILITY_STATES } from "@constants/visibility-states.js";
+
+import { GAME_MODES } from "@constants/game-modes.js";
 import { ACTIONS } from "@constants/action-types.js";
 import htmlString from "@components/Continent-selector/Options/template.html?raw";
 
@@ -23,7 +26,7 @@ export default class Options extends BaseComponent {
     this.dom = this._createDom();
     this.autoStart = autoStart;
 
-    this.visibilityState = "hidden";
+    this.visibilityState = VISIBILITY_STATES.HIDDEN;
     this._showTimeout = null;
     this.alreadyClosed = false;
 
@@ -151,10 +154,10 @@ export default class Options extends BaseComponent {
       this.dispatch({ type: ACTIONS.SET_CONTINENT, payload: this.continent });
 
       const mode = this.state.game.mode;
-      if (mode === "challenge") this.dispatch({ type: ACTIONS.NEW_GAME });
-      if (mode === "classic") this.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
-      if (mode === "record") this.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
-      if (mode === "time-trial") this.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
+      if (mode === GAME_MODES.CHALLENGE) this.dispatch({ type: ACTIONS.NEW_GAME });
+      if (mode === GAME_MODES.CLASSIC) this.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
+      if (mode === GAME_MODES.RECORD) this.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
+      if (mode === GAME_MODES.TIME_TRIAL) this.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
     }
   }
 
@@ -176,7 +179,7 @@ export default class Options extends BaseComponent {
     this.dom.classList.remove(this.modifiers.display.block);
 
     if (isShow) {
-      this.visibilityState = "showing";
+      this.visibilityState = VISIBILITY_STATES.SHOWING;
       this.alreadyClosed = false;
       this.dom.classList.add(this.modifiers.display.block);
       this.dom.offsetHeight;
@@ -185,7 +188,7 @@ export default class Options extends BaseComponent {
         this.dom.classList.add(this.modifiers.show.block);
       }, 0);
     } else {
-      this.visibilityState = "hiding";
+      this.visibilityState = VISIBILITY_STATES.HIDING;
       this._showTimeout = setTimeout(() => {
         this.dom.classList.remove(this.modifiers.show.block);
       }, 0);
@@ -195,9 +198,9 @@ export default class Options extends BaseComponent {
   _showInit() {
     this.dom.addEventListener("transitionend", (event) => {
       if (event.propertyName !== "opacity") return;
-      if (this.visibilityState === "showing") this.visibilityState = "visible";
-      else if (this.visibilityState === "hiding") {
-        this.visibilityState = "hidden";
+      if (this.visibilityState === VISIBILITY_STATES.SHOWING) this.visibilityState = VISIBILITY_STATES.VISIBLE;
+      else if (this.visibilityState === VISIBILITY_STATES.HIDING) {
+        this.visibilityState = VISIBILITY_STATES.HIDDEN;
         this.dom.classList.remove(this.modifiers.display.block);
       }
     });

@@ -27,12 +27,12 @@
 
 .results__flags-overflow{
   height: fit-content;
-  max-height: 270px;
+  max-height: 285px;
   overflow: auto;
 }
 
 .results__flags {
-  width: fit-content;
+  width: 100%;
   display: flex;
   /* justify-content: space-between; */
   align-items: start;

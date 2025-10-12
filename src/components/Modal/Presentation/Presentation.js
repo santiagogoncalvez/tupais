@@ -1,3 +1,5 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import htmlString from "@Modal/Presentation/template.html?raw";
 
 import { ACTIONS } from "@constants/action-types.js";
@@ -125,17 +127,17 @@ export default class Presentation extends BaseComponent {
     // Acción de nuevo juego
     //* Acá se personaliza la acción de nuevo juego que se quiere mandar según el modo en el que se encuentre
     if (
-      state.game.mode === "challenge"
+      state.game.mode === GAME_MODES.CHALLENGE
     ) {
       this.newGameAction = ACTIONS.NEW_GAME;
     }
-    if (state.game.mode === "classic") {
+    if (state.game.mode === GAME_MODES.CLASSIC) {
       this.newGameAction = ACTIONS.NEW_GAME_CLASSIC;
     }
-    if (state.game.mode === "record") {
+    if (state.game.mode === GAME_MODES.RECORD) {
       this.newGameAction = ACTIONS.NEW_GAME_RECORD;
     }
-    if (state.game.mode === "time-trial") {
+    if (state.game.mode === GAME_MODES.TIME_TRIAL) {
       this.newGameAction = ACTIONS.NEW_GAME_TIME_TRIAL;
     }
 

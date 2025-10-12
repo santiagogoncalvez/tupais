@@ -1,3 +1,7 @@
+import { ANSWER_TYPES } from "@constants/answer-types.js";
+
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 import "@components/Game/Country/Next-button/style.css";
@@ -18,11 +22,11 @@ export default class nextButton extends BaseComponent {
         className: this.base.block,
         title: "Siguiente ",
         onclick: () => {
-          dispatch({ type: ACTIONS.SET_ANSWER_TYPE, payload: "Skipped" });
+          dispatch({ type: ACTIONS.SET_ANSWER_TYPE, payload: ANSWER_TYPES.SKIPPED });
           dispatch({ type: ACTIONS.SKIP_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
 
-          if (this.state.game.mode != "classic") {
+          if (this.state.game.mode !== GAME_MODES.CLASSIC) {
             dispatch({ type: ACTIONS.NEXT_COUNTRY });
           }
         },

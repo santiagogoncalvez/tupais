@@ -1,3 +1,6 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
+
 import {
   createStore,
   rootReducer,
@@ -29,7 +32,7 @@ const store = createStore(rootReducer, [
 // Setear el modo actual
 store.dispatch({
   type: ACTIONS.SET_GAME_MODE,
-  payload: "record",
+  payload: GAME_MODES.RECORD,
 });
 
 let continentSelector = new ContinentSelector(

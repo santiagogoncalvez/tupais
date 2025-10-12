@@ -1,3 +1,6 @@
+import { ANSWER_TYPES } from "@constants/answer-types.js";
+
+import { GAME_MODES } from "@constants/game-modes.js";
 import { ACTIONS } from "@constants/action-types.js";
 
 import { normStr } from "@utils/string-parser.js";
@@ -31,7 +34,7 @@ function getAnswers(game) {
       ...{
         sendAnswer: false,
         correctAnswers: currentCount,
-        lastAnswerType: "Incorrect",
+        lastAnswerType: ANSWER_TYPES.INCORRECT,
       },
     };
     return newState;
@@ -58,7 +61,7 @@ function getAnswers(game) {
           sendAnswer: false,
           correctAnswers: currentCount + 1,
           // remainingAnswers: game.remainingAnswers - 1,
-          lastAnswerType: "Correct",
+          lastAnswerType: ANSWER_TYPES.CORRECT,
         },
       };
     } else {
@@ -79,7 +82,7 @@ function getAnswers(game) {
           sendAnswer: false,
           correctAnswers: currentCount,
           // remainingAnswers: game.remainingAnswers - 1,
-          lastAnswerType: "Incorrect",
+          lastAnswerType: ANSWER_TYPES.INCORRECT,
         },
       };
     }
@@ -89,7 +92,7 @@ function getAnswers(game) {
       ...newState,
       ...{
         sendAnswer: false,
-        lastAnswerType: "Incomplete",
+        lastAnswerType: ANSWER_TYPES.INCOMPLETE,
       },
     };
   }
@@ -108,7 +111,7 @@ function newGame(game) {
     incorrectFlags: [],
     remainingAnswers: TOTAL_ANSWERS,
     totalAnswers: TOTAL_ANSWERS,
-    countryIndex: nextIndex(game.countryIndex, game.countries.length),
+    countryIndex: 0,
     completed: false,
     won: false,
     timer: {
@@ -162,7 +165,7 @@ function getAnswersChoice(game) {
         sendAnswer: false,
         correctAnswers: currentCount + 1,
         remainingAnswers: game.remainingAnswers - 1,
-        lastAnswerType: "Correct",
+        lastAnswerType: ANSWER_TYPES.CORRECT,
       },
     };
   } else {
@@ -173,7 +176,7 @@ function getAnswersChoice(game) {
         sendAnswer: false,
         correctAnswers: currentCount,
         remainingAnswers: game.remainingAnswers - 1,
-        lastAnswerType: "Incorrect",
+        lastAnswerType: ANSWER_TYPES.INCORRECT,
       },
     };
   }
@@ -213,9 +216,9 @@ let initState = {
   completed: false,
   won: false,
   isNewGame: false,
-  lastAnswerType: "Incomplete",
+  lastAnswerType: ANSWER_TYPES.INCOMPLETE,
   skip: false,
-  mode: "challenge",
+  mode: "", // Modo inicial, classic, record, time-trial
   modes: null,
   timer: {
     time: GAME_TIME_TIMER,
@@ -302,7 +305,7 @@ const reducerMap = {
       };
       newState = {
         ...newState,
-        countryIndex: newState.countries.length - 1,
+        countryIndex: 0, // iniciar en el primer país del continente seleccionado
       };
     }
 
@@ -326,7 +329,7 @@ const reducerMap = {
       ...{
         sendAnswer: false,
         remainingAnswers: game.remainingAnswers - 1,
-        lastAnswerType: "Incorrect",
+        lastAnswerType: ANSWER_TYPES.INCORRECT,
       },
     };
   },
@@ -335,9 +338,7 @@ const reducerMap = {
   [ACTIONS.NEW_GAME_CLASSIC]: (game) => {
     let newGameSate = newGame(game)
     const { countries, countryIndex, totalAnswers } = newGameSate;
-    console.log(totalAnswers);
 
-    // Obtener los siguientes 10 países para incorrectFlags
     const take = Math.min(totalAnswers, countries.length - 1); // no puedo tomar el actual
     const incorrectFlags = Array.from({ length: take }, (_, i) => {
       const idx = (countryIndex + i) % countries.length;

@@ -1,3 +1,6 @@
+import { ANSWER_TYPES } from "@constants/answer-types.js";
+
+import { GAME_MODES } from "@constants/game-modes.js";
 import { ACTIONS } from "@constants/action-types.js";
 
 import htmlString from "@components/Game/Game-options/template.html?raw";
@@ -25,7 +28,7 @@ export default class GameOptions extends BaseComponent {
 
   syncState(state) {
     // Solo nos interesa classic
-    if (state.game.mode !== "classic") {
+    if (state.game.mode !== GAME_MODES.CLASSIC) {
       this.state = state;
       return;
     }
@@ -115,7 +118,7 @@ export default class GameOptions extends BaseComponent {
     let selectedOption = this.dom.querySelector(
       `.${this.base.option}[value="${this.answer}"]`
     );
-    if (state.game.lastAnswerType === "Correct") {
+    if (state.game.lastAnswerType === ANSWER_TYPES.CORRECT) {
       selectedOption?.classList.add("correct");
     }
 
@@ -125,12 +128,12 @@ export default class GameOptions extends BaseComponent {
     let correctOption = this.dom.querySelector(
       `.${this.base.option}[value="${correctAnswer}"]`
     );
-    if (state.game.lastAnswerType === "Incorrect") {
+    if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT) {
       correctOption?.classList.add("correct");
       selectedOption?.classList.add("incorrect");
     }
 
-    if (state.game.lastAnswerType === "Skipped") {
+    if (state.game.lastAnswerType === ANSWER_TYPES.SKIPPED) {
       correctOption?.classList.add("correct");
     }
 

@@ -1,3 +1,6 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
+
 import htmlString from "@components/Game/Answer/template.html?raw";
 import "@components/Game/Answer/style.css";
 import { base, modifiers } from "@components/Game/Answer/Answer-class-names.js";
@@ -22,7 +25,7 @@ export default class Answer extends BaseComponent {
   syncState(state) {
     const safeAnswer = state.game.answer ?? "";
 
-    if (state.game.answer == null) {
+    if (state.game.answer == null || state.game.mode === GAME_MODES.CLASSIC) {
       this.state = state;
       return;
     }

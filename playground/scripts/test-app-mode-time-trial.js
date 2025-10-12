@@ -1,3 +1,4 @@
+import { GAME_MODES } from "@constants/game-modes.js";
 import {
   createStore,
   rootReducer,
@@ -32,7 +33,7 @@ const store = createStore(rootReducer, [
 // Setear el modo actual
 store.dispatch({
   type: ACTIONS.SET_GAME_MODE,
-  payload: "time-trial",
+  payload: GAME_MODES.TIME_TRIAL,
 });
 
 let continentSelector = new ContinentSelector(

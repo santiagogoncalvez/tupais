@@ -1,3 +1,6 @@
+import { ANSWER_TYPES_TRANSLATIONS } from "@constants/answer-types.js";
+
+
 import { ACTIONS } from "@constants/action-types.js";
 import htmlString from "@components/Notifications/template.html?raw";
 import "@components/Notifications/style.css";
@@ -6,11 +9,6 @@ import { base, modifiers } from "@components/Notifications/Notifications-class-n
 import BaseComponent from "@shared/Base-component.js";
 import CloseButton from "@components/Button/Close-button/Close-button.js";
 
-const lastAnswerTypeTranslations = {
-  Correct: "Correcto",
-  Incorrect: "Incorrecto",
-  Incomplete: "Respuesta incompleta",
-};
 
 export default class Notifications extends BaseComponent {
   constructor(state, dispatch) {
@@ -63,7 +61,7 @@ export default class Notifications extends BaseComponent {
     this.currentNotification = elt(
       "div",
       { className: this.base.notification },
-      elt("p", { className: this.base.message }, lastAnswerTypeTranslations[message] || message),
+      elt("p", { className: this.base.message }, ANSWER_TYPES_TRANSLATIONS[message] || message),
       this.closeButton.dom
     );
 

@@ -1,4 +1,6 @@
 import { ACTIONS } from "@constants/action-types.js";
+import { ROUTES } from "@constants/routes.js";
+
 
 import htmlString from "@components/Flag-gallery/Flag-list/Sort-dropdown/template.html?raw";
 
@@ -41,8 +43,8 @@ export default class SortDropdown extends BaseComponent {
     if (newRoute === prevRoute) return;
 
     // --- Helpers ---
-    const isGalleryRoot = route => route === "/flag-gallery";
-    const isGalleryCountry = route => route.startsWith("/flag-gallery/");
+    const isGalleryRoot = route => route === ROUTES.FLAG_GALLERY;
+    const isGalleryCountry = route => route.startsWith(`${ROUTES.FLAG_GALLERY}/`);
 
     // 🔹 Determinar si seguimos dentro del mismo contexto de la galería
     const stayingWithinGallery =

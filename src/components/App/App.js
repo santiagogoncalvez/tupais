@@ -1,7 +1,8 @@
+import { GAME_MODES } from "@constants/game-modes.js";
 import store from "@store/store.js";
 
 import { ACTIONS } from "@constants/action-types.js";
-import { ROUTES, isRoute } from "@constants/routes.js";
+import { ROUTES } from "@constants/routes.js";
 
 import elt from "@utils/elt.js";
 import { normalizeRoute } from "@utils/normalize-route.js";
@@ -32,12 +33,6 @@ export default class App {
         this.dom = elt("div", { className: "app" }, elt("div", { className: "app__container" }, elt("main", {})));
 
         this.prevRoute = null; // <--- almacenar la ruta anterior
-
-        // Setear modo de juego
-        // this.store.dispatch({
-        //     type: ACTIONS.SET_GAME_MODE,
-        //     payload: "challenge",
-        // });
 
         // Instanciar componentes
         this.continentSelector = new ContinentSelector(
@@ -218,7 +213,7 @@ export default class App {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "classic" });
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
@@ -226,7 +221,7 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "challenge" });
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 break;
@@ -236,7 +231,7 @@ export default class App {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "record" });
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
@@ -245,7 +240,7 @@ export default class App {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
-                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: "time-trial" });
+                this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
                 break;
 

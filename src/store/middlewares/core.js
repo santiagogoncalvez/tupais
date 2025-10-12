@@ -1,3 +1,5 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 // --- Middleware de primer lanzamiento ---
@@ -118,16 +120,16 @@ export const checkStartButton = (store) => (next) => (action) => {
 
         // Arrancar juego según modo
         const mode = state.game.mode;
-        if (mode === "challenge") {
+        if (mode === GAME_MODES.CHALLENGE) {
             store.dispatch({ type: ACTIONS.NEW_GAME });
         }
-        if (mode === "classic") {
+        if (mode === GAME_MODES.CLASSIC) {
             store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
         }
-        if (mode === "record") {
+        if (mode === GAME_MODES.RECORD) {
             store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
         }
-        if (mode === "time-trial") {
+        if (mode === GAME_MODES.TIME_TRIAL) {
             store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
         }
 

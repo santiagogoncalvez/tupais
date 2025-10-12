@@ -1,3 +1,6 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
+
 import "@components/Game/Country/style.css";
 import { base } from "@components/Game/Country/Country-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
@@ -18,7 +21,7 @@ export default class Country extends BaseComponent {
   }
 
   _init(state) {
-    if (state.game.mode === "challenge" || state.game.mode === "time-trial") {
+    if (state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
       this.dom.prepend(elt("div", { className: this.base.fill }));
       this.dom.appendChild(this.nextButton.dom);
     }

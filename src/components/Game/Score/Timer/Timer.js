@@ -1,3 +1,5 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 import { formatTime } from "@utils/format-time.js";
 import htmlString from "@components/Game/Score/Timer/template.html?raw";
@@ -220,7 +222,7 @@ export default class Timer extends BaseComponent {
     progress.style.background = this._colors[this._colors.length - 1];
 
     this.dispatch({ type: ACTIONS.SET_ANSWER, payload: null });
-    if (this.state.game.mode === "classic") {
+    if (this.state.game.mode === GAME_MODES.CLASSIC) {
       this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER_CLASSIC });
     } else {
       this.dispatch({ type: ACTIONS.SEND_NOT_ANSWER });

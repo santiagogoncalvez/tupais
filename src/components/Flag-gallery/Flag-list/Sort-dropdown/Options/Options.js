@@ -1,4 +1,5 @@
-import { ACTIONS } from "@constants/action-types.js";
+import { VISIBILITY_STATES } from "@constants/visibility-states.js";
+
 
 import htmlString from "@components/Flag-gallery/Flag-list/Sort-dropdown/Options/template.html?raw";
 
@@ -25,7 +26,7 @@ export default class Options extends BaseComponent {
     this._init(options);
 
     // Animations
-    this.visibilityState = "hidden"; // "hidden" | "showing" | "visible" | "hiding"
+    this.visibilityState = VISIBILITY_STATES.HIDDEN;
     this._showTimeout = null; // para manejar el timeout de la animación
 
     this.optionAction = null;
@@ -179,7 +180,7 @@ export default class Options extends BaseComponent {
     if (isShow) {
       window.addEventListener("click", this.handleClickOutside);
 
-      this.visibilityState = "showing";
+      this.visibilityState = VISIBILITY_STATES.SHOWING;
       this.alreadyClosed = false;
 
       // volver a poner display:block
@@ -198,7 +199,7 @@ export default class Options extends BaseComponent {
     } else {
       window.removeEventListener("click", this.handleClickOutside);
 
-      this.visibilityState = "hiding";
+      this.visibilityState = VISIBILITY_STATES.HIDING;
 
       // encolar desactivación
       this._showTimeout = setTimeout(() => {
@@ -211,10 +212,10 @@ export default class Options extends BaseComponent {
     this.dom.addEventListener("transitionend", (event) => {
       if (event.propertyName !== "opacity") return;
 
-      if (this.visibilityState === "showing") {
-        this.visibilityState = "visible";
-      } else if (this.visibilityState === "hiding") {
-        this.visibilityState = "hidden";
+      if (this.visibilityState === VISIBILITY_STATES.SHOWING) {
+        this.visibilityState = VISIBILITY_STATES.VISIBLE;
+      } else if (this.visibilityState === VISIBILITY_STATES.HIDING) {
+        this.visibilityState = VISIBILITY_STATES.HIDDEN;
         this.dom.classList.remove(this.modifiers.display.block);
       }
     });

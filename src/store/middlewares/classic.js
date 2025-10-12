@@ -1,3 +1,5 @@
+import { GAME_MODES } from "@constants/game-modes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 export const checkSendAnswerMC = (store) => (next) => (action) => {
@@ -7,7 +9,7 @@ export const checkSendAnswerMC = (store) => (next) => (action) => {
         action.type === ACTIONS.SKIP_COUNTRY
     ) {
         const state = store.getState();
-        if (state.game.mode !== "classic") return result;
+        if (state.game.mode !== GAME_MODES.CLASSIC) return result;
 
         if (state.game.remainingAnswers <= 0) {
             if (state.game.correctAnswers == state.game.totalAnswers) {

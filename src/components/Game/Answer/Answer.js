@@ -85,42 +85,34 @@ export default class Answer extends BaseComponent {
     const letters = this.dom.querySelectorAll("." + this.base.letter);
     const size = newAnswer.length - oldAnswer.length;
 
-    if (size > 0) {
+    if (size > 0 && letters[newAnswer.length - 1]) {
       letters[newAnswer.length - 1].querySelector("." + this.base.letterText).textContent =
         newAnswer[newAnswer.length - 1];
       this._changeSelected(newAnswer.length);
       this._changeInserted(newAnswer.length - 1);
-    } else if (size < 0) {
+    } else if (size < 0 && letters[newAnswer.length]) {
       letters[newAnswer.length].querySelector("." + this.base.letterText).textContent = " ";
       this._changeSelected(newAnswer.length);
     }
-
   }
 
   _renderLetters(state) {
     const row1 = this.dom.querySelector("." + this.base.row1);
     let row2 = this.dom.querySelector("." + this.base.row2);
 
-    const oldCountry = this.state.game.countries[this.state.game.countryIndex];
     const newCountry = state.game.countries[state.game.countryIndex];
-
-    const [oldFirst, oldSecond = ""] = oldCountry.split(" ");
     const [newFirst, newSecond = ""] = newCountry.split(" ");
 
-    // --- Fila 1: siempre existe ---
-    this._adjustRowLetters(row1, oldFirst.length, newFirst.length);
+    this._adjustRowLetters(row1, newFirst.length);
 
-    // --- Fila 2: solo si hay segunda palabra ---
     if (newSecond.length) {
       if (!row2) {
-        // Crear dinámicamente row2
         row2 = elt("div", { className: `answer__row ${this.base.row2}` });
-        this.dom.querySelector(".answer__container").appendChild(row2);
+        this.dom.querySelector(".answer__container")?.appendChild(row2);
       }
-      // row2.classList.add(this.modifiers.show.row);
-      this._adjustRowLetters(row2, oldSecond.length, newSecond.length);
+      this._adjustRowLetters(row2, newSecond.length);
+      row2.classList.add(this.modifiers.show.row);
     } else if (row2) {
-      // No hay segunda palabra → limpiar row2
       row2.textContent = "";
       row2.classList.remove(this.modifiers.show.row);
     }
@@ -128,9 +120,12 @@ export default class Answer extends BaseComponent {
     this._changeSelected(0);
   }
 
-  _adjustRowLetters(row, oldLength, newLength) {
-    if (newLength > oldLength) {
-      for (let i = oldLength; i < newLength; i++) {
+
+  _adjustRowLetters(row, newLength) {
+    const currentLength = row.children.length;
+
+    if (newLength > currentLength) {
+      for (let i = currentLength; i < newLength; i++) {
         row.appendChild(
           elt(
             "div",
@@ -139,9 +134,10 @@ export default class Answer extends BaseComponent {
           )
         );
       }
-    } else if (newLength < oldLength) {
-      const letters = Array.from(row.children);
-      for (let i = oldLength - 1; i >= newLength; i--) letters[i].remove();
+    } else if (newLength < currentLength) {
+      for (let i = currentLength - 1; i >= newLength; i--) {
+        row.children[i]?.remove();
+      }
     }
   }
 

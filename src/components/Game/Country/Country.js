@@ -21,15 +21,30 @@ export default class Country extends BaseComponent {
   }
 
   _init(state) {
+    console.log("Iniciando modo de juego:", state.game.mode);
     if (state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
-      this.dom.prepend(elt("div", { className: this.base.fill }));
-      this.dom.appendChild(this.nextButton.dom);
+      this.renderButton(state);
     }
   }
 
   syncState(state) {
-    // this.previousButton.syncState(state);
+    if (this.state.game.mode !== state.game.mode) {
+      this.renderButton(state);
+    }
     this.flag.syncState(state);
     this.nextButton.syncState(state);
+
+    this.state = state;
+  }
+
+  renderButton(state) {
+    const fill = this.dom.querySelector(`.${this.base.fill}`);
+    if (state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
+      if (!fill) this.dom.prepend(elt("div", { className: this.base.fill }));
+      this.dom.appendChild(this.nextButton.dom);
+    } else {
+      if (fill) fill.remove();
+      this.nextButton.dom.remove();
+    }
   }
 }

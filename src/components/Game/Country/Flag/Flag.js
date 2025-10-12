@@ -51,7 +51,6 @@ export default class Flag extends BaseComponent {
       oldGame.countries.length !== newGame.countries.length ||
       jump > 1
     ) {
-      console.log("Reset flags");
       this._setFlags(state);
       this.flagIndex = 1;
       this.state = state;

@@ -103,6 +103,7 @@ function getAnswers(game) {
 function newGame(game) {
   return {
     ...game,
+    newGameId: Date.now(),
     correctAnswers: 0,
     // Desordenar países
     countries: shuffle(game.countries),
@@ -215,7 +216,8 @@ let initState = {
   totalAnswers: TOTAL_ANSWERS,
   completed: false,
   won: false,
-  isNewGame: false,
+  // isNewGame: false,
+  newGameId: Date.now(),
   lastAnswerType: ANSWER_TYPES.INCOMPLETE,
   skip: false,
   mode: "", // Modo inicial, classic, record, time-trial

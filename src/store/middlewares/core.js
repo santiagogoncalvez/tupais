@@ -90,7 +90,7 @@ export const persistSearchHistoryMiddleware = (store) => (next) => (action) => {
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
         // acá podrías agregar logging, analytics, validaciones, etc.
-        console.log("[Router]", "Navegando a:", action.payload);
+        // console.log("[Router]", "Navegando a:", action.payload);
     }
     return next(action);
 };

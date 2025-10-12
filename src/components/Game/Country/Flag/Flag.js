@@ -44,16 +44,11 @@ export default class Flag extends BaseComponent {
     const jump = Math.min(diff, total - diff); // soporta movimiento circular
 
     // 🔹 Si cambió el continente, modo, se inició un nuevo juego o hubo salto grande → reinicializar banderas
-    if (
-      oldGame.continent !== newGame.continent ||
-      oldGame.mode !== newGame.mode ||
-      newGame.isNewGame !== oldGame.isNewGame ||
-      oldGame.countries.length !== newGame.countries.length ||
-      jump > 1
-    ) {
+    if (newGame.newGameId !== this.lastNewGameId) {
       this._setFlags(state);
       this.flagIndex = 1;
       this.state = state;
+      this.lastNewGameId = newGame.newGameId;
       return;
     }
 

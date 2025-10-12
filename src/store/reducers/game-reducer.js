@@ -303,10 +303,6 @@ const reducerMap = {
         continent,
         countries: getRandomCountries(continent, -1),
       };
-      newState = {
-        ...newState,
-        countryIndex: 0, // iniciar en el primer país del continente seleccionado
-      };
     }
 
     return newState;

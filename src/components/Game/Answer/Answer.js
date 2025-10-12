@@ -16,7 +16,7 @@ export default class Answer extends BaseComponent {
     this.state = state;
     this.dom = this._createDom();
     this._init(state);
-    this._resizeLetters();
+
 
     // Recalcular tamaño de letras al redimensionar ventana
     window.addEventListener("resize", () => this._resizeLetters());
@@ -30,21 +30,27 @@ export default class Answer extends BaseComponent {
       return;
     }
 
+    const oldGame = this.state.game;
+    const newGame = state.game;
+    const prevAnswerLength = oldGame.answer?.length ?? 0;
+    const currAnswerLength = safeAnswer.length;
+
+    // 🔹 Si el país, continente o modo cambió, o hubo un salto de más de 1
     if (
-      state.game.countryIndex === this.state.game.countryIndex &&
-      state.game.continent === this.state.game.continent &&
-      Math.abs(safeAnswer.length - (this.state.game.answer?.length ?? 0)) <= 1
+      oldGame.countryIndex === newGame.countryIndex &&
+      oldGame.continent === newGame.continent &&
+      oldGame.mode === newGame.mode &&
+      Math.abs(currAnswerLength - prevAnswerLength) <= 1
     ) {
       this._insertAnswer(state);
-      this._resizeLetters();
     } else {
       this._clearTextOfLetters();
       this._renderLetters(state);
-      this._resizeLetters();
+      // ✅ Esperar al siguiente frame antes de redimensionar
+      requestAnimationFrame(() => this._resizeLetters());
     }
 
     this.state = state;
-    this._resizeLetters(); // recalcular tamaño
   }
 
   _init(state) {
@@ -70,8 +76,6 @@ export default class Answer extends BaseComponent {
         elt("div", { className: this.base.letter }, elt("span", { className: this.base.letterText }))
       );
     }
-
-    this._resizeLetters();
   }
 
   _insertAnswer(state) {
@@ -91,7 +95,6 @@ export default class Answer extends BaseComponent {
       this._changeSelected(newAnswer.length);
     }
 
-    this._resizeLetters();
   }
 
   _renderLetters(state) {
@@ -123,7 +126,6 @@ export default class Answer extends BaseComponent {
     }
 
     this._changeSelected(0);
-    this._resizeLetters();
   }
 
   _adjustRowLetters(row, oldLength, newLength) {

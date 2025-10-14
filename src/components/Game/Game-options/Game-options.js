@@ -23,6 +23,8 @@ export default class GameOptions extends BaseComponent {
     this._init(state, dispatch);
     // this.syncState(state);
 
+    this._show(state);
+
     this.isNewMode = true;
   }
 
@@ -33,12 +35,13 @@ export default class GameOptions extends BaseComponent {
       return;
     }
 
+
     // Detectar cambio de modo
     if (state.game.mode !== this.state.game.mode) {
       this.isNewMode = true;
     }
 
-    // Desactivar botones si cambió completion
+    // Desactivar botones si cambió completed
     if (state.game.completed !== this.state.game.completed) {
       if (state.game.completed) {
         this._disableOptions(true);
@@ -53,9 +56,18 @@ export default class GameOptions extends BaseComponent {
     const currShow = state.game.modes.multipleChoice.showOptions;
 
     if (currShow !== prevShow || this.isNewMode) {
-      if (currShow) this._show(state);
-      else this._hide();
+      if (currShow) {
+        // Preparar opciones
+        this._show(state);
+        this._setOptions(state);
+      }
+
       this.isNewMode = false;
+    }
+
+    if (state.game.countryIndex != this.state.game.countryIndex) {
+      this._setOptions(state);
+      this._disableOptions(false);
     }
 
     // Animación de respuesta correcta
@@ -151,9 +163,6 @@ export default class GameOptions extends BaseComponent {
       if (document.activeElement === button) button.blur();
     });
 
-    // Preparar opciones
-    this._setOptions(state);
-
     // Mostrar
     this.dom.classList.remove("hide");
     this.dom.classList.add("show");
@@ -170,8 +179,6 @@ export default class GameOptions extends BaseComponent {
     // Limpiar clases de respuestas anteriores
     this.dom.querySelector(".correct")?.classList.remove("correct");
     this.dom.querySelector(".incorrect")?.classList.remove("incorrect");
-
-    this._disableOptions(false);
   }
 
   _disableOptions(isDisabled) {

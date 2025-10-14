@@ -121,8 +121,8 @@
   opacity: 0;
   transform: scale(0.95) translateY(-10px);
   pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Estado visible */
@@ -143,7 +143,7 @@
 }
 
 /* Animación escalonada */
-.game-options.show .game-options__button:nth-child(1) {
+/* .game-options.show .game-options__button:nth-child(1) {
   transition-delay: 0.15s, 0.15s, 0s, 0s;
 }
 .game-options.show .game-options__button:nth-child(2) {
@@ -154,7 +154,7 @@
 }
 .game-options.show .game-options__button:nth-child(4) {
   transition-delay: 0.3s, 0.3s, 0s, 0s;
-}
+} */
 
 /* Opcion correcta e incorrecta */
 /* ✅ Respuesta correcta */
@@ -200,7 +200,8 @@
 /* Correct/Incorrect sin delay */
 .game-options__button.correct,
 .game-options__button.incorrect {
-  transition-delay: 0s !important; /* ignora los delays escalonados */
+  /* ignora los delays escalonados */
+  /* transition-delay: 0s !important;  */
   transition-property: background-color, border-color, color, box-shadow,
     transform;
   transition-duration: 0.3s;

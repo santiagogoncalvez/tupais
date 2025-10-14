@@ -42,10 +42,7 @@ export const checkAnimateCorrectMC = (store) => (next) => (action) => {
 export const checkNextCountryMC = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type === ACTIONS.NEXT_COUNTRY_CLASSIC) {
-        store.dispatch({ type: ACTIONS.HIDE_OPTIONS_CLASSIC });
-        setTimeout(() => {
-            store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
-        }, 150);
+        store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;
 };
@@ -53,10 +50,7 @@ export const checkNextCountryMC = (store) => (next) => (action) => {
 export const checkNewGameMC = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type === ACTIONS.NEW_GAME_CLASSIC) {
-        store.dispatch({ type: ACTIONS.HIDE_OPTIONS_CLASSIC });
-        setTimeout(() => {
-            store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
-        }, 150);
+        store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;
 };

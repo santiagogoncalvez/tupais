@@ -59,7 +59,6 @@ export default class GameModes extends BaseComponent {
       state.router.currentRoute === ROUTES.RECORD ||
       state.router.currentRoute === ROUTES.TIME_TRIAL
     ) {
-      console.log("Ruta de juego");
 
       this.dom.classList.add("game-modes--modal");
       // ocultar solo el botón del modo actual
@@ -72,7 +71,6 @@ export default class GameModes extends BaseComponent {
       return;
     }
     else {
-      console.log("Ruta que NO es juego");
       this.dom.classList.remove("game-modes--modal");
     }
   }

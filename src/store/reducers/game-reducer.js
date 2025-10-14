@@ -223,7 +223,7 @@ let initState = {
 initState.modes = {
   multipleChoice: {
     options: getOptions(initState.countries[0], initState.countries),
-    showOptions: false,
+    showOptions: Date.now(),
   },
 };
 
@@ -348,7 +348,7 @@ const reducerMap = {
             game.countries[game.countryIndex],
             game.countries
           ),
-          showOptions: true,
+          showOptions: Date.now(),
         },
       },
     };

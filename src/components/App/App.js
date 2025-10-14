@@ -4,6 +4,8 @@ import store from "@store/store.js";
 import { ACTIONS } from "@constants/action-types.js";
 import { ROUTES } from "@constants/routes.js";
 
+import countryNames from "@data/country-names.json" with { type: "json" };
+
 import elt from "@utils/elt.js";
 import { normalizeRoute } from "@utils/normalize-route.js";
 
@@ -23,6 +25,8 @@ import Credits from "@components/Credits/Credits.js";
 import FlagGallery from "@components/Flag-gallery/Flag-gallery.js";
 import FlagInfo from "@components/Flag-gallery/Flag-info/Flag-info.js";
 import ScrollTop from "@components/Flag-gallery/Scroll-top/Scroll-top.js";
+
+import GameModes from "@Modal/Game-over/Game-modes/Game-modes.js";
 
 
 
@@ -93,6 +97,12 @@ export default class App {
             this.store.dispatch.bind(this.store)
         );
 
+        this.gameModes = new GameModes(
+            this.store.getState(),
+            this.store.dispatch.bind(this.store)
+        );
+
+
         this.scrollTop = new ScrollTop(this.dom.querySelector(".app__container"));
 
 
@@ -138,7 +148,8 @@ export default class App {
         s(this.credits.syncState.bind(this.credits));
         s(this.flagGallery.syncState.bind(this.flagGallery));
         s(this.flagInfo.syncState.bind(this.flagInfo));
-        // s(this.syncState.bind(this));
+        s(this.gameModes.syncState.bind(this.gameModes));
+
 
 
         // Suscripción para renderizar según currentRoute
@@ -178,34 +189,31 @@ export default class App {
 
 
 
+
     renderRoute() {
         let { currentRoute } = this.store.getState().router;
         currentRoute = normalizeRoute(currentRoute);
 
-        // Evitar renders duplicados
         if (this.prevRoute === currentRoute) return;
 
-        // Guardar prevRoute antes de hacer cualquier dispatch
         const fromRoute = this.prevRoute;
         this.prevRoute = currentRoute;
 
-        // Resetear filtros solo si venimos de otra ruta que no sea /flag-gallery
         if (currentRoute.startsWith(ROUTES.FLAG_GALLERY) && !fromRoute?.startsWith(ROUTES.FLAG_GALLERY)) {
             this.flagGallery.reset();
         }
 
-        // Reset del contenedor principal
         this.main.innerHTML = "";
         this.dom.querySelector(".app__container").scrollTo({ top: 0, left: 0, behavior: "auto" });
         this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
 
-        // Cerrar Navbar si está abierto
         const state = this.store.getState();
         if (state.ui.navbar.show) {
             this.store.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
         }
 
         const newState = this.store.getState();
+
         // --- Ruteo ---
         switch (true) {
             case currentRoute === ROUTES.HOME:
@@ -254,11 +262,25 @@ export default class App {
                 this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
                 this.about.dom.remove();
                 this.credits.dom.remove();
-                const country = currentRoute.split("/")[2];
-                if (country) {
-                    this.main.appendChild(this.flagInfo.dom);
-                    this.flagInfo.renderInfo({ name: country });
+
+                const countryName = currentRoute.split("/")[2];
+
+                const normalize = (str) =>
+                    str
+                        ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+                        : "";
+
+                const exists = countryNames.some(
+                    (name) => normalize(name) === normalize(countryName)
+                );
+
+                if (!exists) {
+                    this.showNotFound();
+                    break;
                 }
+
+                this.main.appendChild(this.flagInfo.dom);
+                this.flagInfo.renderInfo({ name: countryName });
                 break;
 
             case currentRoute === ROUTES.ABOUT:
@@ -274,11 +296,22 @@ export default class App {
                 break;
 
             default:
-                const notFound = document.createElement("div");
-                notFound.textContent = "404 - Página no encontrada";
-                this.main.appendChild(notFound);
+                this.showNotFound();
                 break;
         }
     }
 
+    showNotFound() {
+        const notFound = document.createElement("div");
+        notFound.className = "app__not-found";
+
+        const title = document.createElement("h2");
+        title.textContent = "Página no encontrada";
+
+        const subtitle = document.createElement("p");
+        subtitle.textContent = "Parece que la página que buscás no existe o fue movida.";
+
+        notFound.append(title, subtitle, this.gameModes.dom);
+        this.main.appendChild(notFound);
+    };
 }

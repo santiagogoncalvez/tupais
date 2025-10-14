@@ -1,3 +1,5 @@
+import { ROUTES } from "@constants/routes.js";
+
 import { ACTIONS } from "@constants/action-types.js";
 
 import htmlString from "@Modal/Game-over/Game-modes/template.html?raw";
@@ -38,10 +40,8 @@ export default class GameModes extends BaseComponent {
   }
 
   syncState(state) {
-    // if (state.game.mode !== this.state.game.mode) {
     //* Parche para actualizar de forma correcta, ver por qué o en qué momento no actualiza bien. El error está en la comparación (state.game.mode !== this.state.game.mode) en algún moomento no son distintos y no actualiza.
-      this._showCorrectModes(state);
-    // }
+    this._showCorrectModes(state);
 
 
     this.state = state;
@@ -49,16 +49,31 @@ export default class GameModes extends BaseComponent {
 
   _showCorrectModes(state) {
     // mostrar todos los botones
-    document.querySelectorAll(".game-modes__link").forEach(btn => {
+    this.dom.querySelectorAll(".game-modes__link").forEach(btn => {
       btn.classList.remove("hidden");
     });
 
-    // ocultar solo el botón del modo actual
-    const currentModeBtn = document.querySelector(
-      `.game-modes__link[data-mode="${state.game.mode}"]`
-    );
-    if (currentModeBtn) {
-      currentModeBtn.classList.add("hidden");
+    if (
+      state.router.currentRoute === ROUTES.HOME ||
+      state.router.currentRoute === ROUTES.CHALLENGE ||
+      state.router.currentRoute === ROUTES.RECORD ||
+      state.router.currentRoute === ROUTES.TIME_TRIAL
+    ) {
+      console.log("Ruta de juego");
+
+      this.dom.classList.add("game-modes--modal");
+      // ocultar solo el botón del modo actual
+      const currentModeBtn = this.dom.querySelector(
+        `.game-modes__link[data-mode="${state.game.mode}"]`
+      );
+      if (currentModeBtn) {
+        currentModeBtn.classList.add("hidden");
+      }
+      return;
+    }
+    else {
+      console.log("Ruta que NO es juego");
+      this.dom.classList.remove("game-modes--modal");
     }
   }
 }

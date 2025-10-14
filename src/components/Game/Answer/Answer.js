@@ -23,31 +23,23 @@ export default class Answer extends BaseComponent {
   }
 
   syncState(state) {
-    const safeAnswer = state.game.answer ?? "";
 
     if (state.game.answer == null || state.game.mode === GAME_MODES.CLASSIC) {
       this.state = state;
       return;
     }
 
-    const oldGame = this.state.game;
-    const newGame = state.game;
-    const prevAnswerLength = oldGame.answer?.length ?? 0;
-    const currAnswerLength = safeAnswer.length;
 
     // 🔹 Si el país, continente o modo cambió, o hubo un salto de más de 1
-    if (
-      oldGame.countryIndex === newGame.countryIndex &&
-      oldGame.continent === newGame.continent &&
-      oldGame.mode === newGame.mode &&
-      Math.abs(currAnswerLength - prevAnswerLength) <= 1
+    if (state.game.newGameId !== this.state.game.newGameId ||
+      state.game.countryIndex !== this.state.game.countryIndex
     ) {
-      this._insertAnswer(state);
-    } else {
       this._clearTextOfLetters();
       this._renderLetters(state);
       // ✅ Esperar al siguiente frame antes de redimensionar
       requestAnimationFrame(() => this._resizeLetters());
+    } else {
+      this._insertAnswer(state);
     }
 
     this.state = state;

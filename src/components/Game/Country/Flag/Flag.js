@@ -38,12 +38,7 @@ export default class Flag extends BaseComponent {
     const oldIndex = oldGame.countryIndex;
     const newIndex = newGame.countryIndex;
 
-    // 🔹 Diferencia de índices (con ajuste circular)
-    const total = newGame.countries.length;
-    const diff = Math.abs(newIndex - oldIndex);
-    const jump = Math.min(diff, total - diff); // soporta movimiento circular
-
-    // 🔹 Si cambió el continente, modo, se inició un nuevo juego o hubo salto grande → reinicializar banderas
+    
     if (newGame.newGameId !== this.lastNewGameId) {
       this._setFlags(state);
       this.flagIndex = 1;

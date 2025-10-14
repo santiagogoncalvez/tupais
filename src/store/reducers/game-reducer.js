@@ -22,83 +22,69 @@ function getAnswers(game) {
     ...game,
   };
 
+  const currentFlag = newState.countries[newState.countryIndex];
+
+  //* Respuesta inexistente (NOT ANSWER)
   if (game.answer == null) {
-    newState.incorrectFlags = [
-      ...newState.incorrectFlags,
-      newState.countries[newState.countryIndex],
-    ];
-    // *Respuesta incorrecta pero completa
-    // Esto en el modo clasico comun ahora no resta puntos ni países a. adivinar por el momento.
+    if (!newState.incorrectFlags.includes(currentFlag)) {
+      newState.incorrectFlags = [...newState.incorrectFlags, currentFlag];
+    }
     newState = {
       ...newState,
-      ...{
-        sendAnswer: false,
-        correctAnswers: currentCount,
-        lastAnswerType: ANSWER_TYPES.INCORRECT,
-      },
+      sendAnswer: false,
+      correctAnswers: currentCount,
+      lastAnswerType: ANSWER_TYPES.INCORRECT,
     };
     return newState;
   }
 
-  let currAnswer = normStr(game.answer);
-  let correctAnswer = normStr(game.countries[game.countryIndex]);
-
-  // Verificar el tipo de respuesta
-  //* El usuario no respondió. Ocurre cuando se acaba el tiempo.
+  const currAnswer = normStr(game.answer);
+  const correctAnswer = normStr(currentFlag);
 
   // *Respuesta completa
-  if (currAnswer.length == correctAnswer.length) {
-    // *Respuesta correcta
-    if (currAnswer == correctAnswer) {
-      // Agregar país actual a correctFlags
-      newState.correctFlags = [
-        ...newState.correctFlags,
-        newState.countries[newState.countryIndex],
-      ];
+  if (currAnswer.length === correctAnswer.length) {
+    if (currAnswer === correctAnswer) {
+      // ✅ Respuesta correcta
+      // Agregar a correctFlags (sin duplicados)
+      if (!newState.correctFlags.includes(currentFlag)) {
+        newState.correctFlags = [...newState.correctFlags, currentFlag];
+      }
+
+      // 🔹 Eliminar de incorrectFlags si estaba
+      newState.incorrectFlags = newState.incorrectFlags.filter(
+        (flag) => flag !== currentFlag
+      );
+
       newState = {
         ...newState,
-        ...{
-          sendAnswer: false,
-          correctAnswers: currentCount + 1,
-          // remainingAnswers: game.remainingAnswers - 1,
-          lastAnswerType: ANSWER_TYPES.CORRECT,
-        },
+        sendAnswer: false,
+        correctAnswers: currentCount + 1,
+        lastAnswerType: ANSWER_TYPES.CORRECT,
       };
     } else {
-      // Agregar país actual a incorrectFlags
-      const currentFlag = newState.countries[newState.countryIndex];
-
+      // ❌ Respuesta incorrecta pero completa
       if (!newState.incorrectFlags.includes(currentFlag)) {
-        newState.incorrectFlags = [
-          ...newState.incorrectFlags,
-          currentFlag,
-        ];
+        newState.incorrectFlags = [...newState.incorrectFlags, currentFlag];
       }
-      // *Respuesta incorrecta pero completa
-      // Esto en el modo clasico comun ahora no resta puntos ni países a. adivinar por el momento.
       newState = {
         ...newState,
-        ...{
-          sendAnswer: false,
-          correctAnswers: currentCount,
-          // remainingAnswers: game.remainingAnswers - 1,
-          lastAnswerType: ANSWER_TYPES.INCORRECT,
-        },
+        sendAnswer: false,
+        correctAnswers: currentCount,
+        lastAnswerType: ANSWER_TYPES.INCORRECT,
       };
     }
   } else {
     //* Respuesta incompleta
     newState = {
       ...newState,
-      ...{
-        sendAnswer: false,
-        lastAnswerType: ANSWER_TYPES.INCOMPLETE,
-      },
+      sendAnswer: false,
+      lastAnswerType: ANSWER_TYPES.INCOMPLETE,
     };
   }
 
   return newState;
 }
+
 
 function newGame(game) {
   return {

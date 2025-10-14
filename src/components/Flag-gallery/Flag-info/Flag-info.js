@@ -348,7 +348,6 @@ export default class FlagInfo extends BaseComponent {
       }
     }, 500);
   }
-
 }
 
 function getCountryCodesString(countryInfo) {

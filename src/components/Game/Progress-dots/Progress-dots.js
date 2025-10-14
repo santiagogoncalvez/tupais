@@ -24,7 +24,8 @@ export default class ProgressDots extends BaseComponent {
   }
 
   syncState(state) {
-    if (state.game.countryIndex !== this.state.game.countryIndex || state.game.continent !== this.state.game.continent) {
+    if (state.game.countryIndex !== this.state.game.countryIndex ||
+      state.game.countryIndex !== this.state.game.countryIndex) {
       this.setCurrent(state.game.totalAnswers - state.game.remainingAnswers);
     }
 

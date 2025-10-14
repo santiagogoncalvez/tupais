@@ -55,7 +55,10 @@ export default class CountriesMap {
 
         fetch("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json")
             .then(res => res.json())
-            .then(data => this._addGeoJSON(data));
+            .then(data => {
+                console.log();
+                this._addGeoJSON(data)
+            });
 
         window.addEventListener("resize", () => {
             if (this.map) {

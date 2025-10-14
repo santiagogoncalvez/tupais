@@ -2,6 +2,7 @@ import { ACTIONS } from "@constants/action-types.js";
 
 import countriesCca2 from "@data/country-cca2.json" with { type: "json" };
 import translationsCountryNames from "@data/country-names-eng-spa.json" with { type: "json" };
+import countriesGeoJSON from "@data/countries-geo.json" with { type: "json" };
 
 // Importar Leaflet
 import L from "leaflet";
@@ -53,12 +54,7 @@ export default class CountriesMap {
             attribution: "&copy; OSM contributors"
         }).addTo(this.map);
 
-        fetch("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json")
-            .then(res => res.json())
-            .then(data => {
-                console.log();
-                this._addGeoJSON(data)
-            });
+        this._addGeoJSON(countriesGeoJSON);
 
         window.addEventListener("resize", () => {
             if (this.map) {
@@ -170,15 +166,15 @@ export default class CountriesMap {
 
         // console.log(englishName);
 
-        setTimeout(() => {
-            // console.log(this.countryLayers);
-            const layer = this.countryLayers[englishName.toLowerCase()];
-            if (!layer) return console.warn("País no encontrado:", spanishName);
+        // console.log(this.countryLayers);
+        const layer = this.countryLayers[englishName.toLowerCase()];
+        if (!layer) return console.warn("País no encontrado:", spanishName);
 
-            // Ajustar vista al país
-            this.map.fitBounds(layer.getBounds());
-            this.selectCountry(layer);
-        }, 500);
+        this.map.invalidateSize();
+
+        // Ajustar vista al país
+        this.map.fitBounds(layer.getBounds());
+        this.selectCountry(layer);
     }
 
     syncState(state) {

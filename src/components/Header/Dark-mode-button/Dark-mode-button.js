@@ -19,11 +19,14 @@ export default class DarkModeButton extends BaseComponent {
 
   _init(state, dispatch) {
     const checkbox = this.dom.querySelector("." + this.base.checkbox);
+    const label = document.querySelector(".dark-mode-button");
+
     checkbox.checked = state.ui.darkMode;
 
     this.dom.addEventListener("change", () => {
       dispatch({ type: ACTIONS.TOGGLE_DARK_MODE });
       document.body.classList.toggle("dark-mode");
+      this.dom.title = checkbox.checked ? "Desactivar modo oscuro" : "Activar modo oscuro";
     });
 
     this.dom.addEventListener("keydown", (event) => {
@@ -32,4 +35,6 @@ export default class DarkModeButton extends BaseComponent {
       }
     });
   }
+
+
 }

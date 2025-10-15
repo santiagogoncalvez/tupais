@@ -104,11 +104,7 @@
 }
 
 .navbar__link:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--color-link) 10%,
-    var(--bg-default) 90%
-  );
+  background-color: #f0f1f1;
 }
 
 /* === Íconos === */

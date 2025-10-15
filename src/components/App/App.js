@@ -263,13 +263,14 @@ export default class App {
                 this.about.dom.remove();
                 this.credits.dom.remove();
 
-                const countryName = currentRoute.split("/")[2];
+                const countryName = decodeURIComponent(currentRoute.split("/")[2]);
 
                 const normalize = (str) =>
                     str
                         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
                         : "";
 
+                console.log(countryName);
                 const exists = countryNames.some(
                     (name) => normalize(name) === normalize(countryName)
                 );

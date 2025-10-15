@@ -1,52 +1,47 @@
+/* ===========================
+   Flag-info - Modo claro
+=========================== */
 .flag-info {
   width: 100%;
-  height: 100%;
   height: fit-content;
-  color: #001f31;
-
+  color: var(--color-text);
+  background-color: var(--bg-default);
   padding: 0px 15px 0px;
 
   display: flex;
-  justify-content: center; /* centra horizontalmente */
-  align-items: center; /* alinea al inicio verticalmente */
+  justify-content: center;
+  align-items: center;
 }
 
 .flag-info__content {
   width: 511px;
   max-width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center; /* centra horizontalmente */
-  align-items: start; /* alinea al inicio verticalmente */
+  justify-content: center;
+  align-items: flex-start;
   flex-direction: column;
 }
 
 .flag-info__container {
   max-width: 100%;
-  height: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 35px;
-
   padding-bottom: 40px;
 }
 
-.flag-info__name {
-  margin-bottom: 0;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.flag-info__description {
-  margin: 0;
-}
-
+.flag-info__name,
+.flag-info__description,
 .flag-info__subtitle {
+  color: var(--color-text);
   margin: 0;
-  text-align: center;
+}
+
+.flag-info__name {
+  margin-top: 20px;
 }
 
 .flag-info__back-to-gallery {
@@ -55,27 +50,31 @@
   gap: 0.3rem;
   padding: 0.3rem 0.6rem;
   font-size: 0.95rem;
-  color: #333;
+  color: var(--color-link);
   border: 1px solid #dbdbdb;
   border-radius: 6px;
   background: transparent;
   text-decoration: none;
   transition: all 0.2s;
-
   margin-top: 15px;
   user-select: none;
+
+  filter: invert(0%); /* normal */
+}
+
+body.dark-mode .flag-info__back-to-gallery-icon{
+  filter: invert(70%); /* normal */
 }
 
 .flag-info__back-to-gallery:hover {
   border-color: #b2b2b2;
 }
 
-
 .flag-info__flag {
-  max-width: 100%; /* ocupa como máximo el ancho del contenedor */
-  height: auto; /* el alto se ajusta proporcionalmente */
+  max-width: 100%;
+  height: auto;
   border-radius: 4px;
-  border: 1px solid rgb(232, 232, 232);
+  border: 1px solid #e8e8e8;
 }
 
 .flag-info__details {
@@ -90,24 +89,24 @@
 
 .flag-info__item {
   display: flex;
-  justify-content: space-between; /* texto a la izquierda, valor a la derecha */
+  justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
   border-radius: 8px;
-  background-color: #f9f9f9; /* fondo suave para resaltar cada fila */
-  /* background-color: #f6f6f6;  */ /* Segunda opción de fondo*/
+  background-color: #f9f9f9;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s ease;
   font-size: 0.95rem;
+  color: var(--color-text);
 }
 
 .flag-info__item:hover {
-  background-color: #eef4fb; /* efecto hover para interacción */
+  background-color: #eef4fb;
 }
 
 .flag-info__label {
   font-weight: 500;
-  color: #001f31; /* mismo color de texto principal */
+  color: var(--color-text);
   margin-right: 8px;
 }
 
@@ -117,11 +116,10 @@
 
 .flag-info__value {
   font-weight: 600;
-  color: #00405d; /* ligeramente distinto para diferenciar del label */
+  color: #00405d;
   text-align: right;
 }
 
-/* Opcional: si querés que las “notas” como ISO o códigos estén más sutiles */
 .flag-info__note {
   font-size: 0.8rem;
   color: #7b7c7e;
@@ -129,7 +127,6 @@
   font-weight: 500;
 }
 
-/* Para responsive dentro del contenedor */
 @media (max-width: 520px) {
   .flag-info__item {
     flex-direction: column;
@@ -145,21 +142,75 @@
 
 .flag-info__value--boolean {
   display: inline-block;
-  padding: 2px 8px; /* espacio interno */
-  border-radius: 12px; /* forma tipo “pill” */
+  padding: 2px 8px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 0.85rem; /* un poco más pequeño que el valor normal */
+  font-size: 0.85rem;
   text-align: center;
-  min-width: 32px; /* opcional: que no quede muy estrecho */
+  min-width: 32px;
 }
 
-/* Colores para los booleanos */
 .flag-info__value--boolean.true {
-  background-color: #d0f0c0; /* verde suave */
-  color: #006400; /* verde oscuro */
+  background-color: #d0f0c0;
+  color: #006400;
 }
 
 .flag-info__value--boolean.false {
-  background-color: #f8d7da; /* rojo suave */
-  color: #842029; /* rojo oscuro */
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* ===========================
+   Flag-info - Modo oscuro
+=========================== */
+body.dark-mode .flag-info {
+  background-color: #001f31; /* fondo general dark */
+  color: #e6f2ff;
+}
+
+body.dark-mode .flag-info__name,
+body.dark-mode .flag-info__description,
+body.dark-mode .flag-info__subtitle {
+  color: #e6f2ff;
+}
+
+body.dark-mode .flag-info__back-to-gallery {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+body.dark-mode .flag-info__back-to-gallery:hover {
+  border-color: #a7bbd2;
+}
+
+body.dark-mode .flag-info__item {
+  background-color: #00405d;
+  color: #e6f2ff;
+  box-shadow: none;
+}
+
+body.dark-mode .flag-info__item:hover {
+  background-color: #00638e;
+}
+
+body.dark-mode .flag-info__label {
+  color: #e6f2ff;
+}
+
+body.dark-mode .flag-info__value {
+  color: #9ed2ff;
+}
+
+body.dark-mode .flag-info__note {
+  color: #a2a6a9;
+}
+
+body.dark-mode .flag-info__value--boolean.true {
+  background-color: #7fe77bff;
+  color: #00405d;
+}
+
+body.dark-mode .flag-info__value--boolean.false {
+  background-color: #f08080;
+  color: #842029;
 }

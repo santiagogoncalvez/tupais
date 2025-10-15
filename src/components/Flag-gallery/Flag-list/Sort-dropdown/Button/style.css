@@ -1,16 +1,31 @@
+/* Variables locales para dropdown-button */
+.dropdown-button {
+  --text-color: var(--color-text);
+  --value-color: var(--color-link);
+  --prefix-color: #5f6162; /* más neutro, no cambia con dark-mode */
+  --bg-hover: rgba(0,0,0,0.03);
+  --outline-color: var(--color-text);
+}
+
+body.dark-mode .dropdown-button {
+  --text-color: var(--color-text);
+  --value-color: var(--color-link);
+  --prefix-color: #a2a6a9;
+  --bg-hover: rgba(255,255,255,0.1);
+  --outline-color: var(--color-text);
+}
+
+/* Contenedor principal */
 .dropdown-button {
   width: 100%;
   min-height: 35px;
   background-color: transparent;
-  color: #001f31;
+  color: var(--text-color);
   text-align: center;
   border-radius: 6px;
-  /* border: 1px solid rgb(230, 230, 230); */
   border-width: 0px;
 
-
-  padding: 0px 0px 0px 0px;
-
+  padding: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -22,22 +37,25 @@
   position: relative;
 }
 
+/* Hover */
 .dropdown-button:hover {
-  border-color: rgb(210, 210, 210);
+  cursor: pointer;
 }
 
+/* Focus y active */
 .dropdown-button:focus {
   transition: all 0s;
-  outline: 2px solid #001f31;
+  outline: 2px solid var(--outline-color);
   outline-offset: 2px;
 }
 
 .dropdown-button:active {
   transition: all 0s;
-  outline: 0px solid;
-  outline-offset: 0px;
+  outline: 0;
+  outline-offset: 0;
 }
 
+/* Icono de selector */
 .dropdown-button__selector-icon {
   width: 13px;
   height: 13px;
@@ -49,16 +67,14 @@
   rotate: calc(90deg);
 }
 
-.dropdown-button:hover {
-  cursor: pointer;
-}
-
+/* Prefijo y valor */
 .dropdown-button__prefix {
   user-select: none;
-  color: #5f6162;
+  color: var(--prefix-color);
 }
+
 .dropdown-button__value {
   user-select: none;
-  color: #00638e;
+  color: var(--value-color);
   font-weight: 600;
 }

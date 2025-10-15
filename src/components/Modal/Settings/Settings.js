@@ -64,10 +64,7 @@ export default class Settings extends BaseComponent {
       this._activeEvents(state.ui.modals.settings.show);
       this.isShow = state.ui.modals.settings.show;
     }
-    if (this.state.ui.darkMode != state.ui.darkMode) {
-      this._setDarkMode(state.ui.darkMode);
-      this.continentSelector._setDarkMode(state.ui.darkMode);
-    }
+
     this.closeButton.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;

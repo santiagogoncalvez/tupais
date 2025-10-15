@@ -1,4 +1,6 @@
 .header__open-navbar-button {
+  position: absolute;
+  left: 0;
   height: 40px;
   width: 40px;
   max-width: 20vw;
@@ -16,7 +18,7 @@
 }
 
 .header__open-navbar-button:hover {
-  background-color: rgb(245, 245, 245);
+  background-color: #f0f1f1;
   cursor: pointer;
 }
 

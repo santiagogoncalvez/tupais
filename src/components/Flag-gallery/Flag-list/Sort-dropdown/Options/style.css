@@ -1,75 +1,92 @@
+/* === Dropdown Options === */
 .dropdown-options {
+  /* Variables locales */
+  --bg-panel: var(--bg-default);
+  --border-color: rgb(230, 230, 230);
+  --shadow-color: rgba(200, 200, 200, 0.3);
+  --option-hover-bg: rgba(0, 0, 0, 0.03);
+  --option-selected-bg: rgb(240, 240, 240);
+  --text-color: var(--color-text);
+
   width: 190px;
   position: absolute;
-  right: 0px;
+  right: 0;
+  top: 38px;
+
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
+
+  background-color: var(--bg-panel);
   border-radius: 6px;
-  border: 1px solid rgb(230, 230, 230);
-  box-shadow: 0px 2px 6px rgba(200, 200, 200, 0.302);
-  padding-top: 7px;
-  padding-bottom: 7px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0px 2px 6px var(--shadow-color);
+  padding: 7px 0;
   margin: 0;
   opacity: 0;
   transition: all 0.15s ease-in-out;
   z-index: 51;
   user-select: none;
-
-  top: 38px;
 }
 
-.dropdown-options:focus {
-  outline: 0px solid;
-  outline-offset: 0px;
+/* === Dark Mode === */
+body.dark-mode .dropdown-options {
+  --bg-panel: #002a46;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --option-hover-bg: rgba(255, 255, 255, 0.1);
+  --option-selected-bg: rgba(255, 255, 255, 0.15);
+  --text-color: var(--color-text);
 }
 
+/* Focus handling */
+.dropdown-options:focus,
 .dropdown-options__options:focus {
-  outline: 0px solid;
-  outline-offset: 0px;
+  outline: none;
 }
 
+/* Estados visibles */
 .dropdown-options__options--display {
   display: flex;
-  background-color: white;
+  background-color: var(--bg-panel);
 }
 
 .dropdown-options__options--show {
-  /* margin-top: 2px; */
   opacity: 1;
-  background-color: white;
+  background-color: var(--bg-panel);
 }
 
+/* === Opciones individuales === */
 .dropdown-options__option {
-  background-color: white;
-  color: #001f31;
   width: 95%;
   height: 40px;
   border-radius: 5px;
+  background-color: var(--bg-panel);
+  color: var(--text-color);
   text-align: center;
+
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  padding: 0px 20px;
+  padding: 0 20px;
+  margin: 0;
 
-  margin-left: 0;
-  margin-right: 0;
   user-select: none;
-  transition: all 0.05s linear;
+  transition: all 0.1s linear;
 }
 
 .dropdown-options__option:hover {
   cursor: pointer;
+  background-color: var(--option-hover-bg);
 }
 
 .dropdown-options__option--selected {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--option-selected-bg);
 }
 
-/* Dark mode */
-.dropdown-options__options--dark-mode {
-  box-shadow: 0px 2px 6px rgba(120, 120, 120, 0.302);
+/* === Dark mode box-shadow para opciones === */
+body.dark-mode .dropdown-options__options {
+  box-shadow: 0px 2px 6px var(--shadow-color);
 }

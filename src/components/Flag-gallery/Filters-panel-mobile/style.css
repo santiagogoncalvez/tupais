@@ -1,28 +1,20 @@
-/* Panel base */
+/* === Panel de filtros móvil === */
 .filters-panel-mobile {
-  color: #001f31;
-  /* background: rgb(192, 192, 192); */
-  background: rgb(250, 250, 250);
+  color: var(--color-text);
+  background: var(--bg-default);
   position: fixed;
   top: 0;
   left: 0;
   display: none;
   flex-direction: column;
-
   height: 100vh;
   width: 100vw;
-  /* Este overflow hace que se vea correcto */
-
   border: 0;
-  padding: 20px 40px 0px 40px;
-  padding-top: 16px;
-  /* padding-bottom: 130px; */
+  padding: 16px 40px 0 40px;
   z-index: 11;
   transition: all 0.3s ease-in-out;
   margin: 0;
   user-select: none;
-
-  /* scrollbar-gutter: stable both-edges; */
 }
 
 .filters-panel-mobile--show {
@@ -33,13 +25,42 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: fit-content;
-  /* scrollbar-gutter: stable both-edges; */
-  padding: 20px 20px 20px 0px;
-
+  padding: 20px 20px 20px 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
+
+
+/* Scroll — modo claro */
+.filters-panel-mobile__container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.filters-panel-mobile__container::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 10px;
+  border: 2px solid var(--bg-default);
+}
+
+.filters-panel-mobile__container::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(114, 114, 114);
+}
+
+/* Scroll — modo oscuro */
+body.dark-mode .filters-panel-mobile__container::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-link) 40%, var(--bg-default) 60%);
+  border: 2px solid var(--bg-default);
+}
+
+body.dark-mode .filters-panel-mobile__container::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--color-link) 70%, var(--bg-default) 30%);
+}
+
+
+
+
+
 
 /* Header */
 .filters-panel-mobile__header {
@@ -51,12 +72,11 @@
 
 .filters-panel-mobile__title {
   font-size: 1.2rem;
-  color: #001f31;
-  margin: 0;
-  margin-top: 5px;
+  color: var(--color-text);
+  margin: 5px 0 0;
 }
 
-/* Cajón de filtros activos */
+/* === Chips de filtros activos === */
 .active-filters {
   display: flex;
   align-items: center;
@@ -65,27 +85,25 @@
   row-gap: 5px;
   column-gap: 5px;
 }
+
 .filter-chip {
-  display: inline-flex; /* 🔑 flex en línea, se adapta al contenido */
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-
   padding: 4px 10px;
-  background-color: #00638e; /* azul más fuerte que contraste con el hover */
-  color: white;
-  /* border: 1px solid #9ed2ff; */
-  border-radius: 999px; /* pill shape */
+  background-color: var(--color-link);
+  color: #fff;
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: background-color 0.2s ease;
-  user-select: none;
-  width: fit-content; /* asegura que solo ocupe lo que necesita */
-  max-width: 100%; /* no se desborda */
+  width: fit-content;
+  max-width: 100%;
 }
 
 .filter-chip:hover {
-  background-color: #016a96;
+  background-color: color-mix(in srgb, var(--color-link) 80%, black);
 }
 
 .chip-close {
@@ -95,28 +113,26 @@
   color: #ffffff;
   font-size: 0.9rem;
   cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  transition: color 0.2s ease, background-color 0.2s ease;
   height: 18px;
   width: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s ease;
 }
 
 .chip-close:hover {
-  background-color: #3f96bb;
+  background-color: color-mix(in srgb, var(--color-link) 40%, white);
 }
 
-/* Secciones */
+/* === Secciones === */
 .filters-panel-mobile__section {
   margin-bottom: 15px;
 }
 
 .filters-panel-mobile__label {
   font-size: 1rem;
-  color: #001f31;
+  color: var(--color-text);
   font-weight: 700;
   margin-top: 30px;
   margin-bottom: 6px;
@@ -126,6 +142,7 @@
   margin-top: 0;
 }
 
+/* === Opciones === */
 .filters-panel-mobile__options {
   display: flex;
   flex-wrap: wrap;
@@ -133,41 +150,39 @@
 }
 
 .filters-panel-mobile__options button {
-  background: #f5f8fc;
-  color: #001f31;
-  border: 1px solid #d1d5db;
+  background: color-mix(in srgb, var(--bg-default) 90%, white);
+  color: var(--color-text);
+  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
   border-radius: 4px;
   padding: 5px 10px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
   text-align: start;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .filters-panel-mobile__options button:hover,
 .filters-panel-mobile__options button.active {
-  background: #e2e8f0;
-  color: #001f31;
-  border-color: #b0b7c3;
+  background: color-mix(in srgb, var(--color-link) 15%, var(--bg-default));
+  color: var(--color-text);
+  border-color: color-mix(in srgb, var(--color-link) 40%, var(--color-text));
 }
 
-/* Sliders */
+/* === Sliders === */
 .filters-slider-alt {
   width: 100%;
-  accent-color: #00638e;
+  accent-color: var(--color-link);
 }
 
-/* Footer */
+/* === Footer === */
 .filters-panel-mobile__footer {
   margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-
   height: 200px;
-
-  border-top: solid 1px #d1d5db;
+  border-top: solid 1px color-mix(in srgb, var(--color-text) 20%, transparent);
 }
 
 .filters-panel-mobile__reset,
@@ -176,122 +191,90 @@
   height: 50px;
   padding: 8px 0;
   border-radius: 5px;
-  border: 1px solid #d1d5db;
+  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
   cursor: pointer;
   font-weight: 500;
-  background: white;
-  color: #001f31;
+  background: var(--bg-default);
+  color: var(--color-text);
   font-size: 1rem;
-
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .filters-panel-mobile__reset:hover {
-  background: #e2e8f0;
-}
-.filters-panel-mobile__apply:hover {
-  background-color: #12739d;
+  background: color-mix(in srgb, var(--bg-default) 85%, var(--color-link) 15%);
 }
 
-/* Footer botón aplicar destacado */
 .filters-panel-mobile__apply {
-  border-color: #00405d;
+  border-color: var(--color-link);
   font-weight: 600;
-  color: white;
-  background-color: #00638e;
-  border-color: #00638e;
+  color: #fff;
+  background-color: var(--color-link);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .filters-panel-mobile {
-    width: 100%;
-  }
-  .filters-panel-mobile.is-open {
-    right: 0;
-  }
+.filters-panel-mobile__apply:hover {
+  background-color: color-mix(in srgb, var(--color-link) 80%, black);
 }
 
-/* Botón de filtro activo */
-.filters-panel-mobile__options button.active {
-  background-color: #cfe0f3; /* azul claro, contraste suave */
-  color: #00405d; /* texto más oscuro */
-  border: 1px solid #728ca2; /* borde ligeramente más fuerte que el fondo */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* pequeño relieve */
-}
-
-/* Mantener transición suave */
-.filters-panel-mobile__options button {
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-/* Hover sobre botón activo */
-.filters-panel-mobile__options button.active:hover {
-  background-color: #b8d4e8; /* un poco más oscuro al pasar el mouse */
-  border-color: #7daac2;
-  cursor: pointer;
-}
-
-/* Clases para contenedores de opciones colapsables por muchas opciones */
-.filters-panel-mobile__options--collapsible {
-  max-height: 180px; /* altura inicial visible */
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.filters-panel-mobile__options--expanded {
-  max-height: 1000px; /* suficientemente grande para mostrar todo */
-}
-
+/* === Toggle “ver más” === */
 .filters-panel-mobile__toggle {
   display: inline-block;
   width: fit-content;
-  /* padding: 0.4rem 0.6rem; */
   padding: 0;
   margin-top: 0.5rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #001f31; /* gris neutro, discreto */
+  color: var(--color-text);
   background-color: transparent;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   text-align: start;
   transition: color 0.2s ease;
 }
+
 .filters-panel-mobile__toggle-text {
-  text-decoration: underline; /* indicación ligera de focus */
+  text-decoration: underline;
 }
 
 .filters-panel-mobile__toggle:hover {
-  color: #00405d; /* sutil cambio al pasar el mouse */
-}
-
-.filters-panel-mobile__toggle:focus {
-  outline: none;
+  color: var(--color-link);
 }
 
 .filters-panel-mobile__clear {
   display: inline-block;
   width: fit-content;
-  margin-top: 10px; /* separación de los chips */
+  margin-top: 10px;
   font-size: 1rem;
   font-weight: 500;
-  color: #00638e; /* gris discreto */
+  color: var(--color-link);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   text-decoration: underline;
-  transition: color 0.2s;
   text-align: start;
+  transition: color 0.2s;
 }
 
 .filters-panel-mobile__clear:hover {
-  color: #000;
+  color: color-mix(in srgb, var(--color-link) 70%, black);
 }
 
-.filters-panel-mobile__clear:active {
-  color: #333;
+/* === Modo oscuro === */
+body.dark-mode .filters-panel-mobile {
+  background: color-mix(in srgb, var(--bg-default) 90%, black);
+}
+
+body.dark-mode .filters-panel-mobile__options button {
+  background: color-mix(in srgb, var(--bg-default) 85%, black);
+  border-color: color-mix(in srgb, var(--color-link) 30%, var(--bg-default));
+  color: var(--color-text);
+}
+
+body.dark-mode .filters-panel-mobile__options button.active {
+  background: color-mix(in srgb, var(--color-link) 25%, var(--bg-default));
+  border-color: var(--color-link);
+}
+
+body.dark-mode .filters-panel-mobile__footer {
+  border-top-color: color-mix(in srgb, var(--color-text) 40%, transparent);
 }

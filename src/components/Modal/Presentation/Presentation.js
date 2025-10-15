@@ -72,10 +72,7 @@ export default class Presentation extends BaseComponent {
       this.isShow = state.ui.modals.presentation.show;
     }
 
-    if (this.state.ui.darkMode != state.ui.darkMode) {
-      this._setDarkMode(state.ui.darkMode);
-      this.continentSelector._setDarkMode(state.ui.darkMode);
-    }
+
 
     if (this.state.game.mode != state.game.mode) {
       this.modifyAction(state);

@@ -1,5 +1,5 @@
 export const base = {
-  block: "country-search-subregion",
+  block: "country-search-mobile",
 };
 
 export const modifiers = {

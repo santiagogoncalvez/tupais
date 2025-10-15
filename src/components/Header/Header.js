@@ -37,7 +37,6 @@ export default class Header extends BaseComponent {
     this.openSettingsButton.syncState(state);
     let stIsDarkMode = state.ui.darkMode;
     if (this.isDarkMode == stIsDarkMode) return;
-    this._setDarkMode(stIsDarkMode);
     this.isDarkMode = stIsDarkMode;
   }
   _init() {

@@ -1,18 +1,28 @@
+/* === Search Options === */
 .search-options {
+  /* Variables locales */
+  --bg-panel: var(--bg-default);
+  --border-color: rgb(230, 230, 230);
+  --shadow-color: rgba(200, 200, 200, 0.3);
+  --option-hover-bg: rgba(0, 0, 0, 0.03);
+  --option-selected-bg: rgb(240, 240, 240);
+  --text-color: var(--color-text);
+
   width: 100%;
   max-width: 100%;
   position: absolute;
   top: 43px;
+
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
+
+  background-color: var(--bg-panel);
   border-radius: 6px;
-  border: 1px solid rgb(230, 230, 230);
-  box-shadow: 0px 2px 6px rgba(200, 200, 200, 0.302);
-  padding-top: 7px;
-  padding-bottom: 7px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0px 2px 6px var(--shadow-color);
+  padding: 7px 0;
   margin: 0;
   opacity: 0;
   transition: all 0.15s ease-in-out;
@@ -20,71 +30,83 @@
   user-select: none;
 }
 
-.search-options__options:focus {
-  outline: 0px solid;
-  outline-offset: 0px;
+/* === Dark Mode === */
+body.dark-mode .search-options {
+  --bg-panel: #002a46;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --option-hover-bg: rgba(255, 255, 255, 0.08);
+  --option-selected-bg: rgba(255, 255, 255, 0.15);
+  --text-color: var(--color-text);
 }
 
+/* Focus reset */
+.search-options__options:focus {
+  outline: none;
+}
+
+/* Estados visibles */
 .search-options__options--display {
   display: flex;
-  background-color: white;
+  background-color: var(--bg-panel);
 }
 
 .search-options__options--show {
-  /* margin-top: 2px; */
   opacity: 1;
-  background-color: white;
+  background-color: var(--bg-panel);
 }
 
+/* === Opción individual === */
 .search-options__option {
   position: relative;
-  background-color: white;
-  color: #001f31;
+  background-color: var(--bg-panel);
+  color: var(--text-color);
   font-size: 1rem;
   width: 95%;
   height: 40px;
   border-radius: 5px;
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  padding: 0px 16px 0px 16px;
-  margin-left: 0;
-  margin-right: 0;
+
+  padding: 0 16px;
+  margin: 0;
   user-select: none;
-  transition: all 0.05s linear;
+  transition: all 0.1s linear;
 }
 
-
-.search-options__icon{
+.search-options__icon {
   margin-right: 12px;
 }
 
 .search-options__option:hover {
   cursor: pointer;
+  background-color: var(--option-hover-bg);
 }
 
-.search-options__option--not-found:hover{
+.search-options__option--not-found:hover {
   cursor: default;
 }
 
 .search-options__option--selected {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--option-selected-bg);
 }
 
-
-.search-options__close-container{
+/* === Contenedor del botón de cierre === */
+.search-options__close-container {
   position: relative;
   height: 100%;
   width: fit-content;
 }
 
-.search-options__text{
+/* === Texto de la opción === */
+.search-options__text {
   flex: 1;
 }
 
-/* Dark mode */
-.search-options__options--dark-mode {
-  box-shadow: 0px 2px 6px rgba(120, 120, 120, 0.302);
+/* === Modo oscuro: sombra más profunda === */
+body.dark-mode .search-options__options {
+  box-shadow: 0px 2px 6px var(--shadow-color);
 }
-

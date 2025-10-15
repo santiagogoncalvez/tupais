@@ -20,7 +20,6 @@ export default class OpenNavbarButton extends BaseComponent {
   }
 
   syncState(state) {
-    this._setDarkMode(state.ui.darkMode);
     this.show = state.ui.navbar.show;
   }
 

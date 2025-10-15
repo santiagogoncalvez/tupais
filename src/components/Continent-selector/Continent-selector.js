@@ -65,9 +65,6 @@ export default class ContinentSelector extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state?.ui.darkMode != state?.ui.darkMode) {
-      this._setDarkMode(state?.ui.darkMode);
-    }
     this.button.syncState(state);
     this.options.syncState(state);
     if (!this.autoStart) {

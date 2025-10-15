@@ -9,16 +9,6 @@ export default class BaseComponent {
     return component;
   };
 
-  _setDarkMode(isDarkMode) {
-    if (isDarkMode) {
-      applyClasses(this.dom, this.base, this.modifiers, "darkMode");
-    }
-
-    if (!isDarkMode) {
-      deleteClasses(this.dom, this.base, this.modifiers, "darkMode");
-    }
-  }
-
   // Personalización de estilos
   _applyPosition(top, right) {
     if (top) this.dom.style.top = top;

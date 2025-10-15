@@ -26,6 +26,5 @@ export default class OpenSettingsButton extends BaseComponent {
   }
 
   syncState(state) {
-    this._setDarkMode(state.ui.darkMode);
   }
 }

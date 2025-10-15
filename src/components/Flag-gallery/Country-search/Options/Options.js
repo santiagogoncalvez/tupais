@@ -68,6 +68,10 @@ export default class Options extends BaseComponent {
     for (let option of options) {
       this._addOptionEvents(option, true);
     }
+
+    this.dom.addEventListener("blur", (event) => {
+      this._show(false);
+    });
   }
 
   _addOptionEvents(option, isNormalOption) {

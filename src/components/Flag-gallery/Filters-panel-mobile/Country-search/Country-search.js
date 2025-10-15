@@ -55,7 +55,7 @@ export default class CountrySearch extends BaseComponent {
     // Oculatar CloseButton al iniciar
     this.closeButton.hide();
 
-    let input = this.dom.querySelector(".country-search-subregion__input");
+    let input = this.dom.querySelector(".country-search-mobile__input");
     input.after(this.closeButton.dom);
 
     this.dom.appendChild(this.options.dom);
@@ -144,7 +144,7 @@ export default class CountrySearch extends BaseComponent {
         // Si no hay coincidencias no hacer nada
         if (this.results.length === 0) return;
 
-        const button = this.dom.querySelector(".country-search-subregion__button");
+        const button = this.dom.querySelector(".country-search-mobile__button");
 
         // TODO: Mejorar esto para que no falle si no hay coincidencias exactas
         // Seleccionar la opción que esté seleccionada (la que tiene la clase .selected)
@@ -177,7 +177,7 @@ export default class CountrySearch extends BaseComponent {
     });
 
     // Evento del botón
-    const searchButton = this.dom.querySelector(".country-search-subregion__button");
+    const searchButton = this.dom.querySelector(".country-search-mobile__button");
 
     searchButton.addEventListener("click", () => {
       if (input.value.length === 0) return;
@@ -191,7 +191,7 @@ export default class CountrySearch extends BaseComponent {
   }
 
   clearInput() {
-    let input = this.dom.querySelector(".country-search-subregion__input");
+    let input = this.dom.querySelector(".country-search-mobile__input");
     input.value = "";
     input.dispatchEvent(new Event("input", { bubbles: true }));
   }
@@ -201,7 +201,7 @@ export default class CountrySearch extends BaseComponent {
   }
 
   reset() {
-    const input = this.dom.querySelector(".country-search-subregion__input");
+    const input = this.dom.querySelector(".country-search-mobile__input");
     if (input && input.value.trim().length > 0) {
       this.clearInput();
       this.options._show(false);
@@ -211,7 +211,7 @@ export default class CountrySearch extends BaseComponent {
   setSelected(languages) {
     if (!Array.isArray(languages)) return;
 
-    const input = this.dom.querySelector(".country-search-subregion__input");
+    const input = this.dom.querySelector(".country-search-mobile__input");
     if (!input) return;
 
     // Mostrar el input con los idiomas seleccionados (solo visual)

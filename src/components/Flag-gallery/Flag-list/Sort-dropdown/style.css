@@ -1,8 +1,25 @@
+/* === Variables locales para sort-dropdown === */
+.sort-dropdown {
+  --title-color: #00405d;
+  --text-color: #697276;
+  --select-bg: #f9f9f9;
+  --select-border: #dcdcdc;
+  --select-hover-bg: #e6f2ff;
+}
+
+/* Dark-mode overrides */
+body.dark-mode .sort-dropdown {
+  --title-color: var(--color-text);
+  --text-color: #a2c2e0;
+  --select-bg: #00263f;
+  --select-border: #00405d;
+  --select-hover-bg: #00405d;
+}
+
+/* Contenedor principal */
 .sort-dropdown {
   position: relative;
-  /* width: 250px; */
   width: fit-content;
-  max-width: 100%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,19 +27,22 @@
   justify-content: center;
 }
 
+/* Título del dropdown */
 .sort-dropdown__title {
-  color: #00405d;
+  color: var(--title-color);
   font-weight: 500;
   margin: 0;
   font-size: 1.3rem;
 }
 
+/* Texto explicativo o subtítulo */
 .sort-dropdown__text {
   margin-top: 16px;
   margin-bottom: 10px;
-  color: #697276;
+  color: var(--text-color);
 }
 
+/* Contenedor del select */
 .sort-dropdown__select {
   width: 100%;
   max-width: 100%;
@@ -30,13 +50,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0px;
+  padding: 0;
   position: relative;
   user-select: none;
   gap: 15px;
+  border-radius: 6px;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* Dark mode */
-.sort-dropdown__text--dark-mode {
-  color: #d4d4d4;
+
+/* Textos internos en dark-mode */
+body.dark-mode .dropdown-button__prefix {
+  color: var(--color-text);
 }

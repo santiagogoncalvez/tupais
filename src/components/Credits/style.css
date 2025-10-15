@@ -1,31 +1,35 @@
 .credits {
-  color: #001f31;
+  color: var(--color-text);
   width: 511px;
   max-width: 100%;
   padding: 0px 15px 60px 15px;
+  background-color: var(--bg-default);
 }
 
 .credits__title {
+  color: var(--color-text);
   text-align: center;
   margin-top: 30px;
 }
 
 .credits__subtitle {
+  color: var(--color-text);
   margin-top: 40px;
 }
 
 .credits__paragraph {
+  color: var(--color-text);
   margin-top: 0px;
   margin-bottom: 18px;
 }
 
 .credits__text-link {
-  color: #00638e;
+  color: var(--color-link);
 }
 
 /* List */
-
 .description-list__description {
+  color: var(--color-text);
   margin-left: 0px;
   margin-top: 5px;
   margin-bottom: 18px;

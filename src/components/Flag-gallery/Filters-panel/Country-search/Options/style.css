@@ -1,93 +1,138 @@
+/* 🎨 Variables generales */
+:root {
+  --color-bg-light: #ffffff;
+  --color-bg-dark: #001f31;
+
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #002b44;
+
+  --color-text-light: #001f31;
+  --color-text-dark: #e8edf2;
+
+  --color-border-light: rgb(230, 230, 230);
+  --color-border-dark: #02425f;
+
+  --color-hover-light: rgb(240, 240, 240);
+  --color-hover-dark: #003a56;
+
+  --color-shadow-light: rgba(200, 200, 200, 0.3);
+  --color-shadow-dark: rgba(0, 0, 0, 0.4);
+}
+
+/* 🌞 Modo claro */
 .search-options-subregion {
   width: 100%;
   max-width: 100%;
   max-height: 250px;
-
   position: absolute;
   top: 43px;
-
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 
-  background-color: white;
+  background-color: var(--color-surface-light);
   border-radius: 6px;
-  border: 1px solid rgb(230, 230, 230);
-  box-shadow: 0px 2px 6px rgba(200, 200, 200, 0.302);
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0px 2px 6px var(--color-shadow-light);
   padding-top: 7px;
   padding-bottom: 7px;
-  margin: 0;
   opacity: 0;
   transition: all 0.15s ease-in-out;
   z-index: 51;
   user-select: none;
-
   overflow: auto;
-}
-
-.search-options-subregion__options:focus {
-  outline: 0px solid;
-  outline-offset: 0px;
 }
 
 .search-options-subregion__options--display {
   display: flex;
-  background-color: white;
+  background-color: var(--color-surface-light);
 }
 
 .search-options-subregion__options--show {
-  /* margin-top: 2px; */
   opacity: 1;
-  background-color: white;
+  background-color: var(--color-surface-light);
 }
 
 .search-options-subregion__option {
   position: relative;
-  background-color: white;
-  color: #001f31;
+  background-color: var(--color-surface-light);
+  color: var(--color-text-light);
   font-size: 1rem;
   width: 95%;
   min-height: 40px;
   border-radius: 5px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: start;
-  padding: 0px 16px 0px 16px;
-  margin-left: 0;
-  margin-right: 0;
-  user-select: none;
+  padding: 0px 16px;
   transition: all 0.05s linear;
 }
 
-.search-options-subregion__icon {
-  margin-right: 12px;
-}
-
 .search-options-subregion__option:hover {
+  background-color: var(--color-hover-light);
   cursor: pointer;
 }
 
-.search-options-subregion__option--not-found:hover {
-  cursor: default;
-}
-
 .search-options-subregion__option--selected {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--color-hover-light);
 }
 
-.search-options-subregion__close-container {
-  position: relative;
-  height: 100%;
-  width: fit-content;
+/* 🌚 Dark mode */
+.dark-mode .search-options-subregion {
+  background-color: var(--color-surface-dark);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: 0px 2px 6px var(--color-shadow-dark);
 }
 
-.search-options-subregion__text {
-  flex: 1;
+.dark-mode .search-options-subregion__option {
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-dark);
 }
 
-/* Dark mode */
-.search-options-subregion__options--dark-mode {
-  box-shadow: 0px 2px 6px rgba(120, 120, 120, 0.302);
+.dark-mode .search-options-subregion__option:hover {
+  background-color: var(--color-hover-dark);
+}
+
+.dark-mode .search-options-subregion__option--selected {
+  background-color: #004867;
+}
+
+.dark-mode .search-options-subregion__icon {
+  filter: brightness(1.2);
+}
+
+.dark-mode .search-options-subregion__text {
+  color: var(--color-text-dark);
+}
+
+
+/* Scrollbar — modo claro */
+.search-options-subregion::-webkit-scrollbar {
+  width: 8px;
+}
+.search-options-subregion::-webkit-scrollbar-track {
+  background: var(--color-scroll-track-light);
+  border-radius: 6px;
+}
+.search-options-subregion::-webkit-scrollbar-thumb {
+  background: var(--color-scroll-thumb-light);
+  border-radius: 6px;
+}
+.search-options-subregion::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+/* Fuerza la visibilidad del scroll incluso sin hover */
+.search-options-subregion {
+  overflow-y: scroll; /* siempre visible */
+  scrollbar-gutter: stable; /* evita que el contenido salte al aparecer */
+}
+
+/* Opcional: mejora de contraste del scroll */
+.search-options-subregion::-webkit-scrollbar-thumb {
+  background: #b0b0b0 !important;
+}
+.dark-mode .search-options-subregion::-webkit-scrollbar-thumb {
+  background: #0076a1 !important;
 }

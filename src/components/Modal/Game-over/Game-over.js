@@ -83,11 +83,6 @@ export default class GameOver extends BaseComponent {
       this.isShow = shouldShow;
     }
 
-    if (this.state.ui.darkMode !== state.ui.darkMode) {
-      this._setDarkMode(state.ui.darkMode);
-      this.continentSelector._setDarkMode(state.ui.darkMode);
-    }
-
     if (this.state.game.mode !== state.game.mode) {
       this.modifyAction(state);
     }

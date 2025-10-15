@@ -3,7 +3,7 @@
   --scale: 1;
   position: fixed;
   bottom: 15px;
-  right: 15px;
+  right: 20px;
   width: 48px;
   height: 48px;
   border-radius: 8px;
@@ -13,13 +13,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   opacity: 0;
   pointer-events: none;
   transform: translateY(var(--translateY)) scale(var(--scale));
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease,
+  transition: opacity 0.2s ease, transform 0.2s ease,
   border-color 0.2s ease;
-  z-index: 10;
+  z-index: 1000;
+
+  user-select: none;
 }
 
 .scroll-top.visible {
@@ -31,14 +32,11 @@
 .scroll-top.active {
   --translateY: -2px;
   --scale: 0.98;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .scroll-top--hover {
   --translateY: -1px;
   --scale: 1.05;
-  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
-              -6px -6px 12px rgba(255, 255, 255, 0.95);
   background-color: #fff;
   border-color: #001f31;
 }

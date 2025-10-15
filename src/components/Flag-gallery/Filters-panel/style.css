@@ -1,5 +1,20 @@
-/* Panel base */
+/* === Filters Panel === */
 .filters-panel {
+  /* Variables locales */
+  --bg-panel: var(--bg-default);
+  --text-color: var(--color-text);
+  --accent-color: #00638e;
+  --accent-color-hover: #12739d;
+  --border-color: #d1d5db;
+  --soft-bg: #f5f8fc;
+  --soft-bg-hover: #e2e8f0;
+  --chip-bg: var(--accent-color);
+  --chip-hover: #016a96;
+  --button-active-bg: #cfe0f3;
+  --button-active-border: #728ca2;
+  --button-active-text: #00405d;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+
   width: 300px;
   height: 100%;
   background: transparent;
@@ -23,7 +38,7 @@
   right: 0;
 }
 
-/* Header */
+/* === Header === */
 .filters-panel__header {
   display: flex;
   justify-content: space-between;
@@ -33,13 +48,12 @@
 
 .filters-panel__title {
   font-size: 1.2rem;
-  color: #001f31;
-  margin: 0;
-  margin-top: 5px;
+  color: var(--text-color);
+  margin: 5px 0 0 0;
 }
 
-/* Cajón de filtros activos */
-.active-filters-container{
+/* === Active Filters === */
+.active-filters-container {
   display: flex;
   flex-direction: column;
 }
@@ -54,26 +68,24 @@
 }
 
 .filter-chip {
-  display: inline-flex; /* 🔑 flex en línea, se adapta al contenido */
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-
   padding: 4px 10px;
-  background-color: #00638e; /* azul más fuerte que contraste con el hover */
+  background-color: var(--chip-bg);
   color: white;
-  /* border: 1px solid #9ed2ff; */
-  border-radius: 999px; /* pill shape */
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px var(--shadow-color);
   transition: background-color 0.2s ease;
   user-select: none;
-  width: fit-content; /* asegura que solo ocupe lo que necesita */
-  max-width: 100%; /* no se desborda */
+  width: fit-content;
+  max-width: 100%;
 }
 
 .filter-chip:hover {
-  background-color: #016a96;
+  background-color: var(--chip-hover);
 }
 
 .chip-close {
@@ -97,22 +109,22 @@
   background-color: #3f96bb;
 }
 
-.filters-panel__container{
-  padding: 20px 0px 0px 0px;
-
+/* === Container === */
+.filters-panel__container {
+  padding: 20px 0 0 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Secciones */
+/* === Sections === */
 .filters-panel__section {
   margin-bottom: 15px;
 }
 
 .filters-panel__label {
   font-size: 1rem;
-  color: #001f31;
+  color: var(--text-color);
   font-weight: 700;
   margin-top: 30px;
   margin-bottom: 6px;
@@ -122,6 +134,7 @@
   margin-top: 0;
 }
 
+/* === Option Buttons === */
 .filters-panel__options {
   display: flex;
   flex-wrap: wrap;
@@ -129,9 +142,9 @@
 }
 
 .filters-panel__options button {
-  background: #f5f8fc;
-  color: #001f31;
-  border: 1px solid #d1d5db;
+  background: var(--soft-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   padding: 5px 10px;
   font-size: 0.85rem;
@@ -142,23 +155,36 @@
 
 .filters-panel__options button:hover,
 .filters-panel__options button.active {
-  background: #e2e8f0;
-  color: #001f31;
+  background: var(--soft-bg-hover);
+  color: var(--text-color);
   border-color: #b0b7c3;
 }
 
-/* Sliders */
-.filters-slider-alt {
-  width: 100%;
-  accent-color: #00638e;
+/* Botón activo */
+.filters-panel__options button.active {
+  background-color: var(--button-active-bg);
+  color: var(--button-active-text);
+  border-color: var(--button-active-border);
+  box-shadow: 0 1px 2px var(--shadow-color);
 }
 
-/* Footer */
+.filters-panel__options button.active:hover {
+  background-color: #b8d4e8;
+  border-color: #7daac2;
+  cursor: pointer;
+}
+
+/* === Sliders === */
+.filters-slider-alt {
+  width: 100%;
+  accent-color: var(--accent-color);
+}
+
+/* === Footer === */
 .filters-panel__footer {
   margin-top: auto;
   display: flex;
   gap: 8px;
-
   margin-top: 15px;
 }
 
@@ -167,72 +193,49 @@
   flex: 1;
   padding: 8px 0;
   border-radius: 5px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   cursor: pointer;
   font-weight: 500;
   background: white;
-  color: #001f31;
+  color: var(--text-color);
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .filters-panel__reset:hover {
-  background: #e2e8f0;
+  background: var(--soft-bg-hover);
 }
-.filters-panel__apply:hover{
-  background-color: #12739d;
-}
-/* Footer botón aplicar destacado */
+
 .filters-panel__apply {
-  border-color: #00405d;
+  border-color: var(--accent-color);
   font-weight: 600;
   color: white;
-  background-color: #00638e;
-  border-color: #00638e;
+  background-color: var(--accent-color);
 }
 
-
-
-/* Botón de filtro activo */
-.filters-panel__options button.active {
-  background-color: #cfe0f3; /* azul claro, contraste suave */
-  color: #00405d; /* texto más oscuro */
-  border: 1px solid #728ca2; /* borde ligeramente más fuerte que el fondo */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* pequeño relieve */
+.filters-panel__apply:hover {
+  background-color: var(--accent-color-hover);
 }
 
-/* Mantener transición suave */
-.filters-panel__options button {
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-/* Hover sobre botón activo */
-.filters-panel__options button.active:hover {
-  background-color: #b8d4e8; /* un poco más oscuro al pasar el mouse */
-  border-color: #7daac2;
-  cursor: pointer;
-}
-
-/* Clases para contenedores de opciones colapsables por muchas opciones */
+/* === Collapsible === */
 .filters-panel__options--collapsible {
-  max-height: 180px; /* altura inicial visible */
+  max-height: 180px;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
 .filters-panel__options--expanded {
-  max-height: 1000px; /* suficientemente grande para mostrar todo */
+  max-height: 1000px;
 }
 
+/* === Toggle === */
 .filters-panel__toggle {
   display: inline-block;
   width: fit-content;
-  /* padding: 0.4rem 0.6rem; */
   padding: 0;
   margin-top: 0.5rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #001f31; /* gris neutro, discreto */
+  color: var(--text-color);
   background-color: transparent;
   border: none;
   border-radius: 4px;
@@ -240,27 +243,27 @@
   text-align: start;
   transition: color 0.2s ease;
 }
+
 .filters-panel__toggle-text {
-  text-decoration: underline; /* indicación ligera de focus */
+  text-decoration: underline;
 }
 
 .filters-panel__toggle:hover {
-  color: #00405d; /* sutil cambio al pasar el mouse */
+  color: var(--accent-color);
 }
 
 .filters-panel__toggle:focus {
   outline: none;
 }
 
-
-
+/* === Clear All === */
 .filters-panel__clear {
   display: inline-block;
   width: fit-content;
-  margin-top: 10px;        /* separación de los chips */
+  margin-top: 10px;
   font-size: 1rem;
   font-weight: 500;
-  color: #00638e;              /* gris discreto */
+  color: var(--accent-color);
   background: none;
   border: none;
   padding: 0;
@@ -276,4 +279,21 @@
 
 .filters-panel__clear:active {
   color: #333;
+}
+
+/* === Dark Mode === */
+body.dark-mode .filters-panel {
+  --bg-panel: #001f31;
+  --text-color: #e8f0f8;
+  --accent-color: #0094c7;
+  --accent-color-hover: #13aedc;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --soft-bg: #002b48;
+  --soft-bg-hover: #00395a;
+  --chip-bg: #0094c7;
+  --chip-hover: #13aedc;
+  --button-active-bg: rgba(0, 148, 199, 0.25);
+  --button-active-border: rgba(255, 255, 255, 0.15);
+  --button-active-text: #b9eaff;
+  --shadow-color: rgba(0, 0, 0, 0.4);
 }

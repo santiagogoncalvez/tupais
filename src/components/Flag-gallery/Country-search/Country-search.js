@@ -110,9 +110,9 @@ export default class CountrySearch extends BaseComponent {
       if (
         event.relatedTarget && options.contains(event.relatedTarget)
       ) {
-        if (event.relatedTarget === options) {
-          input.focus();
-        }
+        // if (event.relatedTarget === options) {
+          // input.focus();
+        // }
         return;
       }
 

@@ -5,98 +5,118 @@
   --flag-scale: 1;
 }
 
+/* === Variables locales para Flag-list === */
+.flag-list__list {
+  --item-bg: #f5f8fc;
+  --item-border: #e2e8f0;
+  --item-hover-bg: hsla(210, 25%, 94%, 0.95);
+  --item-hover-border: #d0e3f0;
+}
+
+/* Dark-mode overrides locales */
+body.dark-mode .flag-list__list {
+  --item-bg: #00263f;           /* fondo de cada tarjeta */
+  --item-border: #00405d;       /* borde sutil */
+  --item-hover-bg: #003a5d;     /* hover más visible */
+}
+
+/* Contenedor general */
 .flag-list {
   width: 100%;
 }
 
+/* Lista flexible */
 .flag-list__list {
   display: flex;
   flex-wrap: wrap;
-  gap: calc(var(--flag-gap) * var(--flag-scale));
+  gap: calc(var(--flag-gap, 18px) * var(--flag-scale, 1));
   list-style: none;
   margin: 0;
   padding: 0;
-
-  justify-content: center; /* 👈 clave: siempre a la izquierda */
+  justify-content: center;
 }
 
+/* Item individual */
 .flag-list__item {
-  flex: 1 1 var(--flag-base); /* base flexible */
-  min-width: calc(var(--flag-base) * var(--flag-scale));
-  max-width: calc(var(--flag-max) * var(--flag-scale));
+  flex: 1 1 var(--flag-base, 200px);
+  min-width: calc(var(--flag-base, 200px) * var(--flag-scale, 1));
+  max-width: calc(var(--flag-max, 240px) * var(--flag-scale, 1));
   aspect-ratio: 4 / 3;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: #f5f8fc;
-  border: 1px solid #e2e8f0;
+  background-color: var(--item-bg);
+  border: 1px solid var(--item-border);
   box-shadow: 0 1px 6px rgba(48, 48, 48, 0.1);
-  border-radius: calc(8px * var(--flag-scale));
+  border-radius: calc(8px * var(--flag-scale, 1));
 
   cursor: pointer;
   transition: background 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
 }
 
 .flag-list__item:hover {
-  background-color: hsla(210, 25%, 94%, 0.95);
-  border-color: #d0e3f0;
+  background-color: var(--item-hover-bg);
+  border-color: var(--item-hover-border);
   box-shadow: 0 2px 8px rgba(48, 48, 48, 0.12);
 }
 
+/* Continent title */
 .flag-list__continent {
   width: 100%;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #001f31;
+  color: var(--color-text);
   margin: 32px 0 16px;
   padding-bottom: 4px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* Links internos de flags */
 .flag-list__link {
   width: 100%;
   min-height: 100%;
-  padding: calc(15px * var(--flag-scale));
+  padding: calc(15px * var(--flag-scale, 1));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: calc(10px * var(--flag-scale));
-  font-size: calc(1rem * var(--flag-scale));
-  color: #00638e;
+  gap: calc(10px * var(--flag-scale, 1));
+  font-size: calc(1rem * var(--flag-scale, 1));
+  color: var(--color-link);
   text-align: center;
   text-decoration: none;
-
-  border-radius: calc(8px * var(--flag-scale));
+  border-radius: calc(8px * var(--flag-scale, 1));
 }
 
 .flag-list__name {
   text-decoration: underline;
 }
 
+/* Imagen de bandera */
 .flag-list__flag-img {
-  height: calc(80px * var(--flag-scale));
+  height: calc(80px * var(--flag-scale, 1));
   width: auto;
-  border-radius: calc(4px * var(--flag-scale));
-  border: 1px solid #e8e8e8;
+  border-radius: calc(4px * var(--flag-scale, 1));
+  border: 1px solid var(--item-border);
 }
 
+/* Mensaje de sin resultados */
 .flag-list__no-results {
   padding: 12px;
   text-align: center;
   font-weight: 600;
   font-size: 1.1rem;
-  background: #fafafa;
+  background: var(--bg-default);
   border-radius: 6px;
-  color: #001f31;
+  color: var(--color-text);
 }
 
-/* Información extra solo visible con ordenamientos de población/superficie */
+/* Información extra */
 .flag-list__info {
   font-size: 0.8rem;
-  color: #555;
+  color: var(--color-text);
   text-align: center;
   display: none;
 }

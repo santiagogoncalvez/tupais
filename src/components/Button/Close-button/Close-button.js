@@ -27,9 +27,6 @@ export default class CloseButton extends BaseComponent {
   }
 
   syncState(state) {
-    if (this.state?.ui.darkMode != state?.ui.darkMode) {
-      this._setDarkMode(state?.ui.darkMode);
-    }
     this.state = state;
   }
 

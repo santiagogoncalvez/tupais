@@ -47,9 +47,7 @@ export default class Navbar extends BaseComponent {
       this._showDom(state?.ui.navbar.show);
       this._activeEvents(state?.ui.navbar.show);
     }
-    if (this.state?.ui.darkMode != state?.ui.darkMode) {
-      this._setDarkMode(state?.ui.darkMode);
-    }
+
     this.state = state;
   }
 

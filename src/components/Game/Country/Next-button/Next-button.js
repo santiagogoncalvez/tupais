@@ -1,7 +1,5 @@
 import { ANSWER_TYPES } from "@constants/answer-types.js";
-
 import { GAME_MODES } from "@constants/game-modes.js";
-
 import { ACTIONS } from "@constants/action-types.js";
 
 import "@components/Game/Country/Next-button/style.css";
@@ -9,23 +7,24 @@ import { base } from "@components/Game/Country/Next-button/Next-button-class-nam
 import BaseComponent from "@shared/Base-component.js";
 import elt from "@utils/elt.js";
 
-export default class nextButton extends BaseComponent {
+export default class NextButton extends BaseComponent {
   constructor(state, dispatch) {
     super();
     this.state = state;
     this.base = base;
-    this.state = state;
     this.dispatch = dispatch;
+
     this.dom = elt(
       "button",
       {
         className: this.base.block,
-        title: "Siguiente ",
+        title: "Siguiente",
         onclick: () => {
           dispatch({ type: ACTIONS.SET_ANSWER_TYPE, payload: ANSWER_TYPES.SKIPPED });
           dispatch({ type: ACTIONS.SKIP_COUNTRY });
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
 
+          // Solo se pasa al siguiente país automáticamente si no es modo clásico
           if (this.state.game.mode !== GAME_MODES.CLASSIC) {
             dispatch({ type: ACTIONS.NEXT_COUNTRY });
           }
@@ -33,45 +32,36 @@ export default class nextButton extends BaseComponent {
       },
       elt("div", { className: this.base.icon })
     );
+
     this._init();
   }
 
   _init() {
-    // Agregar evento para detectar por teclado la acción para cambiar de bandera
+    // Acceso rápido con tecla → (flecha derecha)
     window.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-        this.dom.click();
-      }
+      if (event.key === "ArrowRight") this.dom.click();
     });
   }
 
   syncState(state) {
-    if (state.ui.country.animation != this.state.ui.country.animation) {
-      if (state.ui.country.animation) {
-        this.dom.disabled = true;
-      } else {
-        this.dom.disabled = false;
-      }
-    }
-
-    if (state.ui.gameOptions.animateCorrect) {
-      this.dom.disabled = true;
-    } else {
+    if (state.game.newGameId != this.state.game.newGameId) {
       this.dom.disabled = false;
+      this.state = state;
+      return;
     }
 
-    // Desactivar botones
-    if (state.game.completed != this.state.game.completed) {
-      if (state.game.completed) {
-        this._disableOptions(true);
-      } else {
-        this._disableOptions(false);
-      }
-    }
+    const animationActive = state.ui.country.animation;
+    const animateCorrect = state.ui.gameOptions.animateCorrect;
+    const gameCompleted = state.game.completed;
+
+    // Deshabilitar si:
+    // - hay animación en curso
+    // - se está mostrando animación de respuesta correcta
+    // - el juego está completado
+    const shouldDisable = animationActive || animateCorrect || gameCompleted;
+
+    this.dom.disabled = shouldDisable;
+
     this.state = state;
-  }
-
-  _disableOptions(isDisabled) {
-    this.dom.disabled = isDisabled;
   }
 }

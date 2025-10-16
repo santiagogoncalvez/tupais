@@ -62,8 +62,17 @@
   filter: invert(0%); /* normal */
 }
 
-body.dark-mode .flag-info__back-to-gallery-icon{
-  filter: invert(70%); /* normal */
+.flag-info__back-to-gallery-icon {
+  width: 14px;
+  height: 14px;
+  background-image: url("/tupais/icons/arrow-up.png");
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.dark-mode .flag-info__back-to-gallery-icon {
+  background-image: url("/tupais/icons/arrow-up-dark-mode.png");
 }
 
 .flag-info__back-to-gallery:hover {

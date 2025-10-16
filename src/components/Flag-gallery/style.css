@@ -94,12 +94,16 @@
 }
 
 .flag-gallery__filters-mobile-button-icon {
-  filter: invert(0%); /* normal */
-  transition: filter 0.2s ease;
+  width: 15px;
+  height: 15px;
+  background-image: url("/tupais/icons/filter.png");
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 body.dark-mode .flag-gallery__filters-mobile-button-icon {
-  filter: invert(100%); /* invierte el color para dark mode */
+   background-image: url("/tupais/icons/filter-dark-mode.png");
 }
 
 /* Responsive */

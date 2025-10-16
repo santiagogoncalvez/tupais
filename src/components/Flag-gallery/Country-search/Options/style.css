@@ -77,8 +77,30 @@ body.dark-mode .search-options {
   transition: all 0.1s linear;
 }
 
-.search-options__icon {
+.search-options__icon--history {
+  width: 18px;
+  height: 18px;
+  background-image: url("/tupais/icons/history.png");
+  background-size: 18px 18px;
+
   margin-right: 12px;
+}
+
+body.dark-mode .search-options__icon--history {
+  background-image: url("/tupais/icons/history-dark-mode.png");
+}
+
+.search-options__icon--common {
+  width: 18px;
+  height: 18px;
+  background-image: url("/tupais/icons/search.png");
+  background-size: 18px 18px;
+
+  margin-right: 12px;
+}
+
+body.dark-mode .search-options__icon--common {
+  background-image: url("/tupais/icons/search-dark-mode.png");
 }
 
 .search-options__option:hover {

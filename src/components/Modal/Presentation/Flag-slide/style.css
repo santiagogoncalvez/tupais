@@ -21,6 +21,7 @@
   position: relative;
 }
 
+/* Sombras de los bordes laterales adaptadas al fondo */
 .flag-slide__container:before,
 .flag-slide__container:after {
   position: absolute;
@@ -33,12 +34,20 @@
 
 .flag-slide__container:before {
   left: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(250, 250, 250));
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0),
+    var(--bg-default)
+  );
 }
 
 .flag-slide__container:after {
   right: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(250, 250, 250));
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--bg-default)
+  );
 }
 
 .flag-slide__container:hover .flag-slide__flags {
@@ -54,7 +63,7 @@
   height: 50px;
   margin: 0 20px;
   border-radius: 3px;
-  border: 1px solid rgb(232, 232, 232);
+  border: 1px solid color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
 }
 
 /* Tooltip */
@@ -70,22 +79,21 @@
 }
 
 .flag-slide__tooltip {
-  background-color: #fefefe;
-  color: #00405d;
+  background-color: var(--bg-default);
+  color: var(--color-text);
   text-align: center;
   border-radius: 3px;
-  border: 1px solid rgb(225, 225, 225);
-  padding: 5px;
-  padding-right: 20px;
-  padding-left: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
+  padding: 5px 20px;
   position: absolute;
   bottom: -1;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.15s ease-in-out;
   user-select: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .flag-slide__tooltip::after {
@@ -96,5 +104,7 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent rgb(225, 225, 225) transparent;
+  border-color: transparent transparent
+    color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%)
+    transparent;
 }

@@ -33,8 +33,6 @@ export default class CountrySearch extends BaseComponent {
     this.closeButton = new CloseButton(() => { }, this.clearInput.bind(this), {
       top: "50%",
       right: "45px",
-      filter:
-        "invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(80%)",
       width: "30px",
       height: "100%",
       transform: "translateY(-50%)",
@@ -111,7 +109,7 @@ export default class CountrySearch extends BaseComponent {
         event.relatedTarget && options.contains(event.relatedTarget)
       ) {
         // if (event.relatedTarget === options) {
-          // input.focus();
+        // input.focus();
         // }
         return;
       }

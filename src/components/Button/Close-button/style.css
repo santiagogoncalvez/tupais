@@ -22,6 +22,10 @@
   top: 16px;
 }
 
+body.dark-mode .close-button {
+  background-image: url("/tupais/icons/close-dark-mode.png");
+}
+
 .close-button:hover {
   cursor: pointer;
 }

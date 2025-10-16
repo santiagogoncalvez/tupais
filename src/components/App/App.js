@@ -109,8 +109,6 @@ export default class App {
         this.mount();
         this.subscribeComponents();
         this.initRouting();
-
-
     }
 
     mount() {

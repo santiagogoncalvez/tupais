@@ -21,6 +21,14 @@
   background-position: center;
   transition: all 0.1s ease-in;
 }
+body.dark-mode .country__button-icon--right {
+  background-image: url("/tupais/icons/next-button-dark-mode.png");
+  width: 20px;
+  height: 35px;
+ background-size: 35px 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 .country__next-button:hover {
   cursor: pointer;

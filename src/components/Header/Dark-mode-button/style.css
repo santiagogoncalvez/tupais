@@ -77,7 +77,7 @@
 }
 
 .dark-mode-button__checkbox:checked:hover + .dark-mode-button__circle:before {
-  transform: translateX(25px);
+  transform: translateX(24px);
 }
 
 .dark-mode-button__checkbox:focus + .dark-mode-button__circle:before {
@@ -85,6 +85,6 @@
 }
 
 .dark-mode-button__checkbox:checked + .dark-mode-button__circle:before {
-  transform: translateX(27px);
+  transform: translateX(26px);
   background-color: #e6f2ff;
 }

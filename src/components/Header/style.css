@@ -14,7 +14,7 @@
   overflow: hidden;
   background-color: var(--bg-default); /* se adapta automáticamente a dark-mode */
   border-color: color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  /* transition: background-color 0.1s ease, border-color 0.1s ease; */
 }
 
 /* === Título del header === */
@@ -26,7 +26,7 @@
   margin: 0;
   padding: 0;
   max-width: 75vw;
-  transition: color 0.2s ease;
+  /* transition: color 0.2s ease; */
 }
 
 /* === Botón fill (parche) === */
@@ -84,7 +84,7 @@
   background-size: 1.8rem 1.8rem;
   background-repeat: no-repeat;
   background-position: center;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .footer__icon-github {
@@ -93,6 +93,14 @@
 .footer__icon-github--hover {
   opacity: 0;
   background-image: url("/tupais/icons/github-hover.svg");
+}
+
+body.dark-mode .footer__icon-github {
+  background-image: url("/tupais/icons/github-dark-mode.svg");
+}
+body.dark-mode .footer__icon-github--hover {
+  opacity: 0;
+  background-image: url("/tupais/icons/github-dark-mode-hover.svg");
 }
 
 /* === Responsive === */

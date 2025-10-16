@@ -265,13 +265,8 @@ export default class Options extends BaseComponent {
           className: this.base.option,
           tabIndex: 0,
         },
-        elt("img", {
-          className: "search-options__icon",
-          src: "/tupais/icons/search.png",
-          alt: `search`,
-          loading: "lazy",
-          width: "18",
-          height: "18",
+        elt("div", {
+          className: "search-options__icon--common",
         }),
         elt("span", {}, optionNames[i])
       );
@@ -295,13 +290,8 @@ export default class Options extends BaseComponent {
           className: this.base.option,
           tabIndex: 0,
         },
-        elt("img", {
-          className: "search-options__icon",
-          src: "/tupais/icons/history.png",
-          alt: `history`,
-          loading: "lazy",
-          width: "18",
-          height: "18",
+        elt("div", {
+          className: "search-options__icon--history",
         }),
         elt("span", { className: "search-options__text" }, item.value),
         elt("div", { className: "search-options__close-container" })
@@ -311,8 +301,7 @@ export default class Options extends BaseComponent {
       const closeButton = new CloseButton(() => { }, () => {
         this.removeHistoryOption(newOption);
       }, {
-        filter:
-          "invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(80%)", centerAbsolute: true
+        centerAbsolute: true
       });
       newOption.querySelector(".search-options__close-container").appendChild(closeButton.dom);
 

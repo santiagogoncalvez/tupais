@@ -26,7 +26,6 @@
 
 /* 💡 Light mode base */
 .keyboard__button {
-  color: rgb(49, 47, 47);
   height: 56px;
   width: 47px;
   border-radius: 5px;
@@ -36,6 +35,8 @@
   user-select: none;
   font-weight: 900;
   transition: all 0.05s ease;
+
+  color: var(--color-text);
 }
 
 .keyboard__button:hover {
@@ -56,6 +57,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.keyboard__icon--backspace {
+  width: 20px;
+  height: 20px;
+  background-image: url("/tupais/icons/backspace.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.dark-mode .keyboard__icon--backspace {
+  background-image: url("/tupais/icons/backspace-dark-mode.png");
+}
+
+.keyboard__icon--enter {
+  width: 20px;
+  height: 20px;
+  background-image: url("/tupais/icons/check.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.dark-mode .keyboard__icon--enter {
+  background-image: url("/tupais/icons/check-dark-mode.png");
 }
 
 .keyboard__button--backspace:hover,
@@ -85,7 +112,6 @@
 /* 🌙 DARK MODE */
 body.dark-mode .keyboard__button {
   background-color: #00405d;
-  color: #e6f2ff;
   /* border: 1px solid #00638e; */
   transition: all 0.1s ease;
 }
@@ -98,7 +124,7 @@ body.dark-mode .keyboard__button:hover {
 body.dark-mode .keyboard__button--backspace,
 body.dark-mode .keyboard__button--enter {
   background-color: #00324a;
-  color: #9ED2FF;
+  color: #9ed2ff;
   /* border: 1px solid #004f73; */
 }
 

@@ -14,13 +14,24 @@
   padding: 0;
   user-select: none;
   margin: 0;
-  transition: background-color 0.1s ease-in-out;
+  /* transition: background-color 0.1s ease-in-out; */
 }
 
 .header__open-navbar-button:hover {
   background-color: #f0f1f1;
   cursor: pointer;
 }
+
+body.dark-mode .header__open-navbar-button {
+  background-image: url("/tupais/icons/menu-dark-mode.svg");
+}
+
+body.dark-mode .header__open-navbar-button:hover {
+  background-color: color-mix(in srgb, var(--color-link) 25%, var(--bg-default) 75%);
+  /* genera un gris azulado suave acorde al fondo #001f31 */
+  cursor: pointer;
+}
+
 
 .header__open-navbar-button:focus {
   outline: none;

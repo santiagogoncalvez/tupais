@@ -6,7 +6,8 @@
   --placeholder-color: rgb(150, 150, 150);
   --button-bg: #fdfdfd;
   --button-hover-bg: #daecff;
-  --icon-filter: invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg) brightness(91%) contrast(86%);
+  --icon-filter: invert(39%) sepia(6%) saturate(0%) hue-rotate(175deg)
+    brightness(91%) contrast(86%);
 }
 
 /* Dark-mode overrides locales */
@@ -17,7 +18,8 @@ body.dark-mode .country-search {
   --placeholder-color: #a2c2e0;
   --button-bg: #00263f;
   --button-hover-bg: #00405d;
-  --icon-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(185deg) brightness(100%) contrast(100%);
+  --icon-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(185deg)
+    brightness(100%) contrast(100%);
 }
 
 /* Contenedor */
@@ -59,23 +61,18 @@ body.dark-mode .country-search {
   color: var(--placeholder-color);
 }
 
-/* Botón de limpiar */
-.country-search__close {
-  position: absolute;
-  right: 40px;
-  padding: 0 14px;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.country-search__icon {
+  width: 20px;
+  height: 20px;
+  /* filter: var(--icon-filter); */
+  background-image: url("/tupais/icons/search.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.country-search__close .country-search__icon {
-  width: 16px;
-  height: 16px;
-  filter: var(--icon-filter);
+body.dark-mode .country-search__icon {
+  background-image: url("/tupais/icons/search-dark-mode.png");
 }
 
 /* Separador */
@@ -103,8 +100,4 @@ body.dark-mode .country-search {
 
 .country-search__button:hover {
   background-color: var(--button-hover-bg);
-}
-
-.country-search__button .country-search__icon {
-  width: 20px;
 }

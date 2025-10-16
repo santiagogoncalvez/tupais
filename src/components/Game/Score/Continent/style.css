@@ -1,6 +1,6 @@
 .continent {
   position: relative;
-  color: #5b5d5f;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: start;
@@ -18,14 +18,13 @@
 }
 
 .continent__icon {
-  /*padding: 0px 6px 0px 0px;*/
   width: 14px;
   height: 14px;
   margin-right: 4px;
 }
 
 .continent__title {
-  color: #6e6e70;
+  color: color-mix(in srgb, var(--color-text) 70%, var(--bg-default) 30%);
   font-weight: 400;
   font-size: 14px;
 }
@@ -36,12 +35,13 @@
   justify-content: center;
   height: 75%;
   border-radius: 12px;
-  background-color: #e6f3ff;
+  background-color: color-mix(in srgb, var(--color-link) 15%, var(--bg-default) 85%);
   padding: 5px 10px;
+  transition: background-color 0.15s ease-in-out;
 }
 
 .continent_text {
   font-size: 1.1rem;
-  color: #004d80;
+  color: var(--color-link);
   font-weight: 600;
 }

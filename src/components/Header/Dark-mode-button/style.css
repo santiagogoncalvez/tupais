@@ -10,6 +10,8 @@
   padding: 0;
   border-radius: 20px;
   user-select: none;
+
+  margin: 0px 5px;
 }
 
 /* .dark-mode-button:focus {

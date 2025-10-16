@@ -9,20 +9,19 @@
   height: 90px;
 }
 
+/* Contenedor principal */
 .answer__container {
   width: 511px;
   max-width: 100%;
-
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-
   gap: 8px;
-
-  padding: 0px 4px;
+  padding: 0 4px;
 }
 
+/* Fila de letras */
 .answer__row {
   display: flex;
   align-items: center;
@@ -31,38 +30,39 @@
   width: 100%;
 }
 
+/* Letra individual (modo claro) */
 .answer__letter {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box; /* importante para que JS calcule correctamente */
+  box-sizing: border-box;
   user-select: none;
-
   border-radius: 6px;
-  border: 2px solid rgb(220, 228, 239);
-  background-color: rgb(255, 255, 255);
+  border: 2px solid #d3e3f4;       /* borde azul grisáceo claro */
+  background-color: #ffffff;
+  color: #00405d;                  /* texto azul oscuro */
   font-size: clamp(0.6rem, 4.5vw, 1.3rem);
   font-weight: 800;
   text-align: center;
   text-transform: uppercase;
-  transition: all 0.1s ease;
+  transition: all 0.12s ease;
 }
 
+/* Letra seleccionada */
 .answer__letter--selected {
-  border-color: #98cfff;
+  border-color: #9ED2FF;           /* azul suave */
+  background-color: #e6f2ff;       /* fondo azul clarito */
+  color: #00405d;
 }
 
-.answer__letter--selected {
-  border-color: #98cfff;
-}
-
+/* Animación al insertar */
 .answer__letter--insert {
   animation: pulseLetter 0.12s ease;
 }
 
 @keyframes pulseLetter {
   0% {
-    transform: scale(0.8);
+    transform: scale(0.85);
   }
   75% {
     transform: scale(1.1);
@@ -70,4 +70,17 @@
   100% {
     transform: scale(1);
   }
+}
+
+/* 🌙 Dark mode */
+body.dark-mode .answer__letter {
+  border: 2px solid #00405d;
+  background-color: #001f31;
+  color: #9ED2FF;
+}
+
+body.dark-mode .answer__letter--selected {
+  border-color: #00b0f8;
+  background-color: #00405d;
+  color: #ffffff;
 }

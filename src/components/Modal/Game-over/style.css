@@ -1,31 +1,22 @@
+/* Contenedor principal */
 .game-over {
-  color: #001f31;
-  /* background: rgb(192, 192, 192); */
-  background: rgb(250, 250, 250);
+  color: var(--color-text);
+  background-color: var(--bg-default);
   position: absolute;
   display: none;
   justify-content: center;
   left: 0;
   min-height: 100%;
-
   width: 100%;
   max-width: 100vw;
   height: 100%;
-  /** Para que se vean bien los modales cuando estos se abren se tienen que poner el overflow del main o de los otros componentes en hidden para que no molesten el overflow-x de los modales */
   overflow: auto;
-
   border: 0;
-  padding: 0px 10px 0px 10px;
-  padding-top: 16px;
-  padding-bottom: 130px;
+  padding: 16px 10px 130px 10px;
   z-index: 11;
   transition: all 0.3s ease-in-out;
   margin: 0;
   user-select: none;
-
-  /* scrollbar-gutter: stable both-edges; */
-
-  /* Animation */
   opacity: 1;
   top: 0;
 }
@@ -34,14 +25,14 @@
   margin: 0;
   max-width: 100%;
   font-weight: 600;
+  color: var(--color-text);
 }
 
-.game-over::backdrop {
-  background: transparent;
-  height: 0px;
-  width: 0px;
+.game-over__subtitle {
+  color: var(--color-text);
 }
 
+/* Contenedor interno */
 .game-over__container {
   display: flex;
   align-items: center;
@@ -54,6 +45,7 @@
   gap: 25px;
 }
 
+/* Mostrar y display */
 .game-over--show {
   opacity: 1;
   top: 0;
@@ -63,26 +55,20 @@
   display: flex;
 }
 
-/* Dark mode */
-.game-over--dark-mode {
-  background-color: #001f31;
+/* Dark mode usando body.dark-mode */
+body.dark-mode .game-over {
+  background-color: var(--bg-default);
+  color: var(--color-text);
 }
 
-.game-over__title--dark-mode {
-  color: #e6f2ff;
+body.dark-mode .game-over__title,
+body.dark-mode .game-over__subtitle {
+  color: var(--color-text);
 }
 
-.game-over__subtitle--dark-mode {
-  color: #e6f2ff;
+/* Opcional: backdrop transparente */
+.game-over::backdrop {
+  background: transparent;
+  height: 0;
+  width: 0;
 }
-
-/* Animation */
-/* .fade-in {
-  animation: fadeInDownBig forwards;
-  animation-duration: 0.5s;
-}
-
-.fade-out {
-  animation: fadeOutUpBig forwards;
-  animation-duration: 1s;
-} */

@@ -34,39 +34,36 @@
 }
 
 .score__icon {
-  /*padding: 0px 6px 0px 0px;*/
   width: 14px;
   height: 14px;
   margin-right: 4px;
 }
 
 .score__title {
-  color: #6e6e70;
+  color: color-mix(in srgb, var(--color-text) 70%, var(--bg-default) 30%);
   font-weight: 400;
   font-size: 14px;
 }
 
 .score__points {
   font-size: 1.2rem;
-  font-weight: 600; /* un poco más destacado */
-  border: 1px solid #e2e3e3;
-  background-color: #f9f9f9; /* gris muy suave para resaltar sin parecer botón */
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--color-text) 15%, var(--bg-default));
+  background-color: color-mix(in srgb, var(--bg-default) 90%, var(--color-text) 5%);
   border-radius: 8px;
-  color: #5b5d5f;
-  min-width: 60px; /* asegura que se vea bien con números grandes */
-  padding: 4px 8px; /* vertical y horizontal para “aire” dentro */
+  color: var(--color-text);
+  min-width: 60px;
+  padding: 4px 8px;
   text-align: center;
   display: inline-block;
   user-select: none;
+  transition: all 0.2s ease-in-out;
 }
 
-.score__successes-text {
-  padding: 0px 1px 0px 1px;
-  transform: scale(1);
-  display: inline-block;
-}
+/* Animación */
+.score__successes-text,
 .score__remaining-text {
-  padding: 0px 1px 0px 1px;
+  padding: 0px 1px;
   transform: scale(1);
   display: inline-block;
 }
@@ -76,7 +73,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1); /* Aquí defines cuánto se agranda */
+    transform: scale(1.1);
   }
   100% {
     transform: scale(1);

@@ -1,3 +1,4 @@
+/* Contenedor principal */
 .results {
   display: flex;
   justify-content: center;
@@ -6,14 +7,13 @@
   gap: 16px;
   width: 100%;
   max-width: 100vw;
-  /* padding: 0px 10px 0px 10px; */
 }
 
 .results__title {
-  /* color: #00405d; */
   font-weight: 500;
   margin: 0;
   font-size: 1.3rem;
+  color: var(--color-text);
 }
 
 .results__container {
@@ -25,7 +25,7 @@
   width: 100%;
 }
 
-.results__flags-overflow{
+.results__flags-overflow {
   height: fit-content;
   max-height: 285px;
   overflow: auto;
@@ -34,7 +34,6 @@
 .results__flags {
   width: 100%;
   display: flex;
-  /* justify-content: space-between; */
   align-items: start;
   font-size: 1.2rem;
 }
@@ -42,43 +41,68 @@
 .results__span {
   font-size: 1.3rem;
   font-weight: 600;
-  /* color: #111; */
+  color: var(--color-text);
 }
-
-
 
 /* Bloques correctas, incorrectas y tiempo */
 .results__correct,
 .results__incorrect,
-.results__time{
+.results__time {
   width: 100%;
   display: flex;
   gap: 8px;
   flex-direction: column;
 }
 
-
 .results__correct-container,
 .results__incorrect-container,
 .results__time-container {
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
   align-items: start;
   font-size: 1.1rem;
   padding: 12px;
   border-radius: 6px;
-  background: #f1f5f9;
+  background: var(--bg-default);
+  border-left: 6px solid transparent; /* default, se sobreescribe abajo */
 }
 
+/* Bordes de cada tipo */
 .results__correct-container {
-  border-left: 6px solid #10b981; /* verde */
+  border-left-color: #10b981; /* verde */
 }
 .results__incorrect-container {
-  border-left: 6px solid #ef4444; /* rojo */
+  border-left-color: #ef4444; /* rojo */
 }
 .results__time-container {
-  border-left: 6px solid #3b82f6; /* azul */
+  border-left-color: #3b82f6; /* azul */
 }
 
+/* Dark Mode */
+body.dark-mode .results {
+  /* si quisieras un fondo general más oscuro */
+}
+
+body.dark-mode .results__title,
+body.dark-mode .results__span {
+  color: var(--color-text);
+}
+
+body.dark-mode .results__correct-container,
+body.dark-mode .results__incorrect-container,
+body.dark-mode .results__time-container {
+  background-color: #00334d; /* fondo oscuro */
+  color: var(--color-text);
+}
+
+/* Mantener bordes coloridos en dark mode */
+body.dark-mode .results__correct-container {
+  border-left-color: #10b981;
+}
+body.dark-mode .results__incorrect-container {
+  border-left-color: #ef4444;
+}
+body.dark-mode .results__time-container {
+  border-left-color: #00b0f8; /* azul más visible en dark mode */
+}

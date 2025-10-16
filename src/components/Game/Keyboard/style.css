@@ -1,4 +1,4 @@
-.keyborad {
+.keyboard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,22 +14,8 @@
   gap: 6px;
 }
 
-.keyboard__row--1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 4px;
-}
-
-.keyboard__row--2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 4px;
-}
-
+.keyboard__row--1,
+.keyboard__row--2,
 .keyboard__row--3 {
   display: flex;
   justify-content: space-between;
@@ -38,14 +24,13 @@
   gap: 4px;
 }
 
+/* 💡 Light mode base */
 .keyboard__button {
   color: rgb(49, 47, 47);
   height: 56px;
   width: 47px;
   border-radius: 5px;
   border: 0px solid transparent;
-  margin: 0;
-  text-align: center;
   background-color: rgb(228, 234, 240);
   cursor: pointer;
   user-select: none;
@@ -57,71 +42,85 @@
   background: rgb(178, 189, 197);
 }
 
-.keyboard__button--backspace {
-  height: 56px;
-  flex: 1;
-  border-radius: 4px;
-  border: 0px solid transparent;
-  margin: 0;
-  text-align: center;
-  background-color: rgb(224, 231, 238);
-  cursor: pointer;
-  user-select: none;
-  font-weight: 700;
-  /* transform: rotate(180deg); */
-  transition: all 0.05s ease;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.keyboard__button--backspace:hover {
-  background: rgb(178, 189, 197);
-}
-
+.keyboard__button--backspace,
 .keyboard__button--enter {
-  height: 54px;
-  /* min-width: 50px; */
   flex: 1;
+  height: 56px;
   border-radius: 4px;
   border: 0px solid transparent;
-  margin: 0;
-  text-align: center;
+  background-color: rgb(224, 231, 238);
   cursor: pointer;
   user-select: none;
-  font-weight: 900;
-  letter-spacing: 1px;
-  background-color: rgb(224, 231, 238);
+  font-weight: 800;
   transition: all 0.05s ease;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.keyboard__button--backspace:hover,
 .keyboard__button--enter:hover {
   background: rgb(178, 189, 197);
 }
 
-/* Descativar botones */
-/* Botones deshabilitados */
+/* 🚫 Botones deshabilitados (light) */
 .keyboard__button:disabled,
 .keyboard__button--backspace:disabled,
 .keyboard__button--enter:disabled {
-  background-color: #d6d9e0; /* fondo más apagado */
-  color: #7a8a9b; /* texto gris suave */
-  /*cursor: not-allowed;*/
-  cursor: default; /* cursor prohibido */
-  opacity: 0.7; /* efecto de desactivado */
-  box-shadow: inset 0 0 0 1px #cfd6e3; /* borde sutil */
+  background-color: #d6d9e0;
+  color: #7a8a9b;
+  cursor: default;
+  opacity: 0.7;
+  box-shadow: inset 0 0 0 1px #cfd6e3;
   transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
 }
 
-/* Evitar efectos hover en deshabilitados */
 .keyboard__button:disabled:hover,
 .keyboard__button--backspace:disabled:hover,
 .keyboard__button--enter:disabled:hover {
   background-color: #d6d9e0;
   box-shadow: inset 0 0 0 1px #cfd6e3;
+}
+
+/* 🌙 DARK MODE */
+body.dark-mode .keyboard__button {
+  background-color: #00405d;
+  color: #e6f2ff;
+  /* border: 1px solid #00638e; */
+  transition: all 0.1s ease;
+}
+
+body.dark-mode .keyboard__button:hover {
+  background-color: #00638e;
+  color: #e6f2ff;
+}
+
+body.dark-mode .keyboard__button--backspace,
+body.dark-mode .keyboard__button--enter {
+  background-color: #00324a;
+  color: #9ED2FF;
+  /* border: 1px solid #004f73; */
+}
+
+body.dark-mode .keyboard__button--backspace:hover,
+body.dark-mode .keyboard__button--enter:hover {
+  background-color: #00587f;
+  color: #e6f2ff;
+}
+
+/* 🔒 Deshabilitados en dark mode */
+body.dark-mode .keyboard__button:disabled,
+body.dark-mode .keyboard__button--backspace:disabled,
+body.dark-mode .keyboard__button--enter:disabled {
+  background-color: #00283d;
+  color: #5b7b91;
+  opacity: 0.6;
+  border: 1px solid #00405d;
+  box-shadow: none;
+}
+
+body.dark-mode .keyboard__button:disabled:hover,
+body.dark-mode .keyboard__button--backspace:disabled:hover,
+body.dark-mode .keyboard__button--enter:disabled:hover {
+  background-color: #00283d;
 }

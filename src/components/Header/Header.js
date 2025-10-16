@@ -43,6 +43,6 @@ export default class Header extends BaseComponent {
     const container = this.dom.querySelector("." + this.base.container);
     container.prepend(this.openNavbarButton.dom);
     container.appendChild(this.darkModeButton.dom);
-    container.appendChild(this.navbar.dom);
+    this.dom.prepend(this.navbar.dom);
   }
 }

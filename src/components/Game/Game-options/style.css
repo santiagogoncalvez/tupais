@@ -14,52 +14,40 @@
   gap: 6px;
 }
 
+/* Botón base */
 .game-options__button {
-  color: rgb(49, 47, 47);
+  color: color-mix(in srgb, var(--color-text) 90%, var(--bg-default) 10%);
   height: 70px;
   width: 250px;
   border-radius: 5px;
-  /* border: 0px solid transparent; */
-  /* border: 1px solid rgb(227, 234, 240); */
-  border: 1px solid rgb(212, 222, 232);
-
-  margin: 0;
-  text-align: center;
-  background-color: rgb(245, 250, 255);
+  border: 1px solid color-mix(in srgb, var(--color-link) 15%, var(--bg-default) 85%);
+  background-color: color-mix(in srgb, var(--bg-default) 95%, var(--color-link) 5%);
   cursor: pointer;
   user-select: none;
   font-weight: 800;
   font-size: 1.1rem;
   padding: 5px 10px 5px 55px;
-
   display: flex;
   align-items: center;
   justify-content: left;
-
   position: relative;
-}
-
-/* Botones con animación escalonada */
-.game-options__button {
   opacity: 0;
   transform: translateY(-10px) scale(1);
-
-  /* Transiciones normales para entrada y hover */
   transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 0.15s ease,
     box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Icono lateral */
 .game-options__button-icon {
   position: absolute;
   width: 40px;
   height: 100%;
   left: 0;
   border-radius: 4px 0px 0px 4px;
-  color: #094c91;
-  background: #d6e3f7;
-
+  color: var(--color-link);
+  background: color-mix(in srgb, var(--color-link) 20%, var(--bg-default) 80%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,54 +57,50 @@
   text-align: left;
 }
 
-/* Hover con velocidad distinta */
+/* Hover */
 .game-options__button:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-link) 30%, transparent 70%);
+  background-color: color-mix(in srgb, var(--color-link) 5%, var(--bg-default) 95%);
 }
 
-/* Hover solo para dispositivos con puntero fino (mouse) */
+/* Hover táctil (sin efecto) */
 @media (hover: none) and (pointer: coarse) {
   .game-options__button:hover {
     box-shadow: none;
-    background-color: rgb(245, 250, 255);
+    background-color: color-mix(in srgb, var(--bg-default) 95%, var(--color-link) 5%);
   }
 }
 
+/* Focus */
 .game-options__button:focus {
-  /* outline: 2px solid #094c91; */
   outline: 0;
-  box-shadow: 0 0 4px 0 #094c91;
+  box-shadow: 0 0 4px 0 var(--color-link);
 }
 
-/* Active: efecto de "achicarse" */
+/* Active */
 .game-options.show .game-options__button:active {
-  /* transform: scale(0.9); */
-  background: #cbdaef;
-  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
+  background: color-mix(in srgb, var(--color-link) 10%, var(--bg-default) 90%);
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para botones deshabilitados */
+/* Deshabilitado */
 .game-options__button:disabled {
-  background-color: #e4e9f2; /* fondo más apagado */
-  color: #9aa5b1; /* texto gris suave */
-  /*cursor: not-allowed;*/
-  cursor: default; /* cursor prohibido */
-  opacity: 0.7; /* efecto de desactivado */
-  box-shadow: inset 0 0 0 1px #cfd6e3; /* borde sutil */
-  transform: scale(1); /* sin efecto hover/active */
+  background-color: color-mix(in srgb, var(--bg-default) 85%, var(--color-link) 5%);
+  color: color-mix(in srgb, var(--color-text) 40%, var(--bg-default) 60%);
+  cursor: default;
+  opacity: 0.7;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-link) 10%, var(--bg-default) 90%);
+  transform: scale(1);
   transition: opacity 0.3s ease, background-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
-/* Icono de botón deshabilitado */
 .game-options__button:disabled .game-options__button-icon {
-  background-color: #d1d9e6;
-  color: #7a8a9b;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: color-mix(in srgb, var(--color-link) 10%, var(--bg-default) 90%);
+  color: color-mix(in srgb, var(--color-text) 40%, var(--bg-default) 60%);
 }
 
-/* Estado inicial oculto */
+/* Contenedor animado */
 .game-options {
   opacity: 0;
   transform: scale(0.95) translateY(-10px);
@@ -125,7 +109,6 @@
     transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Estado visible */
 .game-options.show {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -136,74 +119,43 @@
   opacity: 0;
 }
 
-/* Cuando el contenedor se muestra */
 .game-options.show .game-options__button {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* Animación escalonada */
-/* .game-options.show .game-options__button:nth-child(1) {
-  transition-delay: 0.15s, 0.15s, 0s, 0s;
-}
-.game-options.show .game-options__button:nth-child(2) {
-  transition-delay: 0.2s, 0.2s, 0s, 0s;
-}
-.game-options.show .game-options__button:nth-child(3) {
-  transition-delay: 0.25s, 0.25s, 0s, 0s;
-}
-.game-options.show .game-options__button:nth-child(4) {
-  transition-delay: 0.3s, 0.3s, 0s, 0s;
-} */
-
-/* Opcion correcta e incorrecta */
-/* ✅ Respuesta correcta */
+/* ✅ Correcta */
 .game-options__button.correct {
-  background-color: #e6f9f0; /* verde muy suave */
-  border-color: #27ae60; /* verde éxito */
-  color: #004d25; /* texto verde oscuro */
-  box-shadow: 0 0 2px rgba(39, 174, 96, 0.4); /* glow suave */
-  transform: scale(1.02); /* leve pop-out */
-
-  /* reutilizamos la transición base */
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    color 0.3s ease, box-shadow 0.3s ease,
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background-color: color-mix(in srgb, #27ae60 10%, var(--bg-default) 90%);
+  border-color: #27ae60;
+  color: color-mix(in srgb, #27ae60 90%, var(--color-text) 10%);
+  box-shadow: 0 0 2px color-mix(in srgb, #27ae60 50%, transparent 50%);
+  transform: scale(1.02);
 }
 
 .game-options__button.correct .game-options__button-icon {
-  background-color: #27ae60; /* verde éxito */
+  background-color: #27ae60;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ❌ Respuesta incorrecta */
+/* ❌ Incorrecta */
 .game-options__button.incorrect {
-  background-color: #fff0f0;
+  background-color: color-mix(in srgb, #e74c3c 10%, var(--bg-default) 90%);
   border-color: #e74c3c;
-  color: #5d1a14;
-  box-shadow: 0 0 2px rgba(231, 76, 60, 0.4);
+  color: color-mix(in srgb, #e74c3c 90%, var(--color-text) 10%);
+  box-shadow: 0 0 2px color-mix(in srgb, #e74c3c 40%, transparent 60%);
   transform: scale(0.98);
-
-  /* igual que arriba */
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    color 0.3s ease, box-shadow 0.3s ease,
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .game-options__button.incorrect .game-options__button-icon {
   background-color: #e74c3c;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Correct/Incorrect sin delay */
+/* Transiciones uniformes */
 .game-options__button.correct,
 .game-options__button.incorrect {
-  /* ignora los delays escalonados */
-  /* transition-delay: 0s !important;  */
-  transition-property: background-color, border-color, color, box-shadow,
-    transform;
+  transition-property: background-color, border-color, color, box-shadow, transform;
   transition-duration: 0.3s;
   transition-timing-function: ease;
 }

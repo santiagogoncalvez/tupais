@@ -33,7 +33,7 @@ body.dark-mode .country-search {
   justify-content: end;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.055);
   border-radius: 0px 6px 6px 0px;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
 }
 
 /* Input */
@@ -49,7 +49,7 @@ body.dark-mode .country-search {
   background-color: var(--input-bg);
   color: var(--color-text);
   outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  /* transition: border-color 0.2s ease, background 0.2s ease; */
 }
 
 .country-search__input:focus-within {
@@ -91,11 +91,11 @@ body.dark-mode .country-search__icon {
   border-width: 1px 1px 1px 0;
   border-radius: 0 6px 6px 0;
   cursor: pointer;
-  transition: background-color 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  /* transition: background-color 0.1s; */
 }
 
 .country-search__button:hover {

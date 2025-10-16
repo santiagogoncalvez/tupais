@@ -53,7 +53,9 @@ body.dark-mode .flag-list__list {
   border-radius: calc(8px * var(--flag-scale, 1));
 
   cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+
+  /** Por el momento para aligerar el cambio a modo oscuro se quitan las animaciones de los items que comparten con el DarkMode */
+  /* transition: background 0.15s ease, box-shadow 0.15s ease, border 0.15s ease; */
 }
 
 .flag-list__item:hover {

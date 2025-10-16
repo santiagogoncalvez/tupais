@@ -47,7 +47,7 @@
   border-radius: 8px;
   overflow: hidden;
   user-select: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  /* transition: background-color 0.2s ease, border-color 0.2s ease; */
 }
 
 .timer__progress {

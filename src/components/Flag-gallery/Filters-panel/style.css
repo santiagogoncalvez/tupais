@@ -20,7 +20,6 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  transition: right 0.3s ease-in-out;
 }
 
 /* Responsive */
@@ -78,7 +77,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   box-shadow: 0 1px 3px var(--shadow-color);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
   user-select: none;
   width: fit-content;
   max-width: 100%;
@@ -97,7 +96,7 @@
   cursor: pointer;
   padding: 0;
   line-height: 1;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.1s ease;
   height: 18px;
   width: 18px;
   display: flex;
@@ -149,7 +148,7 @@
   padding: 5px 10px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  /* transition: background 0.15s, color 0.15s, border-color 0.15s; */
   text-align: start;
 }
 

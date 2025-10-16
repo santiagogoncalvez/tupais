@@ -58,7 +58,7 @@ body.dark-mode .scroll-top--hover {
   background-position: center;
 
   transform: rotate(45deg);
-  /* transition: transform 0.2s ease, filter 0.2s ease; */
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 body.dark-mode .scroll-top__icon {

@@ -54,6 +54,12 @@ export default class nextButton extends BaseComponent {
       }
     }
 
+    if (state.ui.gameOptions.animateCorrect) {
+      this.dom.disabled = true;
+    } else {
+      this.dom.disabled = false;
+    }
+
     // Desactivar botones
     if (state.game.completed != this.state.game.completed) {
       if (state.game.completed) {

@@ -48,6 +48,10 @@ body.dark-mode .country__button-icon--right {
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
+body.dark-mode .country__next-button:disabled {
+  background-color: #00466e;
+}
+
 /* Evitar hover en deshabilitado */
 .country__next-button:disabled:hover {
   background-color: #e0e3e8;

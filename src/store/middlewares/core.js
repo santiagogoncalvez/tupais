@@ -86,6 +86,16 @@ export const persistSearchHistoryMiddleware = (store) => (next) => (action) => {
     return result;
 };
 
+// --- Persistencia del Modo oscruro ---
+export const persistDarkMode = (store) => (next) => (action) => {
+    const result = next(action);
+    if (action.type === ACTIONS.TOGGLE_DARK_MODE) {
+        const state = store.getState();
+        localStorage.setItem("ui.darkMode", JSON.stringify(state.ui.darkMode));
+    }
+    return result;
+};
+
 // --- Router middleware ---
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
@@ -160,6 +170,7 @@ export const coreMiddlewares = [
     persistStatsMiddleware,
     persistContinentMiddleware,
     persistSearchHistoryMiddleware,
+    persistDarkMode,
     // routerMiddleware,
     checkStartButton,
     checkNewGame

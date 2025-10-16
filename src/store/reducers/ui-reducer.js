@@ -2,7 +2,7 @@ import { ACTIONS } from "@constants/action-types.js";
 
 let continentStorage = JSON.parse(localStorage.getItem("game.continent")) ?? "all";
 export const initialState = {
-  darkMode: false,
+  darkMode: JSON.parse(localStorage.getItem("ui.darkMode")) ?? false,
   modals: {
     presentation: {
       show: false,

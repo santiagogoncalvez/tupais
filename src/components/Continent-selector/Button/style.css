@@ -46,13 +46,15 @@
   height: 13px;
   rotate: calc(-90deg);
 
-  background-image: url("/tupais/icons/selector-arrow.png");
+  background-image: url("/tupais/icons/next-button.png");
   background-color: transparent;
   background-size: 13px 13px;
+
+  rotate: 90deg;
 }
 
 body.dark-mode .continent-selector__selector-icon {
-  background-image: url("/tupais/icons/selector-arrow-dark-mode.png");
+  background-image: url("/tupais/icons/next-button-dark-mode.png");
 }
 
 .continent-selector__button-text {

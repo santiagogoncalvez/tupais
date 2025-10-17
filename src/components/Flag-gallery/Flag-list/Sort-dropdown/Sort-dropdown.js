@@ -30,7 +30,7 @@ export default class SortDropdown extends BaseComponent {
     this.options = new Options(state, dispatch);
     this.button = new Button(state, dispatch, this.options, sortAction);
     this.options.setOptionAction(this.button.setOption.bind(this.button));
-    this.options.setAnimateButtonAction(this.button.animateButton.bind(this.button));
+    // this.options.setAnimateButtonAction(this.button.animateButton.bind(this.button));
 
     this._init(dispatch);
   }

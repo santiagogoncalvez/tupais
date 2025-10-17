@@ -34,7 +34,7 @@ export default class Options extends BaseComponent {
 
     this.handleClickOutside = (event) => {
       if (!this.dom.contains(event.target)) {
-        this.buttonAction(false);
+        // this.buttonAction(false);
         this._show(false);
       }
     }
@@ -157,7 +157,7 @@ export default class Options extends BaseComponent {
     this.option = selectedOption;
 
     this.optionAction(this.option);
-    this.buttonAction(false);
+    // this.buttonAction(false);
     this._show(false);
   }
 
@@ -243,9 +243,9 @@ export default class Options extends BaseComponent {
     this.optionAction = action;
   }
 
-  setAnimateButtonAction(action) {
-    this.buttonAction = action;
-  }
+  // setAnimateButtonAction(action) {
+  //   this.buttonAction = action;
+  // }
 
   reset(sortingOption = "name-asc") {
     this.option = sortingOption;

@@ -59,3 +59,7 @@ body.dark-mode .continent-selector__selector-icon {
   user-select: none;
   flex: 1;
 }
+
+.continent-selector__selector-icon--active {
+  rotate: calc(270deg);
+}

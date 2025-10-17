@@ -35,11 +35,26 @@ export default class GameOptions extends BaseComponent {
       return;
     }
 
+    if (state.game.newGameId !== this.state.game.newGameId) {
+      this._disableOptions(false);
+      this.state = state;
+      return;
+    }
+
 
     // Detectar cambio de modo
     if (state.game.mode !== this.state.game.mode) {
       this.isNewMode = true;
     }
+
+    // --- 🟢 NUEVA PARTE (replica del comportamiento original) ---
+    const animationActive = state.ui.country.animation;
+    const animateCorrect = state.ui.gameOptions.animateCorrect;
+    const gameCompleted = state.game.completed;
+
+    const shouldDisable = animationActive || animateCorrect || gameCompleted;
+    this._disableOptions(shouldDisable);
+    // --- 🔴 fin de la parte nueva ---
 
     // Desactivar botones si cambió completed
     if (state.game.completed !== this.state.game.completed) {
@@ -87,6 +102,7 @@ export default class GameOptions extends BaseComponent {
     this.state = state;
   }
 
+
   _setOptions(state) {
     const options = this.dom.querySelectorAll("." + this.base.option);
     for (let i = 0; i < options.length; i++) {
@@ -118,6 +134,8 @@ export default class GameOptions extends BaseComponent {
         // Este método va a ejectuar la animación y cuando termine va a enviar las acciones
         dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
         dispatch({ type: ACTIONS.SEND_ANSWER_CLASSIC });
+        dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
+
       });
     }
   }

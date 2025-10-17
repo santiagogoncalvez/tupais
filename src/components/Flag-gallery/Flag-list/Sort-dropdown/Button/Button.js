@@ -61,19 +61,19 @@ export default class Button extends BaseComponent {
   }
 
   show(isShow) {
-    this.animateButton(isShow);
+    // this.animateButton(isShow);
     this.selectedOptions._show(isShow);
   }
 
-  animateButton(isShow) {
-    const icon = this.dom.querySelector(".dropdown-button__selector-icon");
-    if (isShow) {
-      icon.classList.add("dropdown-button__selector-icon--active");
-    } else {
-      icon.classList.remove("dropdown-button__selector-icon--active");
+  // animateButton(isShow) {
+  //   const icon = this.dom.querySelector(".dropdown-button__selector-icon");
+  //   if (isShow) {
+  //     icon.classList.add("dropdown-button__selector-icon--active");
+  //   } else {
+  //     icon.classList.remove("dropdown-button__selector-icon--active");
 
-    }
-  }
+  //   }
+  // }
 
   setOptionAction(action) {
     this.selectedOptionAction = action;

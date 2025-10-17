@@ -50,6 +50,7 @@ export const checkGameCompleted = (store) => (next) => (action) => {
         // Si se sale de la pestaña de la app esto está generando que se abra el modal recién cuando se entre de vuelta, ya que cuando se sale de las pestañas se pausan los setTimeout, entonces esto se activa recién cuando se entra de vuelta.
         setTimeout(() => {
             store.dispatch({ type: ACTIONS.OPEN_GAME_OVER });
+            store.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION });
         }, 1000);
     }
 

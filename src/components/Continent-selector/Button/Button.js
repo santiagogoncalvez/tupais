@@ -83,4 +83,14 @@ export default class Button extends BaseComponent {
       }
     });
   }
+
+  animateButton(isShow) {
+    const icon = this.dom.querySelector(".continent-selector__selector-icon");
+    if (isShow) {
+      icon.classList.add("continent-selector__selector-icon--active");
+    } else {
+      icon.classList.remove("continent-selector__selector-icon--active");
+
+    }
+  }
 }

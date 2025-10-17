@@ -15,9 +15,9 @@
 
 /* Dark-mode overrides locales */
 body.dark-mode .flag-list__list {
-  --item-bg: #00263f;           /* fondo de cada tarjeta */
-  --item-border: #00405d;       /* borde sutil */
-  --item-hover-bg: #003a5d;     /* hover más visible */
+  --item-bg: #00263f; /* fondo de cada tarjeta */
+  --item-border: #00405d; /* borde sutil */
+  --item-hover-bg: #003a5d; /* hover más visible */
 }
 
 /* Contenedor general */
@@ -72,7 +72,14 @@ body.dark-mode .flag-list__list {
   color: var(--color-text);
   margin: 32px 0 16px;
   padding-bottom: 4px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Borde inferior adaptable según modo */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* color para light mode por defecto */
+}
+
+/* Dark mode */
+body.dark-mode .flag-list__continent {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25); /* borde claro sobre fondo oscuro */
 }
 
 /* Links internos de flags */

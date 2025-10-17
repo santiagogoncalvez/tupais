@@ -43,7 +43,7 @@ body.dark-mode .country__button-icon--right {
 .country__next-button:disabled {
   background-color: #e0e3e8; /* fondo apagado */
   /*cursor: not-allowed;*/
-  cursor: default; /* cursor prohibido */
+  cursor: not-allowed; /* cursor prohibido */
   opacity: 0.6; /* efecto visual de desactivado */
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }

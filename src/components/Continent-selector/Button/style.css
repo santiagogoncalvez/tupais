@@ -12,7 +12,7 @@
   justify-content: center;
   gap: 10px;
   font-size: 1rem;
-  position: relative;
+  /* position: relative; */
   padding: 0px 20px;
   /* transition: all 0.15s ease-in-out; */
 }
@@ -40,17 +40,13 @@
 }
 
 .continent-selector__selector-icon {
-  right: 15px;
-  top: 10px;
-  width: 13px;
-  height: 13px;
-  rotate: calc(-90deg);
-
+  min-width: 13px;
+  min-height: 13px;
   background-image: url("/tupais/icons/next-button.png");
   background-color: transparent;
   background-size: 13px 13px;
 
-  rotate: 90deg;
+  rotate: calc(90deg);
 }
 
 body.dark-mode .continent-selector__selector-icon {

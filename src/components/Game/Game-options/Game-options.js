@@ -30,7 +30,7 @@ export default class GameOptions extends BaseComponent {
 
   syncState(state) {
     // Solo nos interesa classic
-    if (state.game.mode !== GAME_MODES.CLASSIC) {
+    if (state.game.mode === GAME_MODES.CHALLENGE) {
       this.state = state;
       return;
     }
@@ -133,7 +133,13 @@ export default class GameOptions extends BaseComponent {
 
         // Este método va a ejectuar la animación y cuando termine va a enviar las acciones
         dispatch({ type: ACTIONS.SET_ANSWER, payload: this.answer });
-        dispatch({ type: ACTIONS.SEND_ANSWER_CLASSIC });
+
+        if (this.state.game.mode === GAME_MODES.CLASSIC) {
+          dispatch({ type: ACTIONS.SEND_ANSWER_CLASSIC });
+        } else {
+          dispatch({ type: ACTIONS.SEND_ANSWER });
+        }
+
         dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
 
       });

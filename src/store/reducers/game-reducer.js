@@ -260,15 +260,6 @@ const reducerMap = {
     };
   },
 
-  [ACTIONS.NEXT_COUNTRY_CLASSIC]: (game) => {
-    return {
-      ...game,
-      countryIndex: nextIndex(game.countryIndex, game.countries.length),
-      // remainingAnswers: game.remainingAnswers - 1,
-      answer: "",
-      skip: false,
-    };
-  },
 
   [ACTIONS.SKIP_COUNTRY]: (game) => {
     return {
@@ -374,10 +365,22 @@ const reducerMap = {
 
   // Modo record
   [ACTIONS.NEW_GAME_RECORD]: (game) => {
-    return {
+    let newGameSate = {
       ...newGame(game),
       remainingAnswers: game.countries.length,
       totalAnswers: game.countries.length,
+    }
+    const { countries, countryIndex, totalAnswers } = newGameSate;
+
+    const take = Math.min(totalAnswers, countries.length - 1); // no puedo tomar el actual
+    const incorrectFlags = Array.from({ length: take }, (_, i) => {
+      const idx = (countryIndex + i) % countries.length;
+      return countries[idx];
+    });
+
+    return {
+      ...newGameSate,
+      incorrectFlags,     // los 10 siguientes
     };
   },
 

@@ -59,15 +59,15 @@ export default class Game extends BaseComponent {
   }
 
   _init(state) {
-    // Esto va para cuando se conviertan los otros 2 modos en opciones múltiples con sus respectivos conceptos
-    /*
+    //TODO: Esto va para cuando se conviertan los otros 2 modos en opciones múltiples con sus respectivos conceptos
+
     if (state.game.mode === GAME_MODES.CLASSIC
       || state.game.mode === GAME_MODES.RECORD
       || state.game.mode === GAME_MODES.TIME_TRIAL
     )
-    */
-    if (state.game.mode === GAME_MODES.CLASSIC
-    ) {
+    // if (state.game.mode === GAME_MODES.CLASSIC
+    // ) 
+    {
       // Eliminar elementos que no son del modo
       this.answer.dom.remove();
       this.keyboard.dom.remove();

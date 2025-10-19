@@ -6,7 +6,8 @@ import { ACTIONS } from "@constants/action-types.js";
 
 export const checkSendAnswerRecord = (store) => (next) => (action) => {
     const result = next(action);
-    if (action.type === ACTIONS.SEND_ANSWER) {
+    if (action.type === ACTIONS.SEND_ANSWER_CLASSIC ||
+        action.type === ACTIONS.SKIP_COUNTRY) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.RECORD) return result;
 
@@ -19,12 +20,12 @@ export const checkSendAnswerRecord = (store) => (next) => (action) => {
             store.dispatch({ type: ACTIONS.GAME_WON });
             store.dispatch({ type: ACTIONS.GAME_COMPLETED });
         } else {
-            if (state.game.lastAnswerType !== ANSWER_TYPES.INCOMPLETE) {
-                store.dispatch({ type: ACTIONS.NEXT_COUNTRY });
-            }
+            store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
         }
     }
     return result;
 };
 
-export const recordMiddlewares = [checkSendAnswerRecord];
+export const recordMiddlewares = [
+    checkSendAnswerRecord,
+];

@@ -5,6 +5,8 @@
   overflow: hidden;
   width: fit-content;
   gap: 10px;
+
+  flex: 1;
 }
 
 .country__fill{

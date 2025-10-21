@@ -2,7 +2,6 @@ import htmlString from "@components/Game/Score/template.html?raw";
 import "@components/Game/Score/style.css";
 import { base, modifiers } from "@components/Game/Score/Score-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
-
 import Continent from "@components/Game/Score/Continent/Continent.js";
 import Timer from "@components/Game/Score/Timer/Timer.js";
 
@@ -20,37 +19,39 @@ export default class Score extends BaseComponent {
   }
 
   syncState(state) {
-    if (state.game.correctAnswers != this.state.game.correctAnswers) {
-      const successes = this.dom.querySelector("." + "score__successes-text");
-
-      successes.textContent = state.game.correctAnswers;
-
-      successes.classList.add(this.modifiers.change.points);
-      successes.addEventListener("animationend", () => {
-        successes.classList.remove(this.modifiers.change.points);
-      });
-    }
-
-    if (state.game.totalAnswers != this.state.game.totalAnswers) {
-      const total = this.dom.querySelector("." + "score__remaining-text");
-      total.textContent = state.game.totalAnswers;
-    }
+    this._updateText(".score__successes-text", state.game.correctAnswers);
+    this._updateText(".score__fails-text", state.game.incorrectFlags.length);
+    this._updateText(".score__current-text", state.game.totalAnswers - state.game.remainingAnswers);
+    this._updateText(".score__total-text", state.game.totalAnswers);
 
     this.state = state;
-
     this.continent.syncState(state);
     this.timer.syncState(state);
   }
 
   _init(state) {
-    const successes = this.dom.querySelector("." + "score__successes-text");
-    const total = this.dom.querySelector("." + "score__remaining-text");
-
-    successes.textContent = state.game.correctAnswers;
-    total.textContent = state.game.totalAnswers;
-
-    this.dom.append(this.continent.dom);
+    this.dom.querySelector(".score__successes-text").textContent = state.game.correctAnswers;
+    this.dom.querySelector(".score__fails-text").textContent = state.game.incorrectFlags.length;
+    this.dom.querySelector(".score__current-text").textContent = state.game.totalAnswers - state.game.remainingAnswers;
+    this.dom.querySelector(".score__total-text").textContent = state.game.totalAnswers;
 
     this.dom.appendChild(this.timer.dom);
+    this.dom.append(this.continent.dom);
+  }
+
+  _updateText(selector, newValue) {
+    const el = this.dom.querySelector(selector);
+    if (!el) return;
+
+    if (el.textContent != newValue) {
+      el.textContent = newValue;
+      const container = el.closest(".score__points");
+      if (container) {
+        container.classList.add("score__points--change");
+        container.addEventListener("animationend", () => {
+          container.classList.remove("score__points--change");
+        }, { once: true });
+      }
+    }
   }
 }

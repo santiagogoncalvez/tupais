@@ -1,15 +1,13 @@
-import htmlString from "@components/Game/Progress-dots/template.html?raw";
+import { GAME_MODES } from "@constants/game-modes.js";
 
-// Styles
+
+import htmlString from "@components/Game/Progress-dots/template.html?raw";
 import "@components/Game/Progress-dots/style.css";
 
-import {
-  base,
-  modifiers,
-} from "@components/Game/Progress-dots/Progress-dots-class-names.js";
+import { base, modifiers } from "@components/Game/Progress-dots/Progress-dots-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
-export default class ProgressDots extends BaseComponent {
+export default class Progress extends BaseComponent {
   constructor(state) {
     super();
     this.htmlString = htmlString;
@@ -18,36 +16,41 @@ export default class ProgressDots extends BaseComponent {
     this.state = state;
     this.dom = this._createDom();
 
-    this.total = state.game.totalAnswers;
+    this.total = state.game.totalAnswers || 1;
     this.current = 0;
     this.init();
   }
 
+  init() {
+    this.fill = this.dom.querySelector(".progress__fill");
+    this.label = this.dom.querySelector(".progress__label");
+    this.updateProgress(0);
+  }
+
   syncState(state) {
-    if (state.game.countryIndex !== this.state.game.countryIndex ||
-      state.game.countryIndex !== this.state.game.countryIndex) {
-      this.setCurrent(state.game.totalAnswers - state.game.remainingAnswers);
+    if (state.game.newGameId != this.state.game.newGameId) {
+      this.updateProgress(0);
+      this.state = state;
+      return;
     }
 
+    if (state.game.mode !== GAME_MODES.CLASSIC) {
+      if (state.game.lastAnswerType != "correct") return;
+    }
+
+    const answered = state.game.totalAnswers - state.game.remainingAnswers;
+
+    if (answered !== this.current) {
+      this.updateProgress(answered);
+    }
+    
     this.state = state;
   }
 
-  init() {
-    this.dom.innerHTML = "";
-    for (let i = 0; i < this.total; i++) {
-      const dot = document.createElement("span");
-      dot.className = "dot" + (i === this.current ? " active" : "");
-      this.dom.appendChild(dot);
-    }
-  }
-
-  setCurrent(index) {
-    this.current = index;
-    let dots = this.dom.querySelectorAll(".dot");
-    let dotActive = this.dom.querySelector(".active");
-
-    if (dotActive) dotActive.classList.remove("active");
-
-    if (dots[index]) dots[index].classList.add("active");
+  updateProgress(answered) {
+    this.current = answered;
+    const progress = Math.min(answered / this.total, 1);
+    this.fill.style.transform = `scaleX(${progress})`;
+    this.label.textContent = `${answered} / ${this.total}`;
   }
 }

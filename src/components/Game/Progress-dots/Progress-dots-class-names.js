@@ -1,5 +1,5 @@
 export const base = {
-  block: "dots-indicator",
+  block: "progress",
 };
 
 export const modifiers = {};

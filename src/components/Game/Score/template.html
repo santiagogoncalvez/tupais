@@ -1,19 +1,38 @@
 <div class="score">
-  <div class="score__statistics score__statistics--successes">
+  <div class="score__points-content">
     <div class="score__title-container">
-      <img
-        class="score__icon"
-        src="/tupais/icons/correct.png"
-        alt="Continente"
-      />
+      <img class="score__icon" src="/tupais/icons/correct.png" alt="Progreso" />
       <span class="score__title">Puntuación</span>
     </div>
 
-    <div class="score__point-container">
-      <div class="score__points">
-        <span class="score__successes-text"></span>/<span
-          class="score__remaining-text"
-        ></span>
+    <div class="score__points-container">
+      <!-- 🟩 País actual -->
+      <div class="score__statistics score__statistics--progress">
+        <div class="score__point-container">
+          <div class="score__points">
+            <span class="score__current-text"></span>/<span
+              class="score__total-text"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🟦 Correctas -->
+      <div class="score__statistics score__statistics--successes">
+        <div class="score__point-container">
+          <div class="score__points">
+            <span class="score__successes-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🟥 Incorrectas -->
+      <div class="score__statistics score__statistics--fails">
+        <div class="score__point-container">
+          <div class="score__points">
+            <span class="score__fails-text"></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

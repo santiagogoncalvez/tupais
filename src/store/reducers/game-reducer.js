@@ -10,7 +10,7 @@ import { shuffle } from "@utils/shuffle.js";
 
 import { getRandomCountries } from "@utils/country-parser.js";
 
-const GAME_TIME_TIMER = 300;
+const GAME_TIME_TIMER = 600;
 const GAME_TIME_TIMER_MODE_TIME_TRIAL = 10;
 const TOTAL_ANSWERS = 10;
 

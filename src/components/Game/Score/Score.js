@@ -23,7 +23,8 @@ export default class Score extends BaseComponent {
     this._updateText(".score__fails-text", state.game.incorrectFlags.length);
 
     if (!state.game.completed) {
-      if (state.game.countryIndex != this.state.game.countryIndex) {
+      if (state.game.countryIndex != this.state.game.countryIndex ||
+        state.game.newGameId != this.state.game.newGameId) {
         this._updateText(".score__current-text", state.game.totalAnswers - state.game.remainingAnswers + 1);
         this._updateText(".score__total-text", state.game.totalAnswers);
       }

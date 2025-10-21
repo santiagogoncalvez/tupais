@@ -34,6 +34,7 @@ function getAnswers(game) {
       sendAnswer: false,
       correctAnswers: currentCount,
       lastAnswerType: ANSWER_TYPES.INCORRECT,
+      remainingAnswers: game.remainingAnswers - 1,
     };
     return newState;
   }
@@ -60,6 +61,7 @@ function getAnswers(game) {
         sendAnswer: false,
         correctAnswers: currentCount + 1,
         lastAnswerType: ANSWER_TYPES.CORRECT,
+        remainingAnswers: game.remainingAnswers - 1,
       };
     } else {
       // ❌ Respuesta incorrecta pero completa
@@ -71,6 +73,7 @@ function getAnswers(game) {
         sendAnswer: false,
         correctAnswers: currentCount,
         lastAnswerType: ANSWER_TYPES.INCORRECT,
+        remainingAnswers: game.remainingAnswers - 1,
       };
     }
   } else {

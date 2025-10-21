@@ -21,8 +21,14 @@ export default class Score extends BaseComponent {
   syncState(state) {
     this._updateText(".score__successes-text", state.game.correctAnswers);
     this._updateText(".score__fails-text", state.game.incorrectFlags.length);
-    this._updateText(".score__current-text", state.game.totalAnswers - state.game.remainingAnswers);
-    this._updateText(".score__total-text", state.game.totalAnswers);
+
+    if (!state.game.completed) {
+      if (state.game.countryIndex != this.state.game.countryIndex) {
+        this._updateText(".score__current-text", state.game.totalAnswers - state.game.remainingAnswers + 1);
+        this._updateText(".score__total-text", state.game.totalAnswers);
+      }
+    }
+
 
     this.state = state;
     this.continent.syncState(state);
@@ -32,7 +38,7 @@ export default class Score extends BaseComponent {
   _init(state) {
     this.dom.querySelector(".score__successes-text").textContent = state.game.correctAnswers;
     this.dom.querySelector(".score__fails-text").textContent = state.game.incorrectFlags.length;
-    this.dom.querySelector(".score__current-text").textContent = state.game.totalAnswers - state.game.remainingAnswers;
+    this.dom.querySelector(".score__current-text").textContent = state.game.totalAnswers - state.game.remainingAnswers + 1;
     this.dom.querySelector(".score__total-text").textContent = state.game.totalAnswers;
 
     this.dom.appendChild(this.timer.dom);

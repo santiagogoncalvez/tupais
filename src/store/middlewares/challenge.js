@@ -6,11 +6,11 @@ import { ACTIONS } from "@constants/action-types.js";
 
 export const checkSendAnswer = (store) => (next) => (action) => {
     const result = next(action);
-    if (action.type === ACTIONS.SEND_ANSWER) {
+    if (action.type === ACTIONS.SEND_ANSWER || action.type === ACTIONS.SKIP_COUNTRY) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.CHALLENGE) return result;
-
-        if (state.game.correctAnswers == state.game.totalAnswers) {
+        console.log(state.game.remainingAnswers);
+        if (state.game.remainingAnswers <= 0) {
             if (state.game.correctAnswers >= state.game.totalAnswers) {
                 store.dispatch({ type: ACTIONS.GAME_WON });
             }

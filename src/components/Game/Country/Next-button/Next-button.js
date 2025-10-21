@@ -25,7 +25,7 @@ export default class NextButton extends BaseComponent {
           dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
 
           // Solo se pasa al siguiente país automáticamente si no es modo clásico
-          if (this.state.game.mode !== GAME_MODES.CLASSIC) {
+          if (this.state.game.mode === GAME_MODES.CHALLENGE) {
             dispatch({ type: ACTIONS.NEXT_COUNTRY });
           }
         },
@@ -39,6 +39,9 @@ export default class NextButton extends BaseComponent {
   _init() {
     // Acceso rápido con tecla → (flecha derecha)
     window.addEventListener("keydown", (event) => {
+      const gameRoutes = ["/", "/challenge", "/time-trial"];
+      if (!gameRoutes.includes(this.state.router.currentRoute)) return;
+
       if (event.key === "ArrowRight") this.dom.click();
     });
   }

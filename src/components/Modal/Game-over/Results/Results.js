@@ -59,12 +59,15 @@ export default class Results extends BaseComponent {
     const incorrectFlags = this.dom.querySelector(".results__incorrect")
       .querySelector(".results__flags");
 
+    // Banderas correctas
     if (state.game.correctFlags.length != 0) {
       this.flagListCorrect.renderItems(state.game.correctFlags);
       correctFlags.appendChild(this.flagListCorrect.dom);
     } else {
       this.flagListCorrect.dom.remove();
     }
+
+    // Banderas incorrectas
     if (state.game.incorrectFlags.length != 0) {
       this.flagListIncorrect.renderItems(state.game.incorrectFlags);
       incorrectFlags.appendChild(this.flagListIncorrect.dom);
@@ -72,7 +75,6 @@ export default class Results extends BaseComponent {
     } else {
       this.flagListIncorrect.dom.remove();
     }
-    // }
 
     this.state = state;
   }

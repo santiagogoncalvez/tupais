@@ -135,17 +135,11 @@ function getAnswersChoice(game) {
 
   let currAnswer = normStr(game.answer);
   let correctAnswer = normStr(game.countries[game.countryIndex]);
+  let currCountry = newState.countries[newState.countryIndex];
 
   // Verificar el tipo de respuesta
   // *Respuesta correcta
   if (currAnswer == correctAnswer) {
-    let correctCountry = newState.countries[newState.countryIndex];
-    // Agregar país actual a correctFlags
-    newState.correctFlags = [...newState.correctFlags, correctCountry];
-    newState.incorrectFlags = newState.incorrectFlags.filter(
-      (c) => c !== correctCountry
-    );
-
     newState = {
       ...newState,
       ...{
@@ -153,6 +147,7 @@ function getAnswersChoice(game) {
         correctAnswers: currentCount + 1,
         remainingAnswers: game.remainingAnswers - 1,
         lastAnswerType: ANSWER_TYPES.CORRECT,
+        correctFlags: [...newState.correctFlags, currCountry]
       },
     };
   } else {
@@ -164,6 +159,7 @@ function getAnswersChoice(game) {
         correctAnswers: currentCount,
         remainingAnswers: game.remainingAnswers - 1,
         lastAnswerType: ANSWER_TYPES.INCORRECT,
+        incorrectFlags: [...newState.incorrectFlags, currCountry]
       },
     };
   }
@@ -262,10 +258,14 @@ const reducerMap = {
 
 
   [ACTIONS.SKIP_COUNTRY]: (game) => {
+    let currCountry = game.countries[game.countryIndex];
     return {
       ...game,
+      sendAnswer: false,
       skip: true,
+      answer: null,
       remainingAnswers: game.remainingAnswers - 1,
+      incorrectFlags: [...game.incorrectFlags, currCountry],
     };
   },
 
@@ -311,18 +311,19 @@ const reducerMap = {
 
   // Mode: Multiple choice
   [ACTIONS.NEW_GAME_CLASSIC]: (game) => {
-    let newGameSate = newGame(game)
-    const { countries, countryIndex, totalAnswers } = newGameSate;
+    let newGameSate = newGame(game);
 
-    const take = Math.min(totalAnswers, countries.length - 1); // no puedo tomar el actual
-    const incorrectFlags = Array.from({ length: take }, (_, i) => {
-      const idx = (countryIndex + i) % countries.length;
-      return countries[idx];
-    });
+    // const { countries, countryIndex, totalAnswers } = newGameSate;
+
+    // const take = Math.min(totalAnswers, countries.length); // no puedo tomar el actual
+    // const incorrectFlags = Array.from({ length: take }, (_, i) => {
+    //   const idx = (countryIndex + i) % countries.length;
+    //   return countries[idx];
+    // });
 
     return {
       ...newGameSate,
-      incorrectFlags,     // los 10 siguientes
+      // incorrectFlags,
     };
   },
   [ACTIONS.SEND_ANSWER_CLASSIC]: (game) => {
@@ -370,17 +371,18 @@ const reducerMap = {
       remainingAnswers: game.countries.length,
       totalAnswers: game.countries.length,
     }
-    const { countries, countryIndex, totalAnswers } = newGameSate;
 
-    const take = Math.min(totalAnswers, countries.length - 1); // no puedo tomar el actual
-    const incorrectFlags = Array.from({ length: take }, (_, i) => {
-      const idx = (countryIndex + i) % countries.length;
-      return countries[idx];
-    });
+    // const { countries, countryIndex, totalAnswers } = newGameSate;
+
+    // const take = Math.min(totalAnswers, countries.length); // no puedo tomar el actual
+    // const incorrectFlags = Array.from({ length: take }, (_, i) => {
+    //   const idx = (countryIndex + i) % countries.length;
+    //   return countries[idx];
+    // });
 
     return {
       ...newGameSate,
-      incorrectFlags,     // los 10 siguientes
+      // incorrectFlags,
     };
   },
 

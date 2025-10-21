@@ -12,7 +12,7 @@ export const checkSendNotAnswerMC = (store) => (next) => (action) => {
 export const checkAnimateCorrectMC = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type === ACTIONS.STOP_ANIMATE_CORRECT_OPTION) {
-        store.dispatch({ type: ACTIONS.NEXT_COUNTRY });
+        store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
     }
     return result;
 };
@@ -27,7 +27,7 @@ export const checkNextCountryMC = (store) => (next) => (action) => {
 
 export const checkNewGameMC = (store) => (next) => (action) => {
     const result = next(action);
-    if (action.type === ACTIONS.NEW_GAME_CLASSIC || action.type === ACTIONS.NEW_GAME_RECORD) {
+    if (action.type === ACTIONS.NEW_GAME_CLASSIC || action.type === ACTIONS.NEW_GAME_RECORD || action.type === ACTIONS.NEW_GAME_TIME_TRIAL) {
         store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;

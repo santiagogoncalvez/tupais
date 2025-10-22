@@ -17,7 +17,16 @@ export const checkAnimateCorrectMC = (store) => (next) => (action) => {
     if (action.type === ACTIONS.STOP_ANIMATE_CORRECT_OPTION) {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
-        store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
+
+        if (state.game.remainingAnswers <= 0) {
+            if (state.game.correctAnswers == state.game.totalAnswers) {
+                store.dispatch({ type: ACTIONS.GAME_WON });
+            }
+            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+        } else {
+            store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
+
+        }
     }
     return result;
 };

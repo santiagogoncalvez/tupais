@@ -9,23 +9,19 @@ export const checkSendAnswer = (store) => (next) => (action) => {
     if (action.type === ACTIONS.SEND_ANSWER || action.type === ACTIONS.SKIP_COUNTRY) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.CHALLENGE) return result;
-        if (state.game.remainingAnswers <= 0) {
-            if (state.game.correctAnswers >= state.game.totalAnswers) {
-                store.dispatch({ type: ACTIONS.GAME_WON });
-            }
-            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-        } else {
-            if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT) {
-                // store.dispatch({ type: ACTIONS.NEXT_COUNTRY });
-                store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
-            }
 
-            if (state.game.lastAnswerType === ANSWER_TYPES.CORRECT) {
-                // store.dispatch({ type: ACTIONS.NEXT_COUNTRY });
-                // store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
-                store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
-            }
+        // if (state.game.remainingAnswers <= 0) {
+        //     if (state.game.correctAnswers >= state.game.totalAnswers) {
+        //         store.dispatch({ type: ACTIONS.GAME_WON });
+        //     }
+        //     store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+        // } else {
+        if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT ||
+            state.game.lastAnswerType === ANSWER_TYPES.CORRECT
+        ) {
+            store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
         }
+        // }
     }
     return result;
 };
@@ -35,7 +31,15 @@ export const checkAnimateCorrectChallenge = (store) => (next) => (action) => {
     if (action.type === ACTIONS.STOP_ANIMATE_CORRECT_OPTION) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.CHALLENGE) return result;
-        store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
+
+        if (state.game.remainingAnswers <= 0) {
+            if (state.game.correctAnswers >= state.game.totalAnswers) {
+                store.dispatch({ type: ACTIONS.GAME_WON });
+            }
+            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+        } else {
+            store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
+        }
     }
     return result;
 };

@@ -6,22 +6,18 @@ import { ACTIONS } from "@constants/action-types.js";
 
 export const checkSendAnswer = (store) => (next) => (action) => {
     const result = next(action);
-    if (action.type === ACTIONS.SEND_ANSWER || action.type === ACTIONS.SKIP_COUNTRY) {
+    if (action.type === ACTIONS.SEND_ANSWER
+        || action.type === ACTIONS.SKIP_COUNTRY
+    ) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.CHALLENGE) return result;
 
-        // if (state.game.remainingAnswers <= 0) {
-        //     if (state.game.correctAnswers >= state.game.totalAnswers) {
-        //         store.dispatch({ type: ACTIONS.GAME_WON });
-        //     }
-        //     store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-        // } else {
         if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT ||
-            state.game.lastAnswerType === ANSWER_TYPES.CORRECT
+            state.game.lastAnswerType === ANSWER_TYPES.CORRECT || 
+            state.game.lastAnswerType === ANSWER_TYPES.SKIPPED
         ) {
             store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
         }
-        // }
     }
     return result;
 };

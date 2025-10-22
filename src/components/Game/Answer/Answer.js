@@ -32,11 +32,7 @@ export default class Answer extends BaseComponent {
       return;
     }
 
-    if (state.game.skip != this.state.game.skip) {
-      if (state.game.skip) {
-        this._showCorrectAnswer(state);
-      }
-    } else if (state.ui.gameOptions.animateCorrect != this.state.ui.gameOptions.animateCorrect) {
+    if (state.ui.gameOptions.animateCorrect != this.state.ui.gameOptions.animateCorrect) {
       if (state.ui.gameOptions.animateCorrect) {
         this._showCorrectAnswer(state);
       }
@@ -255,7 +251,7 @@ export default class Answer extends BaseComponent {
     const totalDelay = hasErrors ? 2500 : 1500;
 
     setTimeout(() => {
-      console.log("✅ Respuesta mostrada completamente");
+      // console.log("✅ Respuesta mostrada completamente");
       letters.forEach(letterDiv => {
         letterDiv.classList.remove("answer__letter--correct", "answer__letter--wrong");
       });

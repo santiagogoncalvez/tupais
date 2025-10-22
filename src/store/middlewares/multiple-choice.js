@@ -7,6 +7,7 @@ export const checkSendNotAnswerMC = (store) => (next) => (action) => {
     if (action.type === ACTIONS.SEND_NOT_ANSWER) {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
+
         store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
     }
     return result;
@@ -36,6 +37,7 @@ export const checkNextCountryMC = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NEXT_COUNTRY) {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
+
         store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;
@@ -46,6 +48,7 @@ export const checkNewGameMC = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NEW_GAME_CLASSIC || action.type === ACTIONS.NEW_GAME_RECORD || action.type === ACTIONS.NEW_GAME_TIME_TRIAL) {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
+        
         store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;

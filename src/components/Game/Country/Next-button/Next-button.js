@@ -22,12 +22,6 @@ export default class NextButton extends BaseComponent {
         onclick: () => {
           dispatch({ type: ACTIONS.SET_ANSWER_TYPE, payload: ANSWER_TYPES.SKIPPED });
           dispatch({ type: ACTIONS.SKIP_COUNTRY });
-          dispatch({ type: ACTIONS.START_COUNTRY_ANIMATION });
-
-          // Solo se pasa al siguiente país automáticamente si no es modo clásico
-          // if (this.state.game.mode === GAME_MODES.CHALLENGE) {
-          //   dispatch({ type: ACTIONS.NEXT_COUNTRY });
-          // }
         },
       },
       elt("div", { className: this.base.icon })

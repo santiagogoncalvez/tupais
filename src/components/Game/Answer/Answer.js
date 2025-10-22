@@ -29,6 +29,9 @@ export default class Answer extends BaseComponent {
       return;
     }
 
+    // if (state.game.mode === GAME_MODES.CHALLENGE && state.game.isSkipped) {
+    //   this._showCorrectAnswer(state);
+    // }
 
     // 🔹 Si el país, continente o modo cambió, o hubo un salto de más de 1
     if (state.game.newGameId !== this.state.game.newGameId ||
@@ -186,5 +189,51 @@ export default class Answer extends BaseComponent {
     });
   }
 
+  // Método para mostrar la respuesta correcta en los cubos
+  _showCorrectAnswer(state) {
+    const userAnswer = state.game.answer ?? "";
+    const country = state.game.countries[state.game.countryIndex];
+    const [firstWord, secondWord = ""] = country.split(" ");
+
+    const correctAnswer = (firstWord + secondWord).toUpperCase(); // todo junto para comparar
+    const letters = this.dom.querySelectorAll("." + this.base.letterText);
+
+    letters.forEach((span, i) => {
+      const userChar = userAnswer[i]?.toUpperCase() ?? "";
+      const correctChar = correctAnswer[i] ?? "";
+
+      if (userChar && userChar !== correctChar) {
+        // Letra incorrecta del usuario → rojo
+        span.textContent = userChar;
+        span.style.color = "#a33b3b"; // rojo similar a tu score fail
+      }
+
+      if (correctChar && userChar !== correctChar) {
+        // Mostrar letra correcta en verde suave
+        const float = document.createElement("span");
+        float.className = "timer-float"; // reutilizar estilo flotante si querés
+        float.textContent = correctChar;
+        float.style.color = "#2f8143"; // verde similar a tu score success
+        float.style.position = "absolute";
+        float.style.top = "-5px";
+        float.style.left = "50%";
+        float.style.transform = "translateX(-50%)";
+        float.style.fontWeight = "700";
+        float.style.opacity = 0;
+        float.style.transition = "opacity 0.3s ease, top 0.3s ease";
+        span.parentElement.appendChild(float);
+
+        requestAnimationFrame(() => {
+          float.style.opacity = 1;
+          float.style.top = "-25px";
+        });
+
+        setTimeout(() => {
+          float.remove();
+          // TODO: poner acá la parte que llama al dispatch después de haber ejecutado la animación al igual que la animación que muestra las respuestas correctas en GameOptions en los modos multiple-choice
+        }, 1200);
+      }
+    });
+  }
 
 }

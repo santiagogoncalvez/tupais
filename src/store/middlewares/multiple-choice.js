@@ -1,9 +1,12 @@
 import { ACTIONS } from "@constants/action-types.js";
+import { GAME_MODES } from "@constants/game-modes.js";
 
 
 export const checkSendNotAnswerMC = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type === ACTIONS.SEND_NOT_ANSWER) {
+        const state = store.getState();
+        if (state.game.mode === GAME_MODES.CHALLENGE) return result;
         store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
     }
     return result;
@@ -20,6 +23,8 @@ export const checkAnimateCorrectMC = (store) => (next) => (action) => {
 export const checkNextCountryMC = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type === ACTIONS.NEXT_COUNTRY) {
+        const state = store.getState();
+        if (state.game.mode === GAME_MODES.CHALLENGE) return result;
         store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;

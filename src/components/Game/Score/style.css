@@ -9,7 +9,7 @@
 .score {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   gap: clamp(0px, 2.5vw, 50px);
 
@@ -76,6 +76,7 @@
   justify-content: center;
   height: 100%;
   width: fit-content;
+  position: relative;
 }
 
 .score__points {

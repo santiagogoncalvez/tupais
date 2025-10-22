@@ -97,6 +97,7 @@ export const ACTIONS = {
   // Timer
   RESET_TIMER: "game/timer/reset",
   DISCOUNT_TIMER: "game/timer/dicount",
+  COUNT_TIMER: "game/timer/count",
   SET_TIMER: "game/timer/set",
   PAUSE_TIMER: "game/timer/pause",
   CLEAR_PAUSE_TIMER: "game/timer/pause/clear",

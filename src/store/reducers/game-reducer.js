@@ -11,7 +11,9 @@ import { shuffle } from "@utils/shuffle.js";
 import { getRandomCountries } from "@utils/country-parser.js";
 
 const GAME_TIME_TIMER = 600;
-const GAME_TIME_TIMER_MODE_TIME_TRIAL = 10;
+const GAME_TIME_COUNT = 2;
+const GAME_TIME_DISCOUNT = 5;
+const GAME_TIME_TIMER_MODE_TIME_TRIAL = 60;
 const TOTAL_ANSWERS = 10;
 
 
@@ -212,7 +214,10 @@ let initState = {
     reset: false,
     initialTime: null,
     finalTime: null,
-    discount: false,
+    count: Date.now(),
+    cantCount: GAME_TIME_COUNT,
+    discount: Date.now(),
+    cantDiscount: GAME_TIME_DISCOUNT,
     pause: null,
   },
   firstSessionLaunch: true,
@@ -411,12 +416,21 @@ const reducerMap = {
       },
     };
   },
+  [ACTIONS.COUNT_TIMER]: (game) => {
+    return {
+      ...game,
+      timer: {
+        ...game.timer,
+        count: Date.now(),
+      },
+    };
+  },
   [ACTIONS.DISCOUNT_TIMER]: (game) => {
     return {
       ...game,
       timer: {
         ...game.timer,
-        discount: !game.timer.discount,
+        discount: Date.now(),
       },
     };
   },

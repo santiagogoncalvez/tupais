@@ -3,13 +3,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   width: 100%;
   max-width: fit-content;
   height: auto;
   font-family: sans-serif;
   flex: 1 1 auto;
   transition: all 0.25s ease;
+  position: relative;
 }
 
 /* Contenedor título + ícono */
@@ -40,7 +41,6 @@
   align-items: center;
   gap: 4px;
   width: 100%;
-  padding: 4px;
 }
 
 /* Barra general */
@@ -52,7 +52,8 @@
   border-radius: 10px;
   overflow: hidden;
   user-select: none;
-  border: 1px solid color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
+  border: 1px solid
+    color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
@@ -68,18 +69,23 @@
 
 /* Puntos o segundos restantes */
 .timer__points {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-text);
   min-width: 50px;
   text-align: center;
   user-select: none;
+  position: relative;
 }
 
 /* ==== Modo oscuro ==== */
 body.dark-mode .timer__bar {
   background: color-mix(in srgb, var(--bg-default) 80%, var(--color-text) 20%);
-  border-color: color-mix(in srgb, var(--color-text) 20%, var(--bg-default) 80%);
+  border-color: color-mix(
+    in srgb,
+    var(--color-text) 20%,
+    var(--bg-default) 80%
+  );
 }
 
 body.dark-mode .timer__progress {
@@ -111,3 +117,115 @@ body.dark-mode .timer__progress {
     font-size: 1.1rem;
   }
 }
+
+/* === EFECTOS DE PENALTY Y BONUS === */
+/* ==== Timer Bonus / Penalty ajustado a tus scores ==== */
+.timer--bonus {
+  color: #2f8143; /* verde success más a tono */
+  /* animation: pulseBonus 0.6s ease-out forwards; */
+}
+
+.timer--penalty {
+  color: #a33b3b; /* rojo fail más a tono */
+  /* animation: pulsePenalty 0.6s ease-out forwards; */
+}
+
+@keyframes pulseBonus {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulsePenalty {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === TEXTO FLOTANTE === */
+.timer-float {
+  position: absolute;
+  left: 50%; /* arriba-derecha */
+  top: -30%; /* un poco más arriba del número */
+  transform: translate(-50%, 0);
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+/* ==== Timer Bonus / Penalty ajustado a tus scores ==== */
+.timer-float.timer--bonus {
+  color: #2f8143;
+  animation: floatUpBonus 1.1s ease-out forwards;
+}
+
+.timer-float.timer--penalty {
+  color: #a33b3b;
+  animation: floatUpPenalty 1.1s ease-out forwards;
+}
+
+@keyframes floatUpBonus {
+  0% {
+    opacity: 0;
+    /* transform: translate(-50%, 0); */
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    /* transform: translate(-50%, -120%); */
+  } /* más desplazamiento */
+}
+
+@keyframes floatUpPenalty {
+  0% {
+    opacity: 0;
+    /* transform: translate(-50%, 0); */
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    /* transform: translate(-50%, -120%); */
+  } /* más desplazamiento */
+}
+
+
+/* ==== Timer Bonus / Penalty modo oscuro ==== */
+body.dark-mode .timer--bonus {
+  color: #5effa0; /* verde success más visible en oscuro */
+  animation: pulseBonus 0.6s ease-out forwards;
+}
+
+body.dark-mode .timer--penalty {
+  color: #ff7b7b; /* rojo fail más visible en oscuro */
+  animation: pulsePenalty 0.6s ease-out forwards;
+}
+
+body.dark-mode .timer-float.timer--bonus {
+  color: #5effa0;
+  animation: floatUpBonus 1.1s ease-out forwards;
+}
+
+body.dark-mode .timer-float.timer--penalty {
+  color: #ff7b7b;
+  animation: floatUpPenalty 1.1s ease-out forwards;
+}
+/*  */

@@ -24,6 +24,9 @@ export default class Flag extends BaseComponent {
     this.flagIndex = 1;
     this.dom = this._createDom();
     this._init(state);
+
+    this._isAnimating = false; // ← flag de animación en curso
+    this._animationListeners = new Map(); // <flagElement, listener>
   }
 
   _init(state) {
@@ -34,11 +37,9 @@ export default class Flag extends BaseComponent {
     const flags = this.dom.querySelectorAll("." + this.base.flag);
     const oldGame = this.state.game;
     const newGame = state.game;
-
     const oldIndex = oldGame.countryIndex;
     const newIndex = newGame.countryIndex;
 
-    
     if (newGame.newGameId !== this.lastNewGameId) {
       this._setFlags(state);
       this.flagIndex = 1;
@@ -46,6 +47,8 @@ export default class Flag extends BaseComponent {
       this.lastNewGameId = newGame.newGameId;
       return;
     }
+
+    if (oldIndex === newIndex || this._isAnimating) return; // ❌ evita overlap
 
     const direction = getDirection(oldIndex, newIndex, newGame.countries.length);
 
@@ -58,9 +61,8 @@ export default class Flag extends BaseComponent {
     this.state = state;
   }
 
-
-
   _animateForward(flags, oldIndex, newIndex, game) {
+    this._isAnimating = true; // ← marcamos animación en curso
     const oldFlagIndex = this.flagIndex;
     const newFlagIndex = nextIndex(this.flagIndex, 3);
 
@@ -78,23 +80,23 @@ export default class Flag extends BaseComponent {
       this.modifiers.animationInRight.flag
     );
 
-    flags[oldFlagIndex].addEventListener(
-      "animationend",
-      () => {
-        flags[oldFlagIndex].classList.remove(
-          this.modifiers.active.flag,
-          this.modifiers.animationInRight.flag,
-          this.modifiers.animationOutLeft.flag
-        );
-        this.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION });
-      },
-      { once: true }
-    );
+    const onEnd = () => {
+      flags[oldFlagIndex].classList.remove(
+        this.modifiers.active.flag,
+        this.modifiers.animationInRight.flag,
+        this.modifiers.animationOutLeft.flag
+      );
+      this._isAnimating = false; // ← liberamos la animación
+      this.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION });
+    };
+
+    flags[oldFlagIndex].addEventListener("animationend", onEnd, { once: true });
 
     this.flagIndex = newFlagIndex;
   }
 
   _animateBackward(flags, oldIndex, newIndex, game) {
+    this._isAnimating = true;
     const oldFlagIndex = this.flagIndex;
     const newFlagIndex = prevIndex(this.flagIndex, 3);
 
@@ -109,18 +111,17 @@ export default class Flag extends BaseComponent {
       this.modifiers.animationInLeft.flag
     );
 
-    flags[oldFlagIndex].addEventListener(
-      "animationend",
-      () => {
-        flags[oldFlagIndex].classList.remove(
-          this.modifiers.active.flag,
-          this.modifiers.animationInLeft.flag,
-          this.modifiers.animationOutRight.flag
-        );
-        this.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION });
-      },
-      { once: true }
-    );
+    const onEnd = () => {
+      flags[oldFlagIndex].classList.remove(
+        this.modifiers.active.flag,
+        this.modifiers.animationInLeft.flag,
+        this.modifiers.animationOutRight.flag
+      );
+      this._isAnimating = false;
+      this.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION });
+    };
+
+    flags[oldFlagIndex].addEventListener("animationend", onEnd, { once: true });
 
     this.flagIndex = newFlagIndex;
   }
@@ -162,3 +163,4 @@ export default class Flag extends BaseComponent {
       );
   }
 }
+

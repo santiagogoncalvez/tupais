@@ -9,7 +9,7 @@
 }
 
 .response-type__notification {
-  width: 320px;
+  width: 300px;
   border: 1px solid color-mix(in srgb, var(--color-text) 10%, var(--bg-default) 90%);
   border-radius: 0.4rem;
   background-color: var(--bg-default);
@@ -28,6 +28,9 @@
   font-size: 1.1rem;
   text-align: center;
   /* margin: 0; */
+  margin-top: 15px;
+  margin-bottom: 15px;
+
 }
 
 .response-type--show {

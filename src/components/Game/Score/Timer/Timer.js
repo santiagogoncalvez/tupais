@@ -35,6 +35,45 @@ export default class Timer extends BaseComponent {
     this._animate = this._animate.bind(this);
   }
 
+  // helper: añade clase de animación y opcionalmente muestra un texto flotante
+  animateOnce(selector, className, timeout = 1200, message = null) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+
+    // Reiniciar animación si ya estaba activa
+    el.classList.remove(className);
+    void el.offsetWidth; // forzar reflow
+
+    requestAnimationFrame(() => {
+      el.classList.add(className);
+
+      // Si hay mensaje, crear texto flotante
+      if (message) {
+        const float = document.createElement("span");
+        float.className = `timer-float ${className}`;
+        float.textContent = message;
+        this.dom.querySelector(".timer_container").appendChild(float);
+
+        // eliminarlo cuando termina la animación
+        float.addEventListener("animationend", () => float.remove(), { once: true });
+      }
+
+      // limpiar clase principal al finalizar animación
+      const onEnd = () => {
+        el.classList.remove(className);
+        el.removeEventListener("animationend", onEnd);
+        clearTimeout(fallback);
+      };
+      el.addEventListener("animationend", onEnd, { once: true });
+
+      const fallback = setTimeout(() => {
+        el.classList.remove(className);
+        el.removeEventListener("animationend", onEnd);
+      }, timeout + 100);
+    });
+  }
+
+  // syncState (idéntico a tu versión pero con tiempo de animación más largo)
   syncState(state) {
     if (state.game.timer.pause) {
       this.pause();
@@ -45,40 +84,51 @@ export default class Timer extends BaseComponent {
       this.reset(state.game.timer.time);
     }
 
+    const now = performance.now();
+
+    // Descuento de tiempo
     if (state.game.timer.discount !== this.state.game.timer.discount) {
-      if (state.game.timer.discount) {
-        // 1️⃣ Actualizamos _timeElapsed con el tiempo real transcurrido
-        const now = performance.now();
-        this._timeElapsed += (now - this._start) / 1000;
+      this._timeElapsed += (now - this._start) / 1000;
+      const penalty = state.game.timer.cantDiscount;
 
-        // 2️⃣ Calculamos el penalty
-        let penalty = 1;
-        const secondsLeft = this._ascending
-          ? Math.floor(this._timeElapsed)
-          : Math.ceil(this._duration - this._timeElapsed);
-
-        if (secondsLeft >= 5) penalty = 2;
-
-        // 3️⃣ Aplicamos descuento
-        if (this._ascending) {
-          this._timeElapsed = Math.max(0, this._timeElapsed - penalty);
-        } else {
-          this._timeElapsed = Math.min(this._duration, this._timeElapsed + penalty);
-        }
-
-        // 4️⃣ Reiniciamos _start
-        this._start = now;
-
-        // 5️⃣ Recalculamos timeout si es descendente
-        if (!this._ascending && this._duration > 0) {
-          if (this._endTimeout) clearTimeout(this._endTimeout);
-          const remaining = this._duration - this._timeElapsed;
-          this._endTimeout = setTimeout(() => this._finishTimer(), remaining * 1000);
-        }
+      if (this._ascending) {
+        this._timeElapsed = Math.max(0, this._timeElapsed - penalty);
+      } else {
+        this._timeElapsed = Math.min(this._duration, this._timeElapsed + penalty);
       }
+
+      this._start = now;
+      if (!this._ascending && this._duration > 0) {
+        if (this._endTimeout) clearTimeout(this._endTimeout);
+        const remaining = this._duration - this._timeElapsed;
+        this._endTimeout = setTimeout(() => this._finishTimer(), remaining * 1000);
+      }
+
+      // 💥 animación roja (penalty)
+      this.animateOnce(".timer__points", "timer--penalty", 1200, `-${penalty}s`);
     }
 
+    // Aumento de tiempo
+    if (state.game.timer.count !== this.state.game.timer.count) {
+      this._timeElapsed += (now - this._start) / 1000;
+      const bonus = state.game.timer.cantCount;
 
+      if (this._ascending) {
+        this._timeElapsed = Math.max(0, this._timeElapsed + bonus);
+      } else {
+        this._timeElapsed = Math.min(this._duration, this._timeElapsed - bonus);
+      }
+
+      this._start = now;
+      if (!this._ascending && this._duration > 0) {
+        if (this._endTimeout) clearTimeout(this._endTimeout);
+        const remaining = this._duration - this._timeElapsed;
+        this._endTimeout = setTimeout(() => this._finishTimer(), remaining * 1000);
+      }
+
+      // 💚 animación verde (bonus)
+      this.animateOnce(".timer__points", "timer--bonus", 1200, `+${bonus}s`);
+    }
 
     if (state.game.completed !== this.state.game.completed) {
       if (state.game.completed) this.pause();
@@ -86,6 +136,9 @@ export default class Timer extends BaseComponent {
 
     this.state = state;
   }
+
+
+
 
   startTimer(duration, ascending = false, colors = ["#9ED2FF", "#00b0f8", "#0088c2", "#001f31"], weights, limit = 600, cycle = 60) {
     this._duration = duration;
@@ -121,7 +174,6 @@ export default class Timer extends BaseComponent {
     if (this._paused) return;
 
     const now = performance.now();
-    const progress = this.dom.querySelector(".timer__progress");
     const points = this.dom.querySelector(".timer__points");
 
     const elapsedSinceStart = (now - this._start) / 1000;
@@ -144,8 +196,6 @@ export default class Timer extends BaseComponent {
           break;
         }
       }
-      progress.style.transform = `scaleX(${ratio})`;
-      progress.style.background = color;
 
       displayTime = Math.floor(this._elapsed);
       points.textContent = formatTime(displayTime);
@@ -163,9 +213,6 @@ export default class Timer extends BaseComponent {
           break;
         }
       }
-
-      progress.style.transform = `scaleX(${value})`;
-      progress.style.background = color;
 
       displayTime = this._ascending
         ? Math.floor(this._elapsed)
@@ -211,20 +258,15 @@ export default class Timer extends BaseComponent {
     if (this._rafId) cancelAnimationFrame(this._rafId);
     if (this._endTimeout) clearTimeout(this._endTimeout);
 
-    const progress = this.dom.querySelector(".timer__progress");
     const points = this.dom.querySelector(".timer__points");
-    progress.style.transform = "scaleX(0)";
     points.textContent = "00:00";
 
     this.startTimer(time, this._ascending, this._colors, this._weights, this._limit, this._cycle);
   }
 
   _finishTimer() {
-    const progress = this.dom.querySelector(".timer__progress");
     const points = this.dom.querySelector(".timer__points");
     points.textContent = this._ascending ? formatTime(this._duration) : "00:00";
-    progress.style.transform = "scaleX(1)";
-    progress.style.background = this._colors[this._colors.length - 1];
 
     this.dispatch({ type: ACTIONS.SET_ANSWER, payload: null });
     if (this.state.game.mode === GAME_MODES.CLASSIC) {

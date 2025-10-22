@@ -66,9 +66,9 @@ export function createStore(reducer, middlewares = []) {
         dispatch: (action) => {
             state = reducer(state, action);
             
-            // console.log(
+            console.log(
             //     new Date().toLocaleTimeString(),
-            //     "\nAction:\n", action, "\nNew state:\n", state);
+                "\nAction:\n", action, "\nNew state:\n", state);
 
             listeners.forEach((listener) => listener(state));
             return action;

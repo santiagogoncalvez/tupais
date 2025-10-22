@@ -10,18 +10,7 @@ export const checkSendAnswerRecord = (store) => (next) => (action) => {
         action.type === ACTIONS.SKIP_COUNTRY) {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.RECORD) return result;
-
-        if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT) {
-            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-            return result;
-        }
-
-        if (state.game.correctAnswers == state.game.totalAnswers) {
-            store.dispatch({ type: ACTIONS.GAME_WON });
-            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-        } else {
-            store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
-        }
+        store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
     }
     return result;
 };

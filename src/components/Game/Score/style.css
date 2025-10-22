@@ -143,8 +143,8 @@ body.dark-mode .score__statistics--progress .score__points {
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 315px) {
   .score {
-    transform: scale(0.5);
+    transform: scale(0.6);
   }
 }

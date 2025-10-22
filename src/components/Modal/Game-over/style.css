@@ -21,6 +21,30 @@
   top: 0;
 }
 
+/* Track (fondo del scrollbar) */
+.game-over::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Scrollbar completo (el “rulo” donde se mueve el thumb) */
+.game-over::-webkit-scrollbar {
+  width: 10px; /* ancho vertical */
+  height: 10px; /* alto horizontal */
+  background-color: transparent;
+}
+
+/* Thumb (la parte que se mueve) */
+.game-over::-webkit-scrollbar-thumb {
+  background-color: gray; /* semi-transparente, opcional */
+  border-radius: 10px;
+  border: 2px solid transparent; /* espacio alrededor del thumb */
+}
+
+/* Hover del thumb */
+.game-over::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(155, 155, 155);
+}
+
 .game-over__title {
   margin: 0;
   max-width: 100%;

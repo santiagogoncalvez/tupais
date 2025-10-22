@@ -11,15 +11,7 @@ export const checkSendAnswerTT = (store) => (next) => (action) => {
         const state = store.getState();
         if (state.game.mode !== GAME_MODES.TIME_TRIAL) return result;
 
-        if (state.game.remainingAnswers <= 0) {
-            store.dispatch({ type: ACTIONS.GAME_WON });
-            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
-        } else {
-            // if (state.game.lastAnswerType === ANSWER_TYPES.CORRECT) {
-            //     store.dispatch({ type: ACTIONS.RESET_TIMER, payload: Date.now() });
-            // }
-            store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
-        }
+        store.dispatch({ type: ACTIONS.START_ANIMATE_CORRECT_OPTION });
     }
     return result;
 };

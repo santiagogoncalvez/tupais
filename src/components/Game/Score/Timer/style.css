@@ -100,13 +100,13 @@ body.dark-mode .timer__progress {
     gap: 4px;
   }
 
-  .timer__points {
+  /* .timer__points {
     font-size: 1.2rem;
   }
 
   .timer__title {
     font-size: 13px;
-  }
+  } */
 }
 
 @media (max-width: 400px) {
@@ -114,9 +114,9 @@ body.dark-mode .timer__progress {
     max-width: 120px;
   }
 
-  .timer__points {
+  /* .timer__points {
     font-size: 1.1rem;
-  }
+  } */
 }
 
 /* === EFECTOS DE PENALTY Y BONUS === */

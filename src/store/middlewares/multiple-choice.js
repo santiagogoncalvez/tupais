@@ -1,3 +1,4 @@
+import { ANSWER_TYPES } from "@constants/answer-types.js";
 import { ACTIONS } from "@constants/action-types.js";
 import { GAME_MODES } from "@constants/game-modes.js";
 
@@ -19,14 +20,28 @@ export const checkAnimateCorrectMC = (store) => (next) => (action) => {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
 
-        if (state.game.remainingAnswers <= 0) {
+        if (state.game.mode === GAME_MODES.RECORD) {
+            if (state.game.lastAnswerType === ANSWER_TYPES.INCORRECT) {
+                store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+                return result;
+            }
+
             if (state.game.correctAnswers == state.game.totalAnswers) {
                 store.dispatch({ type: ACTIONS.GAME_WON });
+                store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+            } else {
+                store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
             }
-            store.dispatch({ type: ACTIONS.GAME_COMPLETED });
         } else {
-            store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
+            if (state.game.remainingAnswers <= 0) {
+                if (state.game.correctAnswers == state.game.totalAnswers) {
+                    store.dispatch({ type: ACTIONS.GAME_WON });
+                }
+                store.dispatch({ type: ACTIONS.GAME_COMPLETED });
+            } else {
+                store.dispatch({ type: ACTIONS.NEXT_COUNTRY, payload: Date.now() });
 
+            }
         }
     }
     return result;
@@ -48,7 +63,7 @@ export const checkNewGameMC = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NEW_GAME_CLASSIC || action.type === ACTIONS.NEW_GAME_RECORD || action.type === ACTIONS.NEW_GAME_TIME_TRIAL) {
         const state = store.getState();
         if (state.game.mode === GAME_MODES.CHALLENGE) return result;
-        
+
         store.dispatch({ type: ACTIONS.SHOW_OPTIONS_CLASSIC });
     }
     return result;

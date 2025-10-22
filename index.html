@@ -1,30 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Metadatos básicos -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script type="module" crossorigin src="/tupais/assets/main-4lgyYE8B.js"></script>
-    <link rel="stylesheet" crossorigin href="/tupais/assets/main-B5XyfQqZ.css">
+
+    <!-- Título y descripción -->
+    <title>Tú País</title>
+    <meta
+      name="description"
+      content="Explorá países del mundo, sus banderas, idiomas, regiones y más. Una app interactiva y educativa sobre geografía mundial."
+    />
+
+    <!-- Base de rutas para SPA -->
+    <!-- <base href="/tupais/" /> -->
+
+    <!-- Favicon y manifest (si lo agregás luego para PWA) -->
+    <link rel="icon" type="image/png" href="/tupais/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/tupais/favicon.svg" />
+    <link rel="shortcut icon" href="/tupais/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/tupais/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Tú País" />
+    <link rel="manifest" href="/tupais/site.webmanifest" />
+
+    <!-- Color del tema (para móviles y PWA) -->
+    <meta name="theme-color" content="#004080" />
+
+    <!-- SEO y redes sociales (Open Graph + Twitter Card) -->
+    <meta property="og:title" content="Tú País" />
+    <meta
+      property="og:description"
+      content="Descubrí información sobre todos los países del mundo con mapas, idiomas, poblaciones y más."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://santiagogoncalvez.github.io/tupais/"
+    />
+
+    <!-- TODO: crear la og:image con algun sitio o recurso gratuito -->
+    <!-- <meta
+      property="og:image"
+      content="https://tusitio.com/tupais/og-image.jpg"
+    /> -->
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tú País" />
+    <meta
+      name="twitter:description"
+      content="Explorá países del mundo con datos y curiosidades."
+    />
+
+    <!-- TODO: crear la og:image de twiter con algun sitio o recurso gratuito -->
+    <!-- <meta
+      name="twitter:image"
+      content="https://tusitio.com/tupais/og-image.jpg"
+    /> -->
+
+    <!-- Accesibilidad y compatibilidad -->
+    <meta name="theme-color" content="#ffffff" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script type="module" crossorigin src="/tupais/assets/main-l6qnTMH2.js"></script>
+    <link rel="stylesheet" crossorigin href="/tupais/assets/main-CrdnCALE.css">
   </head>
   <body>
-    <script type="text/javascript">
-      (function (l) {
-        if (l.search[1] === "/") {
-          var decoded = l.search
-            .slice(1)
-            .split("&")
-            .map(function (s) {
-              return s.replace(/~and~/g, "&");
-            })
-            .join("?");
-          window.history.replaceState(
-            null,
-            null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      })(window.location);
-    </script>
+    <!-- Mensaje si JS está desactivado -->
+    <noscript>
+      <p>
+        Esta aplicación requiere JavaScript habilitado para funcionar
+        correctamente.
+      </p>
+    </noscript>
   </body>
 </html>

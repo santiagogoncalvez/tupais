@@ -260,6 +260,15 @@ const reducerMap = {
       },
     };
   },
+  [ACTIONS.STOP_COUNTRY_ANIMATION_NEW_GAME]: (ui) => {
+    return {
+      ...ui,
+      country: {
+        ...ui.country,
+        animation: false,
+      },
+    };
+  },
 
   [ACTIONS.START_ANIMATE_CORRECT_OPTION]: (ui) => {
     return {
@@ -271,6 +280,15 @@ const reducerMap = {
     };
   },
   [ACTIONS.STOP_ANIMATE_CORRECT_OPTION]: (ui) => {
+    return {
+      ...ui,
+      gameOptions: {
+        ...ui.gameOptions,
+        animateCorrect: false,
+      },
+    };
+  },
+  [ACTIONS.STOP_ANIMATE_CORRECT_OPTION_NEW_GAME]: (ui) => {
     return {
       ...ui,
       gameOptions: {

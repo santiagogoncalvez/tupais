@@ -42,6 +42,7 @@ export const ACTIONS = {
   HIDE_BACKDROP: "ui/backdrop/hide",
   START_COUNTRY_ANIMATION: "ui/country/animation/start",
   STOP_COUNTRY_ANIMATION: "ui/country/animation/stop",
+  STOP_COUNTRY_ANIMATION_NEW_GAME: "ui/new-game/country/animation/stop",
   SHOW_NOTIFICATION: "ui/notification/show",
   HIDE_NOTIFICATION: "ui/notification/hide",
   RESET_NOTIFICATION: "ui/notification/reset",
@@ -49,6 +50,7 @@ export const ACTIONS = {
   // Mode classic
   START_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/start",
   STOP_ANIMATE_CORRECT_OPTION: "ui/gameOptions/animate-correct/stop",
+  STOP_ANIMATE_CORRECT_OPTION_NEW_GAME: "ui/new-game/gameOptions/animate-correct/stop",
 
   SET_FIRST_LAUNCH: "ui/first-launch/set",
 

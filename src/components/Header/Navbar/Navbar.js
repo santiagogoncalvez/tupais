@@ -37,6 +37,9 @@ export default class Navbar extends BaseComponent {
         const href = link.getAttribute("href");
         // Normalizar para enviar la ruta sin el hash
         const route = normalizeRoute(href);
+
+        //* Parche: se debe solucionar ejecutando un reseteo forzado de la animaciones y poner el juego por defecto y que no se buguen las animaciones.
+        if(this.state.ui.country.animation || this.state.ui.gameOptions.animateCorrect) return;
         this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       });
     }

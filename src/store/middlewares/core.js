@@ -23,7 +23,8 @@ export const checkSendAnswerNotification = (store) => (next) => (action) => {
 
     if (
         action.type === ACTIONS.SEND_ANSWER ||
-        action.type === ACTIONS.SEND_ANSWER_CLASSIC
+        action.type === ACTIONS.SEND_ANSWER_CLASSIC ||
+        action.type === ACTIONS.SKIP_COUNTRY
     ) {
         const state = store.getState();
         store.dispatch({

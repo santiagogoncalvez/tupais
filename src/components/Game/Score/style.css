@@ -23,6 +23,7 @@
   flex-wrap: nowrap;
 
   z-index: 9;
+  position: relative;
 }
 
 .score__points-content {

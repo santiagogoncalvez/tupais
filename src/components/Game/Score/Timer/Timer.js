@@ -52,7 +52,7 @@ export default class Timer extends BaseComponent {
         const float = document.createElement("span");
         float.className = `timer-float ${className}`;
         float.textContent = message;
-        this.dom.querySelector(".timer_container").appendChild(float);
+        this.dom.querySelector(".timer__container").appendChild(float);
 
         // eliminarlo cuando termina la animación
         float.addEventListener("animationend", () => float.remove(), { once: true });

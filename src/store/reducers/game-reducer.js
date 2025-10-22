@@ -206,7 +206,7 @@ let initState = {
   // isNewGame: false,
   newGameId: Date.now(),
   lastAnswerType: ANSWER_TYPES.INCOMPLETE,
-  skip: false,
+  skip: Date.now(),
   mode: "", // Modo inicial, classic, record, time-trial
   modes: null,
   timer: {
@@ -260,7 +260,6 @@ const reducerMap = {
       ...game,
       countryIndex: nextIndex(game.countryIndex, game.countries.length),
       answer: "",
-      skip: false,
     };
   },
 
@@ -270,7 +269,7 @@ const reducerMap = {
     return {
       ...game,
       sendAnswer: false,
-      skip: true,
+      skip: Date.now(),
       answer: null,
       remainingAnswers: game.remainingAnswers - 1,
       incorrectFlags: [...game.incorrectFlags, currCountry],

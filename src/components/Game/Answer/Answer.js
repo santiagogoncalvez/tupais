@@ -1,4 +1,6 @@
+import { ANSWER_TYPES } from "@constants/answer-types.js";
 import { GAME_MODES } from "@constants/game-modes.js";
+import { ACTIONS } from "@constants/action-types.js";
 
 
 import htmlString from "@components/Game/Answer/template.html?raw";
@@ -8,12 +10,13 @@ import BaseComponent from "@shared/Base-component.js";
 import elt from "@utils/elt.js";
 
 export default class Answer extends BaseComponent {
-  constructor(state) {
+  constructor(state, dispatch) {
     super();
     this.htmlString = htmlString;
     this.base = base;
     this.modifiers = modifiers;
     this.state = state;
+    this.dispatch = dispatch;
     this.dom = this._createDom();
     this._init(state);
 
@@ -24,14 +27,22 @@ export default class Answer extends BaseComponent {
 
   syncState(state) {
 
-    if (state.game.answer == null || state.game.mode === GAME_MODES.CLASSIC) {
+    if (state.game.mode !== GAME_MODES.CHALLENGE) {
       this.state = state;
       return;
     }
 
-    // if (state.game.mode === GAME_MODES.CHALLENGE && state.game.isSkipped) {
-    //   this._showCorrectAnswer(state);
-    // }
+    if (state.game.skip != this.state.game.skip) {
+      if (state.game.skip) {
+        this._showCorrectAnswer(state);
+      }
+    } else if (state.ui.gameOptions.animateCorrect != this.state.ui.gameOptions.animateCorrect) {
+      if (state.ui.gameOptions.animateCorrect) {
+        this._showCorrectAnswer(state);
+      }
+    }
+
+
 
     // 🔹 Si el país, continente o modo cambió, o hubo un salto de más de 1
     if (state.game.newGameId !== this.state.game.newGameId ||
@@ -191,49 +202,68 @@ export default class Answer extends BaseComponent {
 
   // Método para mostrar la respuesta correcta en los cubos
   _showCorrectAnswer(state) {
-    const userAnswer = state.game.answer ?? "";
+    const normalize = str =>
+      str
+        ?.normalize("NFD")                     // separa tildes
+        .replace(/[\u0300-\u036f]/g, "")       // elimina tildes
+        .replace(/[^A-Z]/gi, "")               // quita espacios y símbolos
+        .toUpperCase() ?? "";
+
+    const userAnswer = normalize(state.game.answer);
     const country = state.game.countries[state.game.countryIndex];
-    const [firstWord, secondWord = ""] = country.split(" ");
+    const correctAnswer = normalize(country);
 
-    const correctAnswer = (firstWord + secondWord).toUpperCase(); // todo junto para comparar
-    const letters = this.dom.querySelectorAll("." + this.base.letterText);
+    const letters = this.dom.querySelectorAll(".answer__letter");
+    let hasErrors = false;
 
-    letters.forEach((span, i) => {
-      const userChar = userAnswer[i]?.toUpperCase() ?? "";
+    letters.forEach((letterDiv, i) => {
+      const userChar = userAnswer[i] ?? "";
       const correctChar = correctAnswer[i] ?? "";
+      const letterText = letterDiv.querySelector(".answer__letter-text");
 
+      // Reset visual
+      letterDiv.classList.remove("answer__letter--correct", "answer__letter--wrong");
+
+      // 🔴 Caso incorrecto
       if (userChar && userChar !== correctChar) {
-        // Letra incorrecta del usuario → rojo
-        span.textContent = userChar;
-        span.style.color = "#a33b3b"; // rojo similar a tu score fail
+        hasErrors = true;
+        letterText.textContent = userChar;
+        letterDiv.classList.add("answer__letter--wrong");
+
+        // Después de 1 s, mostrar la correcta en verde
+        setTimeout(() => {
+          letterText.textContent = correctChar;
+          letterDiv.classList.remove("answer__letter--wrong");
+          letterDiv.classList.add("answer__letter--correct");
+        }, 1000);
       }
 
-      if (correctChar && userChar !== correctChar) {
-        // Mostrar letra correcta en verde suave
-        const float = document.createElement("span");
-        float.className = "timer-float"; // reutilizar estilo flotante si querés
-        float.textContent = correctChar;
-        float.style.color = "#2f8143"; // verde similar a tu score success
-        float.style.position = "absolute";
-        float.style.top = "-5px";
-        float.style.left = "50%";
-        float.style.transform = "translateX(-50%)";
-        float.style.fontWeight = "700";
-        float.style.opacity = 0;
-        float.style.transition = "opacity 0.3s ease, top 0.3s ease";
-        span.parentElement.appendChild(float);
+      // 🟢 Caso correcto directo
+      else if (userChar === correctChar && correctChar) {
+        letterText.textContent = correctChar;
+        letterDiv.classList.add("answer__letter--correct");
+      }
 
-        requestAnimationFrame(() => {
-          float.style.opacity = 1;
-          float.style.top = "-25px";
-        });
-
-        setTimeout(() => {
-          float.remove();
-          // TODO: poner acá la parte que llama al dispatch después de haber ejecutado la animación al igual que la animación que muestra las respuestas correctas en GameOptions en los modos multiple-choice
-        }, 1200);
+      // 🔵 Caso omitido (sin escribir)
+      else if (!userChar && correctChar) {
+        letterText.textContent = correctChar;
+        letterDiv.classList.add("answer__letter--correct");
       }
     });
+
+    // Esperar según haya errores o no
+    const totalDelay = hasErrors ? 2500 : 1500;
+
+    setTimeout(() => {
+      console.log("✅ Respuesta mostrada completamente");
+      letters.forEach(letterDiv => {
+        letterDiv.classList.remove("answer__letter--correct", "answer__letter--wrong");
+      });
+      this.dispatch({ type: ACTIONS.STOP_ANIMATE_CORRECT_OPTION });
+    }, totalDelay);
   }
+
+
+
 
 }

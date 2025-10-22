@@ -24,7 +24,7 @@ export default class Game extends BaseComponent {
     this.score = new Score(state, dispatch);
     this.country = new Country(state, dispatch, mode);
     this.progressDots = new ProgressDots(state);
-    this.answer = new Answer(state);
+    this.answer = new Answer(state, dispatch);
     this.keyboard = new Keyboard(state, dispatch);
     this.gameOptions = new GameOptions(state, dispatch);
     this.dom = elt(

@@ -20,4 +20,6 @@
   min-height: 100%; /* asegura que al menos ocupe el alto del contenedor */
   padding-top: 20px;
   padding-bottom: 20px;
+
+  position: relative;
 }

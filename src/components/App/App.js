@@ -184,23 +184,19 @@ export default class App {
         }
     }
 
-
-
-
-
     renderRoute() {
-        let { currentRoute } = this.store.getState().router;
+        let { currentRoute, id } = this.store.getState().router;
         currentRoute = normalizeRoute(currentRoute);
 
-        if (this.prevRoute === currentRoute) return;
-
-        const fromRoute = this.prevRoute;
-        this.prevRoute = currentRoute;
-
-        if (currentRoute.startsWith(ROUTES.FLAG_GALLERY) && !fromRoute?.startsWith(ROUTES.FLAG_GALLERY)) {
-            this.flagGallery.reset();
+        // Ignorar si ya procesamos exactamente esta ruta e id
+        if (this.prevRoute?.route === currentRoute && this.prevRoute?.id === id) {
+            return;
         }
 
+        const fromRoute = this.prevRoute;
+        this.prevRoute = { route: currentRoute, id }; // actualizar prevRoute
+
+        // Reseteos generales
         this.main.innerHTML = "";
         this.dom.querySelector(".app__container").scrollTo({ top: 0, left: 0, behavior: "auto" });
         this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
@@ -218,8 +214,11 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
+
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
+
+                // Reinicio si es la misma ruta que la anterior
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
@@ -227,15 +226,17 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
+
+                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
-                if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 break;
 
             case currentRoute === ROUTES.RECORD:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
+
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
@@ -245,6 +246,7 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
+
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
@@ -262,13 +264,9 @@ export default class App {
                 this.credits.dom.remove();
 
                 const countryName = decodeURIComponent(currentRoute.split("/")[2]);
-
                 const normalize = (str) =>
-                    str
-                        ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
-                        : "";
+                    str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
 
-                // console.log(countryName);
                 const exists = countryNames.some(
                     (name) => normalize(name) === normalize(countryName)
                 );
@@ -299,6 +297,7 @@ export default class App {
                 break;
         }
     }
+
 
     showNotFound() {
         const notFound = document.createElement("div");

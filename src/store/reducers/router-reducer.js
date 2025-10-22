@@ -2,6 +2,7 @@ import { ACTIONS } from "@constants/action-types.js";
 
 export const initialState = {
   currentRoute: "/",
+  id: Date.now()
 };
 
 const reducerMap = {
@@ -9,7 +10,8 @@ const reducerMap = {
   [ACTIONS.NAVIGATE_TO]: (router, action) => {
     return {
       ...router,
-      currentRoute: action.payload
+      currentRoute: action.payload,
+      id: Date.now(),
     };
   },
 };

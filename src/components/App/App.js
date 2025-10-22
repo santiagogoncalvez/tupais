@@ -268,7 +268,7 @@ export default class App {
                         ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
                         : "";
 
-                console.log(countryName);
+                // console.log(countryName);
                 const exists = countryNames.some(
                     (name) => normalize(name) === normalize(countryName)
                 );

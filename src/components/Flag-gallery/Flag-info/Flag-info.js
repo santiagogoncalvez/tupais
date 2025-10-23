@@ -81,10 +81,19 @@ export default class FlagInfo extends BaseComponent {
       );
     }
 
+    // Determinar subtítulo dinámico
+    const getInfoSubtitle = (country, countryInfo) => {
+      const noBorders = !countryInfo?.borders || countryInfo.borders.length === 0;
+      return noBorders
+        ? `Información de ${country.name}`
+        : "Información del país";
+    };
+
     // Subtítulo Información
     container.appendChild(
-      elt("h3", { className: "flag-info__subtitle" }, "Información del país")
+      elt("h3", { className: "flag-info__subtitle" }, getInfoSubtitle(country, countryInfo))
     );
+
 
     // Lista de detalles
     const detailsList = elt("ul", { className: "flag-info__details" });
@@ -119,10 +128,16 @@ export default class FlagInfo extends BaseComponent {
       )
     );
 
+    // Helper: obtiene el texto del label de códigos
+    function getCodesLabel(countryInfo) {
+      const noBorders = !countryInfo?.borders || countryInfo.borders.length === 0;
+      return noBorders ? "Códigos:" : "Códigos de país:";
+    }
+
     // Códigos de país
     detailsList.appendChild(
       elt("li", { className: "flag-info__item flag-info__item--codes" },
-        elt("span", { className: "flag-info__label" }, "Códigos de país: "),
+        elt("span", { className: "flag-info__label" }, getCodesLabel(countryInfo)),
         elt("div", { className: "flag-info__data-container" },
           elt("span", { className: "flag-info__value" }, getCountryCodesString(countryInfo),
             elt("span", { className: "flag-info__note" }, " (ISO 3166-1)")
@@ -130,6 +145,7 @@ export default class FlagInfo extends BaseComponent {
         )
       )
     );
+
 
     // Nombre oficial
     detailsList.appendChild(
@@ -335,13 +351,24 @@ export default class FlagInfo extends BaseComponent {
     const prevMap = container.querySelector(".countries-map");
     if (prevMap) prevMap.remove();
 
+    // Helper: obtiene el subtítulo de ubicación
+    function getLocationSubtitle(country, countryInfo) {
+      const noBorders = !countryInfo?.borders || countryInfo.borders.length === 0;
+      return noBorders ? `Ubicación de ${country.name}` : "Ubicación del país";
+    }
+
+    // Dentro del render
     if (this.countriesMap.isCountryAvailable(country.name)) {
-      container.appendChild(elt("h3", { className: "flag-info__subtitle location" }, "Ubicación del país"));
+      container.appendChild(
+        elt("h3", { className: "flag-info__subtitle location" }, getLocationSubtitle(country, countryInfo))
+      );
+
       container.appendChild(this.countriesMap.dom);
 
       // Esperá un frame y luego mostrás el país
       requestAnimationFrame(() => this.countriesMap.showCountry(country.name));
     }
+
   }
 }
 

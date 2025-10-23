@@ -17,6 +17,17 @@ export const checkFirstLaunch = (store) => (next) => (action) => {
     return result;
 };
 
+// --- Middleware para animación de Game-over ---
+export const checkGameOverAnimation = (store) => (next) => (action) => {
+    const result = next(action);
+
+    if (action.type === ACTIONS.CLOSE_GAME_OVER) {
+        store.dispatch({ type: ACTIONS.OPEN_GAME_OVER_ANIMATION_START });
+    }
+
+    return result;
+}
+
 // --- Middleware para mostrar notificación cuando se envía una respuesta ---
 export const checkSendAnswerNotification = (store) => (next) => (action) => {
     const result = next(action);
@@ -172,6 +183,7 @@ export const checkStartButton = (store) => (next) => (action) => {
 // Agrupado
 export const coreMiddlewares = [
     checkFirstLaunch,
+    checkGameOverAnimation,
     checkGameCompleted,
     checkSendAnswerNotification,
     persistStatsMiddleware,

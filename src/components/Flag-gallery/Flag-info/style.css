@@ -126,7 +126,7 @@ body.dark-mode .flag-info__back-to-gallery-icon {
 .flag-info__value {
   font-weight: 600;
   color: #00405d;
-  text-align: right;
+  text-align: left;
 }
 
 .flag-info__note {
@@ -146,6 +146,10 @@ body.dark-mode .flag-info__back-to-gallery-icon {
   .flag-info__value {
     text-align: left;
     margin-top: 2px;
+  }
+
+  .flag-info__data-container {
+    text-align: start;
   }
 }
 

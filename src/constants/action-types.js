@@ -20,8 +20,12 @@ export const ACTIONS = {
   CLOSE_PRESENTATION: "ui/modal/presentation/close",
   OPEN_SETTINGS: "ui/modal/settings/open",
   CLOSE_SETTINGS: "ui/modal/settings/close",
+
   OPEN_GAME_OVER: "ui/modal/game-over/open",
   CLOSE_GAME_OVER: "ui/modal/game-over/close",
+  OPEN_GAME_OVER_ANIMATION_START: "ui/modal/game-over/transition/start",
+  OPEN_GAME_OVER_ANIMATION_STOP: "ui/modal/game-over/transition/stop",
+
 
   TOGGLE_NAVBAR: "ui/navbar/toggle",
   OPEN_NAVBAR: "ui/navbar/open",

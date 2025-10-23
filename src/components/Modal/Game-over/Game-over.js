@@ -125,6 +125,9 @@ export default class GameOver extends BaseComponent {
   _onAnimationEnd() {
     this.dom.classList.remove(this.modifiers.display.block);
     this.dom.classList.remove(this.modifiers.fade.out);
+
+    // Indicar que terminó la animación del modal Game-over
+    this.dispatch({ type: ACTIONS.OPEN_GAME_OVER_ANIMATION_STOP});
   }
 
   modifyAction(state) {

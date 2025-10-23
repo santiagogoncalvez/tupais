@@ -11,7 +11,8 @@ export const initialState = {
       show: false,
     },
     gameOver: {
-      show: false
+      show: false,
+      transition: false,
     },
   },
   navbar: {
@@ -139,6 +140,31 @@ const reducerMap = {
       },
     };
   },
+  [ACTIONS.OPEN_GAME_OVER_ANIMATION_START]: (ui) => {
+    return {
+      ...ui,
+      modals: {
+        ...ui.modals,
+        gameOver: {
+          ...ui.modals.gameOver,
+          transition: true,
+        },
+      },
+    };
+  },
+  [ACTIONS.OPEN_GAME_OVER_ANIMATION_STOP]: (ui) => {
+    return {
+      ...ui,
+      modals: {
+        ...ui.modals,
+        gameOver: {
+          ...ui.modals.gameOver,
+          transition: false,
+        },
+      },
+    };
+  },
+
   [ACTIONS.TOGGLE_NAVBAR]: (ui) => {
     return {
       ...ui,

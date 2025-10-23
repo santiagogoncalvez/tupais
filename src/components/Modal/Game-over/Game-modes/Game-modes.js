@@ -41,7 +41,11 @@ export default class GameModes extends BaseComponent {
 
   syncState(state) {
     //* Parche para actualizar de forma correcta, ver por qué o en qué momento no actualiza bien. El error está en la comparación (state.game.mode !== this.state.game.mode) en algún moomento no son distintos y no actualiza.
-    this._showCorrectModes(state);
+    if (state.ui.modals.gameOver.transition != this.state.ui.modals.gameOver.transition || state.game.mode != this.state.game.mode || state.game.id !== this.state.game.id) {
+      if (!state.ui.modals.gameOver.transition) {
+        this._showCorrectModes(state);
+      }
+    }
 
 
     this.state = state;
@@ -59,7 +63,6 @@ export default class GameModes extends BaseComponent {
       state.router.currentRoute === ROUTES.RECORD ||
       state.router.currentRoute === ROUTES.TIME_TRIAL
     ) {
-
       this.dom.classList.add("game-modes--modal");
       // ocultar solo el botón del modo actual
       const currentModeBtn = this.dom.querySelector(

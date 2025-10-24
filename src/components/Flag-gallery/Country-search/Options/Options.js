@@ -300,6 +300,7 @@ export default class Options extends BaseComponent {
 
       const closeButton = new CloseButton(() => { }, () => {
         this.removeHistoryOption(newOption);
+        this.dom.focus();
       }, {
         centerAbsolute: true
       });

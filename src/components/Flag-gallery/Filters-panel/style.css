@@ -1,7 +1,7 @@
 /* === Filters Panel === */
 .filters-panel {
   /* Variables locales */
-  --bg-panel: var(--bg-default);
+  --bg-panel: var(--bg-modal-default);
   --text-color: var(--color-text);
   --accent-color: #00638e;
   --accent-color-hover: #12739d;

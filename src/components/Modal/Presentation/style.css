@@ -1,6 +1,6 @@
 .presentation {
   color: var(--color-text);
-  background: var(--bg-default);
+  background-color: var(--bg-modal-default);
   position: absolute;
   display: none;
   justify-content: center;
@@ -78,7 +78,11 @@
 }
 
 .presentation::-webkit-scrollbar-thumb {
-  background-color: color-mix(in srgb, var(--color-link) 60%, var(--bg-default) 40%);
+  background-color: color-mix(
+    in srgb,
+    var(--color-link) 60%,
+    var(--bg-default) 40%
+  );
   border-radius: 10px;
   border: 2px solid var(--bg-default);
 }

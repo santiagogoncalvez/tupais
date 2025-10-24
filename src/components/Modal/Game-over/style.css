@@ -1,7 +1,7 @@
 /* Contenedor principal */
 .game-over {
   color: var(--color-text);
-  background-color: var(--bg-default);
+  background-color: var(--bg-modal-default);
   position: absolute;
   display: none;
   justify-content: center;
@@ -80,10 +80,10 @@
 }
 
 /* Dark mode usando body.dark-mode */
-body.dark-mode .game-over {
+/* body.dark-mode .game-over {
   background-color: var(--bg-default);
   color: var(--color-text);
-}
+} */
 
 body.dark-mode .game-over__title,
 body.dark-mode .game-over__subtitle {

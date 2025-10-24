@@ -36,44 +36,48 @@ export default class Results extends BaseComponent {
   syncState(state) {
     // TODO: corregir esto para que solo se actualice cuando sea necesario.
     // if (state.game.completed != this.state.game.completed) {
-    let correctData = this.dom
-      .querySelector(".results__correct")
-      .querySelector(".results__data");
-    let incorrectData = this.dom
-      .querySelector(".results__incorrect")
-      .querySelector(".results__data");
-    let timeData = this.dom
-      .querySelector(".results__time")
-      .querySelector(".results__data");
+    if (state.ui.modals.gameOver.show != this.state.ui.modals.gameOver.show) {
+      if (state.ui.modals.gameOver.show) {
+        let correctData = this.dom
+          .querySelector(".results__correct")
+          .querySelector(".results__data");
+        let incorrectData = this.dom
+          .querySelector(".results__incorrect")
+          .querySelector(".results__data");
+        let timeData = this.dom
+          .querySelector(".results__time")
+          .querySelector(".results__data");
 
-    correctData.textContent = state.game.correctAnswers;
-    incorrectData.textContent = state.game.incorrectFlags.length;
-    timeData.textContent = formatTime(
-      Math.round(
-        (state.game.timer.finalTime - state.game.timer.initialTime) / 1000
-      )
-    );
+        correctData.textContent = state.game.correctAnswers;
+        incorrectData.textContent = state.game.incorrectFlags.length;
+        timeData.textContent = formatTime(
+          Math.round(
+            (state.game.timer.finalTime - state.game.timer.initialTime) / 1000
+          )
+        );
 
-    const correctFlags = this.dom.querySelector(".results__correct")
-      .querySelector(".results__flags");
-    const incorrectFlags = this.dom.querySelector(".results__incorrect")
-      .querySelector(".results__flags");
+        const correctFlags = this.dom.querySelector(".results__correct")
+          .querySelector(".results__flags");
+        const incorrectFlags = this.dom.querySelector(".results__incorrect")
+          .querySelector(".results__flags");
 
-    // Banderas correctas
-    if (state.game.correctFlags.length != 0) {
-      this.flagListCorrect.renderItems(state.game.correctFlags);
-      correctFlags.appendChild(this.flagListCorrect.dom);
-    } else {
-      this.flagListCorrect.dom.remove();
-    }
+        // Banderas correctas
+        if (state.game.correctFlags.length != 0) {
+          this.flagListCorrect.renderItems(state.game.correctFlags);
+          correctFlags.appendChild(this.flagListCorrect.dom);
+        } else {
+          this.flagListCorrect.dom.remove();
+        }
 
-    // Banderas incorrectas
-    if (state.game.incorrectFlags.length != 0) {
-      this.flagListIncorrect.renderItems(state.game.incorrectFlags);
-      incorrectFlags.appendChild(this.flagListIncorrect.dom);
+        // Banderas incorrectas
+        if (state.game.incorrectFlags.length != 0) {
+          this.flagListIncorrect.renderItems(state.game.incorrectFlags);
+          incorrectFlags.appendChild(this.flagListIncorrect.dom);
 
-    } else {
-      this.flagListIncorrect.dom.remove();
+        } else {
+          this.flagListIncorrect.dom.remove();
+        }
+      }
     }
 
     this.state = state;

@@ -38,6 +38,7 @@ export default class App {
         this.dom = elt("div", { className: "app" }, elt("div", { className: "app__container" }, elt("main", {})));
 
         this.prevRoute = null; // <--- almacenar la ruta anterior
+        this.hasPausedTimer = false; // flag para pausar solo 1 vez al salir de un modo de juego
 
         // Instanciar componentes
         this.continentSelector = new ContinentSelector(
@@ -147,8 +148,6 @@ export default class App {
         s(this.credits.syncState.bind(this.credits));
         s(this.flagGallery.syncState.bind(this.flagGallery));
         s(this.flagInfo.syncState.bind(this.flagInfo));
-        s(this.gameModes.syncState.bind(this.gameModes));
-
 
 
         // Suscripción para renderizar según currentRoute
@@ -185,6 +184,7 @@ export default class App {
         }
     }
 
+
     renderRoute() {
         let { currentRoute, id } = this.store.getState().router;
         currentRoute = normalizeRoute(currentRoute);
@@ -197,10 +197,22 @@ export default class App {
         const fromRoute = this.prevRoute;
         this.prevRoute = { route: currentRoute, id }; // actualizar prevRoute
 
-        // Reseteos generales
+        // Limpiar contenedor y scroll
         this.main.innerHTML = "";
         this.dom.querySelector(".app__container").scrollTo({ top: 0, left: 0, behavior: "auto" });
-        this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
+
+        const gameRoutes = [ROUTES.HOME, ROUTES.CHALLENGE, ROUTES.RECORD, ROUTES.TIME_TRIAL];
+
+        // Pausar timer solo 1 vez al salir de un modo de juego
+        if (fromRoute && gameRoutes.includes(fromRoute.route) && !gameRoutes.includes(currentRoute) && !this.hasPausedTimer) {
+            this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
+            this.hasPausedTimer = true;
+        }
+
+        // Resetear flag al entrar a un modo de juego
+        if (gameRoutes.includes(currentRoute)) {
+            this.hasPausedTimer = false;
+        }
 
         const state = this.store.getState();
         if (state.ui.navbar.show) {
@@ -209,19 +221,14 @@ export default class App {
 
         const newState = this.store.getState();
 
-        console.log(currentRoute);
-
         // --- Ruteo ---
         switch (true) {
             case currentRoute === ROUTES.HOME:
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
-
-                // Reinicio si es la misma ruta que la anterior
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
@@ -229,7 +236,6 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
@@ -239,7 +245,6 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
@@ -249,7 +254,6 @@ export default class App {
                 if (newState.ui.firstLaunch) {
                     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
                 }
-
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
@@ -261,32 +265,26 @@ export default class App {
                 this.main.appendChild(this.flagGallery.dom);
                 break;
 
-
             case currentRoute.startsWith(`${ROUTES.FLAG_GALLERY}/`):
                 this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
                 this.about.dom.remove();
                 this.credits.dom.remove();
 
-                // Decodificar desde URL
                 let countryName = decodeURIComponent(currentRoute.split("/")[2]);
-                countryName = urlToCountry(countryName); // convierte guiones a espacios
+                countryName = urlToCountry(countryName);
 
-                // Buscar país en bruto
                 const exists = countryNames.some(
                     name => normalizeCountryForSearch(name) === normalizeCountryForSearch(countryName)
                 );
 
                 if (!exists) {
-                    this.showNotFound();
+                    this.showNotFound(this.store.dispatch);
                     break;
                 }
 
                 this.main.appendChild(this.flagInfo.dom);
                 this.flagInfo.renderInfo({ name: countryName });
                 break;
-
-
-
 
             case currentRoute === ROUTES.ABOUT:
                 this.flagGallery.dom.remove();
@@ -301,13 +299,16 @@ export default class App {
                 break;
 
             default:
-                this.showNotFound();
+                this.showNotFound(this.store.dispatch);
                 break;
         }
     }
 
 
-    showNotFound() {
+
+    showNotFound(dispatch) {
+        dispatch({ type: ACTIONS.NOT_FOUND });
+
         const notFound = document.createElement("div");
         notFound.className = "app__not-found";
 

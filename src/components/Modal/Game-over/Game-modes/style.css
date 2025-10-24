@@ -1,15 +1,20 @@
 .game-modes {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(2, 1fr);
 
   justify-items: stretch; /* cada item ocupa todo el ancho disponible */
   align-items: stretch; /* opcional: ocupa todo el alto */
-}
 
-.game-modes--modal {
   grid-template-columns: repeat(3, 1fr);
 }
+
+.app__not-found .game-modes {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* .game-modes--modal {
+  grid-template-columns: repeat(3, 1fr);
+} */
 
 /* 1 columna (4 apilados) */
 @media (max-width: 550px) {
@@ -34,6 +39,8 @@
   justify-content: center;
   text-decoration: none;
   transition: 0.1s background-color ease-in-out;
+
+  /* padding: 0px 15px; */
 }
 
 .game-modes__link.hidden {
@@ -50,7 +57,7 @@
 }
 
 .game-modes__text {
-  width: 90%;
+  width: 70%;
   height: fit-content;
   text-align: center;
   font-weight: 700;

@@ -18,7 +18,7 @@
 .continent-selector__text {
   margin-top: 16px;
   margin-bottom: 10px;
-  color: #697276;
+  color: var(--color-text);
 }
 
 .continent-selector__select {
@@ -32,9 +32,4 @@
   position: relative;
   user-select: none;
   gap: 15px;
-}
-
-/* Dark mode */
-.continent-selector__text--dark-mode {
-  color: #d4d4d4;
 }

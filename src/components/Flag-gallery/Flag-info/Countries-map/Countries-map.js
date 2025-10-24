@@ -144,7 +144,7 @@ export default class CountriesMap {
                 if (link) {
                     link.addEventListener("click", (event) => {
                         this.showCountry(countryName); // o tu función de navegación
-                        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+                        // this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
                     });
                 }
             });

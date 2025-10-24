@@ -414,7 +414,7 @@ export default class FlagList extends BaseComponent {
     const link = newOption.querySelector(".flag-list__link");
     link.addEventListener("click", () => {
       const route = `/flag-gallery/${name}`;
-      this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+      // this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
     });
 
     return newOption;

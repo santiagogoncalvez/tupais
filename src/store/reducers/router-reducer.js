@@ -3,7 +3,8 @@ import { formatCountryForUrl } from "@utils/normalize-route.js";
 
 export const initialState = {
   currentRoute: "/",
-  id: Date.now()
+  id: Date.now(),
+  notFound: Date.now(),
 };
 
 const reducerMap = {
@@ -11,10 +12,15 @@ const reducerMap = {
   [ACTIONS.NAVIGATE_TO]: (router, action) => {
     return {
       ...router,
-      currentRoute:
-        formatCountryForUrl(action.payload),
-      // action.payload,
+      currentRoute: formatCountryForUrl(action.payload),
       id: Date.now(),
+    };
+  },
+
+  [ACTIONS.NOT_FOUND]: (router) => {
+    return {
+      ...router,
+      notFound: Date.now(),
     };
   },
 };

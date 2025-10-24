@@ -30,8 +30,8 @@ export default class GameModes extends BaseComponent {
     const links = this.dom.querySelectorAll(".game-modes__link");
     for (let link of links) {
       link.addEventListener("click", () => { // evita que recargue
-        const route = link.getAttribute("href");
-        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+        // const route = link.getAttribute("href");
+        // this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
         this.dispatch({ type: ACTIONS.CLOSE_GAME_OVER });
       });
     }
@@ -40,41 +40,39 @@ export default class GameModes extends BaseComponent {
   }
 
   syncState(state) {
-    //* Parche para actualizar de forma correcta, ver por qué o en qué momento no actualiza bien. El error está en la comparación (state.game.mode !== this.state.game.mode) en algún moomento no son distintos y no actualiza.
-    if (state.ui.modals.gameOver.transition != this.state.ui.modals.gameOver.transition || state.game.mode != this.state.game.mode || state.game.id !== this.state.game.id) {
-      if (!state.ui.modals.gameOver.transition) {
+
+    if (state.router.notFound !== this.state.router.notFound) {
+      this._showCorrectModes(state, true);
+    }
+
+    if (state.ui.modals.gameOver.show !== this.state.ui.modals.gameOver.show) {
+      if (state.ui.modals.gameOver.show) {
         this._showCorrectModes(state);
       }
     }
 
-
     this.state = state;
   }
 
-  _showCorrectModes(state) {
+
+  _showCorrectModes(state, isDefault) {
     // mostrar todos los botones
     this.dom.querySelectorAll(".game-modes__link").forEach(btn => {
       btn.classList.remove("hidden");
     });
 
-    if (
-      state.router.currentRoute === ROUTES.HOME ||
-      state.router.currentRoute === ROUTES.CHALLENGE ||
-      state.router.currentRoute === ROUTES.RECORD ||
-      state.router.currentRoute === ROUTES.TIME_TRIAL
-    ) {
-      this.dom.classList.add("game-modes--modal");
-      // ocultar solo el botón del modo actual
-      const currentModeBtn = this.dom.querySelector(
-        `.game-modes__link[data-mode="${state.game.mode}"]`
-      );
-      if (currentModeBtn) {
-        currentModeBtn.classList.add("hidden");
-      }
-      return;
+    if (isDefault) return;
+
+
+    // ocultar solo el botón del modo actual
+    const currentModeBtn = this.dom.querySelector(
+      `.game-modes__link[data-mode="${state.game.mode}"]`
+    );
+    if (currentModeBtn) {
+      currentModeBtn.classList.add("hidden");
     }
-    else {
-      this.dom.classList.remove("game-modes--modal");
-    }
+    return;
+
+
   }
 }

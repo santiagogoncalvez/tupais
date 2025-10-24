@@ -121,6 +121,7 @@ export const ACTIONS = {
 
   //* ROUTER
   NAVIGATE_TO: "router/navigate-to",
+  NOT_FOUND: "router/not-found",
 
   //* SEARCH
   GALLERY_SEARCH_HISTORY_SET: "search/flagGalleryHistory/set",

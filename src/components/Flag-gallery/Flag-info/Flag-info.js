@@ -45,8 +45,6 @@ export default class FlagInfo extends BaseComponent {
   }
 
   renderInfo(country) {
-    console.log(country.name);
-
     // Normaliza un nombre para comparaciones en bruto
     function normalizeCountryName(name) {
       if (!name) return "";
@@ -84,8 +82,6 @@ export default class FlagInfo extends BaseComponent {
         elt("span", { className: "flag-info__country-name" }, countryInfo.translations.spa.common)
       )
     );
-
-    console.log(countryInfo);
 
     // Bandera
     container.appendChild(
@@ -257,20 +253,30 @@ export default class FlagInfo extends BaseComponent {
 
     // Moneda
     if (countryInfo?.currencies) {
-      const currencies = Object.entries(countryInfo.currencies).map(([code, c]) =>
-        elt("span", { className: "flag-info__currency" }, c.name, " ",
+      const currencySpans = Object.entries(countryInfo.currencies).map(([code, c]) =>
+        elt("span", { className: "flag-info__currency" },
+          c.name, " ",
           elt("span", { className: "flag-info__note" }, `(${c.symbol}, ${code})`)
         )
       );
+
+      // Intercalar comas
+      const currenciesWithCommas = currencySpans.reduce((acc, el, idx) => {
+        if (idx > 0) acc.push(", ");
+        acc.push(el);
+        return acc;
+      }, []);
+
       detailsList.appendChild(
         elt("li", { className: "flag-info__item flag-info__item--currency" },
           elt("span", { className: "flag-info__label" }, "Moneda: "),
           elt("div", { className: "flag-info__data-container" },
-            elt("span", { className: "flag-info__value" }, ...currencies)
+            ...currenciesWithCommas
           )
         )
       );
     }
+
 
     // Lenguajes
     if (countryInfo?.languages) {

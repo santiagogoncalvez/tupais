@@ -276,6 +276,10 @@
   color: #000;
 }
 
+body.dark-mode .filters-panel__clear:hover {
+  color: #23b7e8;
+}
+
 .filters-panel__clear:active {
   color: #333;
 }

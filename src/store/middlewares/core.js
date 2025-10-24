@@ -112,8 +112,20 @@ export const persistDarkMode = (store) => (next) => (action) => {
 // --- Router middleware ---
 export const routerMiddleware = (store) => (next) => (action) => {
     if (action.type === ACTIONS.NAVIGATE_TO) {
-        // acá podrías agregar logging, analytics, validaciones, etc.
-        // console.log("[Router]", "Navegando a:", action.payload);
+        const state = store.getState();
+
+        // 🔥 Detectar qué modal está abierto
+        const openModal = Object.entries(state.ui.modals).find(
+            ([, modal]) => modal.show === true
+        );
+
+        if (openModal) {
+            const [modalName] = openModal;
+            store.dispatch({
+                type: ACTIONS.CLOSE_MODAL,
+                payload: modalName, // ej: "presentation", "settings", "gameOver"
+            });
+        }
     }
     return next(action);
 };
@@ -186,7 +198,7 @@ export const coreMiddlewares = [
     persistContinentMiddleware,
     persistSearchHistoryMiddleware,
     persistDarkMode,
-    // routerMiddleware,
+    routerMiddleware,
     checkStartButton,
     checkNewGame
 ];

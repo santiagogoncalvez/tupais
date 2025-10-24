@@ -14,6 +14,7 @@ import GameModes from "@Modal/Game-over/Game-modes/Game-modes.js";
 import Statistics from "@Modal/Game-over/Statistics/Statistics.js";
 
 // Otros
+import elt from "@utils/elt.js";
 import { base, modifiers } from "@Modal/Game-over/Game-over-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
@@ -46,7 +47,7 @@ export default class GameOver extends BaseComponent {
     const container = this.dom.querySelector("." + this.base.container);
     this.dom.appendChild(this.closeButton.dom);
     container.appendChild(this.results.dom);
-    container.appendChild(this.gameModes.dom);
+    container.appendChild(elt("div", { className: "game-over__game-modes-container" }, this.gameModes.dom));
     container.appendChild(this.statistics.dom);
 
     this.dom.addEventListener("cancel", (event) => {
@@ -81,6 +82,12 @@ export default class GameOver extends BaseComponent {
       this._show(shouldShow, skipAnimation);
       this._activeEvents(shouldShow);
       this.isShow = shouldShow;
+
+      this.gameModes = new GameModes(state, this.dispatch);
+      const gameModesContainer = this.dom.querySelector(".game-over__game-modes-container");
+      gameModesContainer.innerHTML = "";
+      gameModesContainer.appendChild(this.gameModes.dom);
+
     }
 
     if (this.state.game.mode !== state.game.mode) {
@@ -89,7 +96,7 @@ export default class GameOver extends BaseComponent {
 
     this.closeButton.syncState(state);
     this.results.syncState(state);
-    this.gameModes.syncState(state);
+    // this.gameModes.syncState(state);
     this.statistics.syncState(state);
     this.continentSelector.syncState(state);
     this.state = state;

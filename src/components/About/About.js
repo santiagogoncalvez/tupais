@@ -29,13 +29,13 @@ export default class About extends BaseComponent {
   _init() {
     const links = this.dom.querySelectorAll(".about__text-link--to-page");
 
-    for (let link of links) {
-      link.addEventListener("click", (event) => {
-        const href = link.getAttribute("href");
-        // Normalizar para enviar la ruta sin el hash
-        const route = normalizeRoute(href);
-        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
-      })
-    }
+    // for (let link of links) {
+    //   link.addEventListener("click", (event) => {
+    //     const href = link.getAttribute("href");
+    //     // Normalizar para enviar la ruta sin el hash
+    //     const route = normalizeRoute(href);
+    //     this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+    //   })
+    // }
   }
 }

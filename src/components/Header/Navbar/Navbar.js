@@ -40,7 +40,7 @@ export default class Navbar extends BaseComponent {
 
         //* Parche: se debe solucionar ejecutando un reseteo forzado de la animaciones y poner el juego por defecto y que no se buguen las animaciones.
         if(this.state.ui.country.animation || this.state.ui.gameOptions.animateCorrect) return;
-        this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
+        // this.dispatch({ type: ACTIONS.NAVIGATE_TO, payload: route });
       });
     }
   }

@@ -1,8 +1,17 @@
 import { ACTIONS } from "@constants/action-types.js";
 
 let continentStorage = JSON.parse(localStorage.getItem("game.continent")) ?? "all";
+// Función que devuelve la preferencia inicial
+function getInitialDarkMode() {
+  const userPref = JSON.parse(localStorage.getItem("ui.darkMode"));
+  if (userPref !== null) return userPref; // si el usuario eligió, usarlo
+  return window.matchMedia("(prefers-color-scheme: dark)").matches; // si no, usar sistema
+}
+// Estado inicial
+const darkMode = getInitialDarkMode();
+
 export const initialState = {
-  darkMode: JSON.parse(localStorage.getItem("ui.darkMode")) ?? false,
+  darkMode: darkMode,
   modals: {
     presentation: {
       show: false,

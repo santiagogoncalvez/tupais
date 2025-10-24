@@ -26,34 +26,39 @@ export default class Answer extends BaseComponent {
   }
 
   syncState(state) {
-
+    // Solo modo challenge
     if (state.game.mode !== GAME_MODES.CHALLENGE) {
       this.state = state;
       return;
     }
 
-    if (state.ui.gameOptions.animateCorrect != this.state.ui.gameOptions.animateCorrect) {
+    const oldGame = this.state.game;
+    const newGame = state.game;
+
+    const animationActive = state.ui.country.animation || state.ui.gameOptions.animateCorrect;
+
+    // Animación de respuesta correcta
+    if (state.ui.gameOptions.animateCorrect !== this.state.ui.gameOptions.animateCorrect) {
       if (state.ui.gameOptions.animateCorrect) {
         this._showCorrectAnswer(state);
       }
     }
 
+    // Forzar actualización si es un nuevo juego o cambio de país
+    const forceUpdate = newGame.newGameId !== oldGame.newGameId || newGame.countryIndex !== oldGame.countryIndex;
 
-
-    // 🔹 Si el país, continente o modo cambió, o hubo un salto de más de 1
-    if (state.game.newGameId !== this.state.game.newGameId ||
-      state.game.countryIndex !== this.state.game.countryIndex
-    ) {
+    if (forceUpdate) {
       this._clearTextOfLetters();
       this._renderLetters(state);
-      // ✅ Esperar al siguiente frame antes de redimensionar
       requestAnimationFrame(() => this._resizeLetters());
     } else {
       this._insertAnswer(state);
     }
 
+    // Actualizar referencia de state
     this.state = state;
   }
+
 
   _init(state) {
     const row1 = this.dom.querySelector("." + this.base.row1);

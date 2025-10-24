@@ -35,30 +35,63 @@ export default class GameOptions extends BaseComponent {
       return;
     }
 
-    if (state.game.newGameId !== this.state.game.newGameId) {
-      this._disableOptions(false);
-      this.state = state;
-      return;
-    }
+    const oldGame = this.state.game;
+    const newGame = state.game;
 
-
-    // Detectar cambio de modo
-    if (state.game.mode !== this.state.game.mode) {
-      this.isNewMode = true;
-    }
-
-    // --- 🟢 NUEVA PARTE (replica del comportamiento original) ---
     const animationActive = state.ui.country.animation;
     const animateCorrect = state.ui.gameOptions.animateCorrect;
     const gameCompleted = state.game.completed;
 
+    // ❗ Forzar actualización si es un nuevo juego
+    const forceUpdate = newGame.newGameId !== oldGame.newGameId;
+
+    // --- Deshabilitar botones mientras haya animación, respuesta correcta o juego completado ---
     const shouldDisable = animationActive || animateCorrect || gameCompleted;
     this._disableOptions(shouldDisable);
-    // --- 🔴 fin de la parte nueva ---
 
-    // Desactivar botones si cambió completed
-    if (state.game.completed !== this.state.game.completed) {
-      if (state.game.completed) {
+    // Cambio de newGameId
+    if (forceUpdate) {
+      this._disableOptions(false); // habilitar para nueva ronda
+      this._show(state);
+      this._setOptions(state);
+      this.isNewMode = true;
+      this.state = state;
+      return;
+    }
+
+    // Detectar cambio de modo
+    if (newGame.mode !== oldGame.mode) {
+      this.isNewMode = true;
+    }
+
+    // Mostrar u ocultar opciones si cambió o es un nuevo modo
+    const prevShow = oldGame.modes.multipleChoice.showOptions;
+    const currShow = newGame.modes.multipleChoice.showOptions;
+
+    if (currShow !== prevShow || this.isNewMode) {
+      if (currShow) {
+        this._show(state);
+        this._setOptions(state);
+      }
+      this.isNewMode = false;
+    }
+
+    // Cambio de país, actualizar opciones aunque haya animación
+    if (newGame.countryIndex !== oldGame.countryIndex) {
+      this._setOptions(state);
+      this._disableOptions(false);
+    }
+
+    // Animación de respuesta correcta
+    if (state.ui.gameOptions.animateCorrect !== this.state.ui.gameOptions.animateCorrect) {
+      if (state.ui.gameOptions.animateCorrect) {
+        this._showCorrectAnswer(state, { type: ACTIONS.STOP_ANIMATE_CORRECT_OPTION });
+      }
+    }
+
+    // Cambio de completed
+    if (newGame.completed !== oldGame.completed) {
+      if (newGame.completed) {
         this._disableOptions(true);
         this._showCorrectAnswer(state);
       } else {
@@ -66,41 +99,10 @@ export default class GameOptions extends BaseComponent {
       }
     }
 
-    // Mostrar u ocultar opciones si cambió o es un nuevo modo
-    const prevShow = this.state.game.modes.multipleChoice.showOptions;
-    const currShow = state.game.modes.multipleChoice.showOptions;
-
-    if (currShow !== prevShow || this.isNewMode) {
-      if (currShow) {
-        // Preparar opciones
-        this._show(state);
-        this._setOptions(state);
-      }
-
-      this.isNewMode = false;
-    }
-
-    if (state.game.countryIndex != this.state.game.countryIndex) {
-      this._setOptions(state);
-      this._disableOptions(false);
-    }
-
-    // Animación de respuesta correcta
-    if (
-      state.ui.gameOptions.animateCorrect !==
-      this.state.ui.gameOptions.animateCorrect
-    ) {
-      if (state.ui.gameOptions.animateCorrect) {
-        this._showCorrectAnswer(state, {
-          type: ACTIONS.STOP_ANIMATE_CORRECT_OPTION,
-        });
-      }
-    }
-
-    // Actualizar referencia
-    this.answer = state.game.answer;
+    this.answer = newGame.answer;
     this.state = state;
   }
+
 
 
   _setOptions(state) {

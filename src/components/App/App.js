@@ -131,6 +131,8 @@ export default class App {
 
         // Botón scroll to top
         this.dom.appendChild(this.scrollTop.dom);
+
+        
     }
 
     syncState(state) {

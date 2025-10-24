@@ -40,16 +40,19 @@ export default class Flag extends BaseComponent {
     const oldIndex = oldGame.countryIndex;
     const newIndex = newGame.countryIndex;
 
-    if (newGame.newGameId !== this.lastNewGameId) {
+    const forceUpdate = newGame.newGameId !== this.lastNewGameId;
+
+    if (forceUpdate) {
       this._setFlags(state);
       this.flagIndex = 1;
-      this.state = state;
       this.lastNewGameId = newGame.newGameId;
+      this.state = state;
       return;
     }
 
-    if (oldIndex === newIndex || this._isAnimating) return; // ❌ evita overlap
+    if (oldIndex === newIndex) return; // si no cambió, no animar
 
+    // ❌ No bloqueamos cambios forzados por animación
     const direction = getDirection(oldIndex, newIndex, newGame.countries.length);
 
     if (direction === DIRECTIONS.FORWARD) {
@@ -60,6 +63,7 @@ export default class Flag extends BaseComponent {
 
     this.state = state;
   }
+
 
   _animateForward(flags, oldIndex, newIndex, game) {
     this._isAnimating = true; // ← marcamos animación en curso

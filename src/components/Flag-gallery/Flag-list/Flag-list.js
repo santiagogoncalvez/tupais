@@ -1,3 +1,5 @@
+import { formatCountryForUrl } from "@utils/normalize-route.js";
+
 import { SORT_TYPES } from "@constants/sort-options.js";
 
 import { FILTER_CATEGORIES } from "@constants/filter-categories.js";
@@ -384,7 +386,7 @@ export default class FlagList extends BaseComponent {
         "a",
         {
           className: "flag-list__link",
-          href: `#/flag-gallery/${name}`,
+          href: `#/flag-gallery/${formatCountryForUrl(name)}`,
         },
         elt("img", {
           className: "flag-list__flag-img",

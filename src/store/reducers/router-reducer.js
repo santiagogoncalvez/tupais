@@ -1,4 +1,5 @@
 import { ACTIONS } from "@constants/action-types.js";
+import { formatCountryForUrl } from "@utils/normalize-route.js";
 
 export const initialState = {
   currentRoute: "/",
@@ -10,7 +11,9 @@ const reducerMap = {
   [ACTIONS.NAVIGATE_TO]: (router, action) => {
     return {
       ...router,
-      currentRoute: action.payload,
+      currentRoute:
+        formatCountryForUrl(action.payload),
+      // action.payload,
       id: Date.now(),
     };
   },

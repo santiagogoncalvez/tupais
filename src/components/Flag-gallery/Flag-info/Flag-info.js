@@ -1,4 +1,6 @@
 import htmlString from "@components/Flag-gallery/Flag-info/template.html?raw";
+import { parseCountryFromUrl } from "@utils/normalize-route.js";
+
 
 // Styles
 import "@components/Flag-gallery/Flag-info/style.css";
@@ -43,13 +45,32 @@ export default class FlagInfo extends BaseComponent {
   }
 
   renderInfo(country) {
+    console.log(country.name);
+
+    // Normaliza un nombre para comparaciones en bruto
+    function normalizeCountryName(name) {
+      if (!name) return "";
+      return name
+        .normalize("NFD")                // separar tildes
+        .replace(/[\u0300-\u036f]/g, "") // eliminar tildes
+        .replace(/[\s\-]/g, "")          // quitar espacios y guiones
+        .toLowerCase();                  // minúsculas
+    }
+
+    // Ejemplo de uso:
     if (!country) return;
 
-    // Decodificar country
-    country.name = decodeURIComponent(country.name);
+    // Decodificar country desde URL
+    let countryName = decodeURIComponent(country.name);
+
+    // Convertir a formato legible (espacios, sin tildes)
+    countryName = parseCountryFromUrl(countryName);
+
+    // Buscar en bruto en la info de países
     const countryInfo = countriesInfo.find(
-      c => c.translations?.spa?.common === country.name
+      c => normalizeCountryName(c.translations?.spa?.common) === normalizeCountryName(countryName)
     );
+
 
     const container = this.dom.querySelector(".flag-info__container");
 
@@ -60,16 +81,18 @@ export default class FlagInfo extends BaseComponent {
     container.appendChild(
       elt("h2", { className: "flag-info__name" },
         "Bandera de ",
-        elt("span", { className: "flag-info__country-name" }, country.name)
+        elt("span", { className: "flag-info__country-name" }, countryInfo.translations.spa.common)
       )
     );
+
+    console.log(countryInfo);
 
     // Bandera
     container.appendChild(
       elt("img", {
         className: "flag-info__flag",
-        src: `/tupais/images/flags/${countriesCca2[country.name]}.svg`,
-        alt: country.name,
+        src: `/tupais/images/flags/${countriesCca2[countryInfo.translations.spa.common]}.svg`,
+        alt: countryInfo.translations.spa.common,
         loading: "lazy"
       })
     );
@@ -85,7 +108,7 @@ export default class FlagInfo extends BaseComponent {
     const getInfoSubtitle = (country, countryInfo) => {
       const noBorders = !countryInfo?.borders || countryInfo.borders.length === 0;
       return noBorders
-        ? `Información de ${country.name}`
+        ? `Información de ${countryInfo.translations.spa.common}`
         : "Información del país";
     };
 
@@ -315,7 +338,7 @@ export default class FlagInfo extends BaseComponent {
         elt("li", { className: "flag-info__item flag-info__item--coat-of-arms" },
           elt("span", { className: "flag-info__label" }, "Escudo de armas: "),
           elt("div", { className: "flag-info__data-container" },
-            elt("img", { className: "flag-info__coat-of-arms", src: `/tupais/images/coat-of-arms/${countryInfo.cca2.toLowerCase()}.svg`, alt: `Escudo de armas de ${country.name}`, width: 40, height: 40 })
+            elt("img", { className: "flag-info__coat-of-arms", src: `/tupais/images/coat-of-arms/${countryInfo.cca2.toLowerCase()}.svg`, alt: `Escudo de armas de ${countryInfo.translations.spa.common}`, width: 40, height: 40 })
           )
         )
       );
@@ -354,11 +377,11 @@ export default class FlagInfo extends BaseComponent {
     // Helper: obtiene el subtítulo de ubicación
     function getLocationSubtitle(country, countryInfo) {
       const noBorders = !countryInfo?.borders || countryInfo.borders.length === 0;
-      return noBorders ? `Ubicación de ${country.name}` : "Ubicación del país";
+      return noBorders ? `Ubicación de ${countryInfo.translations.spa.common}` : "Ubicación del país";
     }
 
     // Dentro del render
-    if (this.countriesMap.isCountryAvailable(country.name)) {
+    if (this.countriesMap.isCountryAvailable(countryInfo.translations.spa.common)) {
       container.appendChild(
         elt("h3", { className: "flag-info__subtitle location" }, getLocationSubtitle(country, countryInfo))
       );
@@ -366,7 +389,7 @@ export default class FlagInfo extends BaseComponent {
       container.appendChild(this.countriesMap.dom);
 
       // Esperá un frame y luego mostrás el país
-      requestAnimationFrame(() => this.countriesMap.showCountry(country.name));
+      requestAnimationFrame(() => this.countriesMap.showCountry(countryInfo.translations.spa.common));
     }
 
   }

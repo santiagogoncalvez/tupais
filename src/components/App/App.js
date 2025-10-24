@@ -7,7 +7,8 @@ import { ROUTES } from "@constants/routes.js";
 import countryNames from "@data/country-names.json" with { type: "json" };
 
 import elt from "@utils/elt.js";
-import { normalizeRoute } from "@utils/normalize-route.js";
+import { normalizeRoute, urlToCountry, normalizeCountryForSearch } from "@utils/normalize-route.js";
+
 
 import "@styles/global.css";
 import "@components/App/style.css";
@@ -208,6 +209,8 @@ export default class App {
 
         const newState = this.store.getState();
 
+        console.log(currentRoute);
+
         // --- Ruteo ---
         switch (true) {
             case currentRoute === ROUTES.HOME:
@@ -258,17 +261,19 @@ export default class App {
                 this.main.appendChild(this.flagGallery.dom);
                 break;
 
+
             case currentRoute.startsWith(`${ROUTES.FLAG_GALLERY}/`):
                 this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
                 this.about.dom.remove();
                 this.credits.dom.remove();
 
-                const countryName = decodeURIComponent(currentRoute.split("/")[2]);
-                const normalize = (str) =>
-                    str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
+                // Decodificar desde URL
+                let countryName = decodeURIComponent(currentRoute.split("/")[2]);
+                countryName = urlToCountry(countryName); // convierte guiones a espacios
 
+                // Buscar país en bruto
                 const exists = countryNames.some(
-                    (name) => normalize(name) === normalize(countryName)
+                    name => normalizeCountryForSearch(name) === normalizeCountryForSearch(countryName)
                 );
 
                 if (!exists) {
@@ -279,6 +284,9 @@ export default class App {
                 this.main.appendChild(this.flagInfo.dom);
                 this.flagInfo.renderInfo({ name: countryName });
                 break;
+
+
+
 
             case currentRoute === ROUTES.ABOUT:
                 this.flagGallery.dom.remove();

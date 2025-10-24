@@ -127,10 +127,6 @@ export const checkNewGame = (store) => (next) => (action) => {
     ) {
         // Resetear timer
         store.dispatch({ type: ACTIONS.RESET_TIMER, payload: Date.now() });
-
-        // Resetear animaciones
-        // store.dispatch({ type: ACTIONS.STOP_COUNTRY_ANIMATION_NEW_GAME });
-        // store.dispatch({ type: ACTIONS.STOP_ANIMATE_CORRECT_OPTION_NEW_GAME });
     }
     return result;
 };

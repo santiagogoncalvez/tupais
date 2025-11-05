@@ -20,7 +20,6 @@ export default class Answer extends BaseComponent {
     this.dom = this._createDom();
     this._init(state);
 
-
     // Recalcular tamaño de letras al redimensionar ventana
     window.addEventListener("resize", () => this._resizeLetters());
   }
@@ -35,7 +34,6 @@ export default class Answer extends BaseComponent {
     const oldGame = this.state.game;
     const newGame = state.game;
 
-    const animationActive = state.ui.country.animation || state.ui.gameOptions.animateCorrect;
 
     // Animación de respuesta correcta
     if (state.ui.gameOptions.animateCorrect !== this.state.ui.gameOptions.animateCorrect) {

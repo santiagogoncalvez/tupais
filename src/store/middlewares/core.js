@@ -139,6 +139,8 @@ export const checkNewGame = (store) => (next) => (action) => {
     ) {
         // Resetear timer
         store.dispatch({ type: ACTIONS.RESET_TIMER, payload: Date.now() });
+
+        store.dispatch({ type: ACTIONS.RESET_ALL_ANIMATIONS });
     }
     return result;
 };

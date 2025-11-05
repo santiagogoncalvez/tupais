@@ -15,7 +15,6 @@ import "@components/App/style.css";
 
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 import Presentation from "@Modal/Presentation/Presentation.js";
-import Settings from "@Modal/Settings/Settings.js";
 import GameOver from "@Modal/Game-over/Game-over.js";
 import Header from "@components/Header/Header.js";
 import Game from "@components/Game/Game";
@@ -47,12 +46,6 @@ export default class App {
         );
 
         this.presentation = new Presentation(
-            this.store.getState(),
-            this.store.dispatch.bind(this.store),
-            this.continentSelector
-        );
-
-        this.settings = new Settings(
             this.store.getState(),
             this.store.dispatch.bind(this.store),
             this.continentSelector
@@ -120,7 +113,6 @@ export default class App {
 
         // Montar modales
         this.dom.appendChild(this.presentation.dom);
-        this.dom.appendChild(this.settings.dom);
         this.dom.appendChild(this.gameOver.dom);
         this.dom.appendChild(this.notifications.dom);
 
@@ -141,7 +133,6 @@ export default class App {
     subscribeComponents() {
         const s = this.store.subscribe.bind(this.store);
         s(this.presentation.syncState.bind(this.presentation));
-        s(this.settings.syncState.bind(this.settings));
         s(this.gameOver.syncState.bind(this.gameOver));
         s(this.header.syncState.bind(this.header));
         s(this.game.syncState.bind(this.game));
@@ -191,113 +182,62 @@ export default class App {
         let { currentRoute, id } = this.store.getState().router;
         currentRoute = normalizeRoute(currentRoute);
 
-        // Ignorar si ya procesamos exactamente esta ruta e id
-        if (this.prevRoute?.route === currentRoute && this.prevRoute?.id === id) {
+        // ✅ actualizar prevRoute antes de cualquier dispatch
+        const fromRoute = this.prevRoute;
+        this.prevRoute = { route: currentRoute, id };
+
+        // ✅ ignorar cuando vinimos por el mismo estado de ruta
+        if (fromRoute?.route === currentRoute && fromRoute?.id === id) {
             return;
         }
 
-        const fromRoute = this.prevRoute;
-        this.prevRoute = { route: currentRoute, id }; // actualizar prevRoute
+        const gameRoutes = [
+            ROUTES.HOME,
+            ROUTES.CHALLENGE,
+            ROUTES.RECORD,
+            ROUTES.TIME_TRIAL
+        ];
 
-        // Limpiar contenedor y scroll
         this.main.innerHTML = "";
-        this.dom.querySelector(".app__container").scrollTo({ top: 0, left: 0, behavior: "auto" });
+        this.dom.querySelector(".app__container").scrollTo({ top: 0 });
 
-        const gameRoutes = [ROUTES.HOME, ROUTES.CHALLENGE, ROUTES.RECORD, ROUTES.TIME_TRIAL];
-
-        // Pausar timer solo 1 vez al salir de un modo de juego
-        if (fromRoute && gameRoutes.includes(fromRoute.route) && !gameRoutes.includes(currentRoute) && !this.hasPausedTimer) {
+        // ✅ pausar timer solo cuando se sale de modo juego
+        if (fromRoute && gameRoutes.includes(fromRoute.route) &&
+            !gameRoutes.includes(currentRoute) &&
+            !this.hasPausedTimer) {
             this.store.dispatch({ type: ACTIONS.PAUSE_TIMER });
             this.hasPausedTimer = true;
         }
 
-        // Resetear flag al entrar a un modo de juego
         if (gameRoutes.includes(currentRoute)) {
             this.hasPausedTimer = false;
         }
 
-        const state = this.store.getState();
-        if (state.ui.navbar.show) {
-            this.store.dispatch({ type: ACTIONS.CLOSE_NAVBAR });
-        }
-
         const newState = this.store.getState();
 
-        // --- Ruteo ---
         switch (true) {
             case currentRoute === ROUTES.HOME:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
             case currentRoute === ROUTES.CHALLENGE:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 break;
 
             case currentRoute === ROUTES.RECORD:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
             case currentRoute === ROUTES.TIME_TRIAL:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
-                break;
-
-            case currentRoute === ROUTES.FLAG_GALLERY:
-                this.about.dom.remove();
-                this.credits.dom.remove();
-                this.main.appendChild(this.flagGallery.dom);
-                break;
-
-            case currentRoute.startsWith(`${ROUTES.FLAG_GALLERY}/`):
-                this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
-                this.about.dom.remove();
-                this.credits.dom.remove();
-
-                let countryName = decodeURIComponent(currentRoute.split("/")[2]);
-                countryName = urlToCountry(countryName);
-
-                const exists = countryNames.some(
-                    name => normalizeCountryForSearch(name) === normalizeCountryForSearch(countryName)
-                );
-
-                if (!exists) {
-                    this.showNotFound(this.store.dispatch);
-                    break;
-                }
-
-                this.main.appendChild(this.flagInfo.dom);
-                this.flagInfo.renderInfo({ name: countryName });
-                break;
-
-            case currentRoute === ROUTES.ABOUT:
-                this.flagGallery.dom.remove();
-                this.credits.dom.remove();
-                this.main.appendChild(this.about.dom);
-                break;
-
-            case currentRoute === ROUTES.CREDITS:
-                this.flagGallery.dom.remove();
-                this.about.dom.remove();
-                this.main.appendChild(this.credits.dom);
                 break;
 
             default:
@@ -305,6 +245,7 @@ export default class App {
                 break;
         }
     }
+
 
 
 

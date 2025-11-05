@@ -368,6 +368,21 @@ const reducerMap = {
       modals: closedModals,
     };
   },
+
+
+  [ACTIONS.RESET_ALL_ANIMATIONS]: (ui) => {
+    return {
+      ...ui,
+      country: {
+        ...ui.country,
+        animation: false,
+      },
+      gameOptions: {
+        ...ui.gameOptions,
+        animateCorrect: false,
+      },
+    };
+  },
 };
 
 //* Siempre se tienen que crear nuevo objetos, si se modifican las propiedades internas que hacen referencia a los objetos guardados en cada componente en el proceso de creación del nuevo estado no se van a poder actuzalizar de manera correcta

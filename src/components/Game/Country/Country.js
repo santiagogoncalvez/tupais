@@ -21,7 +21,7 @@ export default class Country extends BaseComponent {
   }
 
   _init(state) {
-    if (state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
+    if (state.game.mode === GAME_MODES.CLASSIC || state.game.mode === GAME_MODES.CHALLENGE || state.game.mode === GAME_MODES.TIME_TRIAL) {
       this.renderButton(state);
     }
   }

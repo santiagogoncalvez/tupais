@@ -58,6 +58,8 @@ export const ACTIONS = {
 
   SET_FIRST_LAUNCH: "ui/first-launch/set",
 
+  RESET_ALL_ANIMATIONS: "ui/animations/reset",
+
   //* Game
   // Game/Answer
   SEND_ANSWER: "game/answer/send",

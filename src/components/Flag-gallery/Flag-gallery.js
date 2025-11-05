@@ -1,4 +1,5 @@
 import { ACTIONS } from "@constants/action-types.js";
+import { ROUTES } from "@constants/routes.js";
 
 
 import htmlString from "@components/Flag-gallery/template.html?raw";
@@ -76,20 +77,46 @@ export default class FlagGallery extends BaseComponent {
   }
 
   syncState(state) {
+    const prevRoute = decodeURIComponent(this.state.router.currentRoute);
+    const newRoute = decodeURIComponent(state.router.currentRoute);
+
+    const prevId = this.state.router.id;
+    const newId = state.router.id;
+
+    const leavingFlagGallery =
+      prevRoute.startsWith(ROUTES.FLAG_GALLERY) &&
+      !newRoute.startsWith(ROUTES.FLAG_GALLERY);
+
+    const restartingFlagGallery =
+      prevRoute.startsWith(ROUTES.FLAG_GALLERY) &&
+      newRoute.startsWith(ROUTES.FLAG_GALLERY) &&
+      prevId !== newId; // ✅ navegación explícita a la misma ruta
+
+    if (leavingFlagGallery || restartingFlagGallery) {
+      this.state = state;
+
+      this.countrySearch.reset();
+      this.flagList.reset();
+      this.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });
+
+      return; // ✅ Evita el loop
+    }
+
+    // ✅ Navegación interna normal → mantener filtros
     this.countrySearch.syncState(state);
     this.sortDropdown.syncState(state);
-
     this.filtersPanel.syncState(state);
     this.filtersPanelMobile.syncState(state);
     this.flagList.syncState(state);
+
+    this.state = state;
   }
+
+
 
   reset() {
     this.countrySearch.reset();
     this.flagList.reset();
-
-    // this.filtersPanel.reset();
-    // this.filtersPanelMobile.reset();
 
     // Esto provoca un re-render de los filtros, pero es necesario para que se deseleccionen
     this.dispatch({ type: ACTIONS.SET_FILTERS, payload: {} });

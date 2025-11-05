@@ -126,6 +126,11 @@ export const routerMiddleware = (store) => (next) => (action) => {
                 payload: modalName, // ej: "presentation", "settings", "gameOver"
             });
         }
+
+        // Ocultar menú lateral si está abierto
+        if (state.ui.navbar.show) {
+            store.dispatch({ type: ACTIONS.TOGGLE_NAVBAR });
+        }
     }
     return next(action);
 };

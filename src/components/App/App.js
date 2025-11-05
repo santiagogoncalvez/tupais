@@ -124,7 +124,7 @@ export default class App {
         // Botón scroll to top
         this.dom.appendChild(this.scrollTop.dom);
 
-        
+
     }
 
     syncState(state) {
@@ -219,30 +219,42 @@ export default class App {
 
             //* Rutas de juego
             case currentRoute === ROUTES.HOME:
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
             case currentRoute === ROUTES.CHALLENGE:
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 break;
 
             case currentRoute === ROUTES.RECORD:
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
             case currentRoute === ROUTES.TIME_TRIAL:
+                if (newState.ui.firstLaunch) {
+                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
                 break;
-            
-            
+
+
             //* Rutas de información
             case currentRoute === ROUTES.FLAG_GALLERY:
                 this.about.dom.remove();

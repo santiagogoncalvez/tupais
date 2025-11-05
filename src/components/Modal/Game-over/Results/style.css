@@ -117,7 +117,7 @@ body.dark-mode .results__span {
 body.dark-mode .results__correct-container,
 body.dark-mode .results__incorrect-container,
 body.dark-mode .results__time-container {
-  background-color: #00334d; /* fondo oscuro */
+  background-color: #002d44; /* fondo oscuro */
   color: var(--color-text);
 }
 

@@ -46,4 +46,8 @@ export default class Country extends BaseComponent {
       this.nextButton.dom.remove();
     }
   }
+
+  destroy() {
+    this.nextButton.destroy();
+  }
 }

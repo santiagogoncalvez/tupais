@@ -31,17 +31,18 @@ export default class NextButton extends BaseComponent {
   }
 
   _init() {
-    // Acceso rápido con tecla → (flecha derecha)
-    window.addEventListener("keydown", (event) => {
+    this._handleKeyDown = (event) => {
       const gameRoutes = ["/", "/challenge", "/time-trial"];
       if (!gameRoutes.includes(decodeURIComponent(this.state.router.currentRoute))) return;
 
       if (event.key === "ArrowRight") this.dom.click();
-    });
+    };
+
+    window.addEventListener("keydown", this._handleKeyDown);
   }
 
   syncState(state) {
-    if (state.game.newGameId != this.state.game.newGameId) {
+    if (state.game.newGameId !== this.state.game.newGameId) {
       this.dom.disabled = false;
       this.state = state;
       return;
@@ -51,14 +52,15 @@ export default class NextButton extends BaseComponent {
     const animateCorrect = state.ui.gameOptions.animateCorrect;
     const gameCompleted = state.game.completed;
 
-    // Deshabilitar si:
-    // - hay animación en curso
-    // - se está mostrando animación de respuesta correcta
-    // - el juego está completado
     const shouldDisable = animationActive || animateCorrect || gameCompleted;
-
     this.dom.disabled = shouldDisable;
 
     this.state = state;
+  }
+
+  destroy() {
+    window.removeEventListener("keydown", this._handleKeyDown);
+    this._handleKeyDown = null;
+    this.dom?.remove();
   }
 }

@@ -1,9 +1,9 @@
-import htmlString from "@components/Flag-gallery/Scroll-top/template.html?raw";
+import htmlString from "@components/Scroll-top/template.html?raw";
 
 // Styles
-import "@components/Flag-gallery/Scroll-top/style.css";
+import "@components/Scroll-top/style.css";
 
-import { base, modifiers } from "@components/Flag-gallery/Scroll-top/Scroll-top-class-names.js";
+import { base, modifiers } from "@components/Scroll-top/Scroll-top-class-names.js";
 import BaseComponent from "@shared/Base-component.js";
 
 export default class ScrollTop extends BaseComponent {

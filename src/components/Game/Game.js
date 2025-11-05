@@ -63,11 +63,12 @@ export default class Game extends BaseComponent {
 
     let container = elt("div", { className: this.base.container });
 
+    this.country.destroy();
+    this.keyboard.destroy();
 
     this.score = new Score(state, this.dispatch);
     this.country = new Country(state, this.dispatch, this.mode);
     this.answer = new Answer(state, this.dispatch);
-    this.keyboard.destroy();
     this.keyboard = new Keyboard(state, this.dispatch);
     this.gameOptions = new GameOptions(state, this.dispatch);
 

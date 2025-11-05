@@ -24,7 +24,7 @@ import About from "@components/About/About.js";
 import Credits from "@components/Credits/Credits.js";
 import FlagGallery from "@components/Flag-gallery/Flag-gallery.js";
 import FlagInfo from "@components/Flag-gallery/Flag-info/Flag-info.js";
-import ScrollTop from "@components/Flag-gallery/Scroll-top/Scroll-top.js";
+import ScrollTop from "@components/Scroll-top/Scroll-top.js";
 
 import GameModes from "@Modal/Game-over/Game-modes/Game-modes.js";
 
@@ -216,6 +216,8 @@ export default class App {
         const newState = this.store.getState();
 
         switch (true) {
+
+            //* Rutas de juego
             case currentRoute === ROUTES.HOME:
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
@@ -238,6 +240,47 @@ export default class App {
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
+                break;
+            
+            
+            //* Rutas de información
+            case currentRoute === ROUTES.FLAG_GALLERY:
+                this.about.dom.remove();
+                this.credits.dom.remove();
+                this.main.appendChild(this.flagGallery.dom);
+                break;
+
+            case currentRoute.startsWith(`${ROUTES.FLAG_GALLERY}/`):
+                this.store.dispatch({ type: ACTIONS.CLOSE_ALL_MODALS });
+                this.about.dom.remove();
+                this.credits.dom.remove();
+
+                let countryName = decodeURIComponent(currentRoute.split("/")[2]);
+                countryName = urlToCountry(countryName);
+
+                const exists = countryNames.some(
+                    name => normalizeCountryForSearch(name) === normalizeCountryForSearch(countryName)
+                );
+
+                if (!exists) {
+                    this.showNotFound(this.store.dispatch);
+                    break;
+                }
+
+                this.main.appendChild(this.flagInfo.dom);
+                this.flagInfo.renderInfo({ name: countryName });
+                break;
+
+            case currentRoute === ROUTES.ABOUT:
+                this.flagGallery.dom.remove();
+                this.credits.dom.remove();
+                this.main.appendChild(this.about.dom);
+                break;
+
+            case currentRoute === ROUTES.CREDITS:
+                this.flagGallery.dom.remove();
+                this.about.dom.remove();
+                this.main.appendChild(this.credits.dom);
                 break;
 
             default:

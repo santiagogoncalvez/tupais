@@ -3,7 +3,7 @@
 **Tu País** es una aplicación web de adivinanzas geográficas donde el usuario debe identificar países a partir de sus banderas. El proyecto está enfocado en una experiencia de usuario ágil, lógica de estado clara y una arquitectura escalable, desarrollada sin frameworks.
 
 ## 🚀 Demo en vivo
-👉 santiagogoncalvez.github.io/tupais/
+👉 https://santiagogoncalvez.github.io/tupais/
 
 ## 🧠 Concepto
 El proyecto invierte la idea tradicional de sitios como Flagpedia: prioriza el juego y la interacción, y complementa con información contextual sobre los países.

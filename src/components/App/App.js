@@ -12,6 +12,7 @@ import { normalizeRoute, urlToCountry, normalizeCountryForSearch } from "@utils/
 
 import "@styles/global.css";
 import "@components/App/style.css";
+import "flag-icons/css/flag-icons.min.css";
 
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
 import Presentation from "@Modal/Presentation/Presentation.js";

@@ -85,13 +85,13 @@ export default class FlagInfo extends BaseComponent {
 
     // Bandera
     container.appendChild(
-      elt("img", {
-        className: "flag-info__flag",
-        src: `/tupais/images/flags/${countriesCca2[countryInfo.translations.spa.common]}.svg`,
-        alt: countryInfo.translations.spa.common,
-        loading: "lazy"
-      })
+      elt("span", {
+        className: `flag-info__flag fi fi-${countriesCca2[countryInfo.translations.spa.common]}`,
+        role: "img",
+        "aria-label": countryInfo.translations.spa.common,
+      }),
     );
+
 
     // Descripción
     if (countryInfo?.flags?.alt) {
@@ -339,16 +339,17 @@ export default class FlagInfo extends BaseComponent {
     }
 
     // Escudo de armas
-    if (countryInfo?.coatOfArms && Object.keys(countryInfo.coatOfArms).length > 0) {
-      detailsList.appendChild(
-        elt("li", { className: "flag-info__item flag-info__item--coat-of-arms" },
-          elt("span", { className: "flag-info__label" }, "Escudo de armas: "),
-          elt("div", { className: "flag-info__data-container" },
-            elt("img", { className: "flag-info__coat-of-arms", src: `/tupais/images/coat-of-arms/${countryInfo.cca2.toLowerCase()}.svg`, alt: `Escudo de armas de ${countryInfo.translations.spa.common}`, width: 40, height: 40 })
-          )
-        )
-      );
-    }
+    // Eliminar coat-of-arms para sacar los archivos de escudos de armas pesados.
+    // if (countryInfo?.coatOfArms && Object.keys(countryInfo.coatOfArms).length > 0) {
+    //   detailsList.appendChild(
+    //     elt("li", { className: "flag-info__item flag-info__item--coat-of-arms" },
+    //       elt("span", { className: "flag-info__label" }, "Escudo de armas: "),
+    //       elt("div", { className: "flag-info__data-container" },
+    //         elt("img", { className: "flag-info__coat-of-arms", src: `/tupais/images/coat-of-arms/${countryInfo.cca2.toLowerCase()}.svg`, alt: `Escudo de armas de ${countryInfo.translations.spa.common}`, width: 40, height: 40 })
+    //       )
+    //     )
+    //   );
+    // }
 
     container.appendChild(detailsList);
 

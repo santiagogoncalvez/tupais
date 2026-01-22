@@ -85,11 +85,17 @@ body.dark-mode .flag-info__back-to-gallery-icon {
 }
 
 .flag-info__flag {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
+  display: inline-block;
+
+  /* 🔑 tamaño real de bandera */
+  width: 100%;
+  /* max-width: 320px; */
+  aspect-ratio: 4 / 3;
+
+  border-radius: var(--border-flags);
   border: 1px solid #e8e8e8;
 }
+
 
 .flag-info__details {
   width: 100%;

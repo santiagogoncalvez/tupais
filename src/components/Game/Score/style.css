@@ -101,30 +101,30 @@
 
 /* ==== Colores ==== */
 .score__statistics--successes .score__points {
-  background-color: color-mix(in srgb, #2f8143 85%, var(--bg-default) 15%);
+  background-color: #197a31;
   color: #eaf9ed;
 }
 .score__statistics--fails .score__points {
-  background-color: color-mix(in srgb, #a33b3b 85%, var(--bg-default) 15%);
+  background-color: #a63333;
   color: #ffeaea;
 }
 .score__statistics--progress .score__points {
-  background-color: color-mix(in srgb, #256b9e 85%, var(--bg-default) 15%);
+  background-color: #256b9e;
   color: #e8f4ff;
 }
 
 /* ==== Modo oscuro ==== */
 body.dark-mode .score__statistics--successes .score__points {
-  background-color: #3ea157;
+  background-color: #197a31;
   color: #d8f5dc;
 }
 body.dark-mode .score__statistics--fails .score__points {
-  background-color: #c25252;
+  background-color: #a63333;
   color: #ffeaea;
 }
 body.dark-mode .score__statistics--progress .score__points {
-  background-color: #3385c2;
-  color: #e7f3ff;
+  background-color: #256b9e;
+  color: #e8f4ff;
 }
 
 /* ==== Escalado proporcional según ancho de pantalla ==== */

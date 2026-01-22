@@ -56,9 +56,14 @@
 }
 
 .country-flag {
+  display: inline-block;
+
   height: 40px;
+  aspect-ratio: 4 / 3;   /* 🔑 clave */
   width: auto;
+  border-radius: var(--border-flags);
 }
+
 
 .country-icon {
   height: 100%;

@@ -105,9 +105,13 @@ body.dark-mode .flag-list__continent {
 
 /* Imagen de bandera */
 .flag-list__flag-img {
+  display: inline-block;
+
   height: calc(80px * var(--flag-scale, 1));
+  aspect-ratio: 4 / 3; /* 🔑 clave */
   width: auto;
-  border-radius: calc(4px * var(--flag-scale, 1));
+
+  border-radius: var(--border-flags);
   border: 1px solid var(--item-border);
 }
 

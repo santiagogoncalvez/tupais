@@ -15,7 +15,7 @@ import "@components/App/style.css";
 import "flag-icons/css/flag-icons.min.css";
 
 import ContinentSelector from "@components/Continent-selector/Continent-selector.js";
-import Presentation from "@Modal/Presentation/Presentation.js";
+// import Presentation from "@Modal/Presentation/Presentation.js";
 import GameOver from "@Modal/Game-over/Game-over.js";
 import Header from "@components/Header/Header.js";
 import Game from "@components/Game/Game";
@@ -46,11 +46,11 @@ export default class App {
             this.store.dispatch.bind(this.store)
         );
 
-        this.presentation = new Presentation(
-            this.store.getState(),
-            this.store.dispatch.bind(this.store),
-            this.continentSelector
-        );
+        // this.presentation = new Presentation(
+        //     this.store.getState(),
+        //     this.store.dispatch.bind(this.store),
+        //     this.continentSelector
+        // );
 
         this.gameOver = new GameOver(
             this.store.getState(),
@@ -113,7 +113,7 @@ export default class App {
         container.prepend(this.header.dom);
 
         // Montar modales
-        this.dom.appendChild(this.presentation.dom);
+        // this.dom.appendChild(this.presentation.dom);
         this.dom.appendChild(this.gameOver.dom);
         this.dom.appendChild(this.notifications.dom);
 
@@ -133,7 +133,7 @@ export default class App {
 
     subscribeComponents() {
         const s = this.store.subscribe.bind(this.store);
-        s(this.presentation.syncState.bind(this.presentation));
+        // s(this.presentation.syncState.bind(this.presentation));
         s(this.gameOver.syncState.bind(this.gameOver));
         s(this.header.syncState.bind(this.header));
         s(this.game.syncState.bind(this.game));
@@ -220,36 +220,36 @@ export default class App {
 
             //* Rutas de juego
             case currentRoute === ROUTES.HOME:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
+                // if (newState.ui.firstLaunch) {
+                //     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                // }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CLASSIC });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_CLASSIC });
                 break;
 
             case currentRoute === ROUTES.CHALLENGE:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
+                // if (newState.ui.firstLaunch) {
+                //     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                // }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.CHALLENGE });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME });
                 break;
 
             case currentRoute === ROUTES.RECORD:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
+                // if (newState.ui.firstLaunch) {
+                //     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                // }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.RECORD });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_RECORD });
                 break;
 
             case currentRoute === ROUTES.TIME_TRIAL:
-                if (newState.ui.firstLaunch) {
-                    this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
-                }
+                // if (newState.ui.firstLaunch) {
+                //     this.store.dispatch({ type: ACTIONS.OPEN_PRESENTATION });
+                // }
                 if (!this.main.contains(this.game.dom)) this.main.appendChild(this.game.dom);
                 this.store.dispatch({ type: ACTIONS.SET_GAME_MODE, payload: GAME_MODES.TIME_TRIAL });
                 this.store.dispatch({ type: ACTIONS.NEW_GAME_TIME_TRIAL });
